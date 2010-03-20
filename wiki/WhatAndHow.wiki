@@ -24,7 +24,13 @@ The HTML5 <video> tag supports the Ogg Theora and H.264/MPEG-4 codecs (see [http
 
 The next major release of the [http://www.parleys.com/publisher Publisher] will support H.264/mpeg-4 and our Player already supports H.264, just have a look at the [http://www.parleys.com/#st=4&id=56141 Parleys tutorials] to see it in action.
 
-This means we could consider migrating the existing FLV videos to H.264/mpeg-4 and focus on the (mobile) Safari browser in a first release.
+This means we could consider migrating the existing FLV videos to H.264/mpeg-4.
+
+== Which browser? ==
+
+When choosing H.264 this means we can support both Safari, Google Chrome and IE9.  Keep in mind that his version of the player does not replace the existing Flex/AIR players but is the graceful degradation strategy.  
+
+In a first phase we will focus on Safari making this version suitable for the Apple iPad  :)
 
 == Does the <video> tag support cue points? ==
 
@@ -32,9 +38,9 @@ Parleys.com is dependent on video cue points, so we know when to show the correc
 
 I've made a small [http://staging.parleys.com/video.html mockup] (Mac Safari only for now), which demonstrates that this is possible in HTML5 using the <video> tag and some JavaScript...  so what's next?
 
-== Which web framework should we use? ==
+== Which web framework will we use? ==
 
-Parleys has only a hand full pages (home, profile, the player and overview pages) so we could just develop this in pure HTML5 and some JavaScript.  
+Parleys has only a hand full pages ([http://www.parleys.com home], profile, [http://www.parleys.com/#st=5&id=1616 the player] and [http://www.parleys.com/#st=3&id=189 overview pages]) so we could just develop this in pure HTML5 and some JavaScript.  
 
 But because the complete back-end is developed in Java (using Spring3 and JPA) we can either go for SpringMVC or why not.... JSF2.0?!  
 
