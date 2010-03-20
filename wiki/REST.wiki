@@ -27,7 +27,7 @@ The Parleys.com server supports REST like remote HTTP GET methods and returns JS
 1) Retrieving mobile enabled spaces
 
 Example:
-{{{ http://www.parleys.com/parleysserver/rest/mobike/spaces.form?index=0&paging=2 }}}
+{{{ http://www.parleys.com/parleysserver/rest/mobile/spaces.form?index=0&paging=2 }}}
 
   * index = the starting index, zero based (mandatory)
   * paging = the number of items per index (mandatory)
