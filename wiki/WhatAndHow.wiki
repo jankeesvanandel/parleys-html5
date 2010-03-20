@@ -18,12 +18,11 @@ Lets discuss our options in more detail...
 
 == No support for Adobe Flash Video (FLV) format ==
 
-The HTML5 <video> tag supports the Ogg Theora and H.264/MPEG-4 codecs (see wikipedia table below)
-
-IMAGE 
-
 Today Parleys.com uses the Adobe Flash Video format (FLV). 
-Our next major release of the Publisher (version 4) will support H.264/mpeg-4 and our Player already supports H.264, just have a look at the [http://www.parleys.com/#st=4&id=56141 Parleys tutorials] to see it in action.
+
+The HTML5 <video> tag supports the Ogg Theora and H.264/MPEG-4 codecs (see [http://en.wikipedia.org/wiki/HTML5_video wikipedia table]. 
+
+The next major release of the [http://www.parleys.com/publisher Publisher] will support H.264/mpeg-4 and our Player already supports H.264, just have a look at the [http://www.parleys.com/#st=4&id=56141 Parleys tutorials] to see it in action.
 
 This means we could consider migrating the existing FLV videos to H.264/mpeg-4 and focus on the (mobile) Safari browser in a first release.
 
