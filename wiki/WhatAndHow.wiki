@@ -46,7 +46,7 @@ Personally I prefer to approach this in a more component based manner and with J
 
 However if you prefer another web framework (just pick one from the 300 out there) you could consider starting your own (open source) project. You can reuse our HTML5 code and we'll be more than happy to host your end result on Parleys.com (make sure you let us know).
 
-== How will you integrate the HTML5 client? ==
+== How will we integrate the HTML5 client? ==
 
 The current Parleys.com server has a simple [REST] like interface which is used by our existing iPhone application and was also used by our experimental JavaFX and GWT clients.   
 
