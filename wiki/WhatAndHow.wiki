@@ -1,6 +1,4 @@
 #labels Parleys,JSF2,HTML5
-==== "Alone we can do so little; together we can do so much." - Helen Keller ====
-
 = What? =
 
 What would be the benefit of having an HTML5 version of the Parleys.com Player?
@@ -61,3 +59,5 @@ Parleys.com has already reached over 600.000 developers who enjoy presentations 
 HTML5 and Javascript is so transparent that we've considered making this project open-source, hosting it on Google Code and hopefully getting some extra help from our Parleys Community!
 
 If you want to enjoy Parleys on the iPad (and beyond) then please consider helping out... lets make this happen!
+
+==== "Alone we can do so little; together we can do so much." - Helen Keller ====
