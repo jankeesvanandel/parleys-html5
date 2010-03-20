@@ -40,13 +40,11 @@ I've made a small [http://staging.parleys.com/video.html mockup] (Mac Safari onl
 
 == Which web framework will we use? ==
 
-Parleys has only a hand full pages ([http://www.parleys.com home], profile, [http://www.parleys.com/#st=5&id=1616 the player] and [http://www.parleys.com/#st=3&id=189 overview pages]) so we could just develop this in pure HTML5 and some JavaScript.  
+Parleys has only a hand full pages ([http://www.parleys.com home], profile, [http://www.parleys.com/#st=5&id=1616 the player] and [http://www.parleys.com/#st=3&id=189 overview pages]) so we could develop this in pure HTML5 and Javascript.  
 
-But because the complete back-end is developed in Java (using Spring3 and JPA) we can either go for SpringMVC or why not.... JSF2.0?!  
+Personally I prefer to approach this in a more component based manner and with Jan-Kees van Andel on board (he's a JSF MyFaces committer) it makes sense to give JSF2 the opportunity. 
 
-With Jan-Kees van Andel on board (he is a JSF MyFaces committer) it makes sense to make a JSF2 version, so any other JSF enthusiast can join our team.  
-
-However if you prefer another web framework (just pick one from the 300 out there) you could consider starting your own open source project. You can reuse our HTML5 code and we'll be more than happy to host your end result on Parleys.com (make sure you let us know).
+However if you prefer another web framework (just pick one from the 300 out there) you could consider starting your own (open source) project. You can reuse our HTML5 code and we'll be more than happy to host your end result on Parleys.com (make sure you let us know).
 
 == How will you integrate the HTML5 client? ==
 
