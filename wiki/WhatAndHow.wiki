@@ -1,4 +1,6 @@
 #labels Parleys,JSF2,HTML5
+==== "Alone we can do so little; together we can do so much." - Helen Keller ====
+
 = What? =
 
 What would be the benefit of having an HTML5 version of the Parleys.com Player?
