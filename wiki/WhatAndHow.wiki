@@ -56,6 +56,6 @@ Any JSON-aware client can leverage this interface, so this shouldn't be problems
 
 Parleys.com has already reached over 600.000 developers who enjoy presentations on a regular basis.
 
-HTML5 and JavaScript is so transparent that we've considered making this project open-source hopefully getting some extra help from our Parleys users.  
+HTML5 and Javascript is so transparent that we've considered making this project open-source, hosting it on Google Code and hopefully getting some extra help from our Parleys Community!
 
 If you want to enjoy Parleys on the iPad (and beyond) then please consider helping out... lets make this happen!
