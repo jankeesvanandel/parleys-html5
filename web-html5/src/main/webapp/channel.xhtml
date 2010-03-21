@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+<head>
+    <f:metadata>
+        <f:viewParam name="id" value="#{channelBean.channelId}"/>
+        <f:event type="preRenderView" listener="#{channelBean.init}"/>
+    </f:metadata>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Parleys.com in HTML5 - Channel #{channelBean.channel.name}</title>
+</head>
+<body>
+
+Channel #{channelDetailBean.channel.name}
+<h:graphicImage url="#{utilBean.basePath}#{channelBean.channel.thumbnail}" alt="#{channelBean.channel.name}" />
+<ul>
+    <ui:repeat value="#{channelBean.presentations}" var="presentation">
+        <li>
+            <h:graphicImage url="#{utilBean.basePath}#{presentation.thumbnail}" alt="#{presentation.title}" />
+            <h:link outcome="presentation">
+                #{presentation.title}
+                <f:param name="id" value="#{presentation.id}" />
+            </h:link>
+        </li>
+    </ui:repeat>
+</ul>
+</body>
+</html>

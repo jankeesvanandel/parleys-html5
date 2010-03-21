@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+<head>
+    <f:metadata>
+        <f:viewParam name="id" value="#{spaceBean.spaceId}"/>
+        <f:event type="preRenderView" listener="#{spaceBean.init}"/>
+    </f:metadata>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Parleys.com in HTML5 - Space #{spaceBean.space.name}</title>
+</head>
+<body>
+
+Space #{spaceBean.space.name}
+<h:graphicImage url="#{utilBean.basePath}#{spaceBean.space.thumbnail}" alt="#{spaceBean.space.name}" />
+<ul>
+    <ui:repeat value="#{spaceBean.channels}" var="channel">
+        <li>
+            <h:graphicImage url="#{utilBean.basePath}#{channel.thumbnail}" alt="#{channel.name}" />
+            <h:link outcome="channel">
+                #{channel.name}
+                <f:param name="id" value="#{channel.id}" />
+            </h:link>
+        </li>
+    </ui:repeat>
+</ul>
+</body>
+</html>
