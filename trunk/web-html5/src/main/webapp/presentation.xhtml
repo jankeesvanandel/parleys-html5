@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+<head>
+    <f:metadata>
+        <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
+        <f:event type="preRenderView" listener="#{presentationBean.init}"/>
+    </f:metadata>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Parleys.com in HTML5 - Presentation #{presentationBean.presentation.title}</title>
+</head>
+<body>
+
+Presentation #{presentationBean.presentation.title}
+<h:graphicImage url="#{utilBean.basePath}#{presentationBean.presentation.thumbnail}" alt="#{presentationBean.presentation.title}" />
+</body>
+</html>
