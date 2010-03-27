@@ -1,16 +1,17 @@
 package com.parleys.server.frontend.repository.impl;
 
+import com.parleys.server.frontend.domain.Asset;
 import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Presentation;
 import com.parleys.server.frontend.domain.Space;
 import com.parleys.server.frontend.repository.ChannelsRepository;
 import com.parleys.server.frontend.repository.PresentationsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
+import com.parleys.server.frontend.repository.cache.CachedRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,23 +20,22 @@ import java.util.List;
 @Repository
 public class PresentationsRepositoryImpl implements PresentationsRepository {
 
-    private final RestTemplate template;
+    private static final String PRESENTATIONS_URL = "http://www.parleys.com/parleysserver/rest/mobile/presentations.form?id={channelId}&index={index}&paging={paging}";
 
-    private final PresentationsJSONConverter jsonConverter;
+    private static final String ASSETS_URL = "http://www.parleys.com/parleysserver/rest/mobile/assets.form?id={presentationId}";
+
+    private final CachedRestTemplate<Presentation> template;
 
     @Autowired
-    public PresentationsRepositoryImpl(RestTemplate template, PresentationsJSONConverter jsonConverter) {
+    public PresentationsRepositoryImpl(CachedRestTemplate<Presentation> template) {
         this.template = template;
-        this.jsonConverter = jsonConverter;
     }
 
     @Override
     public List<Presentation> loadPresentations(long channelId, int index, int paging) {
-        final String url = "http://www.parleys.com/parleysserver/rest/mobile/presentations.form?id={channelId}&index={index}&paging={paging}";
-        final String resultString = template.getForObject(url, String.class, channelId, index, paging);
-        final List<Presentation> channels = jsonConverter.getObject(resultString);
+        Presentation[] result = template.getForObject(PRESENTATIONS_URL, Presentation[].class, channelId, index, paging);
 
-        return channels;
+        return Arrays.asList(result);
     }
 
     //TODO: get rid of this
@@ -62,6 +62,9 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
                 final List<Presentation> presentations = loadPresentations(channel.getId(), 0, 1000);
                 for (Presentation presentation : presentations) {
                     if (presentation.getId() == presentationId) {
+                        final List<Asset> assets = loadAssets(presentationId);
+
+                        presentation.setAssets(assets);
                         return presentation;
                     }
                 }
@@ -69,5 +72,11 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
         }
 
         return null;
+    }
+
+    private List<Asset> loadAssets(long presentationId) {
+        Asset[] result = template.getForObject(ASSETS_URL, Asset[].class, presentationId);
+
+        return Arrays.asList(result);
     }
 }

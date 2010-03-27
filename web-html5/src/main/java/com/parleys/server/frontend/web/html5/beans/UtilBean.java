@@ -15,7 +15,9 @@ public class UtilBean {
     public synchronized String getBasePath() {
         if (basePath == null) {
             final FacesContext fc = FacesContext.getCurrentInstance();
-            basePath = "http://www.parleys.com/assets";
+            //TODO: fix when deploy online
+//            basePath = fc.getExternalContext().getRequestContextPath()
+            basePath = "http://www.parleys.com/";
         }
         return basePath;
     }

@@ -4,12 +4,11 @@ import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Space;
 import com.parleys.server.frontend.repository.ChannelsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
-import org.springframework.beans.factory.BeanFactoryUtils;
+import com.parleys.server.frontend.repository.cache.CachedRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,23 +17,20 @@ import java.util.List;
 @Repository
 public class ChannelsRepositoryImpl implements ChannelsRepository {
 
-    private final RestTemplate channelsTemplate;
+    private static final String URL = "http://www.parleys.com/parleysserver/rest/mobile/channels.form?id={id}";
 
-    private final ChannelsJSONConverter channelsJSONConverter;
+    private final CachedRestTemplate<Channel> channelsTemplate;
 
     @Autowired
-    public ChannelsRepositoryImpl(RestTemplate channelsTemplate, ChannelsJSONConverter channelsJSONConverter) {
+    public ChannelsRepositoryImpl(CachedRestTemplate<Channel> channelsTemplate) {
         this.channelsTemplate = channelsTemplate;
-        this.channelsJSONConverter = channelsJSONConverter;
     }
 
     @Override
     public List<Channel> loadChannels(long spaceId) {
-        final String url = "http://www.parleys.com/parleysserver/rest/mobile/channels.form?id={id}";
-        final String resultString = channelsTemplate.getForObject(url, String.class, spaceId);
-        final List<Channel> channels = channelsJSONConverter.getObject(resultString);
+        Channel[] result = channelsTemplate.getForObject(URL, Channel[].class, spaceId);
 
-        return channels;
+        return Arrays.asList(result);
     }
 
     //TODO: get rid of this

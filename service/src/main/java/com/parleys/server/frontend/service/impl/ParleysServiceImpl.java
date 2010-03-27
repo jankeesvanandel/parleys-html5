@@ -10,6 +10,8 @@ import com.parleys.server.frontend.service.ParleysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,7 +34,15 @@ public class ParleysServiceImpl implements ParleysService {
     /** {@inheritDoc} */
     @Override
     public List<Space> loadSpaces(int index, int paging) {
-        return spacesRepository.loadSpaces(index, paging);
+        final List<Space> spaces = spacesRepository.loadSpaces(index, paging);
+        Collections.sort(spaces,
+                new Comparator<Space>() {
+                    @Override
+                    public int compare(Space s1, Space s2) {
+                        return s1.getName().compareToIgnoreCase(s2.getName());
+                    }
+                });
+        return spaces;
     }
 
     @Override
@@ -42,7 +52,15 @@ public class ParleysServiceImpl implements ParleysService {
 
     @Override
     public List<Channel> loadChannels(long spaceId) {
-        return channelsRepository.loadChannels(spaceId);
+        final List<Channel> channels = channelsRepository.loadChannels(spaceId);
+        Collections.sort(channels,
+                new Comparator<Channel>() {
+                    @Override
+                    public int compare(Channel c1, Channel c2) {
+                        return c1.getName().compareToIgnoreCase(c2.getName());
+                    }
+                });
+        return channels;
     }
 
     @Override
@@ -52,7 +70,15 @@ public class ParleysServiceImpl implements ParleysService {
 
     @Override
     public List<Presentation> loadPresentations(long channelId, int index, int paging) {
-        return presentationsRepository.loadPresentations(channelId, index, paging);
+        final List<Presentation> presentations = presentationsRepository.loadPresentations(channelId, index, paging);
+        Collections.sort(presentations,
+                new Comparator<Presentation>() {
+                    @Override
+                    public int compare(Presentation p1, Presentation p2) {
+                        return p1.getTitle().compareToIgnoreCase(p2.getTitle());
+                    }
+                });
+        return presentations;
     }
 
     @Override

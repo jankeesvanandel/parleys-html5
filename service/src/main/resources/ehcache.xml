@@ -1,0 +1,8 @@
+<ehcache>
+    <defaultCache
+            maxElementsInMemory="5000"
+            overflowToDisk="false"
+            timeToLiveSeconds="60"
+            memoryStoreEvictionPolicy="LFU" />
+    <cache name="restCalls" />
+</ehcache>
