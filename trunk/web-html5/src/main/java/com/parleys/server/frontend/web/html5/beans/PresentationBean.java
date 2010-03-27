@@ -1,5 +1,6 @@
 package com.parleys.server.frontend.web.html5.beans;
 
+import com.parleys.server.frontend.domain.Asset;
 import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Presentation;
 import com.parleys.server.frontend.service.ParleysService;

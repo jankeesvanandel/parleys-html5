@@ -3,11 +3,14 @@ package com.parleys.server.frontend.domain;
 /**
  *
  */
-public final class Channel {
-    private final long id;
-    private final String name;
-    private final String description;
-    private final String thumbnail;
+public class Channel {
+    private long id;
+    private String name;
+    private String description;
+    private String thumbnail;
+
+    public Channel() {
+    }
 
     public Channel(long id, String name, String description, String thumbnail) {
         this.id = id;
@@ -20,15 +23,31 @@ public final class Channel {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

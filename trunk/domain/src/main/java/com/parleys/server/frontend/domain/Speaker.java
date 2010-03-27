@@ -3,14 +3,19 @@ package com.parleys.server.frontend.domain;
 /**
  *
  */
-public final class Speaker {
-    private final long id;
-    private final String fullName;
-    private final String bio;
+public class Speaker {
+    private long id;
 
-    public Speaker(long id, String fullName, String bio) {
+    private String fullname;
+
+    private String bio;
+
+    public Speaker() {
+    }
+
+    public Speaker(long id, String fullname, String bio) {
         this.id = id;
-        this.fullName = fullName;
+        this.fullname = fullname;
         this.bio = bio;
     }
 
@@ -18,11 +23,23 @@ public final class Speaker {
         return id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getBio() {
         return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

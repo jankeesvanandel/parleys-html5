@@ -2,9 +2,9 @@ package com.parleys.server.frontend.repository.impl;
 
 import com.parleys.server.frontend.domain.Space;
 import com.parleys.server.frontend.repository.SpacesRepository;
+import com.parleys.server.frontend.repository.cache.CachedRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,23 +15,20 @@ import java.util.List;
 @Repository
 public class SpacesRepositoryImpl implements SpacesRepository {
 
-    private final RestTemplate spacesTemplate;
+    private static final String URL = "http://www.parleys.com/parleysserver/rest/mobile/spaces.form?index={index}&paging={paging}";
 
-    private final SpacesJSONConverter spacesJSONConverter;
+    private final CachedRestTemplate<Space> spacesTemplate;
 
     @Autowired
-    public SpacesRepositoryImpl(RestTemplate spacesTemplate, SpacesJSONConverter spacesJSONConverter) {
+    public SpacesRepositoryImpl(CachedRestTemplate<Space> spacesTemplate) {
         this.spacesTemplate = spacesTemplate;
-        this.spacesJSONConverter = spacesJSONConverter;
     }
 
     @Override
     public List<Space> loadSpaces(int index, int paging) {
-        final String url = "http://www.parleys.com/parleysserver/rest/mobile/spaces.form?index={index}&paging={paging}";
-        final String resultString = spacesTemplate.getForObject(url, String.class, index, paging);
-        final List<Space> spaces = spacesJSONConverter.getObject(resultString);
+        Space[] result = spacesTemplate.getForObject(URL, Space[].class, index, paging);
 
-        return spaces;
+        return Arrays.asList(result);
     }
 
     @Override

@@ -3,7 +3,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
+      xmlns:h5="http://www.parleys.com/jsf/components/html5">
 <head>
     <f:metadata>
         <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
@@ -11,10 +11,27 @@
     </f:metadata>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Parleys.com in HTML5 - Presentation #{presentationBean.presentation.title}</title>
+    <script type="text/javascript" src="js/video.js"></script>
+    <link href="css/parleys.css" type="text/css" media="screen" />
 </head>
 <body>
 
-Presentation #{presentationBean.presentation.title}
-<h:graphicImage url="#{utilBean.basePath}#{presentationBean.presentation.thumbnail}" alt="#{presentationBean.presentation.title}" />
+<h2>#{presentationBean.presentation.title}</h2>
+<h:graphicImage url="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.thumbnail}"
+                alt="#{presentationBean.presentation.title}"/>
+<hr />
+<h5:video id="videoPlayer" ontimeupdate="updateActiveSlide()">
+    <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.ogv" type="video/ogg"/>
+    <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.mp4" type="video/mp4"/>
+    <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
+</h5:video>
+<ui:repeat value="#{presentationBean.presentation.assets}" var="asset">
+    <img class="slide" id="slide_#{asset.id}" style="display: none"
+         src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
+         alt="#{asset.name}"
+         startTime="#{asset.cuepoint}"
+         endTime="#{asset.cuepoint+asset.duration}"
+         />
+</ui:repeat>
 </body>
 </html>

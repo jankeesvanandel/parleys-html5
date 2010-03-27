@@ -11,11 +11,13 @@
     </f:metadata>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Parleys.com in HTML5 - Space #{spaceBean.space.name}</title>
+    <link href="css/parleys.css" type="text/css" media="screen" />
 </head>
 <body>
 
-Space #{spaceBean.space.name}
+<h2>Space #{spaceBean.space.name}</h2>
 <h:graphicImage url="#{utilBean.basePath}#{spaceBean.space.thumbnail}" alt="#{spaceBean.space.name}" />
+<hr/>
 <ul>
     <ui:repeat value="#{spaceBean.channels}" var="channel">
         <li>
