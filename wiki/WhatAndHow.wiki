@@ -38,7 +38,7 @@ Parleys.com is dependent on video cue points, so we know when to show the correc
 
 I've made a small [http://staging.parleys.com/video.html mockup] (Mac Safari only for now), which demonstrates that this is possible in HTML5 using the <video> tag and some JavaScript...  so what's next?
 
-== Which web framework will we use? ==
+== Which web framework have we used? ==
 
 Parleys has only a hand full pages ([http://www.parleys.com home], profile, [http://www.parleys.com/#st=5&id=1616 the player] and [http://www.parleys.com/#st=3&id=189 overview pages]) so we could develop this in pure HTML5 and Javascript.  
 
