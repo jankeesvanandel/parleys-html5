@@ -1,0 +1,11 @@
+#summary This page contains links to several useful references for JSF 2.0, HTML5 and other related information
+#labels Phase-Implementation
+
+  * Introduction to using HTML5 in web applications today
+  http://www.ibm.com/developerworks/web/library/wa-html5webapp/
+
+  * JavaServer Faces specification documentation
+  http://jcp.org/en/jsr/detail?id=314
+
+  * Apache Myfaces documentation
+  http://wiki.apache.org/myfaces/FrontPage
