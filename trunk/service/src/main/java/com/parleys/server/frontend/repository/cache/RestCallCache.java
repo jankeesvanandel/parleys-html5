@@ -19,7 +19,8 @@ public class RestCallCache<T> {
         if (element == null) {
             return null;
         } else {
-            return (T) element.getValue();
+            @SuppressWarnings({"unchecked"}) final T t = (T) element.getValue();
+            return t;
         }
     }
 
