@@ -9,3 +9,6 @@
 
   * Apache Myfaces documentation
   http://wiki.apache.org/myfaces/FrontPage
+
+  * Checklist with HTML5 / CSS3 support in different browsers
+  http://www.findmebyip.com/litmus/
