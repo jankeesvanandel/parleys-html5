@@ -72,7 +72,7 @@ This HTTP GET method will return the following JSON message :
 
 To access the presentation thumbnails you need to construct the URL as follows :
 
-{{{ http://www.parleys.com/assets/presentation/ [presentation ID] / [thumbnail value] }}}
+{{{ http://www.parleys.com/assets/presentations/ [presentation ID] / [thumbnail value] }}}
 
 ----------------------------------------------------------------------------
 
