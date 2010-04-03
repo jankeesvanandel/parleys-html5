@@ -1,8 +1,6 @@
 package com.parleys.server.frontend.service;
 
-import com.parleys.server.frontend.domain.Channel;
-import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.domain.Space;
+import com.parleys.server.frontend.domain.*;
 
 import java.util.List;
 
@@ -29,4 +27,14 @@ public interface ParleysService {
     Channel loadChannel(long channelId);
 
     Presentation loadPresentation(long presentationId);
+
+    List<Presentation> loadPresentations(Filter thumbnailsFilter, Filter.Type thumbnailsFilterType, int index, int paging);
+
+    List<NewsItem> loadAllNewsItems();
+
+    Space loadRecommendedSpace();
+
+    Channel loadRecommendedChannel();
+
+    Presentation loadRecommendedPresentation();
 }

@@ -11,6 +11,7 @@ import com.parleys.server.frontend.repository.cache.CachedRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,6 +73,26 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Presentation> loadAllPresentations() {
+        // TODO: REST service for a "Presentation by id"
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
+        final List<Presentation> ret = new ArrayList<Presentation>();
+        for (Space space : spaces) {
+            final List<Channel> channels = channelsRepository.loadChannels(space.getId());
+            for (final Channel channel : channels) {
+                final List<Presentation> presentations = loadPresentations(channel.getId(), 0, 1000);
+                for (Presentation presentation : presentations) {
+                    final List<Asset> assets = loadAssets(presentation.getId());
+
+                    presentation.setAssets(assets);
+                }
+                ret.addAll(presentations);
+            }
+        }
+        return ret;
     }
 
     private List<Asset> loadAssets(long presentationId) {

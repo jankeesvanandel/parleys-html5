@@ -34,12 +34,17 @@ public class SpacesRepositoryImpl implements SpacesRepository {
     @Override
     public Space loadSpace(long spaceId) {
         // TODO: Dirty way to load all spaces
-        final List<Space> spaces = loadSpaces(0, 1000);
+        final List<Space> spaces = loadAllSpaces();
         for (Space space : spaces) {
             if (space.getId() == spaceId) {
                 return space;
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Space> loadAllSpaces() {
+        return loadSpaces(0, 1000);
     }
 }

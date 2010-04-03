@@ -8,6 +8,7 @@ import com.parleys.server.frontend.repository.cache.CachedRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,17 +43,26 @@ public class ChannelsRepositoryImpl implements ChannelsRepository {
 
     @Override
     public Channel loadChannel(long channelId) {
-        // TODO: Dirty way to load all channels
-        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
-        for (Space space : spaces) {
-            final List<Channel> channels = loadChannels(space.getId());
-            for (final Channel channel : channels) {
-                if (channel.getId() == channelId) {
-                    return channel;
-                }
+        final List<Channel> channels = loadAllChannels();
+        for (final Channel channel : channels) {
+            if (channel.getId() == channelId) {
+                return channel;
             }
         }
 
         return null;
+    }
+
+    @Override
+    public List<Channel> loadAllChannels() {
+        // TODO: Dirty way to load all channels
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
+        final List<Channel> ret = new ArrayList<Channel>();
+        for (Space space : spaces) {
+            final List<Channel> channels = loadChannels(space.getId());
+            ret.addAll(channels);
+        }
+
+        return ret;
     }
 }

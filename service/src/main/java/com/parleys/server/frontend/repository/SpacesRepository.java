@@ -11,4 +11,6 @@ public interface SpacesRepository {
     List<Space> loadSpaces(int index, int paging);
 
     Space loadSpace(long spaceId);
+
+    List<Space> loadAllSpaces();
 }
