@@ -1,165 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+      template="WEB-INF/facelets/template.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
-    <title>Parleys.com in HTML5</title>
-    <link href="css/parleys.css" type="text/css" rel="stylesheet" />
-</head>
-<body>
-<div id="wrapper">
-    <div id="title">
-        <h1>Parleys.com</h1>
-        <span id="loginButton">
-            <h:link outcome="login">Login</h:link>
-        </span>
-    </div>
-    <div id="navigation">
-        <ul>
-            <li><h:link outcome="spaces">Spaces</h:link></li>
-            <li><h:link outcome="news">News</h:link></li>
-            <li><h:link outcome="register">Register</h:link></li>
-            <li><h:link outcome="search">Search</h:link></li>
-        </ul>
-    </div>
-    <hr class="clear" />
-    <div id="content">
-        <div>
-            <h2>Overview</h2>
-            <ul>
-                <li><h:link outcome="presentations">
-                    Featured
-                    <f:param name="list" value="featured" />
-                </h:link></li>
-                <li><h:link outcome="presentations">
-                    Latest
-                    <f:param name="list" value="latest" />
-                </h:link></li>
-                <li><h:link outcome="presentations">
-                    Top Rated
-                    <f:param name="list" value="topRated" />
-                </h:link></li>
-                <li><h:link outcome="presentations">
-                    Most Viewed
-                    <f:param name="list" value="mostViewed" />
-                </h:link></li>
-                <li><h:link outcome="spaces">
-                    Featured Spaces
-                    <f:param name="list" value="featured" />
-                </h:link></li>
-                <li><h:link outcome="channels">
-                    Featured Channels
-                    <f:param name="list" value="featured" />
-                </h:link></li>
-            </ul>
+      xmlns:p="http://www.parleys.com/jsf/taglib">
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="filter" value="#{homepageBean.thumbnailsFilter}"/>
+            <f:viewParam name="filterType" value="#{homepageBean.thumbnailsFilterType}"/>
+            <f:viewParam name="newsId" value="#{homepageBean.newsId}"/>
+            <f:event type="preRenderView" listener="#{homepageBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+                <div>
+                    <h2>Overview</h2>
+                    <ul id="featureHomepage">
+                        <li>
+                            <h:link outcome="presentations">
+                                <f:param name="filter" value="FEATURED"/>
+                                <f:param name="filterType" value="PRESENTATION"/>
+                                Featured
+                            </h:link> |
+                        </li>
+                        <li>
+                            <h:link outcome="presentations">
+                                <f:param name="filter" value="LATEST"/>
+                                <f:param name="filterType" value="PRESENTATION"/>
+                                Latest
+                            </h:link> |
+                        </li>
+                        <li>
+                            <h:link outcome="presentations">
+                                <f:param name="filter" value="TOP_RATED"/>
+                                <f:param name="filterType" value="PRESENTATION"/>
+                                Top Rated
+                            </h:link> |
+                        </li>
+                        <li>
+                            <h:link outcome="presentations">
+                                <f:param name="filter" value="MOST_VIEWED"/>
+                                <f:param name="filterType" value="PRESENTATION"/>
+                                Most Viewed
+                            </h:link> |
+                        </li>
+                        <li>
+                            <h:link outcome="spaces">
+                                <f:param name="filter" value="FEATURED"/>
+                                <f:param name="filterType" value="SPACE"/>
+                                Featured Spaces
+                            </h:link> |
+                        </li>
+                        <li>
+                            <h:link outcome="channels">
+                                <f:param name="filter" value="FEATURED"/>
+                                <f:param name="filterType" value="CHANNEL"/>
+                                Featured Channels
+                            </h:link> |
+                        </li>
+                    </ul>
+                </div>
+                <hr class="clear" style="display:none"/>
+                <br/>
 
-            <div>
-                <div class="thumbnail">
-                    <h3>Distributed Programming</h3>
-                    <img class="thumbnail" src="" alt="test" />
+                <div id="thumbnails">
+                    <ui:repeat value="#{homepageBean.thumbnails}" var="presentation">
+                        <div class="thumbnail">
+                            <h3 title="#{presentation.title}">#{p:shortenTo(17, presentation.title)}</h3>
+                            <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnail)}" alt=""
+                                            width="115"
+                                            height="85"/>
+                        </div>
+                    </ui:repeat>
                 </div>
-                <div class="thumbnail">
-                    <h3>Gaming JFX</h3>
-                    <img class="thumbnail" src="" alt="test" />
+                <hr class="clear" style="display:none"/>
+
+                <div id="frontpage">
+                    <div class="twoCol">
+                        <div class="col">
+                            <h2>General News</h2>
+
+                            <div class="contentBlock">
+                                <h3>#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].title}</h3>
+                                <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].date)}</span>
+                                <p>
+                                    <h:outputText escape="false"
+                                                  value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].content}"/>
+                                </p>
+                                <h:link outcome="index" rendered="#{homepageBean.activeNewsItemIndex != 0}" styleClass="pagingPrev floatLeft" title="Previous news item">
+                                    <f:param name="newsId" value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}" />
+                                </h:link>
+                                <span class="floatLeft">#{homepageBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
+                                <h:link outcome="index" rendered="#{homepageBean.activeNewsItemIndex lt p:sizeOf(homepageBean.newsItems)-1}" styleClass="pagingNext floatLeft" title="Next news item">
+                                    <f:param name="newsId" value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex+1].id}" />
+                                </h:link>
+                                <br class="clear" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="twoCol">
+                        <div class="col">
+                            <h2>Highlights</h2>
+                            <div class="contentBlock">
+                                <h3>Recommended space: #{homepageBean.recommendedSpace.name}</h3>
+                                <p>
+                                    <img class="floatLeft breathe" src="#{p:spaceThumbnail(homepageBean.recommendedSpace.id, homepageBean.recommendedSpace.thumbnail)}" alt="" height="50px" width="50px"/>
+                                    <h:outputText escape="false" value="#{homepageBean.recommendedSpace.description}" />
+                                </p>
+                                <br class="clear"/>
+                            </div>
+                            <div class="contentBlock">
+                                <h3>Recommended channel: #{homepageBean.recommendedChannel.name}</h3>
+                                <p>
+                                    <img class="floatRight breathe" src="#{p:channelThumbnail(homepageBean.recommendedChannel.id, homepageBean.recommendedChannel.thumbnail)}" alt="" height="50px" width="50px"/>
+                                    <h:outputText escape="false" value="#{homepageBean.recommendedChannel.description}" />
+                                </p>
+                                <br class="clear"/>
+                            </div>
+                            <div class="contentBlock">
+                                <h3>Recommended presentation: Solr Power with Lucene</h3>
+                                <p>
+                                    <img class="floatLeft breathe" src="#{p:presentationThumbnail(homepageBean.recommendedPresentation.id, homepageBean.recommendedPresentation.thumbnail)}" alt="" height="50px" width="50px"/>
+                                    <h:outputText escape="false" value="#{homepageBean.recommendedPresentation.summary}" />
+                                </p>
+                                <br class="clear"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="thumbnail">
-                    <h3>Distributed Programming</h3>
-                    <img class="thumbnail" src="" alt="test" />
-                </div>
-                <div class="thumbnail">
-                    <h3>Gaming JFX</h3>
-                    <img class="thumbnail" src="" alt="test" />
-                </div>
-                <div class="thumbnail">
-                    <h3>Distributed Programming</h3>
-                    <img class="thumbnail" src="" alt="test" />
-                </div>
-                <div class="thumbnail">
-                    <h3>Gaming JFX</h3>
-                    <img class="thumbnail" src="" alt="test" />
-                </div>
-            </div>
-        </div>
-        <div class="2col boxLeft">
-            <h3>General News</h3>
-            <div class="contentBlock">
-                <h4>iPhone, iPad Open Sourced</h4>
-                <span class="newsDate">today</span>
-                <p>
-                    We're very excited to announce the immediate availability of three new Parleys.com Open Source Client projects for the iPhone, Android and iPad, hosted on Google Code!  (this is not an April fools joke  :)This has been made available through the great initiatives of following developers : Vincent Claeys (iPhone), David Van Droogenbroeck (Android) and Jan-Kees van Andel (JSF2 and HTML5).Read on...
-                </p>
-            </div>
-            <h:link outcome="homepage">
-                Previous
-                <f:param name="newsId" value="1" />
-            </h:link>
-            1/2
-            <h:link outcome="homepage">
-                Next
-                <f:param name="newsId" value="1" />
-            </h:link>
-        </div>
-        <div class="2col boxRight">
-            <h3>Highlights</h3>
-            <div class="contentBlock">
-                <div class="floatRight">
-                    <h4>Aanbevolen space: Devoxx</h4>
-                    <p>
-                        The dedicated Devoxx Space where many of the Devoxx and JavaPolis presentations are located.
-                    </p>
-                </div>
-                <img class="floatLeft" src="" alt="asd" />
-            </div>
-            <div class="contentBlock">
-                <div class="floatLeft">
-                    <h4>Aanbevolen Channell: Devoxx'09</h4>
-                    <p>
-                        The Devoxx'09 channel contains ALL the University, Tools in Action and Conference presentations!
-                    </p>
-                </div>
-                <img class="floatRight" src="" alt="asd" />
-            </div>
-            <div class="contentBlock">
-                <div class="floatRight">
-                    <h4>Aanbevolen presentatie: Solr Power with Lucene</h4>
-                    <p>
-                        Solr powers the search of many enterprise applications, and long before Solr shone on enterprise search, Lucene - Solr's core library, was and still is used to drive the search of ...
-                    </p>
-                </div>
-                <img class="floatLeft" src="" alt="asd" />
-            </div>
-        </div>
-        <hr class="clear"/>
-        <div class="3col box">
-            <div class="floatLeft">
-                <h4>Haal je eigen ruimte</h4>
-                <p>Het opzetten van je eigen ruimte. Maak deze prive of publiek en deel uw presentaties met iedereen.</p>
-            </div>
-            <img src="" alt="asd" class="floatRight" />
-        </div>
-        <div class="3col box">
-            <div class="floatLeft">
-                <h4>Neem een Licentie</h4>
-                <p>Neem een Parleys platform licentie en gebruik uw infrastructuur voor het hosten van uw eigen ruimte en presentaties.</p>
-            </div>
-            <img src="" alt="asd" class="floatRight" />
-        </div>
-        <div class="3col box">
-            <div class="floatLeft">
-                <h4>Parleys Blog</h4>
-                <p>Bezoek onze blog voor tutorials of gewoon meer informatie omtrent deze nieuwe release of post vragen en suggesties.</p>
-            </div>
-            <img src="" alt="asd" class="floatRight" />
-        </div>
-    </div>
-    <div id="footer">
-        <span><a href="http://jira.parleys.com/browse/PLT" title="Click here to submit bug/feature requests into our Jira instance">Bug/feature request</a></span>
-        <span><a href="http://twitter.com/parleys" title="Follow us on Twitter">Follow us</a></span>
-    </div>
-</div>
-<p>Go to <h:link outcome="spaces">the list of spaces</h:link>.</p>
-</body>
-</html>
+                <br class="clear"/>
+    </ui:define>
+</ui:composition>

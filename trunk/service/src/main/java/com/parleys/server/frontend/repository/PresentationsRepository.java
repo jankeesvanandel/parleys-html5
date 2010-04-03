@@ -12,4 +12,6 @@ public interface PresentationsRepository {
     List<Presentation> loadPresentations(long channelId, int index, int paging);
 
     Presentation loadPresentation(long presentationId);
+
+    List<Presentation> loadAllPresentations();
 }

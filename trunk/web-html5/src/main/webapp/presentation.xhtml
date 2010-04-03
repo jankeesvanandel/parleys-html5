@@ -3,7 +3,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h5="http://www.parleys.com/jsf/components/html5">
+      xmlns:h5="http://www.parleys.com/jsf/components/html5"
+      xmlns:p="http://www.parleys.com/jsf/taglib">
 <head>
     <f:metadata>
         <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
@@ -12,14 +13,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Parleys.com in HTML5 - Presentation #{presentationBean.presentation.title}</title>
     <script type="text/javascript" src="js/video.js"></script>
-    <link href="css/parleys.css" type="text/css" media="screen" />
+    <link href="css/parleys.css" type="text/css" media="screen"/>
 </head>
 <body>
 
 <h2>#{presentationBean.presentation.title}</h2>
-<h:graphicImage url="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.thumbnail}"
+<h:graphicImage url="#{p:thumbnailUrl(presentationBean.presentation.id, presentationBean.presentation.thumbnail)}"
                 alt="#{presentationBean.presentation.title}"/>
-<hr />
+<hr/>
 <h5:video id="videoPlayer" ontimeupdate="updateActiveSlide()">
     <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.ogv" type="video/ogg"/>
     <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.mp4" type="video/mp4"/>
@@ -31,7 +32,7 @@
          alt="#{asset.name}"
          startTime="#{asset.cuepoint}"
          endTime="#{asset.cuepoint+asset.duration}"
-         />
+            />
 </ui:repeat>
 </body>
 </html>

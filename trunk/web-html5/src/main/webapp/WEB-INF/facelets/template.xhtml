@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+        >
+<h:head>
+    <title>Parleys.com HTML5 - The #1 e-learning platform, now with HTML5 support</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <link href="css/parleys.css" type="text/css" rel="stylesheet"/>
+    <ui:insert name="header" />
+</h:head>
+<h:body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <h1>Parleys.com</h1>
+                <a href="asd.xhtml">Login</a>
+            </div>
+            <div id="navigation">
+            <span>
+                <h:link outcome="spaces" class="rightSpacer">Spaces</h:link> |
+                <a href="/html5parleys/spaces.xhtml" class="rightSpacer">News</a>
+            </span>
+            <span class="rightAlign">
+                <a href="/html5parleys/spaces.xhtml" class="rightSpacer">Register</a> |
+                <a href="/html5parleys/spaces.xhtml">Search</a>
+            </span>
+            </div>
+        </div>
+        <div id="content">
+            <div>
+<ui:insert name="content" />
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                <a class="bugLink"
+                   href="http://jira.parleys.com/browse/PLT"
+                   title="Click here to submit bug/feature requests into our Jira instance">Bug/feature request</a>
+                <a class="twitterLink"
+                   href="http://twitter.com/parleys"
+                   title="Follow us on Twitter">Follow us</a>
+            </p>
+        </div>
+    </div>
+</h:body>
+</html>

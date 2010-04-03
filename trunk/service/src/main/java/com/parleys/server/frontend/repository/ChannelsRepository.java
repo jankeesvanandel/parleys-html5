@@ -12,4 +12,6 @@ public interface ChannelsRepository {
     List<Channel> loadChannels(long spaceId);
 
     Channel loadChannel(long channelId);
+
+    List<Channel> loadAllChannels();
 }
