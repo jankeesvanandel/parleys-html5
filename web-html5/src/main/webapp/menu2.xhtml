@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<head>
+	<title>Parleys.com HTML5 - The #1 e-learning platform</title>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<style media="screen" type="text/css">
+
+    * {
+        font-family:Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        padding: 0;
+        margin: 0;
+        color: #999;
+    }
+    html, body {
+        height:100%;
+    }
+	body {
+		border:0;          /* This removes the border around the viewport in old versions of IE */
+		width:100%;
+		min-width:600px;   /* Minimum width of layout - remove line if not required */
+                           /* The min-width property does not work in old versions of Internet Explorer */
+	}
+
+    div#logoBar {
+        background: #373737 url(img/header_sprite.png) repeat-x 0 -180px;
+        position:absolute;
+        width: 100%;
+    }
+
+    div#logoBar h1#parleysHeader {
+        background: #a40202 url(img/header_sprite.png) no-repeat -50px 0;
+        float: left;
+        width: 100px;
+        height: 30px;
+    }
+
+    div#logoBar ul {
+        height: 30px;
+        float: left;
+        background: #a40202;
+    }
+
+    div#logoBar ul li {
+        list-style: none
+    }
+
+    div#logoBar ul li.homeButton a {
+        background: #a40202 url(img/header_sprite.png) no-repeat !important;
+        height: 30px !important;
+        padding: 0 !important;
+        width: 40px;
+    }
+
+    div#logoBar ul li.homeButton a:hover {
+        background: url(img/header_sprite.png) no-repeat 0 -45px !important;
+    }
+
+    div#logoBar ul li.navButton,
+    div#logoBar ul li.navButton a {
+        float: left;
+    }
+
+    div#logoBar ul li.navButton a {
+        background: #a40202 url(img/header_sprite.png) repeat-x 0 -90px;
+        height: 14px;
+        padding: 8px 15px 8px 15px;
+        color: #ffcc00;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    div#logoBar ul li.navButton a:hover {
+        background: url(img/header_sprite.png) repeat-x 0 -135px;
+    }
+
+    div#logoBar span.navEnd {
+        background: url(img/header_sprite.png) no-repeat -170px 0 !important;
+        float: left;
+        height: 30px !important;
+        width: 25px;
+    }
+
+    .degrade {
+        display: none;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+	</style>
+</head>
+<body>
+
+<div style="width: 700px; height: 150px; border: 1px dotted #222; top: 200px; position: relative; margin: auto;">
+    <div id="logoBar">
+        <h1 id="parleysHeader">
+            <span class="degrade">Parleys.com</span>
+        </h1>
+        <ul>
+            <li class="navButton homeButton">
+                <a href="menu2.xhtml"><span class="degrade">Home</span></a>
+            </li>
+            <li class="navButton">
+                <a href="menu2.xhtml">Spaces</a>
+            </li>
+            <li class="navButton">
+                <a href="menu2.xhtml">Devoxx</a>
+            </li>
+            <li class="navButton">
+                <a href="menu2.xhtml">Devoxx'09</a>
+            </li>
+            <li class="navButton">
+                <a href="menu2.xhtml">From Concurrent to Parallel</a>
+            </li>
+        </ul>
+        <span class="navEnd navButton" />
+    </div>
+    <hr class="clear" style="display: none;" />
+</div>
+
+
+
+</body>
+</html> 
