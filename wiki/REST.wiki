@@ -13,7 +13,7 @@ Steps:
 
 = TODOs =
 
-  * Support pure RESTful interface (Q2 2010)
+  * Support [http://code.google.com/p/parleys-rest/wiki/RESTInterface pure RESTful interface] (Q2 2010)
   * Support none mobile enabled Spaces, Channels and Presentations (Q2 2010)
   * Support paging for channel retrieval (Q2 2010)
   * Include full URL of the assets in the JSON value (Q2 2010) 
