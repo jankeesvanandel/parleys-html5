@@ -1,4 +1,4 @@
-#labels Parleys,JSF2,HTML5,H.264,mpeg4,Theora
+#labels Parleys,JSF2,HTML5,H.264,mpeg4,Theora,Featured
 = What? =
 
 What would be the benefit of having an HTML5 version of the Parleys.com Player?
