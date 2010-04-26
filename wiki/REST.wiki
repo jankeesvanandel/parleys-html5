@@ -3,4 +3,4 @@
 
 = Introduction =
 
-More info on version 1 of the mobile REST interface for Parleys.com [http://code.google.com/p/parleysiphoneclient/wiki/Home here]
+More info on version 1 of the mobile REST interface for Parleys.com can be found [http://code.google.com/p/parleysiphoneclient/wiki/Home here].
