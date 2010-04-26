@@ -63,6 +63,7 @@ To access the channel thumbnails you need to construct the URL as follows :
 Example:
 {{{ http://www.parleys.com/parleysserver/rest/mobile/presentations.form?id=566&index=0&paging=2 }}} 
 
+  * id = the channel identifier (mandatory)
   * index = the starting index, zero based (mandatory)
   * paging = the number of items per index (mandatory)
 
