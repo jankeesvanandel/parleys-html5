@@ -2,8 +2,6 @@ package com.parleys.server.frontend.web.html5.util;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.DateTimeConverter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -17,12 +15,12 @@ import java.util.GregorianCalendar;
 public class JSFUtil {
 
     public static int sizeOf(Collection coll) {
-      return coll.size();
+        return coll.size();
     }
 
     public static String shortenTo(int toLength, String input) {
         if (input.length() > toLength) {
-            return input.substring(0, toLength-3) + "...";
+            return input.substring(0, toLength - 3) + "...";
         } else {
             return input;
         }
@@ -44,6 +42,10 @@ public class JSFUtil {
     }
 
     public static String formatDate(Date date) {
+        if (date == null) {
+            return "";
+        }
+
         date = DateUtils.truncate(date, Calendar.DATE);
         final Date today = DateUtils.truncate(new Date(), Calendar.DATE);
         final Calendar yesterdayCalendar = new GregorianCalendar();
@@ -54,7 +56,7 @@ public class JSFUtil {
         } else if (date.equals(yesterday)) {
             return "yesterday";
         } else {
-            return new SimpleDateFormat("dd-MM-yyyy").format(date);
+            return "on" + new SimpleDateFormat("dd-MM-yyyy").format(date);
         }
     }
 }

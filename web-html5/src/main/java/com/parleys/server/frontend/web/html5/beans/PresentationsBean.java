@@ -1,8 +1,10 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Channel;
+import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.domain.Presentation;
 import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.PresentationsCriteria;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -14,9 +16,13 @@ import java.util.List;
  */
 @ManagedBean
 @RequestScoped
-public class ChannelBean {
+public class PresentationsBean extends AbstractParleysBean {
 
     private long channelId;
+
+    private Filter filter;
+
+    private Filter.Type filterType;
 
     @ManagedProperty("#{parleysService}")
     private ParleysService parleysService;
@@ -41,8 +47,19 @@ public class ChannelBean {
             paging = 20;
         }
 
-        channel = parleysService.loadChannel(channelId);
-        presentations = parleysService.loadPresentations(channelId, index, paging);
+        final PresentationsCriteria criteria = new PresentationsCriteria();
+        criteria.setChannelId(channelId);
+        criteria.setFilter(filter);
+        criteria.setIndex(index);
+        criteria.setPaging(paging);
+        presentations = parleysService.loadPresentationsWithCriteria(criteria);
+
+        if (channelId != 0) {
+            channel = parleysService.loadChannel(channelId);
+            super.initializeChannel(channel);
+        } else {
+            super.initializeHomepage();
+        }
     }
 
     public long getChannelId() {
@@ -91,5 +108,21 @@ public class ChannelBean {
 
     public void setPaging(Integer paging) {
         this.paging = paging;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
+    public Filter.Type getFilterType() {
+        return filterType;
+    }
+
+    public void setFilterType(Filter.Type filterType) {
+        this.filterType = filterType;
     }
 }

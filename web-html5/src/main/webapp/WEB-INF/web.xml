@@ -18,11 +18,69 @@
     </context-param>
 
     <context-param>
+        <param-name>facelets.RESOURCE_RESOLVER</param-name>
+        <param-value>org.apache.myfaces.extensions.scripting.facelet.ReroutingResourceResolver</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>contextConfigLocations</param-name>
         <param-value>
             /WEB-INF/applicationContext.xml
         </param-value>
     </context-param>
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <description>
+            Enables our scripting engine support plugins
+        </description>
+        <param-name>org.apache.myfaces.FACES_INIT_PLUGINS</param-name>
+        <param-value>org.apache.myfaces.extensions.scripting.servlet.StartupServletContextPluginChainLoader
+        </param-value>
+    </context-param>
+
+    <context-param>
+        <description>
+            Additional comma separated loader paths to allow direct editing
+            on the sources directory instead of the deployment dir
+        </description>
+        <param-name>org.apache.myfaces.extensions.scripting.java.LOADER_PATHS</param-name>
+        <param-value>
+            D:/dev/work/idea9/parleys/web-html5/src/main/java
+        </param-value>
+    </context-param>
+    <context-param>
+        <description>
+            Additional comma separated loader paths to allow direct editing
+            on the sources directory instead of the deployment dir
+        </description>
+        <param-name>org.apache.myfaces.extensions.scripting.resources.LOADER_PATHS</param-name>
+        <param-value>
+            D:/dev/work/idea9/parleys/web-html5/src/main/webapp
+        </param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>scriptingFilter</filter-name>
+        <filter-class>org.apache.myfaces.extensions.scripting.servlet.ScriptingServletFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>scriptingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>faces</servlet-name>

@@ -45,6 +45,6 @@ public class SpacesRepositoryImpl implements SpacesRepository {
 
     @Override
     public List<Space> loadAllSpaces() {
-        return loadSpaces(0, 1000);
+        return loadSpaces(0, 10);
     }
 }

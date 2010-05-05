@@ -13,7 +13,7 @@ import java.util.List;
  */
 @ManagedBean
 @RequestScoped
-public class HomepageBean {
+public class HomepageBean extends AbstractParleysBean {
 
     private Filter thumbnailsFilter;
 
@@ -38,7 +38,7 @@ public class HomepageBean {
 
     public void init() {
         if (thumbnailsFilter == null
-         || thumbnailsFilterType == null) {
+                || thumbnailsFilterType == null) {
             thumbnailsFilter = Filter.FEATURED;
             thumbnailsFilterType = Filter.Type.PRESENTATION;
         }
@@ -48,7 +48,7 @@ public class HomepageBean {
         newsItems = parleysService.loadAllNewsItems();
         if (newsId != null) {
             for (int i = 0; i < newsItems.size(); i++) {
-                NewsItem newsItem =  newsItems.get(i);
+                NewsItem newsItem = newsItems.get(i);
                 if (newsItem.getId() == newsId) {
                     activeNewsItemIndex = i;
                     break;
@@ -59,6 +59,8 @@ public class HomepageBean {
         recommendedSpace = parleysService.loadRecommendedSpace();
         recommendedChannel = parleysService.loadRecommendedChannel();
         recommendedPresentation = parleysService.loadRecommendedPresentation();
+
+        initializeHomepage();
     }
 
     public List<Presentation> getThumbnails() {
@@ -131,5 +133,9 @@ public class HomepageBean {
 
     public void setRecommendedPresentation(Presentation recommendedPresentation) {
         this.recommendedPresentation = recommendedPresentation;
+    }
+
+    public ParleysService getParleysService() {
+        return parleysService;
     }
 }

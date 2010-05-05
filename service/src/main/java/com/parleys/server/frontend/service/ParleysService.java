@@ -12,17 +12,19 @@ public interface ParleysService {
     /**
      * Get a list of spaces.
      *
-     * @param index The zero based starting index.
+     * @param index  The zero based starting index.
      * @param paging The maximum number of spaces per page.
      * @return a list of spaces, never null.
      */
     List<Space> loadSpaces(int index, int paging);
 
+    List<Space> loadAllSpaces();
+
     Space loadSpace(long id);
 
     List<Channel> loadChannels(long spaceId);
 
-    List<Presentation> loadPresentations(long channelId, int index, int paging);
+    List<Presentation> loadPresentationsWithCriteria(PresentationsCriteria presentationsCriteria);
 
     Channel loadChannel(long channelId);
 
@@ -37,4 +39,6 @@ public interface ParleysService {
     Channel loadRecommendedChannel();
 
     Presentation loadRecommendedPresentation();
+
+    List<Presentation> search(String criteria);
 }

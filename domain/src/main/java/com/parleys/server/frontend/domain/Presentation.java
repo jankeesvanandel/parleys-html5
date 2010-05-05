@@ -44,12 +44,6 @@ public class Presentation {
         this.speakers = speakers;
     }
 
-//    public void handleUnknown(String key, Object value) {
-//        if (key.equals("MP3URL")) {
-//            setMp3URL();
-//        }
-//    }
-
     public long getId() {
         return id;
     }

@@ -13,7 +13,7 @@ import java.util.List;
  */
 @ManagedBean
 @RequestScoped
-public class SpacesBean {
+public class SpacesBean extends AbstractParleysBean {
 
     private Integer index;
     private Integer paging;

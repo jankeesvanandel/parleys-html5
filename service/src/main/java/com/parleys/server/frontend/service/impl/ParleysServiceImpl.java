@@ -5,6 +5,7 @@ import com.parleys.server.frontend.repository.ChannelsRepository;
 import com.parleys.server.frontend.repository.PresentationsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
 import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.PresentationsCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +28,25 @@ public class ParleysServiceImpl implements ParleysService {
         this.presentationsRepository = presentationsRepository;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Space> loadSpaces(int index, int paging) {
         final List<Space> spaces = spacesRepository.loadSpaces(index, paging);
+        Collections.sort(spaces,
+                new Comparator<Space>() {
+                    @Override
+                    public int compare(Space s1, Space s2) {
+                        return s1.getName().compareToIgnoreCase(s2.getName());
+                    }
+                });
+        return spaces;
+    }
+
+    @Override
+    public List<Space> loadAllSpaces() {
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
         Collections.sort(spaces,
                 new Comparator<Space>() {
                     @Override
@@ -65,8 +81,15 @@ public class ParleysServiceImpl implements ParleysService {
     }
 
     @Override
-    public List<Presentation> loadPresentations(long channelId, int index, int paging) {
-        final List<Presentation> presentations = presentationsRepository.loadPresentations(channelId, index, paging);
+    public List<Presentation> loadPresentationsWithCriteria(PresentationsCriteria criteria) {
+        final List<Presentation> presentations;
+        if (criteria.getChannelId() != 0) {
+            presentations = presentationsRepository.loadPresentationsForChannel(criteria.getChannelId(), criteria.getIndex(), criteria.getPaging());
+        } else if (criteria.getFilter() != null) {
+            presentations = presentationsRepository.loadPresentationsForFilter(criteria.getFilter());
+        } else {
+            presentations = new ArrayList<Presentation>();
+        }
         Collections.sort(presentations,
                 new Comparator<Presentation>() {
                     @Override
@@ -133,5 +156,23 @@ public class ParleysServiceImpl implements ParleysService {
         final List<Presentation> presentations = presentationsRepository.loadAllPresentations();
         Collections.shuffle(presentations);
         return presentations.get(0);
+    }
+
+    @Override
+    public List<Presentation> search(String criteria) {
+        final List<Presentation> presentations = presentationsRepository.loadAllPresentations();
+        final Iterator<Presentation> iterator = presentations.iterator();
+        criteria = criteria.toLowerCase();
+        while (iterator.hasNext()) {
+            Presentation p = iterator.next();
+            if (!p.getTitle().toLowerCase().contains(criteria)
+                    && !p.getSummary().toLowerCase().contains(criteria)
+                    && !p.getSpeakers().toString().toLowerCase().contains(criteria)
+                    && !p.getKeywords().toLowerCase().contains(criteria)
+                    ) {
+                iterator.remove();
+            }
+        }
+        return presentations;
     }
 }

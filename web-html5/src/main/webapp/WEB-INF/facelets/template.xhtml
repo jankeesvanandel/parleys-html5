@@ -5,35 +5,80 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://www.parleys.com/jsf/taglib"
-        >
+      xmlns:exs="http://myfaces.apache.org/ext-scripting">
 <h:head>
     <title>Parleys.com HTML5 - The #1 e-learning platform, now with HTML5 support</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
     <link href="css/parleys.css" type="text/css" rel="stylesheet"/>
-    <ui:insert name="header" />
+    <ui:insert name="header"/>
 </h:head>
 <h:body>
     <div id="container">
-        <div id="header">
-            <div id="logo">
-                <h1>Parleys.com</h1>
-                <a href="asd.xhtml">Login</a>
+        <div id="logoBar">
+            <h1 id="parleysHeader">
+                <span class="degrade">Parleys.com</span>
+            </h1>
+            <ul>
+                <li class="navButton homeButton">
+                    <h:link outcome="index">
+                        <span class="degrade">Home</span>
+                    </h:link>
+                </li>
+                <h:panelGroup rendered="#{!parleysBean.isOnHomepage}">
+                    <li class="navButton">
+                        <h:link outcome="spaces" value="Spaces"/>
+                    </li>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{!empty parleysBean.currentSpace}">
+                    <li class="navButton">
+                        <h:link outcome="channels" value="#{parleysBean.currentSpace.name}">
+                            <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
+                        </h:link>
+                    </li>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{!empty parleysBean.currentChannel}">
+                    <li class="navButton">
+                        <h:link outcome="presentations" value="#{parleysBean.currentChannel.name}">
+                            <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
+                        </h:link>
+                    </li>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{!empty parleysBean.currentPresentation}">
+                    <li class="navButton">
+                        <h:link outcome="presentation" value="#{parleysBean.currentPresentation.name}">
+                            <f:param name="id" value="#{parleysBean.currentPresentation.id}"/>
+                        </h:link>
+                    </li>
+                </h:panelGroup>
+            </ul>
+            <span class="navEnd navButton"/>
+            <h:link outcome="login" styleClass="loginButton" value="Login"/>
+        </div>
+        <hr style="display: none;"/>
+
+        <div id="navigationBar">
+            <div class="left">
+                <h:link outcome="spaces" styleClass="rightSpacer" value="Spaces"/>
+                <span class="spacer">|</span>
+                <h:link outcome="news" styleClass="rightSpacer" value="News"/>
             </div>
-            <div id="navigation">
-            <span>
-                <h:link outcome="spaces" class="rightSpacer">Spaces</h:link> |
-                <a href="/html5parleys/spaces.xhtml" class="rightSpacer">News</a>
-            </span>
-            <span class="rightAlign">
-                <a href="/html5parleys/spaces.xhtml" class="rightSpacer">Register</a> |
-                <a href="/html5parleys/spaces.xhtml">Search</a>
-            </span>
+            <div class="right">
+                <h:link outcome="register" styleClass="rightSpacer" value="Register"/>
+                <span class="spacer">|</span>
+                <h:link outcome="search" value="Search"/>
             </div>
         </div>
+        <hr style="display: none"/>
+
         <div id="content">
+            <h:messages globalOnly="true"/>
+
             <div>
-<ui:insert name="content" />
+                <ui:insert name="content"/>
+                <br class="clear"/>
             </div>
+            <exs:compilerOutput rendered="#{facesContext.application.projectStage == 'Development'}"/>
+            <exs:taintHistory noEntries="5" rendered="#{facesContext.application.projectStage == 'Development'}"/>
         </div>
         <div id="footer">
             <p>

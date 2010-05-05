@@ -12,14 +12,20 @@ public class Space {
 
     private String thumbnail;
 
+    private String mediaBaseURL;
+
+    private String assetBaseURL;
+
     public Space() {
     }
 
-    public Space(long id, String name, String description, String thumbnail) {
+    public Space(long id, String name, String description, String thumbnail, String mediaBaseURL, String assetBaseURL) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.thumbnail = thumbnail;
+        this.mediaBaseURL = mediaBaseURL;
+        this.assetBaseURL = assetBaseURL;
     }
 
     public long getId() {
@@ -52,5 +58,21 @@ public class Space {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getMediaBaseURL() {
+        return mediaBaseURL;
+    }
+
+    public void setMediaBaseURL(String mediaBaseURL) {
+        this.mediaBaseURL = mediaBaseURL;
+    }
+
+    public String getAssetBaseURL() {
+        return assetBaseURL;
+    }
+
+    public void setAssetBaseURL(String assetBaseURL) {
+        this.assetBaseURL = assetBaseURL;
     }
 }
