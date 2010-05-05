@@ -1,21 +1,18 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.Asset;
-import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Presentation;
 import com.parleys.server.frontend.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import java.util.List;
 
 /**
  * Backing bean for the space detail page.
  */
 @ManagedBean
 @RequestScoped
-public class PresentationBean {
+public class PresentationBean extends AbstractParleysBean {
 
     private long presentationId;
 
@@ -26,6 +23,8 @@ public class PresentationBean {
 
     public void init() {
         presentation = parleysService.loadPresentation(presentationId);
+
+        super.initializePresentation(presentation);
     }
 
     public long getPresentationId() {

@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
-<head>
-    <f:metadata>
-        <f:viewParam name="id" value="#{channelBean.channelId}"/>
-        <f:event type="preRenderView" listener="#{channelBean.init}"/>
-    </f:metadata>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Parleys.com in HTML5 - Channel #{channelBean.channel.name}</title>
-    <link href="css/parleys.css" type="text/css" media="screen" />
-</head>
-<body>
-
-<h2>#{channelDetailBean.channel.name}</h2>
-<h:graphicImage url="#{utilBean.basePath}#{channelBean.channel.thumbnail}" alt="#{channelBean.channel.name}" />
-<hr/>
-<ul>
-    <ui:repeat value="#{channelBean.presentations}" var="presentation">
-        <li>
-            <h:graphicImage url="#{utilBean.basePath}#{presentation.thumbnail}" alt="#{presentation.title}" />
-            <h:link outcome="presentation">
-                #{presentation.title}
-                <f:param name="id" value="#{presentation.id}" />
-            </h:link>
-        </li>
-    </ui:repeat>
-</ul>
-</body>
-</html>
+<ui:composition
+        template="WEB-INF/facelets/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+    <ui:param name="parleysBean" value="#{presentationsBean}"/>
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{presentationsBean.channelId}"/>
+            <f:viewParam name="filter" value="#{presentationsBean.filter}"/>
+            <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <div>
+            <h2>#{prese
+                ntationsBean.c
+            hannel.name}</h2>
+            <h:graphicImage
+                    url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnail)}"
+                    alt="#{presentationsBean.channel.name}"/>
+            <hr/>
+            <ul>
+                <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
+                    <li>
+                        <parleys:presentationLink presentation="#{presentation}" renderThumbnail="true"
+                                                  renderLabel="true"/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -25,6 +25,23 @@ public class NewsItem {
         this.content = content;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NewsItem)) return false;
+
+        NewsItem newsItem = (NewsItem) o;
+
+        if (id != newsItem.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
     public long getId() {
         return id;
     }

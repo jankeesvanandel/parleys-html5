@@ -1,10 +1,6 @@
 package com.parleys.server.frontend.repository.cache;
 
-import com.parleys.server.frontend.domain.Channel;
-import com.parleys.server.frontend.domain.Presentation;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.*;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -30,6 +26,8 @@ public class JSONRestTemplate extends RestTemplate {
     @Override
     public <T> T getForObject(String url, Class<T> responseType, Object... urlVariables) throws RestClientException {
         try {
+//            System.out.println("url = " + url);
+//            System.out.println("urlVariables = " + Arrays.toString(urlVariables));
             final String stringResult = restTemplate.getForObject(url, String.class, urlVariables);
             ObjectMapper mapper = new ObjectMapper();
             final T object = mapper.readValue(stringResult, responseType);

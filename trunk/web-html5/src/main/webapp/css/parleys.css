@@ -2,40 +2,122 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     color: #999;
+    margin: 0;
+    padding: 0;
 }
+
 html, body {
-    margin:0;
-    padding:0;
-    height:100%;
+    height: 100%;
 }
+
 body {
-    border:0;
-    width:100%;
-    background:#222;
-    min-width:600px;
+    width: 100%;
+    background: #222;
+    min-width: 600px;
 }
+
 h1 {
     font-size: 1.2em;
 }
+
 h2 {
     font-size: 1.2em;
 }
+
 h3 {
     font-size: .8em;
     line-height: 1;
 }
+
 a, a:visited {
     text-decoration: none;
     font-size: 0.8em;
 }
+
 a:hover {
-    color:#fff;
-    text-decoration:none;
+    color: #fff;
+    text-decoration: none;
 }
+
 #container {
-    min-height:100%;
-    position:relative;
+    min-height: 100%;
+    position: relative;
 }
+
+/* The topmost header */
+div#logoBar {
+    background: #373737 url(../img/header_sprite.png) repeat-x 0 -180px;
+    b / ackground-color: red;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    clear: both;
+    border-bottom: 1px solid #000;
+}
+
+div#logoBar h1#parleysHeader {
+    background: #a40202 url(../img/header_sprite.png) no-repeat -50px 0;
+    float: left;
+    width: 100px;
+    height: 30px;
+}
+
+div#logoBar ul {
+    height: 30px;
+    float: left;
+    background: #a40202;
+}
+
+div#logoBar ul li {
+    list-style: none
+}
+
+div#logoBar ul li.homeButton a {
+    background: #a40202 url(../img/header_sprite.png) no-repeat !important;
+    height: 30px !important;
+    padding: 0 !important;
+    width: 40px;
+}
+
+div#logoBar ul li.homeButton a:hover {
+    background: url(../img/header_sprite.png) no-repeat 0 -45px !important;
+}
+
+div#logoBar ul li.navButton,
+div#logoBar ul li.navButton a {
+    float: left;
+}
+
+div#logoBar ul li.navButton a {
+    background: #a40202 url(../img/header_sprite.png) repeat-x 0 -90px;
+    height: 14px;
+    padding: 8px 15px 8px 15px;
+    color: #ffcc00;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div#logoBar ul li.navButton a:hover {
+    background: url(../img/header_sprite.png) repeat-x 0 -135px;
+}
+
+div#logoBar span.navEnd {
+    background: url(../img/header_sprite.png) no-repeat -170px 0 !important;
+    float: left;
+    height: 30px !important;
+    width: 25px;
+}
+
+div#logoBar .loginButton {
+    float: right;
+    padding: 7px;
+}
+
+.degrade {
+    display: none;
+}
+
+/*
 #header {
     clear:both;
     width:100%;
@@ -74,7 +156,6 @@ a:hover {
 #header ul li a span {
     display:block;
 }
-/* 'widths' sub menu */
 #logo {
     border-bottom: 1px solid #000;
     height: 1.8em;
@@ -94,50 +175,87 @@ a:hover {
     padding: .3em;
     color: #999;
 }
-#navigation {
-    background: #414141;
-    margin: 0;
-    padding-left: 9em;
+*/
+#navigationBar {
+    background: #414141 url(../img/header_sprite.png) repeat-x 0 -225px;
+    m / argin: 0;
+    padding-left: 150px;
     position: relative;
+    w / idth: 100%;
+    height: 30px;
+    f / loat: left;
+    border-bottom: 1px solid #000;
 }
-#navigation * {
+
+#navigationBar div {
+    height: 30px;
+}
+
+#navigationBar div * {
+    position: relative;
     color: #fff;
+    padding: 7px;
+    display: block;
 }
-#navigation span a {
-    padding: .3em;
+
+#navigationBar div.left * {
+    float: left;
 }
-#navigation span.rightAlign {
-    position:absolute;
-    right:0;
-    top: 0;
+
+#navigationBar div.left {
+    p / osition: relative;
+    d / isplay: block;
+    h / eight: 30px;
+    float: left;
+}
+
+#navigationBar div.right {
+    float: right;
+}
+
+#navigationBar div.right * {
+    float: left;
+}
+
+#navigationBar div span {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#navigationBar div a:hover {
+    background: #666 url(../img/header_sprite.png) repeat-x 0 -270px;
 }
 
 #content {
     padding-bottom: 3em;
     margin: 3em auto 0 auto;
     width: 770px;
-    position:relative;
+    position: relative;
 }
 
 #content h2 {
     display: inline;
-    position:relative;
+    position: relative;
     padding: .2em;
     color: #878787;
 }
+
 #content ul#featureHomepage {
     display: inline;
-    position:absolute;
+    position: absolute;
     right: 0;
 }
+
 #content ul#featureHomepage li {
     display: inline;
 }
+
 #content ul#featureHomepage li a,
 #content ul#featureHomepage li a:visited {
     padding: .3em;
     color: #999;
 }
+
 #content ul#featureHomepage li {
     color: #999;
 }
@@ -145,8 +263,9 @@ a:hover {
 #content div#thumbnails {
     position: relative;
     height: 10em;
-    clear:both;
+    clear: both;
 }
+
 #content div#thumbnails div.thumbnail {
     float: left;
     width: 15.5%;
@@ -157,7 +276,7 @@ a:hover {
 }
 
 #content div#thumbnails div.thumbnail h3 {
-    white-space:nowrap;
+    white-space: nowrap;
     color: #999;
 }
 
@@ -169,6 +288,7 @@ a:hover {
     width: 50%;
     float: left;
 }
+
 #content div#frontpage div.threeCol {
     width: 33.3%;
     float: left;
@@ -183,8 +303,13 @@ div.contentBlock {
 div.contentBlock * {
     color: #999;
 }
+
 div.contentBlock p {
     font-size: .8em;
+}
+
+#content ul li {
+    list-style-type: none;
 }
 
 .breathe {
@@ -194,6 +319,7 @@ div.contentBlock p {
 .floatRight {
     float: right;
 }
+
 .floatLeft {
     float: left;
 }
@@ -236,17 +362,18 @@ a.pagingPrev:hover {
 
 /* Footer styles */
 #footer {
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:3em;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
 }
+
 #footer p {
-    padding:10px;
-    margin:0;
-    text-align:center;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
 }
 
 .clear {
-    clear:both;
+    clear: both;
 }

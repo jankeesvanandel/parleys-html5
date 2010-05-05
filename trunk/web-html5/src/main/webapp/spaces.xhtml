@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
-<head>
-    <f:metadata>
-        <f:viewParam name="index" value="#{spacesBean.index}"/>
-        <f:viewParam name="paging" value="#{spacesBean.paging}"/>
-        <f:event type="preRenderView" listener="#{spacesBean.init}"/>
-    </f:metadata>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Parleys.com in HTML5 - Spaces</title>
-    <link href="css/parleys.css" type="text/css" media="screen" />
-</head>
-<body>
-
-<h2>Spaces</h2>
-<hr/>
-<ul>
-    <ui:repeat value="#{spacesBean.spaces}" var="space">
-        <li>
-            <h:graphicImage url="#{utilBean.basePath}#{space.thumbnail}" alt="#{space.name}" />
-            <h:link outcome="space">
-                #{space.name}
-                <f:param name="id" value="#{space.id}" />
-            </h:link>
-        </li>
-    </ui:repeat>
-</ul>
-</body>
-</html>
+<ui:composition
+        template="WEB-INF/facelets/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+    <ui:param name="parleysBean" value="#{spacesBean}"/>
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="index" value="#{spacesBean.index}"/>
+            <f:viewParam name="paging" value="#{spacesBean.paging}"/>
+            <f:event type="preRenderView" listener="#{spacesBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <div>
+            <h2>Spaces</h2>
+            <hr/>
+            <ul>
+                <ui:repeat value="#{spacesBean.spaces}" var="space">
+                    <li>
+                        <parleys:spaceLink space="#{space}" renderThumbnail="true" renderLabel="true"/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

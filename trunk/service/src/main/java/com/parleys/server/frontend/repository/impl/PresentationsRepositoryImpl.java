@@ -1,9 +1,6 @@
 package com.parleys.server.frontend.repository.impl;
 
-import com.parleys.server.frontend.domain.Asset;
-import com.parleys.server.frontend.domain.Channel;
-import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.domain.Space;
+import com.parleys.server.frontend.domain.*;
 import com.parleys.server.frontend.repository.ChannelsRepository;
 import com.parleys.server.frontend.repository.PresentationsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
@@ -33,14 +30,21 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
     }
 
     @Override
-    public List<Presentation> loadPresentations(long channelId, int index, int paging) {
+    public List<Presentation> loadPresentationsForChannel(long channelId, int index, int paging) {
         Presentation[] result = template.getForObject(PRESENTATIONS_URL, Presentation[].class, channelId, index, paging);
 
         return Arrays.asList(result);
     }
 
+    @Override
+    public List<Presentation> loadPresentationsForFilter(Filter filter) {
+        final List<Presentation> list = loadAllPresentations();
+        return list.subList(0, Math.max(5, list.size()));
+    }
+
     //TODO: get rid of this
     private ChannelsRepository channelsRepository;
+
     @Autowired
     public void setChannelsRepository(ChannelsRepository channelsRepository) {
         this.channelsRepository = channelsRepository;
@@ -48,6 +52,7 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
 
     //TODO: get rid of this
     private SpacesRepository spacesRepository;
+
     @Autowired
     public void setSpacesRepository(SpacesRepository spacesRepository) {
         this.spacesRepository = spacesRepository;
@@ -56,11 +61,12 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
     @Override
     public Presentation loadPresentation(long presentationId) {
         // TODO: REST service for a "Presentation by id"
-        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
+        final List<Space> spaces = spacesRepository.loadAllSpaces();
         for (Space space : spaces) {
             final List<Channel> channels = channelsRepository.loadChannels(space.getId());
             for (final Channel channel : channels) {
-                final List<Presentation> presentations = loadPresentations(channel.getId(), 0, 1000);
+//                if (channel.getId() != 18821) {
+                final List<Presentation> presentations = loadPresentationsForChannel(channel.getId(), 0, 10);
                 for (Presentation presentation : presentations) {
                     if (presentation.getId() == presentationId) {
                         final List<Asset> assets = loadAssets(presentationId);
@@ -69,6 +75,7 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
                         return presentation;
                     }
                 }
+//                }
             }
         }
 
@@ -78,12 +85,20 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
     @Override
     public List<Presentation> loadAllPresentations() {
         // TODO: REST service for a "Presentation by id"
-        final List<Space> spaces = spacesRepository.loadSpaces(0, 1000);
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 3);
         final List<Presentation> ret = new ArrayList<Presentation>();
         for (Space space : spaces) {
             final List<Channel> channels = channelsRepository.loadChannels(space.getId());
+            int i = 0; // Hack to reduce load on parleys server
             for (final Channel channel : channels) {
-                final List<Presentation> presentations = loadPresentations(channel.getId(), 0, 1000);
+//                System.out.println("channel.getId() = " + channel.getId());
+//                if (channel.getId() == 18821 || channel.getId() == 18821) {
+//                    continue;
+//                }
+                if (i++ > 3) {
+                    break;
+                }
+                final List<Presentation> presentations = loadPresentationsForChannel(channel.getId(), 0, 5);
                 for (Presentation presentation : presentations) {
                     final List<Asset> assets = loadAssets(presentation.getId());
 

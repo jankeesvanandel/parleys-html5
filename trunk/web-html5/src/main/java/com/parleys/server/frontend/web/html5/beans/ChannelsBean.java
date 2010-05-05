@@ -14,7 +14,7 @@ import java.util.List;
  */
 @ManagedBean
 @RequestScoped
-public class SpaceBean {
+public class ChannelsBean extends AbstractParleysBean {
 
     private long spaceId;
 
@@ -28,6 +28,8 @@ public class SpaceBean {
     public void init() {
         space = parleysService.loadSpace(spaceId);
         channels = parleysService.loadChannels(spaceId);
+
+        super.initializeSpace(space);
     }
 
     public long getSpaceId() {

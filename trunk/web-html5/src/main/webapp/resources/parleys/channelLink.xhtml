@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:attribute name="channel" type="com.parleys.server.frontend.domain.Channel" required="true"/>
+    <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.channel.name}"/>
+    <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
+</composite:interface>
+<composite:implementation>
+    <h:link outcome="presentations">
+        <f:param name="id" value="#{cc.attrs.channel.id}"/>
+        <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
+                        value="#{p:channelThumbnail(cc.attrs.channel.id, cc.attrs.channel.thumbnail)}"
+                        alt="#{cc.attrs.label}"
+                        height="50px" width="50px" styleClass="#{cc.attrs.styleClasses}"/>
+        <h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/>
+    </h:link>
+</composite:implementation>
+</html>
