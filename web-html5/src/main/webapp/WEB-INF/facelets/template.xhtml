@@ -4,6 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jstl/core"
       xmlns:p="http://www.parleys.com/jsf/taglib"
       xmlns:exs="http://myfaces.apache.org/ext-scripting">
 <h:head>
@@ -45,7 +46,7 @@
                 </h:panelGroup>
                 <h:panelGroup rendered="#{!empty parleysBean.currentPresentation}">
                     <li class="navButton">
-                        <h:link outcome="presentation" value="#{parleysBean.currentPresentation.name}">
+                        <h:link outcome="presentation" value="#{parleysBean.currentPresentation.title}">
                             <f:param name="id" value="#{parleysBean.currentPresentation.id}"/>
                         </h:link>
                     </li>
@@ -70,7 +71,7 @@
         </div>
         <hr style="display: none"/>
 
-        <div id="content">
+        <div id="content" class="#{extraStyleClasses}">
             <h:messages globalOnly="true"/>
 
             <div>

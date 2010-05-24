@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UIVideo extends UIComponentBase {
     public static final String FAMILY = "com.parleys.server.frontend.web.jsf.components.html5";
 
-    public Integer width, height;
+    public String width, height;
 
     public String poster;
 
@@ -106,11 +106,11 @@ public class UIVideo extends UIComponentBase {
         this.controls = controls;
     }
 
-    public Integer getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -138,11 +138,11 @@ public class UIVideo extends UIComponentBase {
         this.preload = preload;
     }
 
-    public Integer getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
