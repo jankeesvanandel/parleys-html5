@@ -96,9 +96,7 @@
                             <f:param name="newsId"
                                      value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}"/>
                         </h:link>
-                        <span class="floatLeft">#{homepageBean.active
-                        Ne
-                        wsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
+                        <span class="floatLeft">#{homepageBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
                         <h:link outcome="index"
                                 rendered="#{homepageBean.activeNewsItemIndex lt p:sizeOf(homepageBean.newsItems)-1}"
                                 styleClass="pagingNext floatLeft" title="Next news item">

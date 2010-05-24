@@ -7,7 +7,8 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:h5="http://www.parleys.com/jsf/components/html5">
-    <ui:param name="parleysBean" value="#{spacesBean}"/>
+    <ui:param name="parleysBean" value="#{presentationBean}"/>
+    <ui:param name="extraStyleClasses" value="fullWidth"/>
     <ui:define name="header">
         <f:metadata>
             <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
@@ -16,24 +17,39 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <h2>#{presentationBean.presentation.title}</h2>
-            <h:graphicImage
-                    url="#{p:presentationThumbnail(presentationBean.presentation.id, presentationBean.presentation.thumbnail)}"
-                    alt="#{presentationBean.presentation.title}"/>
-            <hr/>
-            <h5:video id="videoPlayer" ontimeupdate="updateActiveSlide()">
-                <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.ogv" type="video/ogg"/>
-                <h5:source source="http://media.chikuyonok.ru/ambilight/demo2.mp4" type="video/mp4"/>
-                <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
-            </h5:video>
-            <ui:repeat value="#{presentationBean.presentation.assets}" var="asset">
-                <img class="slide" id="slide_#{asset.id}" style="display: none"
-                     src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
-                     alt="#{asset.name}"
-                     startTime="#{asset.cuepoint}"
-                     endTime="#{asset.cuepoint+asset.duration}"
-                        />
-            </ui:repeat>
+            <h2 style="display:none;">#{presentationBean.presentation.title}</h2>
+
+            <div id="videoContainer">
+                <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
+                <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
+                <h:outputScript library="parleys" name="video.js" target="head"/>
+                <h5:video id="videoPlayer" ontimeupdate="updateActiveSlide()" loop="false" width="49%">
+                    <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
+                    <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
+                </h5:video>
+            </div>
+            <div id="slidesContainer">
+                <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset">
+                    <img class="slide" id="slide_#{asset.id}" style="display: none"
+                         src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
+                         alt="#{asset.name}"
+                         startTime="#{asset.cuepoint}"
+                         endTime="#{asset.cuepoint+asset.duration}"
+                            />
+                </ui:repeat>
+            </div>
+            <div id="videoNavigationBar">
+                <ol>
+                    <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset" varStatus="status">
+                        <li class="#{status.first ? 'first' : ''}">
+                            <a href="##{asset.id}">
+                                <span>#{asset.name}</span>
+                            </a>
+                        </li>
+                    </ui:repeat>
+                </ol>
+                <div id="videoNavigationBarCursor"></div>
+            </div>
         </div>
     </ui:define>
 </ui:composition>

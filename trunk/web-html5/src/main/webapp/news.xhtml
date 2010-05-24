@@ -32,15 +32,8 @@
                     </ul>
                 </h:panelGroup>
                 <h:panelGroup rendered="#{not empty newsBean.activeNewsItem}">
-                    <h2>#{new
-                            sB
-                            ean.activeN
-                        ew
-                    sItem.title}</h2><br/>
-                    <span class="newsDate">Published #{p:formatDate(newsBean
-                            .a
-                            cti
-                            veNewsItem.date)}</span>
+                    <h2>#{newsBean.activeNewsItem.title}</h2><br/>
+                    <span class="newsDate">Published #{p:formatDate(newsBean.activeNewsItem.date)}</span>
                     <hr/>
                     <p>
                         <h:outputText escape="false" value="#{newsBean.activeNewsItem.content}"/>

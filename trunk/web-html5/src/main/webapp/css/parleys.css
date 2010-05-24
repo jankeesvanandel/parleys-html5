@@ -47,7 +47,6 @@ a:hover {
 /* The topmost header */
 div#logoBar {
     background: #373737 url(../img/header_sprite.png) repeat-x 0 -180px;
-    b / ackground-color: red;
     position: relative;
     width: 100%;
     height: 30px;
@@ -178,12 +177,9 @@ div#logoBar .loginButton {
 */
 #navigationBar {
     background: #414141 url(../img/header_sprite.png) repeat-x 0 -225px;
-    m / argin: 0;
     padding-left: 150px;
     position: relative;
-    w / idth: 100%;
     height: 30px;
-    f / loat: left;
     border-bottom: 1px solid #000;
 }
 
@@ -203,9 +199,6 @@ div#logoBar .loginButton {
 }
 
 #navigationBar div.left {
-    p / osition: relative;
-    d / isplay: block;
-    h / eight: 30px;
     float: left;
 }
 
@@ -231,6 +224,10 @@ div#logoBar .loginButton {
     margin: 3em auto 0 auto;
     width: 770px;
     position: relative;
+}
+
+#content.fullWidth {
+    width: 90%;
 }
 
 #content h2 {
@@ -306,6 +303,66 @@ div.contentBlock * {
 
 div.contentBlock p {
     font-size: .8em;
+}
+
+#content div#videoContainer {
+    float: left;
+    width: 49%;
+    text-align: center;
+}
+
+#content div#slidesContainer {
+    float: left;
+    width: 49%;
+    text-align: center;
+}
+
+#content div#videoNavigationBar {
+    width: 100%;
+    float: left;
+}
+
+#content div#videoNavigationBar li {
+    float: left;
+    border: 1px solid #333;
+    border-left: none;
+    list-style-type: none;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#content div#videoNavigationBar li.first {
+    border-left: 1px solid #333;
+}
+
+#content div#videoNavigationBar li a {
+    width: 100%;
+    height: 22px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    display: block;
+    background: url("../img/progressbar_sprite.png") repeat-x 0 0;
+}
+
+#content div#videoNavigationBar li a:hover {
+    background: url("../img/progressbar_sprite.png") repeat-x 0 -50px;
+}
+
+#content div#videoNavigationBar li span {
+    visibility: hidden;
+}
+
+#content div#videoNavigationBarCursor {
+    position: relative;
+    left: -7px;
+    top: -10px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url("../img/progressbar_cursor.png");
+    cursor: pointer;
+    b / order: 1px solid red;
+    b / ackground-color: blue;
 }
 
 #content ul li {
