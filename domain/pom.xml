@@ -18,13 +18,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.5.0</version>
-        </dependency>
-    </dependencies>
 
     <parent>
         <groupId>com.parleys.server</groupId>
@@ -37,6 +30,19 @@
 
     <name>Parleys.com frontend - Domain model module</name>
     <description>Parleys.com frontend - Domain model module.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
     <scm>
         <connection>scm:svn:http://parleys-html5.googlecode.com/svn/trunk/domain</connection>
