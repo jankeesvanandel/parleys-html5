@@ -57,7 +57,7 @@ public class ChannelsRepositoryImpl implements ChannelsRepository {
     @Override
     public List<Channel> loadAllChannels() {
         // TODO: Dirty way to load all channels
-        final List<Space> spaces = spacesRepository.loadSpaces(0, 20);
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 100);
         final List<Channel> ret = new ArrayList<Channel>();
         for (Space space : spaces) {
             final List<Channel> channels = loadChannels(space.getId());

@@ -85,7 +85,7 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
     @Override
     public List<Presentation> loadAllPresentations() {
         // TODO: REST service for a "Presentation by id"
-        final List<Space> spaces = spacesRepository.loadSpaces(0, 3);
+        final List<Space> spaces = spacesRepository.loadSpaces(0, 100);
         final List<Presentation> ret = new ArrayList<Presentation>();
         for (Space space : spaces) {
             final List<Channel> channels = channelsRepository.loadChannels(space.getId());
@@ -98,7 +98,7 @@ public class PresentationsRepositoryImpl implements PresentationsRepository {
                 if (i++ > 3) {
                     break;
                 }
-                final List<Presentation> presentations = loadPresentationsForChannel(channel.getId(), 0, 5);
+                final List<Presentation> presentations = loadPresentationsForChannel(channel.getId(), 0, 100);
                 for (Presentation presentation : presentations) {
                     final List<Asset> assets = loadAssets(presentation.getId());
 
