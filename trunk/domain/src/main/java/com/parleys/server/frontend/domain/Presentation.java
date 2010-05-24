@@ -1,5 +1,8 @@
 package com.parleys.server.frontend.domain;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.util.List;
@@ -142,6 +145,16 @@ public class Presentation {
 
     public List<Asset> getAssets() {
         return assets;
+    }
+
+    public List<Asset> getSlideAssets() {
+        return Lists.newArrayList(Iterables.filter(assets, new Predicate<Asset>() {
+            @Override
+            public boolean apply(Asset asset) {
+                return asset.getType().equals("IMAGE")
+                        && asset.getTarget().equals("SLIDE_PANEL");
+            }
+        }));
     }
 
     public void setAssets(List<Asset> assets) {
