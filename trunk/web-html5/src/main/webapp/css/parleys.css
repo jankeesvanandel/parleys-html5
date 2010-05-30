@@ -361,8 +361,6 @@ div.contentBlock p {
     display: block;
     background: url("../img/progressbar_cursor.png");
     cursor: pointer;
-    b / order: 1px solid red;
-    b / ackground-color: blue;
 }
 
 #content ul li {

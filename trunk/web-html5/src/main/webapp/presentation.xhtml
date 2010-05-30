@@ -23,7 +23,7 @@
                 <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
                 <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
                 <h:outputScript library="parleys" name="video.js" target="head"/>
-                <h5:video id="videoPlayer" ontimeupdate="updateActiveSlide()" loop="false" width="49%">
+                <h5:video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" loop="false" controls="false" width="49%" autoplay="false">
                     <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
                     <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
                 </h5:video>

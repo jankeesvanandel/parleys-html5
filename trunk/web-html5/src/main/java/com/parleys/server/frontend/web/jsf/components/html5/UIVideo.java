@@ -53,7 +53,7 @@ public class UIVideo extends UIComponentBase {
         writeIfTrueOrNull("autoplay", autoplay, w);
         writeIfTrueAndNotNull("loop", loop, w);
         if (controls == null || controls) {
-            w.write(" controls");
+            w.write(" controls=\"true\"");
         }
 
         writeIfNotNull("ontimeupdate", ontimeupdate, w);
