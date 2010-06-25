@@ -227,7 +227,12 @@ div#logoBar .loginButton {
 }
 
 #content.fullWidth {
+    width: 100%;
+}
+
+#content.fullWidth div.videoAndSlidesWrapper {
     width: 90%;
+    margin: 0 auto 0 auto;
 }
 
 #content h2 {
@@ -317,12 +322,50 @@ div.contentBlock p {
     text-align: center;
 }
 
-#content div#videoNavigationBar {
+#content div#slidesContainer img {
+    width: 99%;
+}
+
+div#videoControls {
+    float: left;
+    width: 100%;
+    background: url("../img/presentationBottomBG.jpg") repeat-x;
+}
+
+div#videoControls div#tagsAndComments {
+    float: left;
+    width: 150px;
+}
+
+div#videoControls div#controls {
+    margin: 0 auto 0 auto;
+    width: 150px;
+}
+
+div#videoControls div#volume {
+    float: right;
+    width: 150px;
+}
+
+div#videoNavigationBar {
     width: 100%;
     float: left;
 }
 
-#content div#videoNavigationBar li {
+div#videoNavigationBar div#videoTimeAndPosition {
+    width: 146px;
+    float: left;
+    padding: 2px;
+    white-space: nowrap;
+    font-size: small;
+    color: #fff;
+}
+
+div#videoNavigationBar div#videoNavigationBarChapters {
+    float: left;
+}
+
+div#videoNavigationBar li {
     float: left;
     border: 1px solid #333;
     border-left: none;
@@ -331,11 +374,11 @@ div.contentBlock p {
     white-space: nowrap;
 }
 
-#content div#videoNavigationBar li.first {
+div#videoNavigationBar li.first {
     border-left: 1px solid #333;
 }
 
-#content div#videoNavigationBar li a {
+div#videoNavigationBar li a {
     width: 100%;
     height: 22px;
     border-top: 1px solid #333;
@@ -344,15 +387,15 @@ div.contentBlock p {
     background: url("../img/progressbar_sprite.png") repeat-x 0 0;
 }
 
-#content div#videoNavigationBar li a:hover {
+div#videoNavigationBar li a:hover {
     background: url("../img/progressbar_sprite.png") repeat-x 0 -50px;
 }
 
-#content div#videoNavigationBar li span {
+div#videoNavigationBar li span {
     visibility: hidden;
 }
 
-#content div#videoNavigationBarCursor {
+div#videoNavigationBarCursor {
     position: relative;
     left: -7px;
     top: -10px;
@@ -363,7 +406,7 @@ div.contentBlock p {
     cursor: pointer;
 }
 
-#content ul li {
+ul li {
     list-style-type: none;
 }
 
@@ -421,6 +464,10 @@ a.pagingPrev:hover {
     bottom: 0;
     width: 100%;
     height: 3em;
+}
+
+#footer.videoPage {
+    height: 6em;
 }
 
 #footer p {

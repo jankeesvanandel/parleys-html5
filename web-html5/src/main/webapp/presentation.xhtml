@@ -11,7 +11,7 @@
     <ui:param name="extraStyleClasses" value="fullWidth"/>
     <ui:define name="header">
         <f:metadata>
-            <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
+            <f:viewParam name="id" value="#{presentationBean.presentationId}" required="true"/>
             <f:event type="preRenderView" listener="#{presentationBean.init}"/>
         </f:metadata>
     </ui:define>
@@ -19,37 +19,65 @@
         <div>
             <h2 style="display:none;">#{presentationBean.presentation.title}</h2>
 
-            <div id="videoContainer">
-                <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
-                <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
-                <h:outputScript library="parleys" name="video.js" target="head"/>
-                <h5:video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" loop="false" controls="false" width="49%" autoplay="false">
-                    <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
-                    <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
-                </h5:video>
-            </div>
-            <div id="slidesContainer">
-                <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset">
-                    <img class="slide" id="slide_#{asset.id}" style="display: none"
-                         src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
-                         alt="#{asset.name}"
-                         startTime="#{asset.cuepoint}"
-                         endTime="#{asset.cuepoint+asset.duration}"
-                            />
-                </ui:repeat>
-            </div>
-            <div id="videoNavigationBar">
-                <ol>
-                    <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset" varStatus="status">
-                        <li class="#{status.first ? 'first' : ''}">
-                            <a href="##{asset.id}">
-                                <span>#{asset.name}</span>
-                            </a>
-                        </li>
+            <div class="videoAndSlidesWrapper">
+                <div id="videoContainer">
+                    <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
+                    <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
+                    <h:outputScript library="parleys" name="video.js" target="head"/>
+                    <h5:video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" loop="false" controls="false" width="99%" autoplay="false">
+                        <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
+                        <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
+                    </h5:video>
+                </div>
+                <div id="slidesContainer">
+                    <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset">
+                        <img class="slide" id="slide_#{asset.id}" style="display: none"
+                             src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
+                             alt="#{asset.name}"
+                             startTime="#{asset.cuepoint}"
+                             endTime="#{asset.cuepoint+asset.duration}"
+                                />
                     </ui:repeat>
-                </ol>
-                <div id="videoNavigationBarCursor"></div>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+    <ui:define name="footer">
+        <div id="footer" class="videoPage">
+            <div id="videoNavigationBar">
+                <div id="videoTimeAndPosition">
+                    <span class="position"></span>
+                    <span class="duration"></span>
+                </div>
+                <div id="videoNavigationBarChapters">
+                    <ol>
+                        <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset" varStatus="status">
+                            <li class="#{status.first ? 'first' : ''}">
+                                <a href="##{asset.id}">
+                                    <span>#{asset.name}</span>
+                                </a>
+                            </li>
+                        </ui:repeat>
+                    </ol>
+                    <div id="videoNavigationBarCursor"></div>
+                </div>
+            </div>
+
+            <div id="videoControls">
+                <div id="tagsAndComments"></div>
+                <div id="controls">
+                    <a href="#" id="prevChapterButton"><img src="img/prevChapterButton.jpg" alt="Previous chapter"/></a>
+                    <a href="#" id="playButton" style="display: none"><img src="img/playButton.jpg" alt="Play"/></a>
+                    <a href="#" id="pauzeButton"><img src="img/pauzeButton.jpg" alt="Pauze"/></a>
+                    <a href="#" id="nextChapterButton"><img src="img/nextChapterButton.jpg" alt="Previous chapter"/></a>
+                </div>
+                <div id="volume">
+                    volume TODO
+                </div>
             </div>
         </div>
     </ui:define>
+
 </ui:composition>
