@@ -78,16 +78,19 @@
                 <br class="clear"/>
             </div>
         </div>
-        <div id="footer">
-            <p>
-                <a class="bugLink"
-                   href="http://jira.parleys.com/browse/PLT"
-                   title="Click here to submit bug/feature requests into our Jira instance">Bug/feature request</a>
-                <a class="twitterLink"
-                   href="http://twitter.com/parleys"
-                   title="Follow us on Twitter">Follow us</a>
-            </p>
-        </div>
+
+        <ui:insert name="footer">
+            <div id="footer">
+                <p>
+                    <a class="bugLink"
+                       href="http://jira.parleys.com/browse/PLT"
+                       title="Click here to submit bug/feature requests into our Jira instance">Bug/feature request</a>
+                    <a class="twitterLink"
+                       href="http://twitter.com/parleys"
+                       title="Follow us on Twitter">Follow us</a>
+                </p>
+            </div>
+        </ui:insert>
     </div>
 </h:body>
 </html>
