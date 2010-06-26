@@ -9,6 +9,12 @@ var OBSERVER_TYPE_VIDEO = "video";
 var OBSERVER_TYPE_SLIDES = "slides";
 var OBSERVER_TYPE_PROGRESSBAR = "progressbar";
 
+var logger = {
+    log: function(message) {
+        alert(message); // Only uncomment during development
+    }
+};
+
 com.parleys.html5client.MainVideoLoop = function() {
     this._observers = [];
     this._observerTypes = [];
@@ -47,7 +53,7 @@ com.parleys.html5client.MainVideoLoop.prototype = {
         for (var i = 0; i < this._chapters.length; i++) {
             var chapter = this._chapters[i];
             if (chapter.startTime <= time
-             && chapter.endTime > time) {
+                    && chapter.endTime > time) {
                 this._currentChapter = i;
                 break;
             }
@@ -106,6 +112,30 @@ function initializeControlsEventHandlers() {
         $("#pauzeButton").hide();
         $("#videoPlayer")[0].pause();
         return false;
+    });
+
+    try {
+        var videoVolume = localStorage.videoVolume;
+    } catch (e) {
+        logger.log(e.message);
+    }
+    if (videoVolume == null) {
+        videoVolume = 1;
+    }
+    $("#videoVolumeSlider").slider({
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: videoVolume,
+        slide: function(event, ui) {
+            var volume = ui.value;
+            $("#videoPlayer")[0].volume = volume;
+            try {
+                localStorage.setItem("videoVolume", volume);
+            } catch (e) {
+                logger.log(e.message);
+            }
+        }
     });
 }
 
