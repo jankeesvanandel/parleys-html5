@@ -15,7 +15,11 @@ import java.util.GregorianCalendar;
 public class JSFUtil {
 
     public static int sizeOf(Collection coll) {
-        return coll.size();
+        if (coll != null) {
+            return coll.size();
+        } else {
+            return 0;
+        }
     }
 
     public static String shortenTo(int toLength, String input) {
