@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+
+    <div>
+        <h2>Space #{channelsBean.space.name}</h2>
+        <h:graphicImage url="#{p:spaceThumbnail(channelsBean.space.id, channelsBean.space.thumbnail)}"
+                        alt="#{channelsBean.space.name}"/>
+        <hr/>
+        <ul>
+            <ui:repeat value="#{channelsBean.channels}" var="channel">
+                <li>
+                    <parleys:channelLink channel="#{channel}" renderThumbnail="true" renderLabel="true"/>
+                </li>
+            </ui:repeat>
+        </ul>
+    </div>
+
+</ui:composition>

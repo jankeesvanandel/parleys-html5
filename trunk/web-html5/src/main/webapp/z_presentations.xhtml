@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+
+    <div>
+        <h2>#{presentationsBean.channel.name}</h2>
+        <h:graphicImage
+                url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnail)}"
+                alt="#{presentationsBean.channel.name}"/>
+        <hr/>
+        <ul>
+            <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
+                <li>
+                    <parleys:presentationLink presentation="#{presentation}" renderThumbnail="true"
+                                              renderLabel="true"/>
+                </li>
+            </ui:repeat>
+        </ul>
+    </div>
+
+</ui:composition>
