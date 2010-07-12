@@ -3,7 +3,7 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Presentation;
 import com.parleys.server.frontend.domain.Space;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public abstract class AbstractParleysBean {
 
     private Presentation currentPresentation;
 
-    public abstract ParleysService getParleysService();
+    public abstract ParleysServiceDelegate getParleysServiceDelegate();
 
     public final void initializeHomepage() {
         this.isOnHomepage = true;
@@ -42,9 +42,9 @@ public abstract class AbstractParleysBean {
     }
 
     private Space findSpaceForChannel(Channel channel) {
-        final List<Space> spaces = getParleysService().loadAllSpaces();
+        final List<Space> spaces = getParleysServiceDelegate().loadAllSpaces();
         for (Space space : spaces) {
-            final List<Channel> channels = getParleysService().loadChannels(space.getId());
+            final List<Channel> channels = getParleysServiceDelegate().loadChannels(space.getId());
             for (Channel c : channels) {
                 if (c.equals(channel)) {
                     return space;
@@ -57,16 +57,16 @@ public abstract class AbstractParleysBean {
     }
 
     private Channel findChannelForPresentation(Presentation presentation) {
-        final List<Space> spaces = getParleysService().loadAllSpaces();
+        final List<Space> spaces = getParleysServiceDelegate().loadAllSpaces();
         for (Space space : spaces) {
-            final List<Channel> channels = getParleysService().loadChannels(space.getId());
+            final List<Channel> channels = getParleysServiceDelegate().loadChannels(space.getId());
             for (Channel c : channels) {
 //                if (c.getId() == 18821) {
 //                    continue;
 //                }
                 final PresentationsCriteria criteria = new PresentationsCriteria();
                 criteria.setChannelId(c.getId());
-                final List<Presentation> presentations = getParleysService().loadPresentationsWithCriteria(criteria);
+                final List<Presentation> presentations = getParleysServiceDelegate().loadPresentationsWithCriteria(criteria);
                 for (Presentation p : presentations) {
                     if (p.equals(presentation)) {
                         return c;

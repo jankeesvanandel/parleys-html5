@@ -2,7 +2,8 @@ package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Space;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -19,15 +20,15 @@ public class ChannelsBean extends AbstractParleysBean {
     private long spaceId;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     private Space space;
 
     private List<Channel> channels;
 
     public void init() {
-        space = parleysService.loadSpace(spaceId);
-        channels = parleysService.loadChannels(spaceId);
+        space = parleysServiceDelegate.loadSpace(spaceId);
+        channels = parleysServiceDelegate.loadChannels(spaceId);
 
         super.initializeSpace(space);
     }
@@ -40,12 +41,12 @@ public class ChannelsBean extends AbstractParleysBean {
         this.spaceId = spaceId;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public Space getSpace() {

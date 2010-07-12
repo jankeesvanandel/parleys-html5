@@ -1,7 +1,8 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,14 +22,14 @@ public class SearchBean extends AbstractParleysBean {
     private List<Presentation> results;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     public void init() {
         initializeHomepage();
     }
 
     public String search() {
-        results = parleysService.search(criteria);
+        results = parleysServiceDelegate.search(criteria);
         if (results.isEmpty()) {
             final FacesContext fc = FacesContext.getCurrentInstance();
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No results", "No results"));
@@ -36,12 +37,12 @@ public class SearchBean extends AbstractParleysBean {
         return null;
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 
     public List<Presentation> getResults() {

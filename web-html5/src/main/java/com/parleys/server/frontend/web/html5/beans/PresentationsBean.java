@@ -3,8 +3,9 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.frontend.domain.Channel;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,7 +26,7 @@ public class PresentationsBean extends AbstractParleysBean {
     private Filter.Type filterType;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysService;
 
     private Channel channel;
 
@@ -70,11 +71,11 @@ public class PresentationsBean extends AbstractParleysBean {
         this.channelId = channelId;
     }
 
-    public ParleysService getParleysService() {
+    public ParleysServiceDelegate getParleysServiceDelegate() {
         return parleysService;
     }
 
-    public void setParleysService(ParleysService parleysService) {
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysService) {
         this.parleysService = parleysService;
     }
 
