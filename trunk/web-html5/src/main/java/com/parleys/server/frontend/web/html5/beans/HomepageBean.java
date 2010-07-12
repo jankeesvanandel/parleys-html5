@@ -1,7 +1,8 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.*;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -34,7 +35,7 @@ public class HomepageBean extends AbstractParleysBean {
     private Presentation recommendedPresentation;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     public void init() {
         if (thumbnailsFilter == null
@@ -43,9 +44,9 @@ public class HomepageBean extends AbstractParleysBean {
             thumbnailsFilterType = Filter.Type.PRESENTATION;
         }
 
-        thumbnails = parleysService.loadPresentations(thumbnailsFilter, thumbnailsFilterType, 0, 6);
+        thumbnails = parleysServiceDelegate.loadPresentations(thumbnailsFilter, thumbnailsFilterType, 0, 6);
 
-        newsItems = parleysService.loadAllNewsItems();
+        newsItems = parleysServiceDelegate.loadAllNewsItems();
         if (newsId != null) {
             for (int i = 0; i < newsItems.size(); i++) {
                 NewsItem newsItem = newsItems.get(i);
@@ -56,9 +57,9 @@ public class HomepageBean extends AbstractParleysBean {
             }
         }
 
-        recommendedSpace = parleysService.loadRecommendedSpace();
-        recommendedChannel = parleysService.loadRecommendedChannel();
-        recommendedPresentation = parleysService.loadRecommendedPresentation();
+        recommendedSpace = parleysServiceDelegate.loadRecommendedSpace();
+        recommendedChannel = parleysServiceDelegate.loadRecommendedChannel();
+        recommendedPresentation = parleysServiceDelegate.loadRecommendedPresentation();
 
         initializeHomepage();
     }
@@ -67,8 +68,8 @@ public class HomepageBean extends AbstractParleysBean {
         return thumbnails;
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public Filter getThumbnailsFilter() {
@@ -135,7 +136,7 @@ public class HomepageBean extends AbstractParleysBean {
         this.recommendedPresentation = recommendedPresentation;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 }

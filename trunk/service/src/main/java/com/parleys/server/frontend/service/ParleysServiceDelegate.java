@@ -1,14 +1,19 @@
 package com.parleys.server.frontend.service;
 
+import com.parleys.server.dto.FilteredOverviewResponseDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.*;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 import java.util.List;
 
 /**
  * Service for Parleys operations.
  */
-public interface ParleysService {
+public interface ParleysServiceDelegate {
 
+    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging) throws ClientStatusException;
+    
     /**
      * Get a list of spaces.
      *

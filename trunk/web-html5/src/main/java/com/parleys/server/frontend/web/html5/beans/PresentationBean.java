@@ -1,7 +1,8 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -17,12 +18,12 @@ public class PresentationBean extends AbstractParleysBean {
     private long presentationId;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     private Presentation presentation;
 
     public void init() {
-        presentation = parleysService.loadPresentation(presentationId);
+        presentation = parleysServiceDelegate.loadPresentation(presentationId);
 
         super.initializePresentation(presentation);
     }
@@ -35,12 +36,12 @@ public class PresentationBean extends AbstractParleysBean {
         this.presentationId = presentationId;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void seParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public Presentation getPresentation() {

@@ -1,6 +1,7 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,7 @@ public class ForgotPasswordBean extends AbstractParleysBean {
     private String emailOrUsername;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     public void init() {
         initializeHomepage();
@@ -34,12 +35,12 @@ public class ForgotPasswordBean extends AbstractParleysBean {
         return "index?faces-redirect=true";
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 
     public String getEmailOrUsername() {

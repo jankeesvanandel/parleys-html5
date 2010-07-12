@@ -1,11 +1,14 @@
 package com.parleys.server.frontend.service.impl;
 
+import com.parleys.server.dto.FilteredOverviewResponseDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.*;
 import com.parleys.server.frontend.repository.ChannelsRepository;
 import com.parleys.server.frontend.repository.PresentationsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +18,23 @@ import java.util.*;
  *
  */
 @Service("parleysService")
-public class ParleysServiceImpl implements ParleysService {
+public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateImpl {
 
     private final SpacesRepository spacesRepository;
     private final ChannelsRepository channelsRepository;
     private final PresentationsRepository presentationsRepository;
 
     @Autowired
-    public ParleysServiceImpl(SpacesRepository spacesRepository, ChannelsRepository channelsRepository, PresentationsRepository presentationsRepository) {
+    public ParleysServiceDelegateImpl(SpacesRepository spacesRepository, ChannelsRepository channelsRepository, PresentationsRepository presentationsRepository) {
         this.spacesRepository = spacesRepository;
         this.channelsRepository = channelsRepository;
         this.presentationsRepository = presentationsRepository;
+    }
+
+    @Override
+    public FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(final int index, final int paging)
+            throws ClientStatusException {
+        return getParleysServiceProxy().getSpacesOverview(index, paging);
     }
 
     /**

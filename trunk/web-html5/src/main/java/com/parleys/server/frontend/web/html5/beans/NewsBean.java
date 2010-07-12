@@ -1,7 +1,8 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.NewsItem;
-import com.parleys.server.frontend.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.service.ParleysService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -22,10 +23,10 @@ public class NewsBean extends AbstractParleysBean {
     private List<NewsItem> newsItems;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysService parleysService;
+    private ParleysServiceDelegate parleysServiceDelegate;
 
     public void init() {
-        newsItems = parleysService.loadAllNewsItems();
+        newsItems = parleysServiceDelegate.loadAllNewsItems();
         if (newsId > 0) {
             for (NewsItem newsItem : newsItems) {
                 if (newsItem.getId() == newsId) {
@@ -38,8 +39,8 @@ public class NewsBean extends AbstractParleysBean {
         initializeHomepage();
     }
 
-    public void setParleysService(ParleysService parleysService) {
-        this.parleysService = parleysService;
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public void setNewsId(long newsId) {
@@ -66,7 +67,7 @@ public class NewsBean extends AbstractParleysBean {
         this.newsItems = newsItems;
     }
 
-    public ParleysService getParleysService() {
-        return parleysService;
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+        return parleysServiceDelegate;
     }
 }
