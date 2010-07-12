@@ -74,16 +74,12 @@ mainVideoLoop.addObserver(updateProgressBar, OBSERVER_TYPE_PROGRESSBAR);
 
 $(document).ready(function() {
     initializeVideoNavigationBar();
-});
-
-window.onload = function() {
     initializeVideoEventSources();
     setInitialPosition();
     disableTextSelection();
     initializeControlsEventHandlers();
-
     $("#videoPlayer")[0].play();
-};
+});
 
 function initializeControlsEventHandlers() {
     $("#prevChapterButton").click(function() {
