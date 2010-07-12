@@ -22,11 +22,8 @@ public class NewsBean extends AbstractParleysBean {
 
     private List<NewsItem> newsItems;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
-        newsItems = parleysServiceDelegate.loadAllNewsItems();
+        newsItems = getParleysServiceDelegate().loadAllNewsItems();
         if (newsId > 0) {
             for (NewsItem newsItem : newsItems) {
                 if (newsItem.getId() == newsId) {
@@ -39,11 +36,7 @@ public class NewsBean extends AbstractParleysBean {
         initializeHomepage();
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
-    public void setNewsId(long newsId) {
+    public void setNewsId(final long newsId) {
         this.newsId = newsId;
     }
 
@@ -55,7 +48,7 @@ public class NewsBean extends AbstractParleysBean {
         return activeNewsItem;
     }
 
-    public void setActiveNewsItem(NewsItem activeNewsItem) {
+    public void setActiveNewsItem(final NewsItem activeNewsItem) {
         this.activeNewsItem = activeNewsItem;
     }
 
@@ -63,11 +56,7 @@ public class NewsBean extends AbstractParleysBean {
         return newsItems;
     }
 
-    public void setNewsItems(List<NewsItem> newsItems) {
+    public void setNewsItems(final List<NewsItem> newsItems) {
         this.newsItems = newsItems;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
     }
 }

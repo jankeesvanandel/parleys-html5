@@ -19,9 +19,6 @@ public class LoginBean extends AbstractParleysBean {
     private String username;
     private String password;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
         initializeHomepage();
     }
@@ -39,19 +36,11 @@ public class LoginBean extends AbstractParleysBean {
         }
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -59,7 +48,7 @@ public class LoginBean extends AbstractParleysBean {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 }

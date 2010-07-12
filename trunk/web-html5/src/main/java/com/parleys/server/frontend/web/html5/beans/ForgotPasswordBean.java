@@ -18,9 +18,6 @@ public class ForgotPasswordBean extends AbstractParleysBean {
 
     private String emailOrUsername;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
         initializeHomepage();
     }
@@ -35,19 +32,11 @@ public class ForgotPasswordBean extends AbstractParleysBean {
         return "index?faces-redirect=true";
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
     public String getEmailOrUsername() {
         return emailOrUsername;
     }
 
-    public void setEmailOrUsername(String emailOrUsername) {
+    public void setEmailOrUsername(final String emailOrUsername) {
         this.emailOrUsername = emailOrUsername;
     }
 }

@@ -19,16 +19,13 @@ public class ChannelsBean extends AbstractParleysBean {
 
     private long spaceId;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     private Space space;
 
     private List<Channel> channels;
 
     public void init() {
-        space = parleysServiceDelegate.loadSpace(spaceId);
-        channels = parleysServiceDelegate.loadChannels(spaceId);
+        space = getParleysServiceDelegate().loadSpace(spaceId);
+        channels = getParleysServiceDelegate().loadChannels(spaceId);
 
         super.initializeSpace(space);
     }
@@ -37,23 +34,15 @@ public class ChannelsBean extends AbstractParleysBean {
         return spaceId;
     }
 
-    public void setSpaceId(long spaceId) {
+    public void setSpaceId(final long spaceId) {
         this.spaceId = spaceId;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public Space getSpace() {
         return space;
     }
 
-    public void setSpace(Space space) {
+    public void setSpace(final Space space) {
         this.space = space;
     }
 
@@ -61,7 +50,7 @@ public class ChannelsBean extends AbstractParleysBean {
         return channels;
     }
 
-    public void setChannels(List<Channel> channels) {
+    public void setChannels(final List<Channel> channels) {
         this.channels = channels;
     }
 }

@@ -6,6 +6,7 @@ import com.parleys.server.frontend.domain.Space;
 import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 
+import javax.faces.bean.ManagedProperty;
 import java.util.List;
 
 /**
@@ -21,7 +22,16 @@ public abstract class AbstractParleysBean {
 
     private Presentation currentPresentation;
 
-    public abstract ParleysServiceDelegate getParleysServiceDelegate();
+    @ManagedProperty("#{parleysService}")
+    private ParleysServiceDelegate parleysServiceDelegate;
+
+    public ParleysServiceDelegate getParleysServiceDelegate() {
+       return parleysServiceDelegate;
+    }
+
+    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+       this.parleysServiceDelegate = parleysServiceDelegate;
+    }
 
     public final void initializeHomepage() {
         this.isOnHomepage = true;
