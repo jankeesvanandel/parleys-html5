@@ -25,9 +25,6 @@ public class PresentationsBean extends AbstractParleysBean {
 
     private Filter.Type filterType;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysService;
-
     private Channel channel;
 
     private List<Presentation> presentations;
@@ -53,10 +50,10 @@ public class PresentationsBean extends AbstractParleysBean {
         criteria.setFilter(filter);
         criteria.setIndex(index);
         criteria.setPaging(paging);
-        presentations = parleysService.loadPresentationsWithCriteria(criteria);
+        presentations = getParleysServiceDelegate().loadPresentationsWithCriteria(criteria);
 
         if (channelId != 0) {
-            channel = parleysService.loadChannel(channelId);
+            channel = getParleysServiceDelegate().loadChannel(channelId);
             super.initializeChannel(channel);
         } else {
             super.initializeHomepage();
@@ -67,23 +64,15 @@ public class PresentationsBean extends AbstractParleysBean {
         return channelId;
     }
 
-    public void setChannelId(long channelId) {
+    public void setChannelId(final long channelId) {
         this.channelId = channelId;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysService;
-    }
-
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysService) {
-        this.parleysService = parleysService;
     }
 
     public Channel getChannel() {
         return channel;
     }
 
-    public void setChannel(Channel channel) {
+    public void setChannel(final Channel channel) {
         this.channel = channel;
     }
 
@@ -91,7 +80,7 @@ public class PresentationsBean extends AbstractParleysBean {
         return presentations;
     }
 
-    public void setPresentations(List<Presentation> presentations) {
+    public void setPresentations(final List<Presentation> presentations) {
         this.presentations = presentations;
     }
 
@@ -99,7 +88,7 @@ public class PresentationsBean extends AbstractParleysBean {
         return index;
     }
 
-    public void setIndex(Integer index) {
+    public void setIndex(final Integer index) {
         this.index = index;
     }
 
@@ -107,7 +96,7 @@ public class PresentationsBean extends AbstractParleysBean {
         return paging;
     }
 
-    public void setPaging(Integer paging) {
+    public void setPaging(final Integer paging) {
         this.paging = paging;
     }
 
@@ -115,7 +104,7 @@ public class PresentationsBean extends AbstractParleysBean {
         return filter;
     }
 
-    public void setFilter(Filter filter) {
+    public void setFilter(final Filter filter) {
         this.filter = filter;
     }
 
@@ -123,7 +112,7 @@ public class PresentationsBean extends AbstractParleysBean {
         return filterType;
     }
 
-    public void setFilterType(Filter.Type filterType) {
+    public void setFilterType(final Filter.Type filterType) {
         this.filterType = filterType;
     }
 }

@@ -24,9 +24,6 @@ public class RegisterBean extends AbstractParleysBean {
     private String email;
     private String confirmEmail;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
         initializeHomepage();
     }
@@ -40,19 +37,11 @@ public class RegisterBean extends AbstractParleysBean {
         return "index?faces-redirect=true";
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -60,7 +49,7 @@ public class RegisterBean extends AbstractParleysBean {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -68,7 +57,7 @@ public class RegisterBean extends AbstractParleysBean {
         return confirmPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
+    public void setConfirmPassword(final String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 
@@ -76,7 +65,7 @@ public class RegisterBean extends AbstractParleysBean {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -84,7 +73,7 @@ public class RegisterBean extends AbstractParleysBean {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -92,7 +81,7 @@ public class RegisterBean extends AbstractParleysBean {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -100,7 +89,7 @@ public class RegisterBean extends AbstractParleysBean {
         return confirmEmail;
     }
 
-    public void setConfirmEmail(String confirmEmail) {
+    public void setConfirmEmail(final String confirmEmail) {
         this.confirmEmail = confirmEmail;
     }
 }

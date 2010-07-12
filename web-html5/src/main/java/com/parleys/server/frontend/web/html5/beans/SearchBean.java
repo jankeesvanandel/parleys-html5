@@ -21,15 +21,12 @@ public class SearchBean extends AbstractParleysBean {
     private String criteria;
     private List<Presentation> results;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
         initializeHomepage();
     }
 
     public String search() {
-        results = parleysServiceDelegate.search(criteria);
+        results = getParleysServiceDelegate().search(criteria);
         if (results.isEmpty()) {
             final FacesContext fc = FacesContext.getCurrentInstance();
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No results", "No results"));
@@ -37,19 +34,11 @@ public class SearchBean extends AbstractParleysBean {
         return null;
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
     public List<Presentation> getResults() {
         return results;
     }
 
-    public void setResults(List<Presentation> results) {
+    public void setResults(final List<Presentation> results) {
         this.results = results;
     }
 
@@ -57,7 +46,7 @@ public class SearchBean extends AbstractParleysBean {
         return criteria;
     }
 
-    public void setCriteria(String criteria) {
+    public void setCriteria(final String criteria) {
         this.criteria = criteria;
     }
 }

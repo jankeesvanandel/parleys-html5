@@ -34,9 +34,6 @@ public class HomepageBean extends AbstractParleysBean {
 
     private Presentation recommendedPresentation;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     public void init() {
         if (thumbnailsFilter == null
                 || thumbnailsFilterType == null) {
@@ -44,9 +41,9 @@ public class HomepageBean extends AbstractParleysBean {
             thumbnailsFilterType = Filter.Type.PRESENTATION;
         }
 
-        thumbnails = parleysServiceDelegate.loadPresentations(thumbnailsFilter, thumbnailsFilterType, 0, 6);
+        thumbnails = getParleysServiceDelegate().loadPresentations(thumbnailsFilter, thumbnailsFilterType, 0, 6);
 
-        newsItems = parleysServiceDelegate.loadAllNewsItems();
+        newsItems = getParleysServiceDelegate().loadAllNewsItems();
         if (newsId != null) {
             for (int i = 0; i < newsItems.size(); i++) {
                 NewsItem newsItem = newsItems.get(i);
@@ -57,9 +54,9 @@ public class HomepageBean extends AbstractParleysBean {
             }
         }
 
-        recommendedSpace = parleysServiceDelegate.loadRecommendedSpace();
-        recommendedChannel = parleysServiceDelegate.loadRecommendedChannel();
-        recommendedPresentation = parleysServiceDelegate.loadRecommendedPresentation();
+        recommendedSpace = getParleysServiceDelegate().loadRecommendedSpace();
+        recommendedChannel = getParleysServiceDelegate().loadRecommendedChannel();
+        recommendedPresentation = getParleysServiceDelegate().loadRecommendedPresentation();
 
         initializeHomepage();
     }
@@ -68,15 +65,11 @@ public class HomepageBean extends AbstractParleysBean {
         return thumbnails;
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
-    }
-
     public Filter getThumbnailsFilter() {
         return thumbnailsFilter;
     }
 
-    public void setThumbnailsFilter(Filter thumbnailsFilter) {
+    public void setThumbnailsFilter(final Filter thumbnailsFilter) {
         this.thumbnailsFilter = thumbnailsFilter;
     }
 
@@ -84,11 +77,11 @@ public class HomepageBean extends AbstractParleysBean {
         return thumbnailsFilterType;
     }
 
-    public void setThumbnailsFilterType(Filter.Type thumbnailsFilterType) {
+    public void setThumbnailsFilterType(final Filter.Type thumbnailsFilterType) {
         this.thumbnailsFilterType = thumbnailsFilterType;
     }
 
-    public void setNewsId(Long newsId) {
+    public void setNewsId(final Long newsId) {
         this.newsId = newsId;
     }
 
@@ -100,7 +93,7 @@ public class HomepageBean extends AbstractParleysBean {
         return activeNewsItemIndex;
     }
 
-    public void setActiveNewsItemIndex(int activeNewsItemIndex) {
+    public void setActiveNewsItemIndex(final int activeNewsItemIndex) {
         this.activeNewsItemIndex = activeNewsItemIndex;
     }
 
@@ -108,7 +101,7 @@ public class HomepageBean extends AbstractParleysBean {
         return newsItems;
     }
 
-    public void setNewsItems(List<NewsItem> newsItems) {
+    public void setNewsItems(final List<NewsItem> newsItems) {
         this.newsItems = newsItems;
     }
 
@@ -116,7 +109,7 @@ public class HomepageBean extends AbstractParleysBean {
         return recommendedSpace;
     }
 
-    public void setRecommendedSpace(Space recommendedSpace) {
+    public void setRecommendedSpace(final Space recommendedSpace) {
         this.recommendedSpace = recommendedSpace;
     }
 
@@ -124,7 +117,7 @@ public class HomepageBean extends AbstractParleysBean {
         return recommendedChannel;
     }
 
-    public void setRecommendedChannel(Channel recommendedChannel) {
+    public void setRecommendedChannel(final Channel recommendedChannel) {
         this.recommendedChannel = recommendedChannel;
     }
 
@@ -132,11 +125,7 @@ public class HomepageBean extends AbstractParleysBean {
         return recommendedPresentation;
     }
 
-    public void setRecommendedPresentation(Presentation recommendedPresentation) {
+    public void setRecommendedPresentation(final Presentation recommendedPresentation) {
         this.recommendedPresentation = recommendedPresentation;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
     }
 }

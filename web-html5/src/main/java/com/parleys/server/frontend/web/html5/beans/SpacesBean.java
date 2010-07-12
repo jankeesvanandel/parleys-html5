@@ -21,9 +21,6 @@ public class SpacesBean extends AbstractParleysBean {
     private Integer index;
     private Integer paging;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     // private List<Space> spaces;
     private List<SpaceOverviewDTO> spaces;
 
@@ -40,10 +37,9 @@ public class SpacesBean extends AbstractParleysBean {
             paging = 20;
         }
 
-        // spaces = parleysService.loadSpaces(index, paging);
         FilteredOverviewResponseDTO<SpaceOverviewDTO> spacesDTO = null;
         try {
-            spacesDTO = parleysServiceDelegate.getSpacesOverview(index, paging);
+            spacesDTO = getParleysServiceDelegate().getSpacesOverview(index, paging);
         } catch (ClientStatusException e) {
             // TODO Add logger
             System.out.println(e.toString());
@@ -57,7 +53,7 @@ public class SpacesBean extends AbstractParleysBean {
         return index;
     }
 
-    public void setIndex(Integer index) {
+    public void setIndex(final Integer index) {
         this.index = index;
     }
 
@@ -65,23 +61,15 @@ public class SpacesBean extends AbstractParleysBean {
         return paging;
     }
 
-    public void setPaging(Integer paging) {
+    public void setPaging(final Integer paging) {
         this.paging = paging;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public List<SpaceOverviewDTO> getSpaces() {
         return spaces;
     }
 
-    public void setSpaces(List<SpaceOverviewDTO> spaces) {
+    public void setSpaces(final List<SpaceOverviewDTO> spaces) {
         this.spaces = spaces;
     }
 }

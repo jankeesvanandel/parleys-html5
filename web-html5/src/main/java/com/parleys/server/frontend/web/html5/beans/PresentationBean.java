@@ -17,13 +17,10 @@ public class PresentationBean extends AbstractParleysBean {
 
     private long presentationId;
 
-    @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
-
     private Presentation presentation;
 
     public void init() {
-        presentation = parleysServiceDelegate.loadPresentation(presentationId);
+        presentation = getParleysServiceDelegate().loadPresentation(presentationId);
 
         super.initializePresentation(presentation);
     }
@@ -32,23 +29,15 @@ public class PresentationBean extends AbstractParleysBean {
         return presentationId;
     }
 
-    public void setPresentationId(long presentationId) {
+    public void setPresentationId(final long presentationId) {
         this.presentationId = presentationId;
-    }
-
-    public ParleysServiceDelegate getParleysServiceDelegate() {
-        return parleysServiceDelegate;
-    }
-
-    public void seParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
     public Presentation getPresentation() {
         return presentation;
     }
 
-    public void setPresentation(Presentation presentation) {
+    public void setPresentation(final Presentation presentation) {
         this.presentation = presentation;
     }
 }
