@@ -29,7 +29,7 @@ public abstract class AbstractParleysBean {
        return parleysServiceDelegate;
     }
 
-    public void setParleysServiceDelegate(ParleysServiceDelegate parleysServiceDelegate) {
+    public void setParleysServiceDelegate(final ParleysServiceDelegate parleysServiceDelegate) {
        this.parleysServiceDelegate = parleysServiceDelegate;
     }
 
@@ -37,21 +37,21 @@ public abstract class AbstractParleysBean {
         this.isOnHomepage = true;
     }
 
-    public final void initializeSpace(Space space) {
+    public final void initializeSpace(final Space space) {
         this.currentSpace = space;
     }
 
-    public final void initializeChannel(Channel channel) {
+    public final void initializeChannel(final Channel channel) {
         this.currentChannel = channel;
         initializeSpace(findSpaceForChannel(channel));
     }
 
-    public final void initializePresentation(Presentation presentation) {
+    public final void initializePresentation(final Presentation presentation) {
         this.currentPresentation = presentation;
         initializeChannel(findChannelForPresentation(presentation));
     }
 
-    private Space findSpaceForChannel(Channel channel) {
+    private Space findSpaceForChannel(final Channel channel) {
         final List<Space> spaces = getParleysServiceDelegate().loadAllSpaces();
         for (Space space : spaces) {
             final List<Channel> channels = getParleysServiceDelegate().loadChannels(space.getId());
@@ -66,7 +66,7 @@ public abstract class AbstractParleysBean {
         return new Space();
     }
 
-    private Channel findChannelForPresentation(Presentation presentation) {
+    private Channel findChannelForPresentation(final Presentation presentation) {
         final List<Space> spaces = getParleysServiceDelegate().loadAllSpaces();
         for (Space space : spaces) {
             final List<Channel> channels = getParleysServiceDelegate().loadChannels(space.getId());

@@ -4,11 +4,9 @@ import com.parleys.server.domain.types.PresentationDateRange;
 import com.parleys.server.domain.types.PresentationSort;
 import com.parleys.server.domain.types.PresentationType;
 import com.parleys.server.domain.types.SpaceSort;
-import com.parleys.server.dto.AbstractDTO;
-import com.parleys.server.dto.FilteredOverviewResponseDTO;
-import com.parleys.server.dto.OverviewResponseDTO;
-import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.dto.*;
 import com.parleys.server.security.AuthorizationException;
+import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 import java.io.IOException;
@@ -234,18 +232,18 @@ public interface ParleysService {
      */
     SpaceOverviewDTO getSpaceOverviewDTO(long spaceId) throws AuthorizationException, ClientStatusException;
 
-//    /**
-//     * Returns overview info about channels for particular space.
-//     * It is returns 0 for startingIndex and the same for paging.
-//     *
-//     * @param spaceId Is an identifier of space to get channels.
-//     * @return overview     info about channels for particular space.
-//     * @throws AuthorizationException  User is not authorized
-//     * @throws ParleysServiceException internal error occured
-//     */
-//    FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(long spaceId)
-//            throws ParleysServiceException, AuthorizationException;
-//
+    /**
+     * Returns overview info about channels for particular space.
+     * It is returns 0 for startingIndex and the same for paging.
+     *
+     * @param spaceId Is an identifier of space to get channels.
+     * @return overview     info about channels for particular space.
+     * @throws AuthorizationException  User is not authorized
+     * @throws ParleysServiceException internal error occured
+     */
+    FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(long spaceId)
+            throws ParleysServiceException, AuthorizationException;
+
 //    /**
 //     * Returns overview info about channels for particular space.
 //     *

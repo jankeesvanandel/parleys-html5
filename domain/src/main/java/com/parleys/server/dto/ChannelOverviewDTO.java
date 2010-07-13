@@ -1,0 +1,288 @@
+/**
+ *
+ */
+package com.parleys.server.dto;
+
+import com.parleys.server.domain.types.CurrencyType;
+import com.parleys.server.domain.types.MembershipType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Stephan Janssen
+ */
+public class ChannelOverviewDTO extends AbstractDTO {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 963569454651137798L;
+
+    private String name;
+
+    /**
+     * Need to add to the Channel entity?
+     */
+    private String thumbnailURL;
+
+    private String spaceName;
+
+    private Long spaceId;
+
+    private long totalPresentationCount;
+
+    private long totalPresentationCountIncludingNonPublic;
+
+    private String description;
+
+    private int totalViewCount;
+
+    private long parentId;
+
+    private MembershipType membership;
+
+    private int subscriptionInterval;
+
+    private String subscriptionPeriod;
+
+    private float subscriptionAmount;
+
+    private float payPerTalkAmount;
+
+    // EUR or USD for
+    private CurrencyType paymentCurrency;
+
+    // if isDeleted is true the channel is a holder for deleted presentations.
+    // So we can't delete or reparent this channel at all
+    private boolean isDeleted = false;
+
+    private boolean isIPhoneEnabled = true;
+
+    private boolean isPodcastEnabled = true;
+
+    private boolean isPublic = true;
+
+    private boolean isListed = true;
+
+    private List<String> keywordList = new ArrayList<String>();
+
+    // Enabled when the user is subscribed to this 'not free' channel.
+    private boolean subscribed = false;
+
+    private boolean hostedInPublicSpace = false;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
+    }
+
+    public String getSpaceName() {
+        return spaceName;
+    }
+
+    public void setSpaceName(String spaceName) {
+        this.spaceName = spaceName;
+    }
+
+    public Long getSpaceId() {
+        return spaceId;
+    }
+
+    public void setSpaceId(Long spaceId) {
+        this.spaceId = spaceId;
+    }
+
+    public long getTotalPresentationCount() {
+        return totalPresentationCount;
+    }
+
+    public void setTotalPresentationCount(long totalPresentationCount) {
+        this.totalPresentationCount = totalPresentationCount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTotalViewCount() {
+        return totalViewCount;
+    }
+
+    public void setTotalViewCount(int totalViewCount) {
+        this.totalViewCount = totalViewCount;
+    }
+
+    /**
+     * @return the parentId
+     */
+    public final long getParentId() {
+        return parentId;
+    }
+
+    /**
+     * @param parentId the parentId to set
+     */
+    public final void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+
+    public final boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public final boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public final void setDeleted(final boolean aDeleted) {
+        isDeleted = aDeleted;
+    }
+
+    /**
+     * @return the totalPresentationCountIncludingNonPublic
+     */
+    public final long getTotalPresentationCountIncludingNonPublic() {
+        return totalPresentationCountIncludingNonPublic;
+    }
+
+    /**
+     * @param totalPresentationCountIncludingNonPublic
+     *         the totalPresentationCountIncludingNonPublic to set
+     */
+    public final void setTotalPresentationCountIncludingNonPublic(long totalPresentationCountIncludingNonPublic) {
+        this.totalPresentationCountIncludingNonPublic = totalPresentationCountIncludingNonPublic;
+    }
+
+    public boolean isIPhoneEnabled() {
+        return isIPhoneEnabled;
+    }
+
+    public void setIPhoneEnabled(boolean IPhoneEnabled) {
+        isIPhoneEnabled = IPhoneEnabled;
+    }
+
+    public boolean isPodcastEnabled() {
+        return isPodcastEnabled;
+    }
+
+    public void setPodcastEnabled(boolean podcastEnabled) {
+        isPodcastEnabled = podcastEnabled;
+    }
+
+    /**
+     * @return the keywordList
+     */
+    public final List<String> getKeywordList() {
+        return keywordList;
+    }
+
+    /**
+     * @param keywordList the keywordList to set
+     */
+    public final void setKeywordList(List<String> keywordList) {
+        this.keywordList = keywordList;
+    }
+
+    public MembershipType getMembership() {
+        return membership;
+    }
+
+    public void setMembership(MembershipType membership) {
+        this.membership = membership;
+    }
+
+    public int getSubscriptionInterval() {
+        return subscriptionInterval;
+    }
+
+    public void setSubscriptionInterval(int subscriptionInterval) {
+        this.subscriptionInterval = subscriptionInterval;
+    }
+
+    public float getSubscriptionAmount() {
+        return subscriptionAmount;
+    }
+
+    public void setSubscriptionAmount(float subscriptionAmount) {
+        this.subscriptionAmount = subscriptionAmount;
+    }
+
+    public float getPayPerTalkAmount() {
+        return payPerTalkAmount;
+    }
+
+    public void setPayPerTalkAmount(float payPerTalkAmount) {
+        this.payPerTalkAmount = payPerTalkAmount;
+    }
+
+    public CurrencyType getPaymentCurrency() {
+        return paymentCurrency;
+    }
+
+    public void setPaymentCurrency(CurrencyType paymentCurrency) {
+        this.paymentCurrency = paymentCurrency;
+    }
+
+    public boolean isSubscribed() {
+        return subscribed;
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        this.subscribed = subscribed;
+    }
+
+    public String getSubscriptionPeriod() {
+        return subscriptionPeriod;
+    }
+
+    public void setSubscriptionPeriod(String subscriptionPeriod) {
+        this.subscriptionPeriod = subscriptionPeriod;
+    }
+
+    public final boolean getPublicChannel() {
+        return isPublic;
+    }
+
+    public final boolean isPublicChannel() {
+        return isPublic;
+    }
+
+    public final void setPublicChannel(final boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public final boolean isListed() {
+        return isListed;
+    }
+
+    public final void setListed(final boolean listed) {
+        isListed = listed;
+    }
+
+    public final boolean getListed() {
+        return isListed;
+    }
+
+    public boolean isHostedInPublicSpace() {
+        return hostedInPublicSpace;
+    }
+
+    public void setHostedInPublicSpace(boolean hostedInPublicSpace) {
+        this.hostedInPublicSpace = hostedInPublicSpace;
+    }
+}
