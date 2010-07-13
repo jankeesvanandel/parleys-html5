@@ -9,8 +9,11 @@ import flex.messaging.io.amf.client.exceptions.ClientStatusException;
  * @author Stephan Janssen
  */
 public abstract class AbstractParleysServiceDelegateImpl implements ParleysServiceDelegate {
+
+    // TODO Inject the AMF context root using a property value
+    private static final String PARLEYS_CONTEXT = "http://www.parleys.com/parleysserver/";
     
-     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
+    private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
     private static final String PARLEYS_SERVICE = "parleysService";
 
@@ -34,11 +37,10 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
     }
 
     /**
-     * TODO Inject the AMF context root using a property value
      *
      * @return the target AMF channel
      */
     protected String getAMFChannel() {
-        return "http://www.parleys.com/parleysserver/" + MESSAGEBROKER_AMF;
+        return PARLEYS_CONTEXT + MESSAGEBROKER_AMF;
     }
 }

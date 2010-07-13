@@ -1,5 +1,6 @@
 package com.parleys.server.frontend.service.impl;
 
+import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.FilteredOverviewResponseDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.*;
@@ -8,6 +9,8 @@ import com.parleys.server.frontend.repository.PresentationsRepository;
 import com.parleys.server.frontend.repository.SpacesRepository;
 import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
+import com.parleys.server.security.AuthorizationException;
+import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,16 +28,31 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     private final PresentationsRepository presentationsRepository;
 
     @Autowired
-    public ParleysServiceDelegateImpl(SpacesRepository spacesRepository, ChannelsRepository channelsRepository, PresentationsRepository presentationsRepository) {
+    public ParleysServiceDelegateImpl(final SpacesRepository spacesRepository,
+                                      final ChannelsRepository channelsRepository,
+                                      final PresentationsRepository presentationsRepository) {
         this.spacesRepository = spacesRepository;
         this.channelsRepository = channelsRepository;
         this.presentationsRepository = presentationsRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(final int index, final int paging)
             throws ClientStatusException {
         return getParleysServiceProxy().getSpacesOverview(index, paging);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(final long spaceId)
+            throws ParleysServiceException, AuthorizationException, ClientStatusException {
+        System.out.println(">>>>>>>>>> getChannelsOverview");
+        return getParleysServiceProxy().getChannelsOverview(spaceId);
     }
 
     /**
