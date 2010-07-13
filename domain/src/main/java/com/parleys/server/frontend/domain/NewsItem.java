@@ -32,9 +32,8 @@ public class NewsItem {
 
         NewsItem newsItem = (NewsItem) o;
 
-        if (id != newsItem.id) return false;
+        return id == newsItem.id;
 
-        return true;
     }
 
     @Override

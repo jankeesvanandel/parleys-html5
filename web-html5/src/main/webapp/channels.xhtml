@@ -17,7 +17,7 @@
     <ui:define name="content">
         <div>
             <h2>Space #{channelsBean.space.name}</h2>
-            <h:graphicImage url="#{p:spaceThumbnail(channelsBean.space.id, channelsBean.space.thumbnail)}"
+            <h:graphicImage url="#{p:spaceThumbnail(channelsBean.space.id, channelsBean.space.thumbnailURL)}"
                             alt="#{channelsBean.space.name}"/>
             <hr/>
             <ul>

@@ -1,11 +1,7 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 

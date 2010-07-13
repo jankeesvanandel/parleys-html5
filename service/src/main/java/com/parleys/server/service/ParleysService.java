@@ -1,15 +1,13 @@
 package com.parleys.server.service;
 
-import com.parleys.server.domain.types.PresentationDateRange;
-import com.parleys.server.domain.types.PresentationSort;
-import com.parleys.server.domain.types.PresentationType;
+import com.parleys.server.domain.News;
+import com.parleys.server.domain.types.FavoritesType;
 import com.parleys.server.domain.types.SpaceSort;
 import com.parleys.server.dto.*;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,15 +34,15 @@ public interface ParleysService {
 //     * @param type   defining the type (space, channel or presentation)
 //     */
 //    void removeFromFavorites(long typeId, FavoritesType type);
-//
-//    /**
-//     * Retrieves the favorites for the current authenticated user and type.
-//     *
-//     * @param type defining the type (space, channel or presentation)
-//     * @return list of either Space, Channel or Presentation Overview DTO's
-//     */
-//    List<? extends AbstractDTO> getFavorites(FavoritesType type);
-//
+
+    /**
+     * Retrieves the favorites for the current authenticated user and type.
+     *
+     * @param type defining the type (space, channel or presentation)
+     * @return list of either Space, Channel or Presentation Overview DTO's
+     */
+    List<? extends AbstractDTO> getFavorites(FavoritesType type);
+
 //    /**
 //     * This method allows the authenticated user to add a space, channel or presentation watch.
 //     *
@@ -69,39 +67,19 @@ public interface ParleysService {
 //     */
 //    List<? extends AbstractDTO> getWatches(WatchType type);
 //
-//    /**
-//     * Return news for the given type. The id is not needed for GENERAL news types.
-//     *
-//     * @param newsType the requested news type
-//     * @param id       the identifier of the space or channel
-//     * @param index    the starting index
-//     * @param paging   the paging value
-//     * @return a list of news items
-//     * @throws AuthorizationException thrown when parent space is private and user has no permissions
-//     */
-//    OverviewResponseDTO<News> getNews(NewsType newsType, long id, int index, int paging)
-//            throws AuthorizationException;
-//
-//    /**
-//     * Return news for the given space id.
-//     *
-//     * @param spaceId the spce identifier
-//     * @return a list of news items
-//     * @throws AuthorizationException thrown when parent space is private and user has no permissions
-//     * @see #getNews(NewsType type, long id, int index, int paging)
-//     */
-//    @Deprecated
-//    List<News> getNews(long spaceId) throws AuthorizationException;
-//
-//    /**
-//     * Returns the list of general news (news which not in any space)
-//     *
-//     * @return the list of general news (news which not in any space)
-//     * @see #getNews(NewsType type, long id, int index, int paging)
-//     */
-//    @Deprecated
-//    List<News> getGeneralNews();
-//
+    /**
+     * Return news for the given type. The id is not needed for GENERAL news types.
+     *
+     * @param newsType the requested news type
+     * @param id       the identifier of the space or channel
+     * @param index    the starting index
+     * @param paging   the paging value
+     * @return a list of news items
+     * @throws AuthorizationException thrown when parent space is private and user has no permissions
+     */
+    OverviewResponseDTO<News> getNews(String newsType, long id, int index, int paging)
+            throws AuthorizationException;
+
 //    /**
 //     * Return the comments for the given presentation id.
 //     *
@@ -110,16 +88,16 @@ public interface ParleysService {
 //     * @throws AuthorizationException user has no authorization to call this method
 //     */
 //    List<CommentDTO> getCommentOverviews(long presentationId) throws AuthorizationException;
-//
-//    /**
-//     * Return a complete presentation, used when a viewer wants to see a presentation.
-//     *
-//     * @param presentationId the presentation identifier
-//     * @return the complete presentation info set
-//     * @throws AuthorizationException user has no authorization to call this method
-//     */
-//    ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId) throws AuthorizationException;
-//
+
+    /**
+     * Return a complete presentation, used when a viewer wants to see a presentation.
+     *
+     * @param presentationId the presentation identifier
+     * @return the complete presentation info set
+     * @throws AuthorizationException user has no authorization to call this method
+     */
+    ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId) throws AuthorizationException;
+
 //    /**
 //     * Has the current logged in user already voted for the given presentation ?
 //     *
@@ -289,16 +267,16 @@ public interface ParleysService {
 //                                                                        int paging,
 //                                                                        ChannelSort sortBy)
 //            throws ParleysServiceException, AuthorizationException;
-//
-//    /**
-//     * Returns channel overview object for the particular channel.
-//     *
-//     * @param channelId An identifier for the target channel/
-//     * @return channel overview object for the particular channel.
-//     * @throws AuthorizationException User is not authorized
-//     */
-//    ChannelOverviewDTO getChannelOverviewDTO(long channelId) throws AuthorizationException;
-//
+
+    /**
+     * Returns channel overview object for the particular channel.
+     *
+     * @param channelId An identifier for the target channel/
+     * @return channel overview object for the particular channel.
+     * @throws AuthorizationException User is not authorized
+     */
+    ChannelOverviewDTO getChannelOverviewDTO(long channelId) throws AuthorizationException;
+
 //    /**
 //     * Returns list with breadcrum presentations dtos for particular channel.
 //     *
@@ -321,28 +299,28 @@ public interface ParleysService {
 //                                                                         PresentationSort sort,
 //                                                                         PresentationDateRange date)
 //            throws ParleysServiceException, AuthorizationException;
-//
-//    /**
-//     * Returns list with short info about presentations for particular channel.
-//     *
-//     * @param channelId Is an identifier of channel to get presentations.
-//     * @param index     start index.
-//     * @param paging    number of presentations to return form start index.
-//     * @param type      the type of presentation needed
-//     * @param sort      sort by
-//     * @param date      and date region (TODAY, THIS WEEK, ...)
-//     * @return overview info about presentations for particular channel.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
-//     *                                when something went wrong
-//     * @throws AuthorizationException User is not authorized
-//     */
-//    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(long channelId,
-//                                                                                  int index, int paging,
-//                                                                                  PresentationType type,
-//                                                                                  PresentationSort sort,
-//                                                                                  PresentationDateRange date)
-//            throws ParleysServiceException, AuthorizationException;
-//
+
+    /**
+     * Returns list with short info about presentations for particular channel.
+     *
+     * @param channelId Is an identifier of channel to get presentations.
+     * @param index     start index.
+     * @param paging    number of presentations to return form start index.
+     * @param type      the type of presentation needed
+     * @param sort      sort by
+     * @param date      and date region (TODAY, THIS WEEK, ...)
+     * @return overview info about presentations for particular channel.
+     * @throws com.parleys.server.service.exception.ParleysServiceException
+     *                                when something went wrong
+     * @throws AuthorizationException User is not authorized
+     */
+    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(long channelId,
+                                                                                  int index, int paging,
+                                                                                  String type,
+                                                                                  String sort,
+                                                                                  String date)
+            throws ParleysServiceException, AuthorizationException;
+
 //    /**
 //     * Returns list with short info about presentations for particular channel.
 //     *
@@ -503,25 +481,25 @@ public interface ParleysService {
 //     * @throws java.io.IOException    thrown when related lucene index is missing
 //     */
 //    List<TagValueDTO> getKeywordCloudByChannel(Long channelId, int size) throws AuthorizationException, IOException;
-//
-//    /**
-//     * Returns the list of featured content based on the selected type.
-//     *
-//     * @param type the feature type we want to filter on
-//     * @return the list of featured content
-//     */
-//    List<? extends AbstractDTO> getFeatured(FeaturedType type);
-//
+
+    /**
+     * Returns the list of featured content based on the selected type.
+     *
+     * @param type the feature type we want to filter on
+     * @return the list of featured content
+     */
+    List<? extends AbstractDTO> getFeatured(String type);
+
 //    OverviewResponseDTO<? extends AbstractDTO> getFeatured(FeaturedType type, int index, int paging);
 //
-//    /**
-//     * Returns one featured content item for space, channel and presentation (in this order)
-//     * This method will replace @see getFeatured(FeaturedType type)
-//     *
-//     * @return list of featured content
-//     */
-//    public List<? extends AbstractDTO> getFeaturedContent();
-//
+    /**
+     * Returns one featured content item for space, channel and presentation (in this order)
+     * This method will replace @see getFeatured(FeaturedType type)
+     *
+     * @return list of featured content
+     */
+    public List<? extends AbstractDTO> getFeaturedContent();
+
 //    /**
 //     * Returns the list of top rated presentations limited by parameter
 //     *

@@ -1,11 +1,12 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
+import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
+import com.parleys.server.security.AuthorizationException;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 /**
@@ -15,12 +16,20 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class PresentationBean extends AbstractParleysBean {
 
+    private final transient Log LOG = LogFactory.getLog(getClass());
+
     private long presentationId;
 
-    private Presentation presentation;
+    private ExtendedPresentationDetailsDTO presentation;
 
     public void init() {
-        presentation = getParleysServiceDelegate().loadPresentation(presentationId);
+        try {
+            presentation = getParleysServiceDelegate().getPresentationDetails(presentationId);
+        } catch (ClientStatusException e) {
+            LOG.error(e);
+        } catch (AuthorizationException e) {
+            LOG.error(e);
+        }
 
         super.initializePresentation(presentation);
     }
@@ -33,11 +42,11 @@ public class PresentationBean extends AbstractParleysBean {
         this.presentationId = presentationId;
     }
 
-    public Presentation getPresentation() {
+    public ExtendedPresentationDetailsDTO getPresentation() {
         return presentation;
     }
 
-    public void setPresentation(final Presentation presentation) {
+    public void setPresentation(final ExtendedPresentationDetailsDTO presentation) {
         this.presentation = presentation;
     }
 }

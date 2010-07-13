@@ -1,11 +1,19 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.*;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
+import com.parleys.server.domain.News;
+import com.parleys.server.domain.types.FeaturedType;
+import com.parleys.server.domain.types.NewsType;
+import com.parleys.server.dto.AbstractDTO;
+import com.parleys.server.dto.ChannelOverviewDTO;
+import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.frontend.domain.Filter;
+import com.parleys.server.security.AuthorizationException;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 
@@ -16,52 +24,54 @@ import java.util.List;
 @RequestScoped
 public class HomepageBean extends AbstractParleysBean {
 
+    private final transient Log LOG = LogFactory.getLog(getClass());
+
     private Filter thumbnailsFilter;
 
     private Filter.Type thumbnailsFilterType;
-
-    private List<Presentation> thumbnails;
 
     private Long newsId;
 
     private int activeNewsItemIndex = 0;
 
-    private List<NewsItem> newsItems;
+    private List<PresentationOverviewDTO> thumbnails;
 
-    private Space recommendedSpace;
+    private List<News> newsItems;
 
-    private Channel recommendedChannel;
+    private SpaceOverviewDTO recommendedSpace;
 
-    private Presentation recommendedPresentation;
+    private ChannelOverviewDTO recommendedChannel;
 
+    private PresentationOverviewDTO recommendedPresentation;
+
+    @SuppressWarnings("unchecked")
     public void init() {
-        if (thumbnailsFilter == null
-                || thumbnailsFilterType == null) {
+        if (thumbnailsFilter == null || thumbnailsFilterType == null) {
             thumbnailsFilter = Filter.FEATURED;
             thumbnailsFilterType = Filter.Type.PRESENTATION;
         }
 
-        thumbnails = getParleysServiceDelegate().loadPresentations(thumbnailsFilter, thumbnailsFilterType, 0, 6);
+        try {
+            thumbnails = (List<PresentationOverviewDTO>) getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION);
 
-        newsItems = getParleysServiceDelegate().loadAllNewsItems();
-        if (newsId != null) {
-            for (int i = 0; i < newsItems.size(); i++) {
-                NewsItem newsItem = newsItems.get(i);
-                if (newsItem.getId() == newsId) {
-                    activeNewsItemIndex = i;
-                    break;
-                }
-            }
+            newsItems = getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
+
+            List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
+
+            recommendedSpace = (SpaceOverviewDTO)featuredContent.get(0);
+            recommendedChannel = (ChannelOverviewDTO)featuredContent.get(1);
+            recommendedPresentation = (PresentationOverviewDTO)featuredContent.get(2);
+
+        } catch (AuthorizationException e) {
+            LOG.error(e);
+        } catch (ClientStatusException e) {
+            LOG.error(e);
         }
-
-        recommendedSpace = getParleysServiceDelegate().loadRecommendedSpace();
-        recommendedChannel = getParleysServiceDelegate().loadRecommendedChannel();
-        recommendedPresentation = getParleysServiceDelegate().loadRecommendedPresentation();
 
         initializeHomepage();
     }
 
-    public List<Presentation> getThumbnails() {
+    public List<PresentationOverviewDTO> getThumbnails() {
         return thumbnails;
     }
 
@@ -97,35 +107,35 @@ public class HomepageBean extends AbstractParleysBean {
         this.activeNewsItemIndex = activeNewsItemIndex;
     }
 
-    public List<NewsItem> getNewsItems() {
+    public List<News> getNewsItems() {
         return newsItems;
     }
 
-    public void setNewsItems(final List<NewsItem> newsItems) {
+    public void setNewsItems(final List<News> newsItems) {
         this.newsItems = newsItems;
     }
 
-    public Space getRecommendedSpace() {
+    public SpaceOverviewDTO getRecommendedSpace() {
         return recommendedSpace;
     }
 
-    public void setRecommendedSpace(final Space recommendedSpace) {
+    public void setRecommendedSpace(final SpaceOverviewDTO recommendedSpace) {
         this.recommendedSpace = recommendedSpace;
     }
 
-    public Channel getRecommendedChannel() {
+    public ChannelOverviewDTO getRecommendedChannel() {
         return recommendedChannel;
     }
 
-    public void setRecommendedChannel(final Channel recommendedChannel) {
+    public void setRecommendedChannel(final ChannelOverviewDTO recommendedChannel) {
         this.recommendedChannel = recommendedChannel;
     }
 
-    public Presentation getRecommendedPresentation() {
+    public PresentationOverviewDTO getRecommendedPresentation() {
         return recommendedPresentation;
     }
 
-    public void setRecommendedPresentation(final Presentation recommendedPresentation) {
+    public void setRecommendedPresentation(final PresentationOverviewDTO recommendedPresentation) {
         this.recommendedPresentation = recommendedPresentation;
     }
 }

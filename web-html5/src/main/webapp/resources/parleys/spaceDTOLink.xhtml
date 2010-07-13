@@ -15,7 +15,7 @@
         <f:param name="id" value="#{cc.attrs.space.id}"/>
         <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
                         value="#{p:spaceThumbnail(cc.attrs.space.id, cc.attrs.space.thumbnailURL)}" alt="#{cc.attrs.label}"
-                        height="50px" width="50px" styleClass="#{cc.attrs.styleClasses}"/>
+                        height="10%" width="10%" styleClass="#{cc.attrs.styleClasses}"/>
         <h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/>
     </h:link>
 </composite:implementation>

@@ -15,8 +15,6 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
     
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
-    private static final String PARLEYS_SERVICE = "parleysService";
-
     @SuppressWarnings("unchecked")
     private <T> T getService(String serviceName, Class<T> serviceClass) throws ClientStatusException {
         AMFClientFactory clientFactory = new AMFClientFactory();
@@ -27,13 +25,13 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
     }
 
     /**
-     * Returns AMF service to operate.
+     * Returns either the AMF service or local bean (still to do) to operate on.
      *
      * @return ParleysService instance.
      * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException flex AMF client status exception
      */
     protected ParleysService getParleysServiceProxy() throws ClientStatusException {
-        return getService(PARLEYS_SERVICE, ParleysService.class);
+        return getService("parleysService", ParleysService.class);
     }
 
     /**
