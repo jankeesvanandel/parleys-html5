@@ -1,8 +1,8 @@
 package com.parleys.server.frontend.service;
 
-import com.parleys.server.dto.ChannelOverviewDTO;
-import com.parleys.server.dto.FilteredOverviewResponseDTO;
-import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.domain.News;
+import com.parleys.server.domain.types.*;
+import com.parleys.server.dto.*;
 import com.parleys.server.frontend.domain.*;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
@@ -11,9 +11,32 @@ import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import java.util.List;
 
 /**
- * Service for Parleys operations.
+ * The Parleys service delegate.
+ *
+ * Depending where it will get deployed it will either trigger an RPC AMF or local method call.
+ *
+ * TODO Add deployement flag to switch between RPC/IPC/
+ *
+ * @author Stephan Janssen
  */
 public interface ParleysServiceDelegate {
+
+    /**
+     * Returns the list of featured content based on the selected type, used on the home page.
+     *
+     * @param type the feature type we want to filter on
+     * @return the list of featured content
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    List<? extends AbstractDTO> getFeatured(FeaturedType type) throws ClientStatusException;
+
+    /**
+     * Returns one featured content item for space, channel and presentation (in this order).
+     *
+     * @return list of featured content
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    public List<? extends AbstractDTO> getFeaturedContent() throws ClientStatusException;
 
     /**
      * Gets public, listed and optionally the private administered spaces for logged in user.
@@ -21,52 +44,82 @@ public interface ParleysServiceDelegate {
      * @param index  start index.
      * @param paging number of spaces to return form start index.
      * @return overview info about spaces.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occured
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
      */
     FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging) throws ClientStatusException;
 
     /**
+     * Gets overview for the particular space.
+     *
+     * @param spaceId An identifier for target space.
+     * @return An overview for the particular space.
+     * @throws AuthorizationException User is not authorized
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException thrown when AMF problem occurs
+     */
+    SpaceOverviewDTO getSpaceOverviewDTO(long spaceId) throws AuthorizationException, ClientStatusException;
+
+    /**
      * Returns overview info about channels for particular space.
-     * It is returns 0 for startingIndex and the same for paging.
+     * Returns 0 for starting Index and the same for paging.
      *
      * @param spaceId Is an identifier of space to get channels.
      * @return overview     info about channels for particular space.
      * @throws com.parleys.server.security.AuthorizationException  User is not authorized
-     * @throws com.parleys.server.service.exception.ParleysServiceException internal error occured
+     * @throws com.parleys.server.service.exception.ParleysServiceException internal error
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem
      */
     FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(long spaceId)
             throws ParleysServiceException, AuthorizationException, ClientStatusException;
 
     /**
-     * Get a list of spaces.
+     * Returns channel overview object for the particular channel.
      *
-     * @param index  The zero based starting index.
-     * @param paging The maximum number of spaces per page.
-     * @return a list of spaces, never null.
+     * @param channelId An identifier for the target channel/
+     * @return channel overview object for the particular channel.
+     * @throws AuthorizationException User is not authorized
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
      */
-    List<Space> loadSpaces(int index, int paging);
+    ChannelOverviewDTO getChannelOverviewDTO(long channelId) throws AuthorizationException, ClientStatusException;
 
-    List<Space> loadAllSpaces();
 
-    Space loadSpace(long id);
+    /**
+     * Return a complete presentation, used when a viewer wants to see a presentation.
+     *
+     * @param presentationId the presentation identifier
+     * @return the complete presentation info set
+     * @throws AuthorizationException user has no authorization to call this method
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId)
+            throws AuthorizationException, ClientStatusException;
 
-    List<Channel> loadChannels(long spaceId);
+        /**
+     * Returns list with short info about presentations for particular channel.
+     *
+     * @param criteria The presentation criteria
+     * @return overview info about presentations for particular channel.
+     * @throws com.parleys.server.service.exception.ParleysServiceException
+     *                                when something went wrong
+     * @throws AuthorizationException User is not authorized
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(PresentationsCriteria criteria)
+                throws ParleysServiceException, AuthorizationException, ClientStatusException;
 
-    List<Presentation> loadPresentationsWithCriteria(PresentationsCriteria presentationsCriteria);
+    /**
+     * Return news for the given type. The id is not needed for GENERAL news types.
+     *
+     * @param newsType the requested news type
+     * @param id       the identifier of the space or channel
+     * @param index    the starting index
+     * @param paging   the paging value
+     * @return a list of news items
+     * @throws AuthorizationException thrown when parent space is private and user has no permissions
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    OverviewResponseDTO<News> getNews(NewsType newsType, long id, int index, int paging)
+            throws AuthorizationException, ClientStatusException;
 
-    Channel loadChannel(long channelId);
-
-    Presentation loadPresentation(long presentationId);
-
-    List<Presentation> loadPresentations(Filter thumbnailsFilter, Filter.Type thumbnailsFilterType, int index, int paging);
-
-    List<NewsItem> loadAllNewsItems();
-
-    Space loadRecommendedSpace();
-
-    Channel loadRecommendedChannel();
-
-    Presentation loadRecommendedPresentation();
-
-    List<Presentation> search(String criteria);
+    // TODO
+    List<PresentationOverviewDTO> search(String criteria);
 }

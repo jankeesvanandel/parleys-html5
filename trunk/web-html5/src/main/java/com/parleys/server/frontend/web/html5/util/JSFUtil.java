@@ -9,12 +9,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * $Author$
- * $Revision$
+ * @author Jan-Kees Vanandel
  */
 public class JSFUtil {
 
-    public static int sizeOf(Collection coll) {
+    public static int sizeOf(final Collection coll) {
         if (coll != null) {
             return coll.size();
         } else {
@@ -22,7 +21,8 @@ public class JSFUtil {
         }
     }
 
-    public static String shortenTo(int toLength, String input) {
+    public static String shortenTo(final int toLength,
+                                   final String input) {
         if (input.length() > toLength) {
             return input.substring(0, toLength - 3) + "...";
         } else {
@@ -30,19 +30,22 @@ public class JSFUtil {
         }
     }
 
-    public static String spaceThumbnail(long spaceId, String thumbnail) {
-        return String.format("http://www.parleys.com/assets/spaces/%1$s%2$s",
-                spaceId, thumbnail);
+    // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
+    public static String spaceThumbnail(final long spaceId,
+                                        final String thumbnail) {
+        return String.format("http://www.parleys.com/assets/spaces/%1$s/%2$s", spaceId, thumbnail);
     }
 
-    public static String channelThumbnail(long channelId, String thumbnail) {
-        return String.format("http://www.parleys.com/assets/channels/%1$s%2$s",
-                channelId, thumbnail);
+    // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
+    public static String channelThumbnail(final long channelId,
+                                          final String thumbnail) {
+        return String.format("http://www.parleys.com/assets/channels/%1$s/%2$s", channelId, thumbnail);
     }
 
-    public static String presentationThumbnail(long presentationId, String thumbnail) {
-        return String.format("http://www.parleys.com/assets/presentations/%1$s%2$s",
-                presentationId, thumbnail);
+    // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
+    public static String presentationThumbnail(final long presentationId,
+                                               final String thumbnail) {
+        return String.format("http://www.parleys.com/assets/presentations/%1$s/%2$s", presentationId, thumbnail);
     }
 
     public static String formatDate(Date date) {

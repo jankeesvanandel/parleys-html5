@@ -19,14 +19,15 @@
         <div>
             <h2>#{presentationsBean.channel.name}</h2>
             <h:graphicImage
-                    url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnail)}"
+                    url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnailURL)}"
                     alt="#{presentationsBean.channel.name}"/>
             <hr/>
             <ul>
-                <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
+                <ui:repeat value="#{presentationsBean.presentations.overviews}" var="presentation">
                     <li>
-                        <parleys:presentationLink presentation="#{presentation}" renderThumbnail="true"
-                                                  renderLabel="true"/>
+                        <parleys:presentationDTOLink presentation="#{presentation}"
+                                                     renderThumbnail="true"
+                                                     renderLabel="true"/>
                     </li>
                 </ui:repeat>
             </ul>

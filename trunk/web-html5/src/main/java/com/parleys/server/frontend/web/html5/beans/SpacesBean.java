@@ -2,12 +2,9 @@ package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.dto.FilteredOverviewResponseDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 

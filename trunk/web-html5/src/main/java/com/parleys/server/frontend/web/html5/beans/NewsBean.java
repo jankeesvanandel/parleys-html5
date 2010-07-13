@@ -1,11 +1,13 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.NewsItem;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
+import com.parleys.server.domain.News;
+import com.parleys.server.domain.types.NewsType;
+import com.parleys.server.security.AuthorizationException;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 
@@ -16,16 +18,25 @@ import java.util.List;
 @RequestScoped
 public class NewsBean extends AbstractParleysBean {
 
+    private final transient Log LOG = LogFactory.getLog(getClass());
+
     private long newsId;
 
-    private NewsItem activeNewsItem;
+    private News activeNewsItem;
 
-    private List<NewsItem> newsItems;
+    private List<News> newsItems;
 
     public void init() {
-        newsItems = getParleysServiceDelegate().loadAllNewsItems();
+        try {
+            newsItems = getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
+        } catch (AuthorizationException e) {
+            LOG.error(e);
+        } catch (ClientStatusException e) {
+            LOG.error(e);
+        }
+
         if (newsId > 0) {
-            for (NewsItem newsItem : newsItems) {
+            for (News newsItem : newsItems) {
                 if (newsItem.getId() == newsId) {
                     activeNewsItem = newsItem;
                     break;
@@ -44,19 +55,19 @@ public class NewsBean extends AbstractParleysBean {
         return newsId;
     }
 
-    public NewsItem getActiveNewsItem() {
+    public News getActiveNewsItem() {
         return activeNewsItem;
     }
 
-    public void setActiveNewsItem(final NewsItem activeNewsItem) {
+    public void setActiveNewsItem(final News activeNewsItem) {
         this.activeNewsItem = activeNewsItem;
     }
 
-    public List<NewsItem> getNewsItems() {
+    public List<News> getNewsItems() {
         return newsItems;
     }
 
-    public void setNewsItems(final List<NewsItem> newsItems) {
+    public void setNewsItems(final List<News> newsItems) {
         this.newsItems = newsItems;
     }
 }

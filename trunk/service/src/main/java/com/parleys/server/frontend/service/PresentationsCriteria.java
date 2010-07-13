@@ -3,9 +3,13 @@ package com.parleys.server.frontend.service;
 import com.parleys.server.frontend.domain.Filter;
 
 public class PresentationsCriteria {
+
     private long channelId;
+
     private int index = 0;
+
     private int paging = 20;
+
     private Filter filter;
 
     public long getChannelId() {

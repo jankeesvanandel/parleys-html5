@@ -68,7 +68,7 @@
                         .title)}</h3>
                     <h:link outcome="presentation">
                         <f:param name="id" value="#{presentation.id}"/>
-                        <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnail)}"
+                        <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnailURL)}"
                                         alt=""
                                         width="115"
                                         height="85"/>
@@ -85,11 +85,11 @@
 
                     <div class="contentBlock">
                         <h3>#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].title}</h3>
-                        <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].date)}</span>
+                        <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].createdOn)}</span>
 
                         <p>
                             <h:outputText escape="false"
-                                          value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].content}"/>
+                                          value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].item}"/>
                         </p>
                         <h:link outcome="index" rendered="#{homepageBean.activeNewsItemIndex != 0}"
                                 styleClass="pagingPrev floatLeft" title="Previous news item">
@@ -115,7 +115,7 @@
                         <h3>Recommended space: #{homepageBean.recommendedSpace.name}</h3>
 
                         <p>
-                            <parleys:spaceLink space="#{homepageBean.recommendedSpace}" renderThumbnail="true"
+                            <parleys:spaceDTOLink space="#{homepageBean.recommendedSpace}" renderThumbnail="true"
                                                styleClasses="breathe floatLeft"/>
                             <h:outputText escape="false" value="#{homepageBean.recommendedSpace.description}"/>
                         </p>
@@ -125,7 +125,7 @@
                         <h3>Recommended channel: #{homepageBean.recommendedChannel.name}</h3>
 
                         <p>
-                            <parleys:channelLink channel="#{homepageBean.recommendedChannel}" renderThumbnail="true"
+                            <parleys:channelDTOLink channel="#{homepageBean.recommendedChannel}" renderThumbnail="true"
                                                  styleClasses="breathe floatRight"/>
                             <h:outputText escape="false" value="#{homepageBean.recommendedChannel.description}"/>
                         </p>
@@ -135,7 +135,7 @@
                         <h3>Recommended presentation: Solr Power with Lucene</h3>
 
                         <p>
-                            <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
+                            <parleys:presentationDTOLink presentation="#{homepageBean.recommendedPresentation}"
                                                       renderThumbnail="true" styleClasses="breathe floatLeft"/>
                             <h:outputText escape="false" value="#{homepageBean.recommendedPresentation.summary}"/>
                         </p>

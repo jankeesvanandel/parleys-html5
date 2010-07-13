@@ -1,14 +1,9 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
 /**
@@ -26,11 +21,12 @@ public class SearchBean extends AbstractParleysBean {
     }
 
     public String search() {
-        results = getParleysServiceDelegate().search(criteria);
-        if (results.isEmpty()) {
-            final FacesContext fc = FacesContext.getCurrentInstance();
-            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No results", "No results"));
-        }
+        // TODO
+        // results = getParleysServiceDelegate().search(criteria);
+//        if (results.isEmpty()) {
+//            final FacesContext fc = FacesContext.getCurrentInstance();
+//            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No results", "No results"));
+//        }
         return null;
     }
 

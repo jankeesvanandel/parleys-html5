@@ -1,16 +1,18 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.Channel;
+import com.parleys.server.dto.ChannelOverviewDTO;
+import com.parleys.server.dto.FilteredOverviewResponseDTO;
+import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
-import com.parleys.server.frontend.domain.Presentation;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.frontend.service.PresentationsCriteria;
-import com.parleys.server.service.ParleysService;
+import com.parleys.server.security.AuthorizationException;
+import com.parleys.server.service.exception.ParleysServiceException;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import java.util.List;
 
 /**
  * Backing bean for the space detail page.
@@ -19,15 +21,17 @@ import java.util.List;
 @RequestScoped
 public class PresentationsBean extends AbstractParleysBean {
 
+    private final transient Log LOG = LogFactory.getLog(getClass());
+    
     private long channelId;
 
     private Filter filter;
 
     private Filter.Type filterType;
 
-    private Channel channel;
+    private ChannelOverviewDTO channel;
 
-    private List<Presentation> presentations;
+    private FilteredOverviewResponseDTO<PresentationOverviewDTO> presentations;
 
     private Integer index;
     private Integer paging;
@@ -50,13 +54,21 @@ public class PresentationsBean extends AbstractParleysBean {
         criteria.setFilter(filter);
         criteria.setIndex(index);
         criteria.setPaging(paging);
-        presentations = getParleysServiceDelegate().loadPresentationsWithCriteria(criteria);
 
-        if (channelId != 0) {
-            channel = getParleysServiceDelegate().loadChannel(channelId);
-            super.initializeChannel(channel);
-        } else {
-            super.initializeHomepage();
+        try {
+            presentations = getParleysServiceDelegate().getPresentationsOverview(criteria);
+            if (channelId != 0) {
+                    channel = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
+                super.initializeChannel(channel);
+            } else {
+                super.initializeHomepage();
+            }
+        } catch (ParleysServiceException e) {
+            LOG.error(e);
+        } catch (AuthorizationException e) {
+            LOG.error(e);
+        } catch (ClientStatusException e) {
+            LOG.error(e);
         }
     }
 
@@ -68,19 +80,19 @@ public class PresentationsBean extends AbstractParleysBean {
         this.channelId = channelId;
     }
 
-    public Channel getChannel() {
+    public ChannelOverviewDTO getChannel() {
         return channel;
     }
 
-    public void setChannel(final Channel channel) {
+    public void setChannel(final ChannelOverviewDTO channel) {
         this.channel = channel;
     }
 
-    public List<Presentation> getPresentations() {
+    public FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentations() {
         return presentations;
     }
 
-    public void setPresentations(final List<Presentation> presentations) {
+    public void setPresentations(final FilteredOverviewResponseDTO<PresentationOverviewDTO> presentations) {
         this.presentations = presentations;
     }
 

@@ -31,12 +31,12 @@
                     </h5:video>
                 </div>
                 <div id="slidesContainer">
-                    <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset">
+                    <ui:repeat value="#{presentationBean.presentation.assetDTOs}" var="asset">
                         <img class="slide" id="slide_#{asset.id}" style="display: none"
                              src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
-                             alt="#{asset.name}"
-                             startTime="#{asset.cuepoint}"
-                             endTime="#{asset.cuepoint+asset.duration}"
+                             alt="#{asset.value}"
+                             startTime="#{asset.cuePoint}"
+                             endTime="#{asset.cuePoint + asset.duration}"
                                 />
                     </ui:repeat>
                 </div>
@@ -54,10 +54,10 @@
                 </div>
                 <div id="videoNavigationBarChapters">
                     <ol>
-                        <ui:repeat value="#{presentationBean.presentation.slideAssets}" var="asset" varStatus="status">
+                        <ui:repeat value="#{presentationBean.presentation.assetDTOs}" var="asset" varStatus="status">
                             <li class="#{status.first ? 'first' : ''}">
                                 <a href="##{asset.id}">
-                                    <span>#{asset.name}</span>
+                                    <span>#{asset.value}</span>
                                 </a>
                             </li>
                         </ui:repeat>

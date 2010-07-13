@@ -33,10 +33,10 @@
                 </h:panelGroup>
                 <h:panelGroup rendered="#{not empty newsBean.activeNewsItem}">
                     <h2>#{newsBean.activeNewsItem.title}</h2><br/>
-                    <span class="newsDate">Published #{p:formatDate(newsBean.activeNewsItem.date)}</span>
+                    <span class="newsDate">Published #{p:formatDate(newsBean.activeNewsItem.createdOn)}</span>
                     <hr/>
                     <p>
-                        <h:outputText escape="false" value="#{newsBean.activeNewsItem.content}"/>
+                        <h:outputText escape="false" value="#{newsBean.activeNewsItem.item}"/>
                     </p>
                     <br/>
                     <h:link outcome="news">
