@@ -63,7 +63,7 @@ public class JSFUtil {
         } else if (date.equals(yesterday)) {
             return "yesterday";
         } else {
-            return "on" + new SimpleDateFormat("dd-MM-yyyy").format(date);
+            return "on " + new SimpleDateFormat("dd-MM-yyyy").format(date);
         }
     }
 }

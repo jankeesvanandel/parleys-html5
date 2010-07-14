@@ -16,14 +16,18 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <h2>Space #{channelsBean.space.name}</h2>
             <h:graphicImage url="#{p:spaceThumbnail(channelsBean.space.id, channelsBean.space.thumbnailURL)}"
                             alt="#{channelsBean.space.name}"/>
+            <h2>Space #{channelsBean.space.name}</h2>
             <hr/>
+            <br/>            
             <ul>
                 <ui:repeat value="#{channelsBean.channels}" var="channel">
                     <li>
-                        <parleys:channelDTOLink channel="#{channel}" renderThumbnail="true" renderLabel="true"/>
+                        <parleys:channelLink channel="#{channel}"
+                                                renderThumbnail="true"
+                                                renderDescription="true"
+                                                renderLabel="true"/>
                     </li>
                 </ui:repeat>
             </ul>

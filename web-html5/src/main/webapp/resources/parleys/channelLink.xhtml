@@ -8,16 +8,23 @@
     <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.channel.name}"/>
     <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
 <composite:implementation>
     <h:link outcome="presentations">
         <f:param name="id" value="#{cc.attrs.channel.id}"/>
-        <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
-                        value="#{p:channelThumbnail(cc.attrs.channel.id, cc.attrs.channel.thumbnailURL)}"
-                        alt="#{cc.attrs.label}"
-                        width="70" height="70" styleClass="#{cc.attrs.styleClasses}"/>
-        <h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/>
+        <div class="#{cc.attrs.styleClasses}">
+            <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
+                            value="#{p:channelThumbnail(cc.attrs.channel.id, cc.attrs.channel.thumbnailURL)}"
+                            alt="#{cc.attrs.label}"
+                            width="70" height="70"/>
+        </div>
+        <div class="content">
+            <h4><h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/></h4>
+            <br/><br/>
+            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.channel.description}"/>
+        </div>
     </h:link>
 </composite:implementation>
 </html>
