@@ -1,14 +1,13 @@
 package com.parleys.server.service.exception;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author Stephan Janssen
  */
 public class ParleysServiceException extends Exception {
 
-    private final transient Log LOG = LogFactory.getLog(getClass());
+    private static final Logger LOG = Logger.getLogger(ParleysServiceException.class);
 
     public ParleysServiceException(final String message) {
         super(message);

@@ -73,13 +73,23 @@ mainVideoLoop.addObserver(updateSlide, OBSERVER_TYPE_SLIDES);
 mainVideoLoop.addObserver(updateProgressBar, OBSERVER_TYPE_PROGRESSBAR);
 
 $(document).ready(function() {
+    showPlayButtonOverlay();
     initializeVideoNavigationBar();
     initializeVideoEventSources();
     setInitialPosition();
     disableTextSelection();
     initializeControlsEventHandlers();
-    $("#videoPlayer")[0].play();
 });
+
+function showPlayButtonOverlay() {
+    $("#playButtonOverlay").css("display", "block");
+    $("#playButtonOverlayBackground").css("display", "block");
+    $("#playButtonOverlay a").click(function(e) {
+        $("#playButtonOverlay").css("display", "none");
+        $("#playButtonOverlayBackground").css("display", "none");
+        $("#videoPlayer")[0].play();
+    });
+}
 
 function initializeControlsEventHandlers() {
     $("#prevChapterButton").click(function() {
