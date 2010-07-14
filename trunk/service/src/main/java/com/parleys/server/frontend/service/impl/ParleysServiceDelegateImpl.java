@@ -85,7 +85,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
      * {@inheritDoc}
      */
     @Override
-    public FilteredOverviewResponseDTO<PresentationOverviewDTO>
+    public OverviewResponseDTO<PresentationOverviewDTO>
         getPresentationsOverview(final PresentationsCriteria criteria)
                 throws ParleysServiceException, AuthorizationException, ClientStatusException {
 
@@ -95,6 +95,40 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                                                                  PresentationType.ALL.name(),
                                                                  PresentationSort.PUBLICATION.name(),
                                                                  PresentationDateRange.ALL_TIME.name());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PresentationOverviewDTO>
+        getLatestPresentationsOverview(final PresentationsCriteria criteria)
+            throws ClientStatusException {
+
+        return getParleysServiceProxy()
+                    .getLatestPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PresentationOverviewDTO>
+        getTopRatedPresentationsOverview(final PresentationsCriteria criteria) throws ClientStatusException {
+
+        return getParleysServiceProxy()
+                .getTopRatedPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PresentationOverviewDTO>
+        getMostViewedPresentationsOverview(final PresentationsCriteria criteria) throws ClientStatusException {
+
+        return getParleysServiceProxy()
+                .getMostViewedPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
     }
 
     /**

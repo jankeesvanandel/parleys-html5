@@ -1,9 +1,9 @@
 package com.parleys.server.frontend.service;
 
 import com.parleys.server.domain.News;
-import com.parleys.server.domain.types.*;
+import com.parleys.server.domain.types.FeaturedType;
+import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.dto.*;
-import com.parleys.server.frontend.domain.*;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
@@ -36,7 +36,7 @@ public interface ParleysServiceDelegate {
      * @return list of featured content
      * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
      */
-    public List<? extends AbstractDTO> getFeaturedContent() throws ClientStatusException;
+    List<? extends AbstractDTO> getFeaturedContent() throws ClientStatusException;
 
     /**
      * Gets public, listed and optionally the private administered spaces for logged in user.
@@ -93,7 +93,7 @@ public interface ParleysServiceDelegate {
     ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId)
             throws AuthorizationException, ClientStatusException;
 
-        /**
+    /**
      * Returns list with short info about presentations for particular channel.
      *
      * @param criteria The presentation criteria
@@ -103,8 +103,38 @@ public interface ParleysServiceDelegate {
      * @throws AuthorizationException User is not authorized
      * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
      */
-    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(PresentationsCriteria criteria)
+    OverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(PresentationsCriteria criteria)
                 throws ParleysServiceException, AuthorizationException, ClientStatusException;
+
+    /**
+     * Returns the latest presentations limited by index and paging.
+     *
+     * @param criteria the presentation criteria
+     * @return the list of last published presentations limited by index/paging
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    List<? extends AbstractDTO> getLatestPresentationsOverview(PresentationsCriteria criteria)
+            throws ClientStatusException;
+
+    /**
+     * Returns the top rated presentations limited by index and paging.
+     *
+     * @param criteria the presentation criteria
+     * @return the list of top rated presentations limited by index/paging
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    List<? extends AbstractDTO> getTopRatedPresentationsOverview(PresentationsCriteria criteria)
+            throws ClientStatusException;
+
+    /**
+     * Returns the most viewed presentations limited by index and paging.
+     *
+     * @param criteria the presentation criteria
+     * @return the list of most viewed presentations limited by index/paging
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
+     */
+    List<? extends AbstractDTO> getMostViewedPresentationsOverview(PresentationsCriteria criteria)
+            throws ClientStatusException;
 
     /**
      * Return news for the given type. The id is not needed for GENERAL news types.

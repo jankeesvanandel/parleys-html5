@@ -11,6 +11,7 @@
     <ui:define name="header">
         <f:metadata>
             <f:viewParam name="id" value="#{channelsBean.spaceId}" required="true" />
+            <f:viewParam name="filter" value="#{channelsBean.filter}"/>
             <f:event type="preRenderView" listener="#{channelsBean.init}"/>
         </f:metadata>
     </ui:define>
