@@ -2,6 +2,7 @@ package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
@@ -14,10 +15,13 @@ import java.util.List;
 
 /**
  * Backing bean for the space detail page.
+ *
+ * @author Jan-Kees Vanandel
+ * @author Stephan Janssen
  */
 @ManagedBean
 @RequestScoped
-public class ChannelsBean extends AbstractParleysBean {
+public class ChannelsBean extends PagingBean {
 
     private final transient Log LOG = LogFactory.getLog(getClass());
 
@@ -56,15 +60,7 @@ public class ChannelsBean extends AbstractParleysBean {
         return space;
     }
 
-    public void setSpace(final SpaceOverviewDTO space) {
-        this.space = space;
-    }
-
     public List<ChannelOverviewDTO> getChannels() {
         return channels;
-    }
-
-    public void setChannels(final List<ChannelOverviewDTO> channels) {
-        this.channels = channels;
     }
 }

@@ -500,28 +500,24 @@ public interface ParleysService {
      */
     public List<? extends AbstractDTO> getFeaturedContent();
 
-//    /**
-//     * Returns the list of top rated presentations limited by parameter
-//     *
-//     * @param limit The number of resulting presentations.
-//     * @return the list of top rated presentations limited by parameter
-//     */
-//    @Deprecated
-//    List<PresentationOverviewDTO> getTopRatedPresentationsOverview(int limit);
-//
-//    OverviewResponseDTO<PresentationOverviewDTO> getTopRatedPresentationsOverview(int index, int paging);
-//
-//    /**
-//     * Returns the list of last published presentations limited by parameter
-//     *
-//     * @param limit The number of resulting presentations.
-//     * @return the list of last published presentations limited by parameter
-//     */
-//    @Deprecated
-//    List<PresentationOverviewDTO> getLatestPresentationsOverview(int limit);
-//
-//    OverviewResponseDTO<PresentationOverviewDTO> getLatestPresentationsOverview(int index, int paging);
-//
+    /**
+     * Returns the list of top rated presentations limited by parameter
+     *
+     * @param index     the starting index
+     * @param paging    the paging value
+     * @return the list of top rated presentations
+     */
+    OverviewResponseDTO<PresentationOverviewDTO> getTopRatedPresentationsOverview(int index, int paging);
+
+    /**
+     * Returns the last presentations made public using index and paging.
+     *
+     * @param index     the starting index
+     * @param paging    the paging value
+     * @return the list of the last presentations made public available
+     */
+    OverviewResponseDTO<PresentationOverviewDTO> getLatestPresentationsOverview(int index, int paging);
+
 //    /**
 //     * The most downloaded presentations.
 //     *
@@ -530,19 +526,16 @@ public interface ParleysService {
 //     * @return list of most downloaded presentations
 //     */
 //    OverviewResponseDTO<PresentationOverviewDTO> getMostDownloadedPresentationsOverview(int index, int paging);
-//
-//    /**
-//     * Returns a list of most viewed presentations.
-//     *
-//     * @param index  start index
-//     * @param paging paging value
-//     * @return paged list of most viewed public presentations
-//     */
-//    OverviewResponseDTO<PresentationOverviewDTO> getMostViewedPresentationsOverview(int index, int paging);
-//
-//    // TODO Once we provide a thumbnail for a speaker(DTO), we can also implement this method.
-//    // TODO The featured Speakers should include a thumbnail, once a speaker is selected the method below can be called.
-//    // OverviewResponseDTO<PresentationOverviewDTO> getSpeakerPresentations(long speakerId, int index, int paging);
+
+    /**
+     * Returns a list of most viewed presentations.
+     *
+     * @param index  start index
+     * @param paging paging value
+     * @return paged list of most viewed public presentations
+     */
+    OverviewResponseDTO<PresentationOverviewDTO> getMostViewedPresentationsOverview(int index, int paging);
+
 //
 //    /**
 //     * Gets the list of channels where current user has rights to publish to.

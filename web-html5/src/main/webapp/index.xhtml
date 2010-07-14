@@ -68,6 +68,7 @@
                     <h:link outcome="presentation">
                         <f:param name="id" value="#{presentation.id}"/>
                         <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnailURL)}"
+                                        title="#{presentation.title}"
                                         alt=""
                                         width="133" height="88" styleClass="reflect"/>
                     </h:link>
