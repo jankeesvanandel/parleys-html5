@@ -82,7 +82,7 @@
                 <div class="col">
                     <h2>General News</h2>
 
-                    <div class="contentBlock">
+                    <div class="contentBlock news">
                         <h3>#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].title}</h3>
                         <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].createdOn)}</span>
 
@@ -91,19 +91,19 @@
                                           value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].item}"/>
                         </p>
                         <h:link outcome="index"
-                                rendered="#{homepageBean.activeNewsItemIndex != 0}"
-                                styleClass="pagingPrev floatLeft"
-                                title="Previous news item">
-                            <f:param name="newsId"
-                                     value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}"/>
-                        </h:link>
-                        <span class="floatLeft">#{homepageBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
-                        <h:link outcome="index"
                                 rendered="#{homepageBean.activeNewsItemIndex lt p:sizeOf(homepageBean.newsItems)-1}"
-                                styleClass="pagingNext floatLeft" title="Next news item">
+                                styleClass="pagingNext floatRight" title="Next news item">
                             <f:param name="newsId"
                                      value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex+1].id}"/>
                         </h:link>
+                        <span class="floatRight">#{homepageBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
+                        <h:link outcome="index"
+                                rendered="#{homepageBean.activeNewsItemIndex != 0}"
+                                styleClass="pagingPrev floatRight"
+                                title="Previous news item">
+                            <f:param name="newsId"
+                                     value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}"/>
+                        </h:link>                        
                         <br class="clear"/>
                     </div>
                 </div>
