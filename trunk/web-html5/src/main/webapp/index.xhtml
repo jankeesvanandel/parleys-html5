@@ -64,8 +64,7 @@
         <div id="thumbnails">
             <ui:repeat value="#{homepageBean.thumbnails}" var="presentation">
                 <div class="thumbnail">
-                    <h3 title="#{presentation.title}">#{p:shortenTo(17, presentation
-                        .title)}</h3>
+                    <h3 title="#{presentation.title}">#{p:shortenTo(17, presentation.title)}</h3>
                     <h:link outcome="presentation">
                         <f:param name="id" value="#{presentation.id}"/>
                         <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnailURL)}"
@@ -91,8 +90,10 @@
                             <h:outputText escape="false"
                                           value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].item}"/>
                         </p>
-                        <h:link outcome="index" rendered="#{homepageBean.activeNewsItemIndex != 0}"
-                                styleClass="pagingPrev floatLeft" title="Previous news item">
+                        <h:link outcome="index"
+                                rendered="#{homepageBean.activeNewsItemIndex != 0}"
+                                styleClass="pagingPrev floatLeft"
+                                title="Previous news item">
                             <f:param name="newsId"
                                      value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}"/>
                         </h:link>
@@ -109,35 +110,35 @@
             </div>
             <div class="twoCol">
                 <div class="col">
-                    <h2>Highlights</h2>
+                    <h2>Featured</h2>
 
                     <div class="contentBlock">
-                        <h3>Recommended space: #{homepageBean.recommendedSpace.name}</h3>
-
                         <p>
-                            <parleys:spaceDTOLink space="#{homepageBean.recommendedSpace}" renderThumbnail="true"
-                                               styleClasses="breathe floatLeft"/>
-                            <h:outputText escape="false" value="#{homepageBean.recommendedSpace.description}"/>
+                            <parleys:spaceLink space="#{homepageBean.recommendedSpace}"
+                                                  renderThumbnail="true"
+                                                  renderLabel="true"
+                                                  renderDescription="true"
+                                                  styleClasses="breathe floatLeft"/>
                         </p>
                         <br class="clear"/>
                     </div>
                     <div class="contentBlock">
-                        <h3>Recommended channel: #{homepageBean.recommendedChannel.name}</h3>
-
                         <p>
-                            <parleys:channelDTOLink channel="#{homepageBean.recommendedChannel}" renderThumbnail="true"
-                                                 styleClasses="breathe floatRight"/>
-                            <h:outputText escape="false" value="#{homepageBean.recommendedChannel.description}"/>
+                            <parleys:channelLink channel="#{homepageBean.recommendedChannel}"
+                                                    renderThumbnail="true"
+                                                    renderLabel="true"
+                                                    renderDescription="true"
+                                                    styleClasses="breathe floatRight"/>
                         </p>
                         <br class="clear"/>
                     </div>
                     <div class="contentBlock">
-                        <h3>Recommended presentation: Solr Power with Lucene</h3>
-
                         <p>
-                            <parleys:presentationDTOLink presentation="#{homepageBean.recommendedPresentation}"
-                                                      renderThumbnail="true" styleClasses="breathe floatLeft"/>
-                            <h:outputText escape="false" value="#{homepageBean.recommendedPresentation.summary}"/>
+                            <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
+                                                         renderThumbnail="true"
+                                                         renderLabel="true"
+                                                         renderDescription="true"
+                                                         styleClasses="breathe floatLeft"/>
                         </p>
                         <br class="clear"/>
                     </div>

@@ -22,7 +22,10 @@
             <ul>
                 <ui:repeat value="#{spacesBean.spaces}" var="space">
                     <li>
-                        <parleys:spaceDTOLink space="#{space}" renderThumbnail="true" renderLabel="true"/>
+                        <parleys:spaceLink space="#{space}"
+                                              renderThumbnail="true"
+                                              renderLabel="true"
+                                              renderDescription="true"/>
                     </li>
                 </ui:repeat>
             </ul>

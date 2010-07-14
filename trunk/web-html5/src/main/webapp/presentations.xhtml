@@ -17,16 +17,18 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <h2>#{presentationsBean.channel.name}</h2>
             <h:graphicImage
                     url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnailURL)}"
                     alt="#{presentationsBean.channel.name}"/>
+            <h2>#{presentationsBean.channel.name}</h2>
             <hr/>
+            <br/>
             <ul>
                 <ui:repeat value="#{presentationsBean.presentations.overviews}" var="presentation">
                     <li>
-                        <parleys:presentationDTOLink presentation="#{presentation}"
+                        <parleys:presentationLink presentation="#{presentation}"
                                                      renderThumbnail="true"
+                                                     renderDescription="true"
                                                      renderLabel="true"/>
                     </li>
                 </ui:repeat>
