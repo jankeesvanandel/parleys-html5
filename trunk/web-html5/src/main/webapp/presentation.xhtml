@@ -25,7 +25,7 @@
                     <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
                     <h:outputScript library="parleys" name="video.js" target="head"/>
                     <h5:video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" loop="false" controls="false"
-                              width="99%" autoplay="false">
+                              width="99%" height="400px" autoplay="false">
                         <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
                         <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
                     </h5:video>
@@ -41,7 +41,11 @@
                     </ui:repeat>
                 </div>
             </div>
+        </div>
 
+        <div id="playButtonOverlayBackground"></div>
+        <div id="playButtonOverlay">
+            <a href="#" title="Click to play"><img src="img/playButton.jpg" alt="Click to play"/></a>
         </div>
     </ui:define>
 
