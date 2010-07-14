@@ -30,9 +30,9 @@ public class HomepageBean extends AbstractParleysBean {
 
     private Filter.Type thumbnailsFilterType;
 
-    private Long newsId;
+    private long newsId;
 
-    private int activeNewsItemIndex = 0;
+    private long activeNewsItemIndex = 0L;
 
     private List<PresentationOverviewDTO> thumbnails;
 
@@ -56,6 +56,17 @@ public class HomepageBean extends AbstractParleysBean {
 
             newsItems = getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
 
+            if (newsId > 0) {
+                int counter = 0;
+                for (News newsItem : newsItems) {
+                    if (newsItem.getId().equals(newsId)) {
+                        activeNewsItemIndex = counter;
+                        break;
+                    }
+                    counter++;
+                }
+            }
+            
             List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
 
             recommendedSpace = (SpaceOverviewDTO)featuredContent.get(0);
@@ -99,11 +110,11 @@ public class HomepageBean extends AbstractParleysBean {
         return newsId;
     }
 
-    public int getActiveNewsItemIndex() {
+    public long getActiveNewsItemIndex() {
         return activeNewsItemIndex;
     }
 
-    public void setActiveNewsItemIndex(final int activeNewsItemIndex) {
+    public void setActiveNewsItemIndex(final long activeNewsItemIndex) {
         this.activeNewsItemIndex = activeNewsItemIndex;
     }
 

@@ -213,8 +213,8 @@ div#logoBar .loginButton {
 }
 
 #navigationBar div.right * {
-    float: right;
-    text-shadow: 0.1em 0.2em 4px black;        
+    text-shadow: 0.1em 0.2em 4px black;
+    float: left;
 }
 
 .search {
@@ -315,6 +315,9 @@ div.contentBlock {
     background-color: #2a2a2a;
     padding: .3em;
     margin: .3em;
+}
+div.contentBlock.news {
+    height: 275px;
 }
 
 div.contentBlock * {
