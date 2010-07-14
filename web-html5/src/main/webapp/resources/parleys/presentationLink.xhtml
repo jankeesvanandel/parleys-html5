@@ -6,9 +6,9 @@
 <composite:interface>
     <composite:attribute name="presentation" type="com.parleys.server.dto.PresentationOverviewDTO" required="true"/>
     <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.presentation.title}"/>
-    <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="false"/>
-    <composite:attribute name="renderLabel" type="java.lang.Boolean" default="false"/>
-    <composite:attribute name="renderDescription" type="java.lang.Boolean" default="false"/>
+    <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
 <composite:implementation>

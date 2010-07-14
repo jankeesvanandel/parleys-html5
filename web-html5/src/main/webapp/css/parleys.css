@@ -297,6 +297,10 @@ div#logoBar .loginButton {
     color: #999;
 }
 
+.reflect {
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.8, transparent), to(white));
+}
+
 #content div#frontpage {
 
 }
@@ -326,6 +330,13 @@ div.contentBlock * {
 
 div.contentBlock p {
     font-size: .8em;
+}
+
+div.contentBlock.pod {
+    height: 80px;
+    -webkit-border-radius:10px;
+    border:1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
 }
 
 #content div#videoContainer {

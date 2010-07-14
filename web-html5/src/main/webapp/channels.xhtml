@@ -24,10 +24,7 @@
             <ul>
                 <ui:repeat value="#{channelsBean.channels}" var="channel">
                     <li>
-                        <parleys:channelLink channel="#{channel}"
-                                                renderThumbnail="true"
-                                                renderDescription="true"
-                                                renderLabel="true"/>
+                        <parleys:channelLink channel="#{channel}"/>
                     </li>
                 </ui:repeat>
             </ul>

@@ -69,8 +69,7 @@
                         <f:param name="id" value="#{presentation.id}"/>
                         <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnailURL)}"
                                         alt=""
-                                        width="133"
-                                        height="88"/>
+                                        width="133" height="88" styleClass="reflect"/>
                     </h:link>
                 </div>
             </ui:repeat>
@@ -115,30 +114,21 @@
                     <div class="contentBlock">
                         <p>
                             <parleys:spaceLink space="#{homepageBean.recommendedSpace}"
-                                                  renderThumbnail="true"
-                                                  renderLabel="true"
-                                                  renderDescription="true"
-                                                  styleClasses="breathe floatLeft"/>
+                                               styleClasses="breathe floatLeft"/>
                         </p>
                         <br class="clear"/>
                     </div>
                     <div class="contentBlock">
                         <p>
                             <parleys:channelLink channel="#{homepageBean.recommendedChannel}"
-                                                    renderThumbnail="true"
-                                                    renderLabel="true"
-                                                    renderDescription="true"
-                                                    styleClasses="breathe floatRight"/>
+                                                 styleClasses="breathe floatRight"/>
                         </p>
                         <br class="clear"/>
                     </div>
                     <div class="contentBlock">
                         <p>
                             <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
-                                                         renderThumbnail="true"
-                                                         renderLabel="true"
-                                                         renderDescription="true"
-                                                         styleClasses="breathe floatLeft"/>
+                                                      styleClasses="breathe floatLeft"/>
                         </p>
                         <br class="clear"/>
                     </div>
@@ -149,22 +139,22 @@
         <div id="pods">
             <div class="threeCol">
                 <div class="col">
-                    <div class="contentBlock">
-                        POD1
+                    <div class="contentBlock pod">
+                        Get Your Own Space
                     </div>
                 </div>
             </div>
             <div class="threeCol">
                 <div class="col">
-                    <div class="contentBlock">
-                        POD2
+                    <div class="contentBlock pod">
+                        License Our Platform
                     </div>
                 </div>
             </div>
             <div class="threeCol">
                 <div class="col">
-                    <div class="contentBlock">
-                        POD3
+                    <div class="contentBlock pod">
+                        Parleys Blog
                     </div>
                 </div>
             </div>

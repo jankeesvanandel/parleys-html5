@@ -26,10 +26,7 @@
             <ul>
                 <ui:repeat value="#{presentationsBean.presentations.overviews}" var="presentation">
                     <li>
-                        <parleys:presentationLink presentation="#{presentation}"
-                                                     renderThumbnail="true"
-                                                     renderDescription="true"
-                                                     renderLabel="true"/>
+                        <parleys:presentationLink presentation="#{presentation}"/>
                     </li>
                 </ui:repeat>
             </ul>
