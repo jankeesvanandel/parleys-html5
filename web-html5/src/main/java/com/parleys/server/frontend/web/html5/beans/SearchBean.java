@@ -1,6 +1,6 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.frontend.domain.Presentation;
+import com.parleys.server.dto.PresentationOverviewDTO;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -14,7 +14,7 @@ import java.util.List;
 public class SearchBean extends AbstractParleysBean {
 
     private String criteria;
-    private List<Presentation> results;
+    private List<PresentationOverviewDTO> results;
 
     public void init() {
         initializeHomepage();
@@ -30,11 +30,11 @@ public class SearchBean extends AbstractParleysBean {
         return null;
     }
 
-    public List<Presentation> getResults() {
+    public List<PresentationOverviewDTO> getResults() {
         return results;
     }
 
-    public void setResults(final List<Presentation> results) {
+    public void setResults(final List<PresentationOverviewDTO> results) {
         this.results = results;
     }
 
