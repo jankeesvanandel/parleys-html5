@@ -16,7 +16,7 @@ public class AssetDTO extends AbstractDTO {
 
     private String cuePointName;
 
-    private AssetType type;
+    private String type;
 
     private String slideContent;
 
@@ -32,7 +32,7 @@ public class AssetDTO extends AbstractDTO {
 
     private Integer originalHeight;
 
-    private AssetTargetType target = AssetTargetType.SLIDE_PANEL;
+    private String target;
 
     private String value;
 
@@ -70,11 +70,11 @@ public class AssetDTO extends AbstractDTO {
         this.cuePointName = cuePointName;
     }
 
-    public final AssetType getType() {
+    public final String getType() {
         return type;
     }
 
-    public final void setType(final AssetType type) {
+    public final void setType(final String type) {
         this.type = type;
     }
 
@@ -134,11 +134,11 @@ public class AssetDTO extends AbstractDTO {
         this.originalHeight = originalHeight;
     }
 
-    public final AssetTargetType getTarget() {
+    public final String getTarget() {
         return target;
     }
 
-    public final void setTarget(final AssetTargetType target) {
+    public final void setTarget(final String target) {
         this.target = target;
     }
 
