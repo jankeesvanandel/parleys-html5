@@ -9,6 +9,7 @@
     <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderStats" type="java.lang.Boolean" default="false"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
 <composite:implementation>
@@ -22,7 +23,10 @@
         <div class="content">
             <h4><h:outputText value="#{cc.attrs.label}" class="contentHeader" rendered="#{cc.attrs.renderLabel}"/></h4>
             <br/><br/>
-            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.space.description}"/>
+            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.space.description}"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatDate(cc.attrs.space.createdOn)}"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{cc.attrs.space.numberOfChannels} channels / #{cc.attrs.space.totalPresentationCount} talks"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.space.totalViewCount)} views"/>
         </div>
     </h:link>
 </composite:implementation>

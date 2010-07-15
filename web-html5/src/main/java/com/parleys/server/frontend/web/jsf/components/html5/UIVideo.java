@@ -9,6 +9,7 @@ import java.io.IOException;
 
 /**
  *
+ * @author Jan-Kees Vanandel
  */
 @FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIVideo")
 public class UIVideo extends UIComponentBase {
@@ -30,13 +31,19 @@ public class UIVideo extends UIComponentBase {
 
     public static final String NOTSUPPORTED_FACET = "notSupported";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFamily() {
         return FAMILY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {
+    public void encodeBegin(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
         w.write("<video");
         writeIfNotNull("id", getClientId(context), w);
@@ -62,7 +69,7 @@ public class UIVideo extends UIComponentBase {
     }
 
     @Override
-    public void encodeEnd(FacesContext context) throws IOException {
+    public void encodeEnd(final FacesContext context) throws IOException {
         final UIComponent facet = getFacet(NOTSUPPORTED_FACET);
         if (facet != null) {
             facet.encodeAll(context);
@@ -72,19 +79,25 @@ public class UIVideo extends UIComponentBase {
         w.write("</video>");
     }
 
-    private void writeIfTrueOrNull(String attrName, Boolean condition, ResponseWriter w) throws IOException {
+    private void writeIfTrueOrNull(final String attrName,
+                                   final Boolean condition,
+                                   final ResponseWriter w) throws IOException {
         if (condition == null || condition) {
             w.write(" " + attrName + "=\"true\"");
         }
     }
 
-    private void writeIfTrueAndNotNull(String attrName, Boolean condition, ResponseWriter w) throws IOException {
+    private void writeIfTrueAndNotNull(final String attrName,
+                                       final Boolean condition,
+                                       final ResponseWriter w) throws IOException {
         if (condition == null || condition) {
             w.write(" " + attrName + "=\"true\"");
         }
     }
 
-    private void writeIfNotNull(String attrName, Object value, ResponseWriter w) throws IOException {
+    private void writeIfNotNull(final String attrName,
+                                final Object value,
+                                final ResponseWriter w) throws IOException {
         if (value != null) {
             w.write(" " + attrName + "=\"" + value + "\"");
         }
@@ -94,7 +107,7 @@ public class UIVideo extends UIComponentBase {
         return autoplay;
     }
 
-    public void setAutoplay(Boolean autoplay) {
+    public void setAutoplay(final Boolean autoplay) {
         this.autoplay = autoplay;
     }
 
@@ -102,7 +115,7 @@ public class UIVideo extends UIComponentBase {
         return controls;
     }
 
-    public void setControls(Boolean controls) {
+    public void setControls(final Boolean controls) {
         this.controls = controls;
     }
 
@@ -110,7 +123,7 @@ public class UIVideo extends UIComponentBase {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(final String height) {
         this.height = height;
     }
 
@@ -118,7 +131,7 @@ public class UIVideo extends UIComponentBase {
         return loop;
     }
 
-    public void setLoop(Boolean loop) {
+    public void setLoop(final Boolean loop) {
         this.loop = loop;
     }
 
@@ -126,7 +139,7 @@ public class UIVideo extends UIComponentBase {
         return poster;
     }
 
-    public void setPoster(String poster) {
+    public void setPoster(final String poster) {
         this.poster = poster;
     }
 
@@ -134,7 +147,7 @@ public class UIVideo extends UIComponentBase {
         return preload;
     }
 
-    public void setPreload(Boolean preload) {
+    public void setPreload(final Boolean preload) {
         this.preload = preload;
     }
 
@@ -142,7 +155,7 @@ public class UIVideo extends UIComponentBase {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(final String width) {
         this.width = width;
     }
 
@@ -150,7 +163,7 @@ public class UIVideo extends UIComponentBase {
         return ontimeupdate;
     }
 
-    public void setOntimeupdate(String ontimeupdate) {
+    public void setOntimeupdate(final String ontimeupdate) {
         this.ontimeupdate = ontimeupdate;
     }
 }

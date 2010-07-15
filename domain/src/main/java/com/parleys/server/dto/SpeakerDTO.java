@@ -94,4 +94,8 @@ public class SpeakerDTO extends AbstractDTO {
 	public final void setUserId(final Long userId) {
 		this.userId = userId;
 	}
+
+    public final String getName() {
+        return firstName + " " + lastName;
+    }
 }

@@ -88,6 +88,10 @@ public class SpaceOverviewDTO extends AbstractDTO {
         return channelIds;
     }
 
+    public int getNumberOfChannels() {
+        return channelIds.size();
+    }
+
     /**
      * @param channelIds the channelIds to set
      */

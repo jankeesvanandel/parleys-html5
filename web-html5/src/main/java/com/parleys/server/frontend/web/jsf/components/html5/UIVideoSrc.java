@@ -17,13 +17,19 @@ public class UIVideoSrc extends UIComponentBase {
 
     public String type;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFamily() {
         return FAMILY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void encodeEnd(FacesContext context) throws IOException {
+    public void encodeEnd(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
         w.write("<source");
         writeIfNotNull("src", source, w);
@@ -32,7 +38,9 @@ public class UIVideoSrc extends UIComponentBase {
         w.write("/>");
     }
 
-    private void writeIfNotNull(String attrName, Object value, ResponseWriter w) throws IOException {
+    private void writeIfNotNull(final String attrName,
+                                final Object value,
+                                final ResponseWriter w) throws IOException {
         if (value != null) {
             w.write(" " + attrName + "=\"" + value + "\"");
         }
@@ -42,7 +50,7 @@ public class UIVideoSrc extends UIComponentBase {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(final String source) {
         this.source = source;
     }
 
@@ -50,7 +58,7 @@ public class UIVideoSrc extends UIComponentBase {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 }

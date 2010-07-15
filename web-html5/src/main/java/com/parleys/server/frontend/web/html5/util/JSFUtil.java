@@ -1,17 +1,24 @@
 package com.parleys.server.frontend.web.html5.util;
 
+import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.dto.SpeakerDTO;
 import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.ReadableInstant;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * @author Jan-Kees Vanandel
+ * @author Stephan Janssen
  */
 public class JSFUtil {
+
+    private static DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public static int sizeOf(final Collection coll) {
         if (coll != null) {
@@ -52,22 +59,78 @@ public class JSFUtil {
         }
     }
 
-    public static String formatDate(Date date) {
+    public static String subLabel(final PresentationOverviewDTO presentation) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("by ");
+
+        for (SpeakerDTO speaker : presentation.getSpeakers()) {
+            builder.append(speaker.getName());
+
+            if (presentation.getSpeakers().size() > 1) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append(" (Play time: ");
+
+        float duration = presentation.getTotalDuration();
+
+        int hours = (int)Math.floor(duration / (3600));
+        int minutes = (int)Math.floor((duration % (3600)) / (60));
+        int seconds = (int)Math.floor(duration) % 60;
+
+        String minutesString = (minutes < 10) ? "0" + minutes : "" + minutes;
+        String secondsString = (seconds < 10) ? "0" + seconds : "" + seconds;
+        String hoursString = (hours < 10) ? "0" + hours : hours + ":";
+
+        if (hours==0d){
+            hoursString = "";
+        }
+
+        builder.append(hoursString);
+        builder.append(minutesString);
+        builder.append(":");
+        builder.append(secondsString);
+
+        builder.append(") ");
+        builder.append(DateFormat.getDateInstance().format(presentation.getCreatedOn()));
+        
+        return builder.toString();
+    }
+
+    public static String formatNumber(final int value) {
+        return formatter.format(value);
+    }
+
+    public static String formatDate(final Date date) {
         if (date == null) {
             return "";
         }
 
-        date = DateUtils.truncate(date, Calendar.DATE);
-        final Date today = DateUtils.truncate(new Date(), Calendar.DATE);
-        final Calendar yesterdayCalendar = new GregorianCalendar();
-        yesterdayCalendar.add(Calendar.DATE, -1);
-        final Date yesterday = DateUtils.truncate(yesterdayCalendar.getTime(), Calendar.DATE);
-        if (date.equals(today)) {
-            return "today";
-        } else if (date.equals(yesterday)) {
-            return "yesterday";
+        final DateTime start = new DateTime(date.getTime());
+        final DateTime end = new DateTime(new Date());
+
+        final Days daysAgo = Days.daysBetween(start, end);
+        final int days = daysAgo.getDays();
+
+        String daysAgoPosted;
+
+        if (days == 0) {
+            daysAgoPosted = "today";
+        } else if (days == 1) {
+            daysAgoPosted = "yesterday";
+        } else if(days < 7) {
+            daysAgoPosted = days + " days ago";
+        } else if (days < 32) {
+            int week = Math.round(days/7);
+            daysAgoPosted = week + (week > 1 ? " weeks ago" : " week ago");
+        } else if (days < 365) {
+            daysAgoPosted = Math.round(days/30) + " months ago";
         } else {
-            return "on " + new SimpleDateFormat("dd-MM-yyyy").format(date);
+            int year = Math.round(days/365);
+            daysAgoPosted = year + ((year > 1) ? " years ago" : " year ago");
         }
+
+        return daysAgoPosted;
     }
 }

@@ -23,7 +23,8 @@
             <ul>
                 <ui:repeat value="#{spacesBean.spaces}" var="space">
                     <li>
-                        <parleys:spaceLink space="#{space}"/>
+                        <parleys:spaceLink space="#{space}"
+                                           renderStats="true"/>
                     </li>
                 </ui:repeat>
             </ul>

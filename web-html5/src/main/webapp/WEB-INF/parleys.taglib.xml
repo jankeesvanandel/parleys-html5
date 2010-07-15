@@ -42,4 +42,15 @@
         <function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
     </function>
 
+    <function>
+        <function-name>formatNumber</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>java.lang.String formatNumber(int)</function-signature>
+    </function>
+
+    <function>
+        <function-name>subLabel</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>java.lang.String subLabel(com.parleys.server.dto.PresentationOverviewDTO)</function-signature>
+    </function>
 </facelet-taglib>
