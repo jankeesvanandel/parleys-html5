@@ -5,10 +5,24 @@ package com.parleys.server.frontend.domain;
  * $Revision$
  */
 public enum Filter {
-    FEATURED,
-    LATEST,
-    TOP_RATED,
-    MOST_VIEWED;
+
+    FEATURED("Featured"),
+
+    LATEST("Latest"),
+
+    TOP_RATED("Top Rated"),
+
+    MOST_VIEWED("Most Viewed");
+
+    String description;
+
+    Filter(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public static enum Type {
         SPACE,

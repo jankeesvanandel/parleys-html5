@@ -71,7 +71,7 @@ public class PresentationsBean extends PagingBean {
             } else {
                 presentations =
                         (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                .getFeatured(FeaturedType.PRESENTATION);
+                                .getPresentationsOverview(criteria);
             }
 
             if (channelId != 0) {
@@ -80,6 +80,8 @@ public class PresentationsBean extends PagingBean {
             } else {
                 super.initializeHomepage();
             }
+        } catch (ParleysServiceException e) {
+            LOG.error(e);
         } catch (AuthorizationException e) {
             LOG.error(e);
         } catch (ClientStatusException e) {
