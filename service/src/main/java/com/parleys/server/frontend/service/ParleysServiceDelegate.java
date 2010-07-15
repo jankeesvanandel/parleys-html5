@@ -103,7 +103,7 @@ public interface ParleysServiceDelegate {
      * @throws AuthorizationException User is not authorized
      * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException AMF problem occurred
      */
-    OverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(PresentationsCriteria criteria)
+    List<? extends AbstractDTO> getPresentationsOverview(PresentationsCriteria criteria)
                 throws ParleysServiceException, AuthorizationException, ClientStatusException;
 
     /**

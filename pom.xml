@@ -159,7 +159,7 @@
     <repositories>
         <repository>
             <id>devoxx</id>
-            <url>http://www.devoxx.com:8081/nexus/content/groups/public</url>
+            <url>http://nexus.devoxx.com/nexus/content/groups/public</url>
         </repository>
         <repository>
             <id>maven2</id>

@@ -85,7 +85,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
      * {@inheritDoc}
      */
     @Override
-    public OverviewResponseDTO<PresentationOverviewDTO>
+    public List<? extends AbstractDTO>
         getPresentationsOverview(final PresentationsCriteria criteria)
                 throws ParleysServiceException, AuthorizationException, ClientStatusException {
 
@@ -94,7 +94,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                                                                  criteria.getPaging(),
                                                                  PresentationType.ALL.name(),
                                                                  PresentationSort.PUBLICATION.name(),
-                                                                 PresentationDateRange.ALL_TIME.name());
+                                                                 PresentationDateRange.ALL_TIME.name()).getOverviews();
     }
 
     /**

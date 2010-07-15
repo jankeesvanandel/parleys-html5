@@ -45,7 +45,11 @@ public class JSFUtil {
     // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
     public static String presentationThumbnail(final long presentationId,
                                                final String thumbnail) {
-        return String.format("http://www.parleys.com/assets/presentations/%1$s/%2$s", presentationId, thumbnail);
+        if (thumbnail.length() == 0) {
+            return "./img/nothumb.jpg";
+        } else {
+            return String.format("http://www.parleys.com/assets/presentations/%1$s/%2$s", presentationId, thumbnail);
+        }
     }
 
     public static String formatDate(Date date) {

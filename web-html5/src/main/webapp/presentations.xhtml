@@ -6,6 +6,7 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:c="http://java.sun.com/jstl/core"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
     <ui:param name="parleysBean" value="#{presentationsBean}"/>
     <ui:define name="header">
@@ -19,7 +20,10 @@
         <div>
             <h:graphicImage
                     url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnailURL)}"
-                    alt="#{presentationsBean.channel.name}"/>
+                    alt="#{presentationsBean.channel.name}"
+                    rendered="#{not empty presentationsBean.channel.thumbnailURL}">
+            </h:graphicImage>
+            <h2>#{presentationsBean.filter.description}</h2>
             <h2>#{presentationsBean.channel.name}</h2>
             <hr/>
             <br/>
