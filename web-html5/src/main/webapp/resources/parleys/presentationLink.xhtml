@@ -27,7 +27,10 @@
             <h:outputText value="#{p:subLabel(cc.attrs.presentation)}" rendered="#{cc.attrs.renderSubLabel}"/>
             <br/><br/>
             <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.presentation.summary}"/><br/>
-            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalVotes)} votes"/><br/>
+            <div class="rating_bar">
+                <div style="width:#{cc.attrs.presentation.totalVoteValue * 14.6 * 1.36}%;"></div> 
+            </div>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:totalVotes(cc.attrs.presentation.totalVotes)}"/><br/>
             <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalViews)} views"/><br/>
             <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalDownloads)} downloads"/><br/>
             <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalComments)} comments"/><br/>            

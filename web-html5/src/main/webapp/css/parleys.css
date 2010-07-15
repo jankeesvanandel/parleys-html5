@@ -560,3 +560,13 @@ a.pagingPrev:hover {
 .clear {
     clear: both;
 }
+
+.rating_bar {
+    width: 73px;
+    background: url('../img/starsUnselected.png') 0 0 no-repeat;
+}
+
+.rating_bar div {
+  height: 13px;
+  background: url('../img/starsSelected.png') 0 0 no-repeat;
+}

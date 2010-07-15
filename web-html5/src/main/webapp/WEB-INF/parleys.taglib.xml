@@ -53,4 +53,16 @@
         <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
         <function-signature>java.lang.String subLabel(com.parleys.server.dto.PresentationOverviewDTO)</function-signature>
     </function>
+
+    <function>
+        <function-name>subscription</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>java.lang.String subscription(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <function-name>totalVotes</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>java.lang.String totalVotes(int)</function-signature>
+    </function>
 </facelet-taglib>

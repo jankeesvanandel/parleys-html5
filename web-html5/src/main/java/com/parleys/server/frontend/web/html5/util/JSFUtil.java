@@ -1,5 +1,6 @@
 package com.parleys.server.frontend.web.html5.util;
 
+import com.parleys.server.domain.types.MembershipType;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpeakerDTO;
 import org.apache.commons.lang.time.DateUtils;
@@ -132,5 +133,23 @@ public class JSFUtil {
         }
 
         return daysAgoPosted;
+    }
+
+    public static String subscription(final String membership) {
+        if (membership.equals(MembershipType.SUBSCRIPTION.name())) {
+            return "Subscription Based";
+        } else {
+            return "";
+        }
+    }
+
+    public static String totalVotes(final int value) {
+        if (value == 0) {
+            return "no votes";
+        } else if (value == 1) {
+            return "1 vote";
+        } else {
+            return value + " votes";
+        }
     }
 }
