@@ -75,7 +75,7 @@ public class PresentationBean extends AbstractParleysBean {
         for (AssetDTO asset : assets) {
             System.out.println(asset.getTarget() + "    " + asset.getType() + "    " + asset.getValue());
 
-            if (asset.getTarget().name().equals(AssetTargetType.SLIDE_PANEL.name())) {
+            if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
                 System.out.println("Yep it is and asset");
                 sAssets.add(asset);
             } else {
