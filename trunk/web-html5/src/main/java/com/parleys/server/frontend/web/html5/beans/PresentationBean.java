@@ -73,13 +73,16 @@ public class PresentationBean extends AbstractParleysBean {
         List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
 
         for (AssetDTO asset : assets) {
-            System.out.println(asset.getTarget() + "    " + asset.getType() + "    " + asset.getValue());
 
             if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
-                System.out.println("Yep it is and asset");
+
+                String value = asset.getValue();
+                value = "/iphone_"+value.substring(1,value.length()-3)+"jpg";
+                asset.setValue(value);
+
                 sAssets.add(asset);
             } else {
-                System.out.println("Nope its not and asset");
+                
             }
         }
 
