@@ -9,21 +9,28 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- *
+ * @author Jan-Kees Vanandel
  */
 @FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIDiv")
 public class UIDiv extends UIOutput {
+
     public static final String FAMILY = "com.parleys.server.frontend.web.jsf.components.html5";
 
     public String styleClass;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFamily() {
         return FAMILY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {
+    public void encodeBegin(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
         w.startElement("div", this);
         w.writeAttribute("id", getClientId(context), "id");
@@ -33,8 +40,11 @@ public class UIDiv extends UIOutput {
         w.write("\">");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void encodeEnd(FacesContext context) throws IOException {
+    public void encodeEnd(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
         w.write("</div>");
     }
@@ -43,7 +53,7 @@ public class UIDiv extends UIOutput {
         return styleClass;
     }
 
-    public void setStyleClass(String styleClass) {
+    public void setStyleClass(final String styleClass) {
         this.styleClass = styleClass;
     }
 }

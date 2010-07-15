@@ -8,7 +8,9 @@
     <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.presentation.title}"/>
     <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderSubLabel" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderStats" type="java.lang.Boolean" default="false"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
 <composite:implementation>
@@ -21,9 +23,14 @@
                             height="88px" width="133px"/>
         </div>
         <div class="content">
-            <h4><h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/></h4>
+            <h4><h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/></h4><br/>
+            <h:outputText value="#{p:subLabel(cc.attrs.presentation)}" rendered="#{cc.attrs.renderSubLabel}"/>
             <br/><br/>
-            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.presentation.summary}"/>
+            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.presentation.summary}"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalVotes)} votes"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalViews)} views"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalDownloads)} downloads"/><br/>
+            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalComments)} comments"/><br/>            
         </div>
     </h:link>
 </composite:implementation>

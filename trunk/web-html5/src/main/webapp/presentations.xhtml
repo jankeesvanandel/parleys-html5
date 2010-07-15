@@ -30,7 +30,8 @@
             <ul>
                 <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
                     <li>
-                        <parleys:presentationLink presentation="#{presentation}"/>
+                        <parleys:presentationLink presentation="#{presentation}"
+                                                  renderStats="true"/><br/>
                     </li>
                 </ui:repeat>
             </ul>
