@@ -24,16 +24,16 @@
                     <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
                     <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
                     <h:outputScript library="parleys" name="video.js" target="head"/>
-                    <h5:video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" loop="false" controls="false"
-                              width="99%" height="400px" autoplay="false">
-                        <h5:source source="http://download1.parleys.com/test/test.mp4" type="video/mp4"/>
-                        <f:facet name="notSupported">Your browser does not support the <code>video</code> element.</f:facet>
-                    </h5:video>
+                    <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()"
+                              width="99%" height="400px">
+                        <source src="http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8" type="video/mp4" />
+                    </video>
+
                 </div>
                 <div id="slidesContainer">
-                    <ui:repeat value="#{presentationBean.presentation.assetDTOs}" var="asset">
+                    <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
                         <img class="slide" id="slide_#{asset.id}" style="display: none"
-                             src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}/#{asset.value}"
+                             src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
                              alt="#{asset.value}"
                              startTime="#{asset.cuePoint}"
                              endTime="#{asset.cuePoint + asset.duration}"
@@ -58,7 +58,7 @@
                 </div>
                 <div id="videoNavigationBarChapters">
                     <ol>
-                        <ui:repeat value="#{presentationBean.presentation.assetDTOs}" var="asset" varStatus="status">
+                        <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
                             <li class="#{status.first ? 'first' : ''}">
                                 <a href="##{asset.id}">
                                     <span>#{asset.value}</span>
