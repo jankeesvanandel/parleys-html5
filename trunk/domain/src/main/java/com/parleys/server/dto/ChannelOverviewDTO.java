@@ -39,7 +39,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
 
     private long parentId;
 
-    private MembershipType membership;
+    private String membership;
 
     private int subscriptionInterval;
 
@@ -50,7 +50,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     private float payPerTalkAmount;
 
     // EUR or USD for
-    private CurrencyType paymentCurrency;
+    private String paymentCurrency;
 
     // if isDeleted is true the channel is a holder for deleted presentations.
     // So we can't delete or reparent this channel at all
@@ -198,11 +198,11 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.keywordList = keywordList;
     }
 
-    public MembershipType getMembership() {
+    public String getMembership() {
         return membership;
     }
 
-    public void setMembership(MembershipType membership) {
+    public void setMembership(String membership) {
         this.membership = membership;
     }
 
@@ -230,11 +230,11 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.payPerTalkAmount = payPerTalkAmount;
     }
 
-    public CurrencyType getPaymentCurrency() {
+    public String getPaymentCurrency() {
         return paymentCurrency;
     }
 
-    public void setPaymentCurrency(CurrencyType paymentCurrency) {
+    public void setPaymentCurrency(String paymentCurrency) {
         this.paymentCurrency = paymentCurrency;
     }
 
