@@ -65,4 +65,10 @@
         <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
         <function-signature>java.lang.String totalVotes(int)</function-signature>
     </function>
+
+    <function>
+        <function-name>ratingBar</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>java.lang.String ratingBar(double)</function-signature>
+    </function>
 </facelet-taglib>
