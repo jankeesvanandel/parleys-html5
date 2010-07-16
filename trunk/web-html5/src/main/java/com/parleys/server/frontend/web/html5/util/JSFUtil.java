@@ -152,4 +152,14 @@ public class JSFUtil {
             return value + " votes";
         }
     }
+
+    public static String ratingBar(final double value) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<div class='rating_bar'>");
+        builder.append("<div style='width:");
+        double width = value * 14.6 * 1.36;
+        builder.append(width);
+        builder.append("%;'></div></div>");
+        return builder.toString();
+    }
 }

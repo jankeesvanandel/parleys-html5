@@ -391,4 +391,8 @@ public class PresentationOverviewDTO extends AbstractDTO {
     public void setChannelId(Long channelId) {
         this.channelId = channelId;
     }
+
+    public String getShortSummary() {
+        return summary.length() > 275 ? summary.substring(0, 275).concat("...") : summary;
+    }
 }

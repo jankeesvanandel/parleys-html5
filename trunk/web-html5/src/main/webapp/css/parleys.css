@@ -567,6 +567,30 @@ a.pagingPrev:hover {
 }
 
 .rating_bar div {
-  height: 13px;
-  background: url('../img/starsSelected.png') 0 0 no-repeat;
+    height: 13px;
+    background: url('../img/starsSelected.png') 0 0 no-repeat;
+}
+
+.shadowbox {
+    -webkit-border-radius:10px;
+    border:1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 110px;
+}
+
+.leftcol {
+    padding: 10px 10px 10px 10px;
+    vertical-align: baseline;
+}
+
+.centercol {
+    padding: 10px 10px 10px 0;
+    width: 600px;
+    vertical-align: top;
+}
+
+.rightcol {
+    padding: 10px 10px 10px 0;
+    vertical-align: top;
 }

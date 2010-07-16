@@ -15,19 +15,30 @@
 <composite:implementation>
     <h:link outcome="channels">
         <f:param name="id" value="#{cc.attrs.space.id}"/>
-        <div class="#{cc.attrs.styleClasses}">
-            <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
-                        value="#{p:spaceThumbnail(cc.attrs.space.id, cc.attrs.space.thumbnailURL)}" alt="#{cc.attrs.label}"
-                        height="70" width="70"/>
-        </div>
-        <div class="content">
-            <h4><h:outputText value="#{cc.attrs.label}" class="contentHeader" rendered="#{cc.attrs.renderLabel}"/></h4>
-            <br/><br/>
-            <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.space.description}"/><br/>
-            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatDate(cc.attrs.space.createdOn)}"/><br/>
-            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{cc.attrs.space.numberOfChannels} channels / #{cc.attrs.space.totalPresentationCount} talks"/><br/>
-            <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.space.totalViewCount)} views"/>
-        </div>
+        <table>
+            <tr>
+                <td class="leftcol">
+                    <div class="#{cc.attrs.styleClasses}">
+                        <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
+                                    value="#{p:spaceThumbnail(cc.attrs.space.id, cc.attrs.space.thumbnailURL)}" alt="#{cc.attrs.label}"
+                                    height="70" width="70"/>
+                    </div>
+                </td>
+
+                <td class="centercol">
+                    <h4><h:outputText value="#{cc.attrs.label}" class="contentHeader" rendered="#{cc.attrs.renderLabel}"/></h4>
+                    <br/><br/>
+                    <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.space.shortDescription}"/><br/>
+                </td>
+
+                <td class="rightcol">
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="created #{p:formatDate(cc.attrs.space.createdOn)}"/><br/>
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{cc.attrs.space.numberOfChannels} channels"/><br/>
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{cc.attrs.space.totalPresentationCount} talks"/><br/>
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.space.totalViewCount)} views"/>
+                </td>
+            </tr>
+        </table>
     </h:link>
 </composite:implementation>
 </html>

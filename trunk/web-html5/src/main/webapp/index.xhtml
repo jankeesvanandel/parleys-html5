@@ -23,7 +23,7 @@
                 <li>
                     <h:link outcome="presentations">
                         <f:param name="filter" value="FEATURED"/>
-                        Featured Test
+                        Featured
                     </h:link> |
                 </li>
                 <li>
@@ -129,6 +129,7 @@
                     <div class="contentBlock">
                         <p>
                             <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
+                                                      renderSubLabel="false"
                                                       styleClasses="breathe floatLeft"/>
                         </p>
                         <br class="clear"/>
