@@ -285,8 +285,4 @@ public class ChannelOverviewDTO extends AbstractDTO {
     public void setHostedInPublicSpace(boolean hostedInPublicSpace) {
         this.hostedInPublicSpace = hostedInPublicSpace;
     }
-
-     public String getShortDescription() {
-        return description.length() > 370 ? description.substring(0, 370).concat("...") : description;
-    }
 }

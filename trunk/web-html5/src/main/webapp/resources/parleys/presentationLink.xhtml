@@ -2,14 +2,17 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:composite="http://java.sun.com/jsf/composite">
 <composite:interface>
     <composite:attribute name="presentation" type="com.parleys.server.dto.PresentationOverviewDTO" required="true"/>
     <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.presentation.title}"/>
+    <composite:attribute name="summary" type="java.lang.String" default="#{cc.attrs.presentation.summary}"/>
     <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="titleSize" type="int" default="0"/>
+    <composite:attribute name="summarySize" type="int" default="0"/>
     <composite:attribute name="renderSubLabel" type="java.lang.Boolean" default="true"/>
-    <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderStats" type="java.lang.Boolean" default="false"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
@@ -20,24 +23,33 @@
         <table>
             <tr>
                 <td class="leftcol">
-                    <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
-                                    value="#{p:presentationThumbnail(cc.attrs.presentation.id, cc.attrs.presentation.thumbnailURL)}"
-                                    alt="#{cc.attrs.label}"
-                                    height="88px" width="133px"/>
+                    <h:graphicImage
+                            rendered="#{cc.attrs.renderThumbnail}"
+                            value="#{p:presentationThumbnail(cc.attrs.presentation.id, cc.attrs.presentation.thumbnailURL)}"
+                            alt="#{cc.attrs.label}"
+                            height="88px" width="133px"/>
                 </td>
                 <td class="centercol">
-                    <h4><h:outputText value="#{cc.attrs.label}" rendered="#{cc.attrs.renderLabel}"/></h4><br/>
-                    <h:outputText value="#{p:subLabel(cc.attrs.presentation)}" rendered="#{cc.attrs.renderSubLabel}"/>
-                    <br/><br/>
-                    <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.presentation.shortSummary}"/>
+                    <h4><h:outputText
+                            value="#{cc.attrs.titleSize > 0 ? p:shortenTo(cc.attrs.titleSize, cc.attrs.label) : cc.attrs.label }"
+                            rendered="#{cc.attrs.renderLabel}"/></h4><br/>
+                    <h:outputText
+                            value="#{p:subLabel(cc.attrs.presentation)}"
+                            style="font-style:italic;"
+                            rendered="#{cc.attrs.renderSubLabel}"/><br/>
+                    <h:outputText
+                            escape="false"
+                            value="#{cc.attrs.summarySize > 0 ? p:shortenTo(cc.attrs.summarySize, cc.attrs.summary) : cc.attrs.summary }"/>
                 </td>
-                <td class="rightcol">                    
-                    <h:outputText rendered="#{cc.attrs.renderStats}" escape="false" value="#{p:ratingBar(cc.attrs.presentation.totalVoteValue)}"/><br/>
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:totalVotes(cc.attrs.presentation.totalVotes)}"/><br/>
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalViews)} views"/><br/>
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalDownloads)} downloads"/><br/>
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.presentation.totalComments)} comments"/>
-                </td>
+                <c:if test="#{cc.attrs.renderStats}">
+                    <td class="rightcol">
+                        <h:outputText escape="false" value="#{p:ratingBar(cc.attrs.presentation.totalVoteValue)}"/><br/>
+                        <h:outputText value="#{p:totalVotes(cc.attrs.presentation.totalVotes)}"/><br/>
+                        <h:outputText value="#{p:formatNumber(cc.attrs.presentation.totalViews)} views"/><br/>
+                        <h:outputText value="#{p:formatNumber(cc.attrs.presentation.totalDownloads)} downloads"/><br/>
+                        <h:outputText value="#{p:formatNumber(cc.attrs.presentation.totalComments)} comments"/>
+                    </td>
+                </c:if>
         </tr>
         </table>
     </h:link>

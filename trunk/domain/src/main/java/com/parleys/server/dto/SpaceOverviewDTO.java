@@ -154,8 +154,4 @@ public class SpaceOverviewDTO extends AbstractDTO {
 	public final void setKeywordList(final List<String> keywordList) {
 		this.keywordList = keywordList;
 	}
-
-    public String getShortDescription() {
-        return description.length() > 300 ? description.substring(0, 300).concat("...") : description;
-    }
 }

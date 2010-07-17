@@ -87,6 +87,7 @@
                         <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].createdOn)}</span>
 
                         <p>
+                            <br/>
                             <h:outputText escape="false"
                                           value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].item}"/>
                         </p>
@@ -113,26 +114,19 @@
                     <h2>Featured</h2>
 
                     <div class="contentBlock">
-                        <p>
                             <parleys:spaceLink space="#{homepageBean.recommendedSpace}"
                                                styleClasses="breathe floatLeft"/>
-                        </p>
-                        <br class="clear"/>
                     </div>
                     <div class="contentBlock">
-                        <p>
                             <parleys:channelLink channel="#{homepageBean.recommendedChannel}"
                                                  styleClasses="breathe floatRight"/>
-                        </p>
-                        <br class="clear"/>
                     </div>
                     <div class="contentBlock">
-                        <p>
                             <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
                                                       renderSubLabel="false"
-                                                      styleClasses="breathe floatLeft"/>
-                        </p>
-                        <br class="clear"/>
+                                                      titleSize="40"
+                                                      summarySize="220"
+                                                      styleClasses="breathe floatLeft "/>
                     </div>
                 </div>
             </div>
