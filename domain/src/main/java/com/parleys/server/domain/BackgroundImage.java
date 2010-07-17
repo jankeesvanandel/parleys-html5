@@ -22,10 +22,10 @@ public class BackgroundImage implements Serializable, Cloneable {
     private boolean isBackgroundInherited = false;
 
     // The background image vertical align.
-    private VerticalAlign verticalAlign = VerticalAlign.MIDDLE;
+    private String verticalAlign = VerticalAlign.MIDDLE.name();
 
     // The background image horizontal align.
-    private HorizontalAlign horizontalAlign = HorizontalAlign.CENTER;
+    private String horizontalAlign = HorizontalAlign.CENTER.name();
 
     // Need we resize image or display as is?
     private boolean resize = false;
@@ -89,28 +89,28 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the verticalAlign
      */
-    public final VerticalAlign getVerticalAlign() {
+    public final String getVerticalAlign() {
         return verticalAlign;
     }
 
     /**
      * @param verticalAlign the verticalAlign to set
      */
-    public final void setVerticalAlign(final VerticalAlign verticalAlign) {
+    public final void setVerticalAlign(final String verticalAlign) {
         this.verticalAlign = verticalAlign;
     }
 
     /**
      * @return the horizontalAlign
      */
-    public final HorizontalAlign getHorizontalAlign() {
+    public final String getHorizontalAlign() {
         return horizontalAlign;
     }
 
     /**
      * @param horizontalAlign the horizontalAlign to set
      */
-    public final void setHorizontalAlign(final HorizontalAlign horizontalAlign) {
+    public final void setHorizontalAlign(final String horizontalAlign) {
         this.horizontalAlign = horizontalAlign;
     }
 

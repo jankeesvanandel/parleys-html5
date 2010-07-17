@@ -1,5 +1,6 @@
 package com.parleys.server.dto;
 
+import com.parleys.server.domain.BackgroundImage;
 import com.parleys.server.domain.types.PresentationDateRange;
 import com.parleys.server.domain.types.PresentationSort;
 import com.parleys.server.domain.types.PresentationType;
@@ -12,17 +13,7 @@ public class FilteredOverviewResponseDTO<T> extends OverviewResponseDTO<T> {
     /**
      * The background image URL to use when showing this overview.
      */
-    private String backgroundLink;
-
-    /**
-     * The background image position based on the enum value of BackgroundImagePositionType.
-     */
-    private String backgroundPosition;
-
-    /**
-     * Should the presentations inherit the parent channel background image?
-     */
-    private boolean isBackgroundInherited;
+     private BackgroundImage backgroundImage = new BackgroundImage();
 
     /**
      * The type of presentation needed
@@ -100,27 +91,17 @@ public class FilteredOverviewResponseDTO<T> extends OverviewResponseDTO<T> {
         return filter;
     }
 
-    public String getBackgroundLink() {
-        return backgroundLink;
+    /**
+     * @param backgroundImage the backgroundImage to set
+     */
+    public void setBackgroundImage(final BackgroundImage backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 
-    public void setBackgroundLink(final String backgroundLink) {
-        this.backgroundLink = backgroundLink;
-    }
-
-    public String getBackgroundPosition() {
-        return backgroundPosition;
-    }
-
-    public void setBackgroundPosition(final String backgroundPosition) {
-        this.backgroundPosition = backgroundPosition;
-    }
-
-    public boolean isBackgroundInherited() {
-        return isBackgroundInherited;
-    }
-
-    public void setBackgroundInherited(final boolean backgroundInherited) {
-        isBackgroundInherited = backgroundInherited;
+    /**
+     * @return the backgroundImage
+     */
+    public BackgroundImage getBackgroundImage() {
+        return backgroundImage;
     }
 }
