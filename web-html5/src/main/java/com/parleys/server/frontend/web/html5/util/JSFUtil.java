@@ -154,10 +154,12 @@ public class JSFUtil {
     }
 
     public static String ratingBar(final double value) {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("<div class='rating_bar'>");
         builder.append("<div style='width:");
-        double width = value * 14.6 * 1.36;
+
+        // 14.6 equals 1 star in pixels and 1.36 is 1% of the actual total width of the 5 stars
+        final double width = value * 14.6 * 1.36;        
         builder.append(width);
         builder.append("%;'></div></div>");
         return builder.toString();
