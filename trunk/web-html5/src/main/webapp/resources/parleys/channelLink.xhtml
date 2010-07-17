@@ -31,9 +31,9 @@
                     <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}" value="#{cc.attrs.channel.shortDescription}"/><br/>
                 </td>
                 <td class="rightcol">
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="created #{p:formatDate(cc.attrs.channel.createdOn)}"/><br/>
-                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.channel.totalViewCount)} views"/><br/>
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="created #{p:formatDate(cc.attrs.channel.createdOn)}"/><br/><br/>
                     <h:outputText rendered="#{cc.attrs.renderStats}" value="#{cc.attrs.channel.totalPresentationCount} talks"/><br/>
+                    <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:formatNumber(cc.attrs.channel.totalViewCount)} views"/><br/>
                     <h:outputText rendered="#{cc.attrs.renderStats}" value="#{p:subscription(cc.attrs.channel.membership)}"/>
                 </td>
             </tr>
