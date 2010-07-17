@@ -77,10 +77,11 @@ public class PresentationBean extends AbstractParleysBean {
             if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
 
                 String value = asset.getValue();
-                value = "/iphone_"+value.substring(1,value.length()-3)+"jpg";
-                asset.setValue(value);
-
-                sAssets.add(asset);
+                if (value != null && value.length() > 4) {
+                    value = "/iphone_"+value.substring(1,value.length()-3)+"jpg";
+                    asset.setValue(value);
+                    sAssets.add(asset);
+                }
             } else {
                 
             }
