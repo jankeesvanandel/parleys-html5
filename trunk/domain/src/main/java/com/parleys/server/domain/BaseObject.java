@@ -1,9 +1,11 @@
 package com.parleys.server.domain;
 
+import java.io.Serializable;
+
 /**
  * @author Stephan Janssen
  */
-public abstract class BaseObject {
+public abstract class BaseObject implements Serializable {
 
     /**
      *

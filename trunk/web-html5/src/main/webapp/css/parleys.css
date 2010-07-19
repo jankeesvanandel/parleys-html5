@@ -363,7 +363,13 @@ div.contentBlock {
     margin: .3em;
 }
 div.contentBlock.news {
-    height: 275px;
+    position: relative;
+}
+
+div.contentBlock.news span.newsNav {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 div.contentBlock * {
