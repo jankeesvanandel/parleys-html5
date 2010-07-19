@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="WEB-INF/facelets/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+    <ui:param name="parleysBean" value="#{spacesBean}"/>
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="index" value="#{spacesBean.index}"/>
+            <f:viewParam name="paging" value="#{spacesBean.paging}"/>
+            <f:viewParam name="filter" value="#{spacesBean.filter}"/>
+            <f:event type="preRenderView" listener="#{spacesBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <div>
+            <h2>Spaces</h2>
+            <hr/>
+            <ul>
+                <ui:repeat value="#{spacesBean.spaces}" var="space">
+                    <li class="shadowbox">
+                        <parleys:spaceLink space="#{space}"
+                                           descriptionSize="270"
+                                           renderStats="true"/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

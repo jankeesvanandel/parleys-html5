@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:h5="http://www.parleys.com/jsf/components/html5"
+      xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+<f:metadata>
+    <f:viewParam name="page" value="#{processBean.currentPage}"/>
+    <f:viewParam name="id" value="#{processBean.id}"/>
+    <f:event type="preRenderView" listener="#{processBean.init}"/>
+</f:metadata>
+<h:head>
+    <title>Parleys</title>
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
+    <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js"/>
+    <h:outputScript library="parleys" name="jquery.address-1.2.1.min.js"/>
+    <script type="text/javascript">
+        var navigating = false;
+        var redirecting = false;
+
+        function redirectPrettyUrls() {
+            var pathNames = $.address.pathNames() || ['Home'];
+
+            if ($.inArray("presentation", pathNames) != -1) {
+                var id = $.inArray("presentation", pathNames) + 1;
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=presentation&amp;id=" + id;
+                redirecting = true;
+            } else if ($.inArray("channel", pathNames) != -1) {
+                var id = $.inArray("channel", pathNames) + 1;
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=channel&amp;id=" + id;
+                redirecting = true;
+            } else if ($.inArray("space", pathNames) != -1) {
+                var id = $.inArray("space", pathNames) + 1;
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=space&amp;id=" + id;
+                redirecting = true;
+            } else if ($.inArray("presentations", pathNames) != -1) {
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=presentations";
+                redirecting = true;
+            } else if ($.inArray("channels", pathNames) != -1) {
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=channels";
+                redirecting = true;
+            } else if ($.inArray("spaces", pathNames) != -1) {
+                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=spaces";
+                redirecting = true;
+//            } else if (document.location.href.indexOf("page=home") == -1) {
+//                document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=home";
+//                redirecting = true;
+            }
+        }
+
+        redirectPrettyUrls();
+
+        $.address.init(function(event) {
+
+        }).externalChange(function(event) {
+            var pathNames = event.pathNames;
+
+            if (!redirecting) {
+                if ($.inArray("home", pathNames) != -1) {
+                    jsf.ajax.request("mainForm_mainHomeLink_link", 'event', {
+                        render: 'mainForm_pages',
+                        onevent: onAjaxEvent,
+                        'javax.faces.behavior.event': 'action'
+                    });
+                } else if ($.inArray("spaces", pathNames) != -1) {
+                    jsf.ajax.request("mainForm_mainSpacesLink_link", 'event', {
+                        render: 'mainForm_pages',
+                        onevent: onAjaxEvent,
+                        'javax.faces.behavior.event': 'action'
+                    });
+                } else if ($.inArray("channels", pathNames) != -1) {
+                    jsf.ajax.request("mainForm_mainChannelsLink_link", 'event', {
+                        render: 'mainForm_pages',
+                        onevent: onAjaxEvent,
+                        'javax.faces.behavior.event': 'action'
+                    });
+                }
+            }
+        });
+
+        function navigate(element, event) {
+            if (typeof(element) === "undefined" || typeof(element.id) === "undefined") {
+                throw new Error("element or element.id is undefined");
+            }
+
+            if (!navigating) {
+                navigating = true;
+                $("#pagesWrapper").fadeOut("slow", function() {
+                    jsf.ajax.request(element.id, 'event', {
+                        render: 'mainForm_pages',
+                        onevent: onAjaxEvent,
+                        'javax.faces.behavior.event': 'action'
+                    });
+                });
+            }
+
+            return false;
+        }
+
+        function onAjaxEvent(e) {
+            var pagesWrapper = $("#pagesWrapper");
+            if (e.status == 'success') {
+                navigating = false;
+                pagesWrapper.find('a').filter('[rel*=address:]').each(function(index, elem) {
+                    $(elem).address();
+                });
+                pagesWrapper.fadeIn("slow");
+            }
+        }
+
+//        $(document).ready(function() {
+//            document.location = "http://localhost:8080/parleys-frontend-html5-0.1-SNAPSHOT/test.xhtml?page=home";
+//        })
+
+    </script>
+</h:head>
+<h:body>
+    <p id="asap" onclick="this.innerHTML = '123123'">asdasdas</p>
+    <h:form id="mainForm">
+        <parleys:navigationLink id="mainHomeLink" navigateToPage="home" label="To home"/> |
+        <parleys:navigationLink id="mainSpacesLink" navigateToPage="spaces" label="To spaces"/> |
+        <parleys:navigationLink id="mainChannelsLink" navigateToPage="channels" label="To channels"/>
+        <hr/>
+        <div id="pagesWrapper">
+            <h5:div id="pages">
+                <h5:div rendered="#{processBean.currentPage == 'home'}" id="homePage" style="background-color:red">
+                    <h:outputText>
+                        <f:event type="preRenderComponent" listener="#{homepageBean.init}"/>
+                    </h:outputText>
+                    <h2>Homepage</h2>
+                    <parleys:navigationLink id="featuredSpace" navigateToPage="channels" label="Featured space: #{homepageBean.recommendedSpace.name}">
+                        <f:param name="id" value="#{homepageBean.recommendedSpace.id}"/>
+                    </parleys:navigationLink>
+                    <parleys:navigationLink id="featuredChannel" navigateToPage="presentations" label="Featured channel: #{homepageBean.recommendedChannel.name}">
+                        <f:param name="id" value="#{homepageBean.recommendedChannel}"/>
+                    </parleys:navigationLink>
+                    <parleys:navigationLink id="featuredPresentation" navigateToPage="presentation" label="To spaces: #{homepageBean.recommendedPresentation.title}">
+                        <f:param name="id" value="#{homepageBean.recommendedPresentation}"/>
+                    </parleys:navigationLink>
+                </h5:div>
+                <h5:div rendered="#{processBean.currentPage == 'spaces'}" id="spacesPage" style="background-color:yellow">
+                    <f:event type="preRenderComponent" listener="#{spacesBean.init}"/>
+                    <h2>Spaces</h2>
+                    <parleys:navigationLink id="someLink2" navigateToPage="channels" label="To channels"/>
+                </h5:div>
+                <h5:div rendered="#{processBean.currentPage == 'channels'}" id="channelsPage" style="background-color:green">
+                    <f:event type="preRenderComponent" listener="#{channelsBean.init}"/>
+                    <h2>Channels</h2>
+                    <parleys:navigationLink id="someLink3" navigateToPage="home" label="To home"/> |
+                    <parleys:navigationLink id="someLink4" navigateToPage="spaces" label="To spaces"/> |
+                    <parleys:navigationLink id="someLink5" navigateToPage="channels" label="To channels"/>
+                </h5:div>
+                <h5:div rendered="#{processBean.currentPage == 'presentation2'}" id="presentation2Page" style="background-color:blue">
+                    <f:event type="preRenderComponent" listener="#{presentationsBean.init}"/>
+                    <h2>Presentations</h2>
+                    <ol>
+                        <ui:repeat value="#{presentationsBean.presentations}" var="p">
+                            <li>
+                                #{p.title}
+                            </li>
+                        </ui:repeat>
+                    </ol>
+                </h5:div>
+                <h5:div rendered="#{processBean.currentPage == 'presentation'}" id="presentationPage" style="background-color:magenta">
+                    <f:event type="preRenderComponent" listener="#{presentationBean.init}"/>
+                    <h2>Presentation</h2>
+                </h5:div>
+            </h5:div>
+        </div>
+    </h:form>
+</h:body>
+</html>

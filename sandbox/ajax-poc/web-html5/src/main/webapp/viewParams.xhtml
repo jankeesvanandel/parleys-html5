@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<f:metadata>
+    <f:viewParam name="param1" value="#{testViewParamsBean.param1}" required="true"/>
+        <!--<f:convertDateTime pattern="dd-MM-yyyy"/>-->
+    <!--</f:viewParam>-->
+    <f:viewParam name="param2" value="#{testViewParamsBean.param2}"/>
+    <f:event type="preRenderView" listener="#{testViewParamsBean.init}"/>
+</f:metadata>
+<h:body>
+    <h:outputText value="#{testViewParamsBean.param1}"/><br/>
+    <h:outputText value="#{testViewParamsBean.param2}"/><br/>
+</h:body>
+</html>

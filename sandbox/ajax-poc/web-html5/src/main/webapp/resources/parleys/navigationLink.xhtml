@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:attribute name="label" type="java.lang.String"/>
+    <composite:attribute name="navigateToPage" type="java.lang.String"/>
+    <composite:attribute name="alternativeRel" type="java.lang.String" default="#{cc.attrs.navigateToPage}"/>
+</composite:interface>
+<composite:implementation>
+    <h:commandLink id="link"
+                   action="#{processBean.gotoPage(cc.attrs.navigateToPage)}"
+                   value="#{cc.attrs.label}"
+                   rel="address:/#{cc.attrs.navigateToPage}"
+                   onclick="return navigate(this, event)">
+        <composite:insertChildren/>
+    </h:commandLink>
+</composite:implementation>
+</html>

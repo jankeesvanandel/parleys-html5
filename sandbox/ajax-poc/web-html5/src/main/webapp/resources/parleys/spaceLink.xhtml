@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:attribute name="space" type="com.parleys.server.dto.SpaceOverviewDTO" required="true"/>
+    <composite:attribute name="label" type="java.lang.String" default="#{cc.attrs.space.name}"/>
+    <composite:attribute name="description" type="java.lang.String" default="#{cc.attrs.space.description}"/>
+    <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="renderDescription" type="java.lang.Boolean" default="true"/>
+    <composite:attribute name="descriptionSize" type="int" default="0"/>
+    <composite:attribute name="renderStats" type="java.lang.Boolean" default="false"/>
+    <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
+</composite:interface>
+<composite:implementation>
+    <h:link outcome="channels">
+        <f:param name="id" value="#{cc.attrs.space.id}"/>
+        <table>
+            <tr>
+                <td class="leftcol">
+                    <div class="#{cc.attrs.styleClasses}">
+                        <h:graphicImage rendered="#{cc.attrs.renderThumbnail}"
+                                    value="#{p:spaceThumbnail(cc.attrs.space.id, cc.attrs.space.thumbnailURL)}" alt="#{cc.attrs.label}"
+                                    height="70" width="70"/>
+                    </div>
+                </td>
+
+                <td class="centercol">
+                    <h4><h:outputText value="#{cc.attrs.label}" class="contentHeader" rendered="#{cc.attrs.renderLabel}"/></h4>
+                    <br/><br/>
+                    <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}"
+                                  value="#{cc.attrs.descriptionSize > 0 ? p:shortenTo(cc.attrs.descriptionSize, cc.attrs.description) : cc.attrs.description}"/>
+                    <br/>
+                </td>
+
+                <c:if test="#{cc.attrs.renderStats}">
+                    <td class="rightcol">
+                        <h:outputText value="created #{p:formatDate(cc.attrs.space.createdOn)}"/><br/><br/>
+                        <h:outputText value="#{cc.attrs.space.numberOfChannels} channels"/><br/>
+                        <h:outputText value="#{cc.attrs.space.totalPresentationCount} talks"/><br/>
+                        <h:outputText value="#{p:formatNumber(cc.attrs.space.totalViewCount)} views"/>
+                    </td>
+                </c:if>
+            </tr>
+        </table>
+    </h:link>
+</composite:implementation>
+</html>

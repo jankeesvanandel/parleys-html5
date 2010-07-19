@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="WEB-INF/facelets/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+    <ui:param name="parleysBean" value="#{presentationsBean}"/>
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{presentationsBean.channelId}"/>
+            <f:viewParam name="filter" value="#{presentationsBean.filter}"/>
+            <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <div>
+            <h:graphicImage
+                    url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnailURL)}"
+                    alt="#{presentationsBean.channel.name}"
+                    rendered="#{not empty presentationsBean.channel.thumbnailURL}">
+            </h:graphicImage>
+            <h2>#{presentationsBean.filter.description}</h2>
+            <h2>#{presentationsBean.channel.name}</h2>
+            <hr/>
+            <br/>
+            <ul>
+                <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
+                    <li class="shadowbox">
+                        <parleys:presentationLink presentation="#{presentation}"
+                                                  summarySize="370"
+                                                  renderStats="true"/><br/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>
