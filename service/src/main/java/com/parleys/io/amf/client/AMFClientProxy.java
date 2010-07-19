@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * AMF client service class from <a
  * href="http://bugs.adobe.com/jira/browse/BLZ-246">here</a>.
  *
- * @author <a href="mailto:rflament@laposte.net">RŽmi Flament</a>
+ * @author <a href="mailto:rflament@laposte.net">RÃ©mi Flament</a>
  */
 public class AMFClientProxy implements InvocationHandler {
 
