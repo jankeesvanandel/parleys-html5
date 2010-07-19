@@ -1,9 +1,11 @@
 package com.parleys.server.dto;
 
+import java.io.Serializable;
+
 /**
  * @author Stephan Janssen
  */
-public class TagDTO {
+public class TagDTO implements Serializable {
 
     private static final long serialVersionUID = 3335009892839190816L;
 

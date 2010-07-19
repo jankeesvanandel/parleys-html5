@@ -1,5 +1,7 @@
 package com.parleys.server.domain;
 
+import java.io.Serializable;
+
 /**
  * This news item is linked to a space and holds free text,
  * time based and can include links.

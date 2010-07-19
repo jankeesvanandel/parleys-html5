@@ -6,6 +6,7 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
     <ui:param name="parleysBean" value="#{homepageBean}"/>
     <ui:define name="header">
@@ -15,53 +16,50 @@
             <f:viewParam name="newsId" value="#{homepageBean.newsId}"/>
             <f:event type="preRenderView" listener="#{homepageBean.init}"/>
         </f:metadata>
+        <!--<h:outputScript library="javax.faces" name="jsf.js"/>-->
     </ui:define>
     <ui:define name="content">
         <div>
             <h2>Overview</h2>
-            <ul id="featureHomepage">
-                <li>
-                    <h:link outcome="presentations">
-                        <f:param name="filter" value="FEATURED"/>
-                        Featured
-                    </h:link> |
-                </li>
-                <li>
-                    <h:link outcome="presentations">
-                        <f:param name="filter" value="LATEST"/>
-                        Latest
-                    </h:link> |
-                </li>
-                <li>
-                    <h:link outcome="presentations">
-                        <f:param name="filter" value="TOP_RATED"/>
-                        Top Rated
-                    </h:link> |
-                </li>
-                <li>
-                    <h:link outcome="presentations">
-                        <f:param name="filter" value="MOST_VIEWED"/>
-                        Most Viewed
-                    </h:link> |
-                </li>
-                <li>
-                    <h:link outcome="spaces">
-                        <f:param name="filter" value="FEATURED"/>
-                        Featured Spaces
-                    </h:link> |
-                </li>
-                <li>
-                    <h:link outcome="channels">
-                        <f:param name="filter" value="FEATURED"/>
-                        Featured Channels
-                    </h:link> |
-                </li>
-            </ul>
+            <h:form>
+                <ul id="featureHomepage">
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION')}" value="Featured">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('LATEST', 'PRESENTATION')}" value="Latest">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('TOP_RATED', 'PRESENTATION')}" value="Top Rated">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('MOST_VIEWED', 'PRESENTATION')}" value="Most Viewed">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('FEATURED', 'SPACE')}" value="Featured Spaces">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                    <li>
+                        <h:commandLink action="#{homepageBean.viewThumbnails('FEATURED', 'CHANNEL')}" value="Featured Channels">
+                            <f:ajax render=":thumbnails"/>
+                        </h:commandLink> |
+                    </li>
+                </ul>
+            </h:form>
         </div>
         <hr class="clear" style="display:none"/>
         <br/>
 
-        <div id="thumbnails">
+        <h5:div id="thumbnails">
             <ui:repeat value="#{homepageBean.thumbnails}" var="presentation">
                 <div class="thumbnail">
                     <h3 title="#{presentation.title}">#{p:shortenTo(17, presentation.title)}</h3>
@@ -74,39 +72,41 @@
                     </h:link>
                 </div>
             </ui:repeat>
-        </div>
+        </h5:div>
         <hr class="clear" style="display:none"/>
 
         <div id="frontpage">
             <div class="twoCol">
                 <div class="col">
                     <h2>General News</h2>
+                    <h:form id="newsForm">
+                        <h5:div id="newsContainer" styleClass="contentBlock news">
+                            <h3>#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].title}</h3>
+                            <span class="newsDate">#{p:formatDate(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].createdOn)}</span>
 
-                    <div class="contentBlock news">
-                        <h3>#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].title}</h3>
-                        <span class="newsDate">#{p:formatDate(homepageBean.newsItems[homepageBean.activeNewsItemIndex].createdOn)}</span>
-
-                        <p>
-                            <br/>
-                            <h:outputText escape="false"
-                                          value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex].item}"/>
-                        </p>
-                        <h:link outcome="index"
-                                rendered="#{homepageBean.activeNewsItemIndex lt p:sizeOf(homepageBean.newsItems)-1}"
-                                styleClass="pagingNext floatRight" title="Next news item">
-                            <f:param name="newsId"
-                                     value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex+1].id}"/>
-                        </h:link>
-                        <span class="floatRight">#{homepageBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageBean.newsItems)}</span>
-                        <h:link outcome="index"
-                                rendered="#{homepageBean.activeNewsItemIndex != 0}"
-                                styleClass="pagingPrev floatRight"
-                                title="Previous news item">
-                            <f:param name="newsId"
-                                     value="#{homepageBean.newsItems[homepageBean.activeNewsItemIndex-1].id}"/>
-                        </h:link>
-                        <br class="clear"/>
-                    </div>
+                            <p>
+                                <br/>
+                                <h:outputText escape="false"
+                                              value="#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].item}"/>
+                            </p>
+                            <span class="newsNav">
+                                <h:commandLink action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex+1].id)}"
+                                               rendered="#{homepageViewBean.activeNewsItemIndex lt p:sizeOf(homepageViewBean.newsItems)-1}"
+                                               styleClass="pagingNext floatRight"
+                                               title="Previous news item">
+                                    <f:ajax render="newsContainer"/>
+                                </h:commandLink>
+                                <span class="floatRight">#{homepageViewBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageViewBean.newsItems)}</span>
+                                <h:commandLink action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex-1].id)}"
+                                               rendered="#{homepageViewBean.activeNewsItemIndex gt 0}"
+                                               styleClass="pagingPrev floatRight"
+                                               title="Previous news item">
+                                    <f:ajax render="newsContainer"/>
+                                </h:commandLink>
+                            </span>
+                            <br class="clear"/>
+                        </h5:div>
+                    </h:form>
                 </div>
             </div>
             <div class="twoCol">

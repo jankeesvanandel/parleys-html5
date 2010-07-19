@@ -18,6 +18,10 @@ public class UIDiv extends UIOutput {
 
     public String style;
 
+    public UIDiv() {
+        setRendererType(null); // Override rendererType set by UIOutput to prevent WARNING
+    }
+
     /**
      * {@inheritDoc}
      */
