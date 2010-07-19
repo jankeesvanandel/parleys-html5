@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.ReadableInstant;
 
+import javax.faces.context.FacesContext;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,10 @@ import java.util.*;
 public class JSFUtil {
 
     private static DecimalFormat formatter = new DecimalFormat("###,###,###");
+
+    public static final FacesContext fc() {
+        return FacesContext.getCurrentInstance();
+    }
 
     public static int sizeOf(final Collection coll) {
         if (coll != null) {
