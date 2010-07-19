@@ -3,16 +3,15 @@ package com.parleys.server.frontend.web.html5.util;
 import com.parleys.server.domain.types.MembershipType;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpeakerDTO;
-import org.apache.commons.lang.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.ReadableInstant;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * @author Jan-Kees Vanandel
@@ -168,5 +167,12 @@ public class JSFUtil {
         builder.append(width);
         builder.append("%;'></div></div>");
         return builder.toString();
+    }
+
+    public static boolean validationErrors() {
+        final FacesMessage.Severity maximumSeverity = fc().getMaximumSeverity();
+        return maximumSeverity != null
+            && (maximumSeverity.equals(FacesMessage.SEVERITY_ERROR)
+            || maximumSeverity.equals(FacesMessage.SEVERITY_FATAL));
     }
 }
