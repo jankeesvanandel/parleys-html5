@@ -162,8 +162,16 @@
             <url>http://nexus.devoxx.com/nexus/content/groups/public</url>
         </repository>
         <repository>
+            <id>java.net</id>
+            <url>http://download.java.net/maven/glassfish/</url>
+        </repository>
+        <repository>
             <id>maven2</id>
-            <url>http://repo1.maven.org/maven2/</url>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>myfaces releases</id>
+            <url>http://people.apache.org/~lu4242/myfaces201</url>
         </repository>
     </repositories>
 
