@@ -38,6 +38,11 @@
         <param-value>Development</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>javax.faces.SEPARATOR_CHAR</param-name>
+        <param-value>_</param-value>
+    </context-param>
+
     <!--<context-param>-->
         <!--<description>-->
             <!--Enables our scripting engine support plugins-->
