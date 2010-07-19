@@ -11,16 +11,11 @@ public class PagingBean extends AbstractParleysBean {
 
     private Filter.Type filterType;
 
-    private Integer index;
+    private Integer index = 0;
 
-    private Integer paging;
+    private Integer paging = 20;
 
     public Integer getIndex() {
-        if (index != null) {
-            index = Math.max(index, 1000);
-        } else {
-            index = 0;
-        }
         return index;
     }
 
@@ -29,11 +24,6 @@ public class PagingBean extends AbstractParleysBean {
     }
 
     public Integer getPaging() {
-        if (paging != null) {
-            paging = Math.max(paging, 100);
-        } else {
-            paging = 20;
-        }
         return paging;
     }
 
