@@ -287,6 +287,7 @@ div#logoBar .loginButton {
 #content.fullWidth div.videoAndSlidesWrapper {
     width: 90%;
     margin: 0 auto 0 auto;
+    
 }
 
 #content h2,
@@ -384,16 +385,31 @@ div.contentBlock.pod {
     float: left;
     width: 49%;
     text-align: center;
+   
+     background-color:black;
+     -webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
+     -webkit-transition-property: -webkit-transform, opacity;
+     -webkit-transition-duration: 0.5s;
+	 -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+     -webkit-transition-timing-function: ease-in-out;
 }
 
 #content div#slidesContainer {
     float: left;
     width: 49%;
     text-align: center;
+
+     background-color:black;
+     -webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
+     -webkit-transition-property: -webkit-transform, opacity;
+     -webkit-transition-duration: 0.5s;
+	 -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+     -webkit-transition-timing-function: ease-in-out;
 }
 
 #content div#slidesContainer img {
     width: 99%;
+    height:400px;
 }
 
 div#videoControls {
@@ -595,4 +611,83 @@ a.pagingPrev:hover {
     background: url('../img/podDivider.png') 10px 15px no-repeat;
     padding: 10px 10px 10px 30px;
     vertical-align: top;
+}
+
+#agenda {
+    z-index: 990;
+    position:absolute;
+    width: 300px;
+    top:50px;
+    bottom:100px;
+    display:none;
+    padding:10px;
+    background-color:#222222;
+    position:absolute;
+	
+	 -webkit-transform:rotateY(0deg) translateZ(100px) translate(0,0);
+     -webkit-transition-property: -webkit-transform, opacity;
+     -webkit-transition-duration: 0.5s;
+	 -webkit-transition-timing-function: ease-in-out;
+	 opacity:100;
+}
+
+
+div#agenda li a {
+
+    -webkit-transition: all 0.3s ease-out;
+
+
+    color: #174867;
+
+    padding: 7px 15px 7px 15px;
+
+    -webkit-border-radius:10px;
+
+    width: 250px;
+
+    display: block;
+
+    text-decoration: none;
+
+
+
+}
+
+div#agenda li a:hover {
+
+    background: #ebebeb url(border.png) no-repeat;
+
+    color: #67a5cd;
+
+    padding: 7px 15px 7px 30px;
+
+    -webkit-box-shadow: 2px 2px 4px #888;
+
+}
+
+/*
+div#agenda li{
+     -webkit-border-radius:10px;
+    border:1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+
+div#agenda li{
+    -webkit-transition: all 0.3s ease-out;
+}
+
+div#agenda li:hover{
+     -webkit-border-radius:10px;
+    border:1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+*/
+
+#contentContainer{
+	 -webkit-perspective: 500;
+
 }
