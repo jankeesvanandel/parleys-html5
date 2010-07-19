@@ -18,6 +18,8 @@ public class UIDiv extends UIOutput {
 
     public String styleClass;
 
+    public String style;
+
     /**
      * {@inheritDoc}
      */
@@ -37,7 +39,9 @@ public class UIDiv extends UIOutput {
         if (styleClass != null) {
             w.writeAttribute("class", styleClass, "styleClass");
         }
-        w.write("\">");
+        if (style != null) {
+            w.writeAttribute("style", style, "style");
+        }
     }
 
     /**
@@ -46,7 +50,7 @@ public class UIDiv extends UIOutput {
     @Override
     public void encodeEnd(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
-        w.write("</div>");
+        w.endElement("div");
     }
 
     public String getStyleClass() {
@@ -55,5 +59,13 @@ public class UIDiv extends UIOutput {
 
     public void setStyleClass(final String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }
