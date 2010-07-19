@@ -21,7 +21,7 @@ public class JSFUtil {
 
     private static DecimalFormat formatter = new DecimalFormat("###,###,###");
 
-    public static final FacesContext fc() {
+    public static FacesContext fc() {
         return FacesContext.getCurrentInstance();
     }
 
