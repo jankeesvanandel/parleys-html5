@@ -1,5 +1,5 @@
 var isCursorDragging = false;
-
+var timeDisplayWidth = 150;
 var com;
 if (!com) com = {};
 if (!com.parleys) com.parleys = {};
@@ -79,6 +79,8 @@ $(document).ready(function() {
     setInitialPosition();
     disableTextSelection();
     initializeControlsEventHandlers();
+
+
 });
 
 function showPlayButtonOverlay() {
@@ -170,7 +172,14 @@ function initializeProgressBarEventSource() {
         var href = $(this).attr("href");
         var id = href.substr(1);
         var slide = findSlideById(id);
+        mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
+    });
 
+
+    $("#agenda a").bind("click", function() {
+        var href = $(this).attr("href");
+        var id = href.substr(1);
+        var slide = findSlideById(id);
         mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
     });
 }
@@ -184,7 +193,7 @@ function initializeProgressBarCursor() {
             isCursorDragging = true;
         },
         stop: function() {
-            var position = $("#videoNavigationBarCursor").position().left - (150 - 7);
+            var position = $("#videoNavigationBarCursor").position().left - (timeDisplayWidth - 7);
             var items = $("#videoNavigationBar li");
             var lastItem = items.last();
             var totalWidth = parseFloat(lastItem.position().left + lastItem.width());
@@ -209,7 +218,7 @@ function getStartTimeForChapter(chapterIndex) {
 }
 
 function getTimeFromCursorPosition() {
-    var position = $("#videoNavigationBarCursor").position().left - (150 - 7);
+    var position = $("#videoNavigationBarCursor").position().left - (timeDisplayWidth - 7);
     var items = $("#videoNavigationBar li");
     var lastItem = items.last();
     var totalWidth = parseFloat(lastItem.position().left + lastItem.width());
@@ -250,7 +259,7 @@ function updateSlide(timeChangedEvent) {
 function updateProgressBar(timeChangedEvent) {
     if (!isCursorDragging) {
         var now = timeChangedEvent.currentTime;
-        var videoNavigationBarWidth = $("#videoNavigationBar").width();
+        var videoNavigationBarWidth = $("#videoNavigationBar").width()-timeDisplayWidth;
         var videoDuration = parseFloat($("#slidesContainer img").last().attr("endTime"));
 
         var position = (now / videoDuration) * videoNavigationBarWidth;
@@ -265,12 +274,18 @@ function findSlideById(id) {
     return $("#slidesContainer img#slide_" + id);
 }
 
+function getNumberOfSlides(){
+    var presentationSlides = $("#slidesContainer img");
+    var noOfSlides = presentationSlides.length;
+    return noOfSlides;
+}
+
 function initializeVideoNavigationBar() {
     $("#videoNavigationBar").css("visibility", "hidden");
 
     var chapters = [];
     var videoNavigationBar = $("#videoNavigationBar");
-    var videoNavigationBarWidth = videoNavigationBar.width() - 150; // subtract the videoTimeAndPosition width
+    var videoNavigationBarWidth = videoNavigationBar.width() - timeDisplayWidth; // subtract the videoTimeAndPosition width
     var items = $("#videoNavigationBar li");
     var presentationSlides = $("#slidesContainer img");
     var noOfSlides = presentationSlides.length;
@@ -280,6 +295,7 @@ function initializeVideoNavigationBar() {
     updateVideoDurationIndicator(videoDuration);
 
     var lastEndTime = 0;
+    var totalBorderWidthsInPixels = (noOfSlides);
     for (var i = 0; i < noOfSlides; i++) {
         var slide = $(presentationSlides[i]);
         var startTime = parseFloat(slide.attr("startTime"));
@@ -288,8 +304,8 @@ function initializeVideoNavigationBar() {
 
         var chapterDuration = endTime - startTime;
         var durationPercentage = chapterDuration / videoDuration;
-        var totalBorderWidthsInPixels = (noOfSlides * 2);
-        var width = durationPercentage * (videoNavigationBarWidth - totalBorderWidthsInPixels);
+
+        var width = durationPercentage * (videoNavigationBarWidth-totalBorderWidthsInPixels);
 
         $(items[i]).width(width);
         chapters.push({
@@ -337,4 +353,61 @@ function max(i1, i2) {
 function ontimeupdateHandler() {
     var now = $("#videoPlayer")[0].currentTime;
     mainVideoLoop.timeChanged(now, OBSERVER_TYPE_VIDEO);
+    resizeElements();
+}
+
+
+
+
+function resizeElements() {
+    // Reposition the agenda
+    var agenda = document.getElementById('agenda');
+    agenda.style.left =  window.innerWidth/2-200+"px";
+    agenda.style.top = "100px";
+
+    // Resize the Chapters
+    initializeVideoNavigationBar();
+};
+
+
+
+var resizeTimeout;
+$(window).resize(function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeElements, 100);
+
+});
+
+
+
+ function toggleAgenda() {
+    var myVideo = document.getElementById('videoContainer');
+    var mySlide = document.getElementById('slidesContainer');
+    var myButton = document.getElementById('agenda_btn');
+    var agenda = document.getElementById('agenda');
+
+    if (myButton.value=="Show Agenda"){
+        $("#agenda").css("display", "block");
+        resizeElements();
+        myVideo.style.webkitTransform = "rotateY(45deg) translateZ(-30px) translate(-100px,0)";
+        mySlide.style.webkitTransform = "rotateY(-45deg) translateZ(-30px) translate(100px,0)";
+
+        agenda.style.opacity = 100;
+        myButton.value="Hide Agenda";
+	    agenda.style.webkitTransform = "translateZ(0px)";
+	}else{
+        myVideo.style.webkitTransform = "rotateY(0deg)";
+	    mySlide.style.webkitTransform = "rotateY(0deg) translateZ(0px) translate(0,0)";
+        myButton.value="Show Agenda";
+        setTimeout(hideAgenda,500)
+
+		agenda.style.opacity = 0;
+		agenda.style.webkitTransform = "translateZ(100px)";
+    }
+      
+}
+
+function hideAgenda(){
+    var agenda = document.getElementById('agenda');
+    agenda.style.display = "none";
 }

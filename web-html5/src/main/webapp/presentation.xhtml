@@ -16,17 +16,16 @@
         </f:metadata>
     </ui:define>
     <ui:define name="content">
-        <div>
+        <div id="contentContainer">
             <h2 style="display:none;">#{presentationBean.presentation.title}</h2>
 
-            <div class="videoAndSlidesWrapper">
+            <div id="videoSlideContainer">
                 <div id="videoContainer">
                     <h:outputScript library="parleys" name="jquery-1.4.2.min.js" target="head"/>
                     <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
                     <h:outputScript library="parleys" name="video.js" target="head"/>
-                    <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()"
-                              width="99%" height="400px">
-                        <source src="http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8" type="video/mp4" />
+                    <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()">
+                        <source src="#{presentationBean.streamURL}" type="video/mp4" />
                     </video>
 
                 </div>
@@ -77,12 +76,24 @@
                     <a href="#" id="playButton" style="display: none"><img src="img/playButton.jpg" alt="Play"/></a>
                     <a href="#" id="pauzeButton"><img src="img/pauzeButton.jpg" alt="Pauze"/></a>
                     <a href="#" id="nextChapterButton"><img src="img/nextChapterButton.jpg" alt="Previous chapter"/></a>
+                    <input type="button" value="Show Agenda" onclick="toggleAgenda()" id="agenda_btn" />
                 </div>
                 <div id="volume">
                     <div id="videoVolumeSlider"></div>
                 </div>
             </div>
         </div>
+
+        <div id="agenda" >
+	 	    <ul>
+                <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
+                    <li>
+                    <a href="##{asset.id}"><span>#{asset.cuePointName}</span></a>
+                    </li>
+                </ui:repeat>
+            </ul>
+	    </div>
+
     </ui:define>
 
 </ui:composition>
