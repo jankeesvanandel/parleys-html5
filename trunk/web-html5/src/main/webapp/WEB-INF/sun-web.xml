@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sun-web-app>
+    <class-loader delegate="false"/>
+    <property name="useMyFaces" value="true"/>
+    <context-root>/parleys</context-root>
+</sun-web-app>
