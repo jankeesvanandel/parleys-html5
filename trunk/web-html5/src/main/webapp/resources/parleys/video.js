@@ -168,11 +168,9 @@ function setInitialPosition() {
 }
 
 function initializeProgressBarEventSource() {
-    $("#videoNavigationBar a").bind("click", function() {
-        var href = $(this).attr("href");
-        var id = href.substr(1);
-        var slide = findSlideById(id);
-        mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
+    $("#chapters div").not("#videoNavigationBarCursor").bind("click", function() {
+        var href = $(this).attr("cuepoint");
+        mainVideoLoop.timeChanged(href, OBSERVER_TYPE_PROGRESSBAR);
     });
 
 
@@ -182,6 +180,11 @@ function initializeProgressBarEventSource() {
         var slide = findSlideById(id);
         mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
     });
+
+   
+
+
+
 }
 
 function initializeProgressBarCursor() {
@@ -193,12 +196,11 @@ function initializeProgressBarCursor() {
             isCursorDragging = true;
         },
         stop: function() {
-            var position = $("#videoNavigationBarCursor").position().left - (timeDisplayWidth - 7);
-            var items = $("#videoNavigationBar li");
-            var lastItem = items.last();
-            var totalWidth = parseFloat(lastItem.position().left + lastItem.width());
-            var totalDuration = parseFloat($("#slidesContainer img").last().attr("endTime"));
-            var positionInPercentage = position / totalWidth;
+
+
+            var chapters = $("#chapters");
+            var totalDuration = parseFloat($("#chapters").attr("totalduration"));
+            var positionInPercentage = position / chapters.width();
             var time = positionInPercentage * totalDuration;
 
             mainVideoLoop.timeChanged(time, OBSERVER_TYPE_PROGRESSBAR);
@@ -218,12 +220,9 @@ function getStartTimeForChapter(chapterIndex) {
 }
 
 function getTimeFromCursorPosition() {
-    var position = $("#videoNavigationBarCursor").position().left - (timeDisplayWidth - 7);
-    var items = $("#videoNavigationBar li");
-    var lastItem = items.last();
-    var totalWidth = parseFloat(lastItem.position().left + lastItem.width());
-    var totalDuration = parseFloat($("#slidesContainer img").last().attr("endTime"));
-    var positionInPercentage = position / totalWidth;
+    var chapters = $("#chapters");
+    var totalDuration = parseFloat($("#chapters").attr("totalduration"));
+    var positionInPercentage = position / $("#chapters").width();
     var time = positionInPercentage * totalDuration;
     return time;
 }
@@ -254,15 +253,23 @@ function updateSlide(timeChangedEvent) {
             slide.css("display", "none");
         }
     }
+
+
+
+
+
 }
 
 function updateProgressBar(timeChangedEvent) {
     if (!isCursorDragging) {
         var now = timeChangedEvent.currentTime;
-        var videoNavigationBarWidth = $("#videoNavigationBar").width()-timeDisplayWidth;
-        var videoDuration = parseFloat($("#slidesContainer img").last().attr("endTime"));
+         var chapters = $("#chapters");
+         var totalDuration = parseFloat($("#chapters").attr("totalduration"));
 
-        var position = (now / videoDuration) * videoNavigationBarWidth;
+        var videoNavigationBarWidth = $("#chapters").width();
+
+
+        var position = (now / totalDuration) * videoNavigationBarWidth;
         position -= 7; // Half the cursor width
         $("#videoNavigationBarCursor").css("left", position + "px");
 
@@ -361,9 +368,7 @@ function ontimeupdateHandler() {
 
 function resizeElements() {
     // Reposition the agenda
-    var agenda = document.getElementById('agenda');
-    agenda.style.left =  window.innerWidth/2-200+"px";
-    agenda.style.top = "100px";
+
 
     // Resize the Chapters
     initializeVideoNavigationBar();
@@ -380,34 +385,3 @@ $(window).resize(function() {
 
 
 
- function toggleAgenda() {
-    var myVideo = document.getElementById('videoContainer');
-    var mySlide = document.getElementById('slidesContainer');
-    var myButton = document.getElementById('agenda_btn');
-    var agenda = document.getElementById('agenda');
-
-    if (myButton.value=="Show Agenda"){
-        $("#agenda").css("display", "block");
-        resizeElements();
-        myVideo.style.webkitTransform = "rotateY(45deg) translateZ(-30px) translate(-100px,0)";
-        mySlide.style.webkitTransform = "rotateY(-45deg) translateZ(-30px) translate(100px,0)";
-
-        agenda.style.opacity = 100;
-        myButton.value="Hide Agenda";
-	    agenda.style.webkitTransform = "translateZ(0px)";
-	}else{
-        myVideo.style.webkitTransform = "rotateY(0deg)";
-	    mySlide.style.webkitTransform = "rotateY(0deg) translateZ(0px) translate(0,0)";
-        myButton.value="Show Agenda";
-        setTimeout(hideAgenda,500)
-
-		agenda.style.opacity = 0;
-		agenda.style.webkitTransform = "translateZ(100px)";
-    }
-      
-}
-
-function hideAgenda(){
-    var agenda = document.getElementById('agenda');
-    agenda.style.display = "none";
-}
