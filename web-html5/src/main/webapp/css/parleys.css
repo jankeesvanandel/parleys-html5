@@ -273,6 +273,7 @@ div#logoBar .loginButton {
     background: #666 url(../img/header_sprite.png) repeat-x 0 -270px;
 }
 
+
 #content {
     padding-bottom: 3em;
     margin: 3em auto 0 auto;
@@ -281,15 +282,19 @@ div#logoBar .loginButton {
 }
 
 #content.fullWidth {
+    position:absolute;
     width: 100%;
+    top:20px;
+    bottom:80px;
 }
 
+/*
 #content.fullWidth div.videoAndSlidesWrapper {
     width: 90%;
     margin: 0 auto 0 auto;
     
 }
-
+*/
 #content h2,
 #content h4 {
     display: inline;
@@ -387,36 +392,52 @@ div.contentBlock.pod {
     background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
 }
 
+
+/*
+#videoSlideContainer{
+    background-color:blue;
+    position:absolute;
+	top:100px;
+	bottom:80px;
+	width:100%;
+	-webkit-perspective: 500;
+}
+*/
+/*
 #content div#videoContainer {
-    float: left;
-    width: 49%;
-    text-align: center;
-   
-     background-color:black;
-     -webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
-     -webkit-transition-property: -webkit-transform, opacity;
-     -webkit-transition-duration: 0.5s;
-	 -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
-     -webkit-transition-timing-function: ease-in-out;
+          position:absolute;
+	-webkit-transition: all 0.4s ease-in-out;
+	background-color:#000000;
+
+	-webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
+	-webkit-transition-timing-function: ease-in-out;
+		-webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+
 }
 
 #content div#slidesContainer {
-    float: left;
-    width: 49%;
-    text-align: center;
-
-     background-color:black;
-     -webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
-     -webkit-transition-property: -webkit-transform, opacity;
-     -webkit-transition-duration: 0.5s;
-	 -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
-     -webkit-transition-timing-function: ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    position:absolute;
+    background-color:#000000;
+    -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+                   
+    
 }
+*/
 
+#content div#contentContainer{
+    position:absolute;
+	top:100px;
+	bottom:80px;
+	width:100%;
+	-webkit-perspective: 500;
+}
+/*
 #content div#slidesContainer img {
     width: 99%;
     height:400px;
 }
+*/
 
 div#videoControls {
     float: left;
@@ -466,7 +487,11 @@ div#videoNavigationBar div#videoTimeAndPosition {
 }
 
 div#videoNavigationBar div#videoNavigationBarChapters {
-    float: left;
+    /*float: left;  */
+    background-color:aqua;
+    position:absolute;
+    left:146px;
+    right:0;
 }
 
 div#videoNavigationBar li {
@@ -499,16 +524,7 @@ div#videoNavigationBar li span {
     visibility: hidden;
 }
 
-div#videoNavigationBarCursor {
-    position: relative;
-    left: -7px;
-    top: -10px;
-    width: 14px;
-    height: 34px;
-    display: block;
-    background: url("../img/progressbar_cursor.png");
-    cursor: pointer;
-}
+
 
 ul li {
     list-style-type: none;
@@ -571,6 +587,7 @@ a.pagingPrev:hover {
 }
 
 #footer.videoPage {
+    background-color:#a52a2a;
     height: 6em;
 }
 
@@ -619,6 +636,8 @@ a.pagingPrev:hover {
     vertical-align: top;
 }
 
+
+/*
 #agenda {
     z-index: 990;
     position:absolute;
@@ -670,6 +689,7 @@ div#agenda li a:hover {
     -webkit-box-shadow: 2px 2px 4px #888;
 
 }
+*/
 
 /*
 div#agenda li{
@@ -693,7 +713,116 @@ div#agenda li:hover{
 }
 */
 
-#contentContainer{
-	 -webkit-perspective: 500;
 
+#mainContent{
+    position:absolute;
+    width:100%;
+    height:100%;
+    -webkit-perspective: 500;
+}
+
+#inner{
+	width:100%;
+	height:100%;
+	-webkit-perspective: 400;
+	-webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
+}
+
+#videoContainer{
+	position:absolute;
+	-webkit-transition: all 0.4s ease-in-out;
+	background-color:#000000;
+
+	-webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
+	-webkit-transition-timing-function: ease-in-out;
+    -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+
+}
+
+
+
+#slidesContainer{
+	-webkit-transition: all 0.4s ease-in-out;
+	position:absolute;
+	background-color:#000000;
+	-webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
+
+}
+
+
+.slide{
+    width:100%;
+    height:100%;
+}
+
+#agenda{
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	 border:5px solid #ffffff;
+	 padding:0px;
+	 width:380px;
+	 bottom:0px;
+    top:0px;
+	 background-color:#3b3b3b;
+	 position:absolute;
+	-moz-box-shadow:0 20px 40px #888;
+	-webkit-box-shadow:0 10px 10px #888;
+	 -webkit-transform:rotateY(0deg) translateZ(500px) translate(0,0);
+     -webkit-transition-property: -webkit-transform, opacity;
+     -webkit-transition-duration: 0.5s;
+	 -webkit-transition-timing-function: ease-in-out;
+	 opacity:0;
+	 }
+
+
+#chapters{
+    position:absolute;
+    left:147px;
+    right:0;
+    height:30;
+    background-color:#8a2be2;
+}
+
+#chapters div{
+
+	background: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#343434));
+
+	border: 1px black solid;
+	border-bottom:none;
+	border-top:none;
+	position:absolute;
+	width:30px;
+	height:100%;
+}
+
+#chapters div:hover{
+	background: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#444444));
+
+}
+
+div#videoNavigationBarCursor {
+    border:none;
+    position: absolute;
+    left: -7px;
+    top: -5px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url("../img/progressbar_cursor.png");
+    cursor: pointer;
+}
+
+div#videoNavigationBarCursor:hover{
+    border:none;
+    position: absolute;
+    left: -7px;
+    top: -5px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url("../img/progressbar_cursor.png");
+    cursor: pointer;
 }
