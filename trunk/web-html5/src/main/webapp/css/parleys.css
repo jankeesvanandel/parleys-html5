@@ -323,13 +323,17 @@ div#logoBar .loginButton {
     color: #999;
 }
 
-#content div#thumbnails {
+#content div#thumbnailsWrapperOuter {
     position: relative;
-    height: 10em;
+    height: 11em;
+}
+#content div#main\:thumbnails {
+    position: relative;
+    h/eight: 10em;
     clear: both;
 }
 
-#content div#thumbnails div.thumbnail {
+#content div#main\:thumbnails div.thumbnail {
     float: left;
     width: 15.5%;
     overflow: hidden;
@@ -338,7 +342,7 @@ div#logoBar .loginButton {
     margin: .2em;
 }
 
-#content div#thumbnails div.thumbnail h3 {
+#content div#main\:thumbnails div.thumbnail h3 {
     white-space: nowrap;
     color: #999;
 }
@@ -435,7 +439,7 @@ div.contentBlock.pod {
 /*
 #content div#slidesContainer img {
     width: 99%;
-    height:400px;
+    height:404px;
 }
 */
 
