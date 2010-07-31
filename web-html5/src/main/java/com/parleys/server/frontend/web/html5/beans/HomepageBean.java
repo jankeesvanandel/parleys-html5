@@ -1,6 +1,7 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.News;
+import com.parleys.server.domain.Thumbnail;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.dto.AbstractDTO;
@@ -18,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,16 +31,12 @@ public class HomepageBean extends AbstractParleysBean {
 
     private final transient Log LOG = LogFactory.getLog(getClass());
 
-    private Filter thumbnailsFilter;
-
-    private Filter.Type thumbnailsFilterType;
-
     @ManagedProperty("#{homepageViewBean}")
     private HomepageViewBean homepageViewBean;
 
     private long newsId;
 
-    private List<? extends AbstractDTO> thumbnails;
+    private List<Thumbnail> thumbnails;
 
     private SpaceOverviewDTO recommendedSpace;
 
@@ -48,17 +46,18 @@ public class HomepageBean extends AbstractParleysBean {
 
     @SuppressWarnings("unchecked")
     public void init() {
-        if (JSFUtil.fc().getPartialViewContext().isAjaxRequest()) {
+        if (JSFUtil.fc().getPartialViewContext().isAjaxRequest()
+         || JSFUtil.fc().isValidationFailed()) {
             return;
         }
 
-        if (thumbnailsFilter == null || thumbnailsFilterType == null) {
-            thumbnailsFilter = Filter.FEATURED;
-            thumbnailsFilterType = Filter.Type.PRESENTATION;
+        if (homepageViewBean.getThumbnailsFilter() == null || homepageViewBean.getThumbnailsFilterType() == null) {
+            homepageViewBean.setThumbnailsFilter(Filter.FEATURED);
+            homepageViewBean.setThumbnailsFilterType(Filter.Type.PRESENTATION);
         }
 
         try {
-            thumbnails = getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION);
+            transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), homepageViewBean.getIndex());
 
             homepageViewBean.setNewsItems(getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
 
@@ -72,7 +71,7 @@ public class HomepageBean extends AbstractParleysBean {
                     counter++;
                 }
             }
-            
+
             List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
 
             recommendedSpace = (SpaceOverviewDTO)featuredContent.get(0);
@@ -88,34 +87,75 @@ public class HomepageBean extends AbstractParleysBean {
         initializeHomepage();
     }
 
-    public String viewThumbnails(Filter filter, Filter.Type filterType) throws ClientStatusException {
+    public String viewThumbnails(Filter filter, Filter.Type filterType, int index) throws ClientStatusException {
         thumbnails = Collections.emptyList();
+        homepageViewBean.setIndex(index);
+        homepageViewBean.setThumbnailsFilter(filter);
+        homepageViewBean.setThumbnailsFilterType(filterType);
 
         if (filter != null && filterType != null) {
             if (filterType == Filter.Type.PRESENTATION) {
+                PresentationsCriteria criteria = new PresentationsCriteria();
+                criteria.setIndex(0);
+                criteria.setPaging(99);
                 if (filter == Filter.FEATURED) {
-                    thumbnails = getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION);
+                    transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), index);
                 } else if (filter == Filter.LATEST) {
-                    PresentationsCriteria criteria = new PresentationsCriteria();
-                    criteria.setPaging(6);
-                    thumbnails = getParleysServiceDelegate().getLatestPresentationsOverview(criteria);
+                    transformToThumbnails(getParleysServiceDelegate().getLatestPresentationsOverview(criteria), index);
                 } else if (filter == Filter.TOP_RATED) {
-                    PresentationsCriteria criteria = new PresentationsCriteria();
-                    criteria.setPaging(6);
-                    thumbnails = getParleysServiceDelegate().getTopRatedPresentationsOverview(criteria);
+                    transformToThumbnails(getParleysServiceDelegate().getTopRatedPresentationsOverview(criteria), index);
                 } else if (filter == Filter.MOST_VIEWED) {
-                    PresentationsCriteria criteria = new PresentationsCriteria();
-                    criteria.setPaging(6);
-                    thumbnails = getParleysServiceDelegate().getMostViewedPresentationsOverview(criteria);
+                    transformToThumbnails(getParleysServiceDelegate().getMostViewedPresentationsOverview(criteria), index);
                 }
             } else if (filterType == Filter.Type.CHANNEL) {
-                thumbnails = getParleysServiceDelegate().getFeatured(FeaturedType.CHANNEL);
+                transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.CHANNEL), index);
             } else if (filterType == Filter.Type.SPACE) {
-                thumbnails = getParleysServiceDelegate().getFeatured(FeaturedType.SPACE);
+                transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.SPACE), index);
             }
         }
 
         return null;
+    }
+
+    private void transformToThumbnails(final List<? extends AbstractDTO> thumbnailsIn, int index) {
+        if (index < 0) {
+            index = 0;
+        }
+        if (index >= thumbnailsIn.size()) {
+            index = 0;
+        }
+
+        List<? extends AbstractDTO> newThumbnailsIn = thumbnailsIn;
+        if (thumbnailsIn.size() > 6) {
+            final int endIndex = Math.min(index + 6, newThumbnailsIn.size());
+            newThumbnailsIn = newThumbnailsIn.subList(index, endIndex);
+            homepageViewBean.setHasPreviousThumbnail(index > 0);
+            homepageViewBean.setHasNextThumbnail(index + 6 <= newThumbnailsIn.size());
+        }
+
+        List<Thumbnail> ret = new ArrayList<Thumbnail>();
+
+        for (AbstractDTO abstractDTO : newThumbnailsIn) {
+            final Thumbnail thumbnail = new Thumbnail();
+            thumbnail.setId(abstractDTO.getId());
+            if (abstractDTO instanceof PresentationOverviewDTO) {
+                thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
+                thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), ((PresentationOverviewDTO) abstractDTO).getThumbnailURL()));
+                thumbnail.setOutcome("presentation");
+            } else if (abstractDTO instanceof ChannelOverviewDTO) {
+                thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
+                thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), ((ChannelOverviewDTO) abstractDTO).getThumbnailURL()));
+                thumbnail.setOutcome("presentations");
+            } else if (abstractDTO instanceof SpaceOverviewDTO) {
+                thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
+                thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), ((SpaceOverviewDTO) abstractDTO).getThumbnailURL()));
+                thumbnail.setOutcome("channels");
+            }
+
+            ret.add(thumbnail);
+        }
+
+        thumbnails = ret;
     }
 
     public String gotoNewsItem(Long id) {
@@ -138,24 +178,8 @@ public class HomepageBean extends AbstractParleysBean {
         return null;
     }
 
-    public List<? extends AbstractDTO> getThumbnails() {
+    public List<Thumbnail> getThumbnails() {
         return thumbnails;
-    }
-
-    public Filter getThumbnailsFilter() {
-        return thumbnailsFilter;
-    }
-
-    public void setThumbnailsFilter(final Filter thumbnailsFilter) {
-        this.thumbnailsFilter = thumbnailsFilter;
-    }
-
-    public Filter.Type getThumbnailsFilterType() {
-        return thumbnailsFilterType;
-    }
-
-    public void setThumbnailsFilterType(final Filter.Type thumbnailsFilterType) {
-        this.thumbnailsFilterType = thumbnailsFilterType;
     }
 
     public void setNewsId(final Long newsId) {

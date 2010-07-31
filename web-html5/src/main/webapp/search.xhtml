@@ -28,9 +28,9 @@
                 </h:form>
                 <hr/>
                 <ul>
-                    <ui:repeat value="#{searchBean.results}" var="presentation">
+                    <ui:repeat value="#{searchBean.results}" var="thumbnail">
                         <li>
-                            <parleys:presentationLink presentation="#{presentation}" renderThumbnail="true"
+                            <parleys:presentationLink presentation="#{thumbnail}" renderThumbnail="true"
                                                       styleClasses="breathe"/>
                         </li>
                     </ui:repeat>

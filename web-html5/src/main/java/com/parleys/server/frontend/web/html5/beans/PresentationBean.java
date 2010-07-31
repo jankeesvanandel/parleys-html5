@@ -89,15 +89,11 @@ public class PresentationBean extends AbstractParleysBean {
 
     public String getStreamURL(){
         List<AssetDTO> assets = presentation.getAssetDTOs();
-
         List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
-
         AssetDTO streamAsset = null;
-
         for (AssetDTO asset : assets) {
-                                         
             if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
-                   streamAsset = asset;
+                streamAsset = asset;
             }
         }
 

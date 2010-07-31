@@ -139,7 +139,7 @@ function onResize(){
 
 
 function actuallyResize(){
-	var contentWidth = $("#mainContent").width();
+    var contentWidth = $("#mainContent").width();
 	var contentHeight = $("#mainContent").height();
 
 	var contentEqualRight = new Object();
@@ -224,9 +224,9 @@ function actuallyResize(){
 	var agenda = document.getElementById('agenda');
 
 	if (currentState == STATE_EQUAL) {
-		agenda.style.left = window.innerWidth / 2 - 190 + "px";
+		//agenda.style.left = window.innerWidth / 2 - 190 + "px";
 	}else{
-		agenda.style.left = window.innerWidth / 2 - 400 + "px";
+		//agenda.style.left = window.innerWidth / 2 - 400 + "px";
 	}
 
 
@@ -292,10 +292,10 @@ function aspectFit(outer,inner){
 function toggleAgenda(){
 
 	 if (currentState == STATE_EQUAL) {
-		agenda.css("left",window.innerWidth / 2 - 190 + "px");
+		//agenda.css("left",window.innerWidth / 2 - 190 + "px");
 
 	}else{
-		agenda.css("left",window.innerWidth / 2 - 400 + "px");
+		//agenda.css("left",window.innerWidth / 2 - 400 + "px");
 	}
 
 	if (agenda_btn.value=="Show Agenda"){
@@ -327,9 +327,9 @@ function toggleAgenda(){
 }
 
 function hideAgenda(){
-		//var agenda = document.getElementById('agenda');
-		//agenda.style.display = "none";
-	}
+    //var agenda = document.getElementById('agenda');
+    //agenda.style.display = "none";
+}
 
 
 
