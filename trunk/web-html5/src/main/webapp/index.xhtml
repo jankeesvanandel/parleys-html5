@@ -11,8 +11,8 @@
     <ui:param name="parleysBean" value="#{homepageBean}"/>
     <ui:define name="header">
         <f:metadata>
-            <f:viewParam name="filter" value="#{homepageBean.thumbnailsFilter}"/>
-            <f:viewParam name="filterType" value="#{homepageBean.thumbnailsFilterType}"/>
+            <f:viewParam name="filter" value="#{homepageViewBean.thumbnailsFilter}"/>
+            <f:viewParam name="filterType" value="#{homepageViewBean.thumbnailsFilterType}"/>
             <f:viewParam name="newsId" value="#{homepageBean.newsId}"/>
             <f:event type="preRenderView" listener="#{homepageBean.init}"/>
         </f:metadata>
@@ -23,22 +23,22 @@
             <h:outputScript library="parleys" name="homepage.js"/>
             <ul id="featureHomepage">
                 <li>
-                    <h:commandLink id="featuredPresentations" action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION')}" value="Featured" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredPresentations" action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION', 0)}" value="Featured" onclick="return gotoThumbnails(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="latestPresentations" action="#{homepageBean.viewThumbnails('LATEST', 'PRESENTATION')}" value="Latest" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="latestPresentations" action="#{homepageBean.viewThumbnails('LATEST', 'PRESENTATION', 0)}" value="Latest" onclick="return gotoThumbnails(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="topRatedPresentations" action="#{homepageBean.viewThumbnails('TOP_RATED', 'PRESENTATION')}" value="Top Rated" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="topRatedPresentations" action="#{homepageBean.viewThumbnails('TOP_RATED', 'PRESENTATION', 0)}" value="Top Rated" onclick="return gotoThumbnails(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="mostViewedPresentations" action="#{homepageBean.viewThumbnails('MOST_VIEWED', 'PRESENTATION')}" value="Most Viewed" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="mostViewedPresentations" action="#{homepageBean.viewThumbnails('MOST_VIEWED', 'PRESENTATION', 0)}" value="Most Viewed" onclick="return gotoThumbnails(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="featuredSpaces" action="#{homepageBean.viewThumbnails('FEATURED', 'SPACE')}" value="Featured Spaces" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredSpaces" action="#{homepageBean.viewThumbnails('FEATURED', 'SPACE', 0)}" value="Featured Spaces" onclick="return gotoThumbnails(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="featuredChannels" action="#{homepageBean.viewThumbnails('FEATURED', 'CHANNEL')}" value="Featured Channels" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredChannels" action="#{homepageBean.viewThumbnails('FEATURED', 'CHANNEL', 0)}" value="Featured Channels" onclick="return gotoThumbnails(this.id)"/>
                 </li>
             </ul>
         </div>
@@ -50,11 +50,11 @@
                 <h5:div id="thumbnails">
                     <ui:repeat value="#{homepageBean.thumbnails}" var="presentation">
                         <div class="thumbnail">
-                            <h3 title="#{presentation.title}">#{p:shortenTo(17, presentation.title)}</h3>
-                            <h:link outcome="presentation">
+                            <h3 title="#{presentation.name}">#{p:shortenTo(17, presentation.name)}</h3>
+                            <h:link outcome="#{presentation.outcome}">
                                 <f:param name="id" value="#{presentation.id}"/>
-                                <h:graphicImage value="#{p:presentationThumbnail(presentation.id, presentation.thumbnailURL)}"
-                                                title="#{presentation.title}"
+                                <h:graphicImage value="#{presentation.thumbnailUrl}"
+                                                title="#{presentation.name}"
                                                 alt=""
                                                 width="133" height="88" styleClass="reflect"/>
                             </h:link>

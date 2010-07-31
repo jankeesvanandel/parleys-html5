@@ -28,9 +28,9 @@
             <hr/>
             <br/>
             <ul>
-                <ui:repeat value="#{presentationsBean.presentations}" var="presentation">
+                <ui:repeat value="#{presentationsBean.presentations}" var="thumbnail">
                     <li class="shadowbox">
-                        <parleys:presentationLink presentation="#{presentation}"
+                        <parleys:presentationLink presentation="#{thumbnail}"
                                                   summarySize="370"
                                                   renderStats="true"/><br/>
                     </li>
