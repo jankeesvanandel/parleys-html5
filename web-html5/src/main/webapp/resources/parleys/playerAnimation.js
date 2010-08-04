@@ -221,20 +221,16 @@ function actuallyResize(){
 					}
 
 
-	var agenda = document.getElementById('agenda');
+//	var agenda = document.getElementById('agenda');
 
 	if (currentState == STATE_EQUAL) {
-		//agenda.style.left = window.innerWidth / 2 - 190 + "px";
+		agenda.css("left", window.innerWidth / 2 - 190 + "px");
 	}else{
-		//agenda.style.left = window.innerWidth / 2 - 400 + "px";
+		agenda.css("left", window.innerWidth / 2 - 400 + "px");
 	}
 
-
     resizeChapters();
-
-};
-
-
+}
 
 function resizeChapters(){
     var chapters = $("#chapters div").not("#videoNavigationBarCursor");
@@ -247,16 +243,13 @@ function resizeChapters(){
         var cuepoint = parseFloat(chapter.attr("cuepoint"));
         var duration = parseFloat(chapter.attr("duration"));
 
-
-       var percentage = duration/totalDuration;
-       var chapterWidth = chapterContainerWidth*percentage;
-       chapter.css("width",chapterWidth-1+"px");
-       chapter.css("left",startX+"px");
-       startX+=chapterWidth;
-
+        var percentage = duration/totalDuration;
+        var chapterWidth = chapterContainerWidth*percentage;
+        chapter.css("width",chapterWidth-1+"px");
+        chapter.css("left",startX+"px");
+        startX+=chapterWidth;
     }
 }
-
 
 function applyRect(rect,item){
 	item.css("left", rect.x + "px")
@@ -264,8 +257,6 @@ function applyRect(rect,item){
   	item.css("width", rect.width + "px")
   	item.css("height", rect.height + "px")
 }
-
-
 
 function aspectFit(outer,inner){
 		fixedRatio = outer.width/outer.height;
@@ -283,19 +274,13 @@ function aspectFit(outer,inner){
 		return newRect;
 }
 
-
-
-
-
-
-
 function toggleAgenda(){
 
 	 if (currentState == STATE_EQUAL) {
-		//agenda.css("left",window.innerWidth / 2 - 190 + "px");
+		agenda.css("left",window.innerWidth / 2 - 190 + "px");
 
 	}else{
-		//agenda.css("left",window.innerWidth / 2 - 400 + "px");
+		agenda.css("left",window.innerWidth / 2 - 400 + "px");
 	}
 
 	if (agenda_btn.value=="Show Agenda"){
@@ -327,11 +312,9 @@ function toggleAgenda(){
 }
 
 function hideAgenda(){
-    //var agenda = document.getElementById('agenda');
-    //agenda.style.display = "none";
+//    var agenda = document.getElementById('agenda');
+//    agenda.style.display = "none";
 }
-
-
 
 jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {
   return this.each(function(){

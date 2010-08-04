@@ -79,14 +79,14 @@ $(document).ready(function() {
     setInitialPosition();
     disableTextSelection();
     initializeControlsEventHandlers();
-
-
 });
 
 function showPlayButtonOverlay() {
     $("#playButtonOverlay").css("display", "block");
     $("#playButtonOverlayBackground").css("display", "block");
+    $("#agenda").css("display", "none"); // Hide the agenda to keep the play button clickable
     $("#playButtonOverlay a").click(function(e) {
+        $("#agenda").css("display", "block"); // Turn the agenda on
         $("#playButtonOverlay").css("display", "none");
         $("#playButtonOverlayBackground").css("display", "none");
         $("#videoPlayer")[0].play();
@@ -173,18 +173,12 @@ function initializeProgressBarEventSource() {
         mainVideoLoop.timeChanged(href, OBSERVER_TYPE_PROGRESSBAR);
     });
 
-
     $("#agenda a").bind("click", function() {
         var href = $(this).attr("href");
         var id = href.substr(1);
         var slide = findSlideById(id);
         mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
     });
-
-   
-
-
-
 }
 
 function initializeProgressBarCursor() {
@@ -196,8 +190,6 @@ function initializeProgressBarCursor() {
             isCursorDragging = true;
         },
         stop: function() {
-
-
             var chapters = $("#chapters");
             var totalDuration = parseFloat($("#chapters").attr("totalduration"));
             var positionInPercentage = position / chapters.width();
@@ -253,21 +245,15 @@ function updateSlide(timeChangedEvent) {
             slide.css("display", "none");
         }
     }
-
-
-
-
-
 }
 
 function updateProgressBar(timeChangedEvent) {
     if (!isCursorDragging) {
         var now = timeChangedEvent.currentTime;
-         var chapters = $("#chapters");
-         var totalDuration = parseFloat($("#chapters").attr("totalduration"));
+        var chapters = $("#chapters");
+        var totalDuration = parseFloat($("#chapters").attr("totalduration"));
 
         var videoNavigationBarWidth = $("#chapters").width();
-
 
         var position = (now / totalDuration) * videoNavigationBarWidth;
         position -= 7; // Half the cursor width
@@ -363,25 +349,15 @@ function ontimeupdateHandler() {
     resizeElements();
 }
 
-
-
-
 function resizeElements() {
     // Reposition the agenda
 
-
     // Resize the Chapters
     initializeVideoNavigationBar();
-};
-
-
+}
 
 var resizeTimeout;
 $(window).resize(function() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(resizeElements, 100);
-
 });
-
-
-
