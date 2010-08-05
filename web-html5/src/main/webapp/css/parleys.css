@@ -290,7 +290,7 @@ div#logoBar .loginButton {
 }
 
 #content.fullWidth {
-    position:relative;
+    position:absolute;
     width: 100%;
     top:20px;
     bottom:80px;
@@ -744,6 +744,8 @@ div#agenda li:hover{
     height:100%;
 }
 
+
+/*
 #agenda{
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -767,6 +769,29 @@ div#agenda li:hover{
     overflow-y: scroll;
     opacity: 0;
 }
+*/
+
+
+
+#agenda{
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	 border:5px solid #ffffff;
+	 padding:0px;
+	 width:380px;
+	 bottom:50px;
+    top:0px;
+	 background-color:#3b3b3b;
+	 position:absolute;
+	-moz-box-shadow:0 20px 40px #888;
+	-webkit-box-shadow:0 10px 10px #888;
+	 -webkit-transform:rotateY(0deg) translateZ(500px) translate(0,0);
+     -webkit-transition-property: -webkit-transform, opacity;
+     -webkit-transition-duration: 0.5s;
+	 -webkit-transition-timing-function: ease-in-out;
+	 opacity:0;
+    overflow-y: scroll;
+	 }
 
 #chapters{
     position:absolute;
