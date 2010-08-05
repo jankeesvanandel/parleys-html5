@@ -6,13 +6,14 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
     <ui:param name="parleysBean" value="#{spacesBean}"/>
     <ui:define name="header">
         <f:metadata>
-            <f:viewParam name="index" value="#{spacesBean.index}"/>
-            <f:viewParam name="paging" value="#{spacesBean.paging}"/>
-            <f:viewParam name="filter" value="#{spacesBean.filter}"/>
+            <f:viewParam name="index" value="#{pagingBean.index}"/>
+            <f:viewParam name="paging" value="#{pagingBean.paging}"/>
+            <f:viewParam name="filter" value="#{pagingBean.filter}"/>
             <f:event type="preRenderView" listener="#{spacesBean.init}"/>
         </f:metadata>
     </ui:define>
@@ -20,15 +21,39 @@
         <div>
             <h2>Spaces</h2>
             <hr/>
-            <ul>
-                <ui:repeat value="#{spacesBean.spaces}" var="space">
-                    <li class="shadowbox">
-                        <parleys:spaceLink space="#{space}"
-                                           descriptionSize="270"
-                                           renderStats="true"/>
-                    </li>
-                </ui:repeat>
-            </ul>
+            <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"
+                           rendered="#{pagingBean.index gt 1}"
+                           styleClass="previous paging"
+                           title="Previous page"
+                           value="&lt;">
+                <f:ajax render="main:spacesContainer"/>
+            </h:commandLink>
+            <ui:repeat value="#{pagingBean.pages}" var="page">
+                <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, (page-1)*pagingBean.paging, pagingBean.paging)}"
+                               styleClass="#{(pagingBean.index/pagingBean.paging) eq page ? 'current' : ''} paging"
+                               value="#{page}">
+                    <f:ajax render="main:spacesContainer"/>
+                </h:commandLink>
+            </ui:repeat>
+            <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
+                           rendered="#{pagingBean.index+pagingBean.paging lt pagingBean.list.size()}"
+                           styleClass="next paging"
+                           title="Next page"
+                           value="&gt;">
+                <f:ajax render="main:spacesContainer"/>
+            </h:commandLink>
+            <hr/>
+            <h5:div id="spacesContainer">
+                <ul>
+                    <ui:repeat value="#{pagingBean.list}" var="space">
+                        <li class="shadowbox">
+                            <parleys:spaceLink space="#{space}"
+                                               descriptionSize="270"
+                                               renderStats="true"/>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h5:div>
         </div>
     </ui:define>
 </ui:composition>

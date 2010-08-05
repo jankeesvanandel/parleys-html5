@@ -2,7 +2,6 @@ package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.dto.ChannelOverviewDTO;
-import com.parleys.server.dto.OverviewResponseDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 import com.parleys.server.security.AuthorizationException;
@@ -21,9 +20,8 @@ import java.util.List;
  * @author Jan-Kees Vanandel
  * @author Stephan Janssen
  */
-@ManagedBean
-@RequestScoped
-public class PresentationsBean extends PagingBean {
+@ManagedBean @RequestScoped
+public class PresentationsBean extends AbstractParleysBean {
 
     private final transient Log LOG = LogFactory.getLog(getClass());
     
@@ -35,15 +33,14 @@ public class PresentationsBean extends PagingBean {
 
     @SuppressWarnings("unchecked")
     public void init() {
-
         final PresentationsCriteria criteria = new PresentationsCriteria();
         criteria.setChannelId(getChannelId());
-        criteria.setIndex(getIndex());
-        criteria.setPaging(getPaging());
+        criteria.setIndex(getPagingBean().getIndex());
+        criteria.setPaging(getPagingBean().getPaging());
 
         try {
-            if (getFilter() != null) {
-                switch (getFilter()) {
+            if (getPagingBean().getFilter() != null) {
+                switch (getPagingBean().getFilter()) {
                     case FEATURED:
                         presentations =
                                 (List<PresentationOverviewDTO>)getParleysServiceDelegate()
@@ -104,4 +101,5 @@ public class PresentationsBean extends PagingBean {
     public List<PresentationOverviewDTO> getPresentations() {
         return presentations;
     }
+
 }
