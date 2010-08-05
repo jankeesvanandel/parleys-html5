@@ -168,65 +168,6 @@ div#logoBar .loginButton {
     display: none;
 }
 
-/*
-#header {
-    clear:both;
-    width:100%;
-    border-bottom: .2em solid #111;
-}
-#header ul {
-    clear:left;
-    float:left;
-    width:100%;
-    list-style:none;
-    margin:10px 0 0 0;
-    padding:0;
-}
-#header ul li {
-    display:inline;
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-#header ul li a {
-    display:block;
-    float:left;
-    margin:0 0 0 1px;
-    padding:3px 10px;
-    text-align:center;
-    background:#eee;
-    color:#000;
-    text-decoration:none;
-    position:relative;
-    left:15px;
-}
-#header ul li a:hover {
-    background:#369;
-    color:#fff;
-}
-#header ul li a span {
-    display:block;
-}
-#logo {
-    border-bottom: 1px solid #000;
-    height: 1.8em;
-    background: #404040 url(../img/logo.jpg) no-repeat;
-}
-#logo h1 {
-    position: absolute;
-    padding: .2em;
-    margin:0;
-    color: #fff;
-    display: none;
-}
-#logo a, #logo a:visited {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: .3em;
-    color: #999;
-}
-*/
 #navigationBar {    
     background: #414141 url(../img/header_sprite.png) repeat-x 0 -225px;
     padding-left: 150px;
@@ -405,38 +346,19 @@ div.contentBlock.pod {
     background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
 }
 
-
-/*
-#videoSlideContainer{
-    background-color:blue;
-    position:absolute;
-	top:100px;
-	bottom:80px;
-	width:100%;
-	-webkit-perspective: 500;
+a.paging {
+    padding: 3px;
+    border: 1px solid #ccc;
 }
-*/
-/*
-#content div#videoContainer {
-          position:absolute;
-	-webkit-transition: all 0.4s ease-in-out;
-	background-color:#000000;
-
-	-webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
-	-webkit-transition-timing-function: ease-in-out;
-		-webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
-
+a.previous.paging {
+    background-color: blue;
 }
-
-#content div#slidesContainer {
-    -webkit-transition: all 0.4s ease-in-out;
-    position:absolute;
-    background-color:#000000;
-    -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
-                   
-    
+a.current.paging {
+    background-color: green;
 }
-*/
+a.next.paging {
+    background-color: blue;
+}
 
 #content div#contentContainer{
     position:absolute;
@@ -445,12 +367,6 @@ div.contentBlock.pod {
 	width:100%;
 	-webkit-perspective: 500;
 }
-/*
-#content div#slidesContainer img {
-    width: 99%;
-    height:400px;
-}
-*/
 
 div#videoControls {
     float: left;

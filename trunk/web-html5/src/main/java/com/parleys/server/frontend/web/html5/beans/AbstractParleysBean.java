@@ -1,7 +1,8 @@
 package com.parleys.server.frontend.web.html5.beans;
 
-import com.parleys.server.dto.*;
-import com.parleys.server.frontend.domain.Filter;
+import com.parleys.server.dto.ChannelOverviewDTO;
+import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.security.AuthorizationException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
@@ -24,6 +25,9 @@ public abstract class AbstractParleysBean {
     private ChannelOverviewDTO currentChannel;
 
     private ExtendedPresentationDetailsDTO currentPresentation;
+
+    @ManagedProperty("#{pagingBean}")
+    private PagingBean pagingBean;
 
     @ManagedProperty("#{parleysService}")
     private ParleysServiceDelegate parleysServiceDelegate;
@@ -83,5 +87,13 @@ public abstract class AbstractParleysBean {
 
     public boolean getIsOnHomepage() {
         return isOnHomepage;
-    }           
+    }
+
+    public PagingBean getPagingBean() {
+        return pagingBean;
+    }
+
+    public void setPagingBean(PagingBean pagingBean) {
+        this.pagingBean = pagingBean;
+    }
 }
