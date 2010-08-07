@@ -4,15 +4,13 @@
 
 This is a quick list with tasks that still need to be done.
 
-= Details =
-
-1 Ultra High priority!!!
+==1 Ultra High priority!!!==
 These tasks need to be done ASAP!
   * Much better error handling for the service layer
   * Error handling at the view level, like a nice error page.
   * 
 
-2 High priority
+==2 High priority==
 These tasks need to be done for a successful demo, like at JavaOne.
   * Add PrettyFaces.
   * Add pretty URL's/back button support for AJAX calls.
@@ -20,11 +18,11 @@ These tasks need to be done for a successful demo, like at JavaOne.
   * Add some High Quality video's for the demo.
   * 
 
-3 Medium priority
+==3 Medium priority==
   * Check for MyFaces internal performance optimizations. (includes stress test)
   * CSS cleanup.
   * 
 
-4 Low priority
+==4 Low priority==
   * Add support for "sub-clips".
   * 
