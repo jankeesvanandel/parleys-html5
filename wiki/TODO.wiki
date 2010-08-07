@@ -6,8 +6,8 @@ This is a quick list with tasks that still need to be done.
 
 ==1 Ultra High priority!!!==
 These tasks need to be done ASAP!
-  * Much better error handling for the service layer
-  * Error handling at the view level, like a nice error page.
+  * Improve error handling for the service layer
+  * Implement error handling at the view level, like a nice error page.
   * 
 
 ==2 High priority==
