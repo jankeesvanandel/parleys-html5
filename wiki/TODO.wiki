@@ -6,6 +6,7 @@ This is a quick list with tasks that still need to be done.
 
 ==1 Ultra High priority!!!==
 These tasks need to be done ASAP!
+  * Add Apache license headers to all source files.
   * Improve error handling for the service layer
   * Implement error handling at the view level, like a nice error page.
   * 
