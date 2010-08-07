@@ -13,9 +13,7 @@ import java.util.List;
  * @author Stephan Janssen
  */
 public class ChannelOverviewDTO extends AbstractDTO {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 963569454651137798L;
 
     private String name;

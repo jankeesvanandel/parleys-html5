@@ -4,9 +4,7 @@ package com.parleys.server.dto;
  * @author Stephan Janssen
  */
 public class CommentDTO extends AbstractDTO {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 6266929465269600779L;
 
     private Long parent;

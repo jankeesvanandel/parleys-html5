@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class News extends AbstractEntity {
 
-    static final long serialVersionUID = 7829932764561222800L;
+    private static final long serialVersionUID = 7829932764561222800L;
 
     private String title;
 

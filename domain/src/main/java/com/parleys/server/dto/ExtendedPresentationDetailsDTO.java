@@ -10,9 +10,6 @@ import java.util.List;
  */
 public class ExtendedPresentationDetailsDTO extends PresentationDetailsDTO {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5618171137615017646L;
 
     private boolean isEmbeddablePlayerEnabled = false;

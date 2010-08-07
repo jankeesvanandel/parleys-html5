@@ -7,35 +7,40 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
     <ui:param name="parleysBean" value="#{presentationsBean}"/>
     <ui:define name="header">
         <f:metadata>
-            <f:viewParam name="id" value="#{presentationsBean.channelId}"/>
-            <f:viewParam name="filter" value="#{presentationsBean.filter}"/>
+            <f:viewParam name="id" value="#{presentationsViewBean.channelId}"/>
+            <f:viewParam name="index" value="#{pagingBean.index}"/>
+            <f:viewParam name="paging" value="#{pagingBean.paging}"/>
+            <f:viewParam name="filter" value="#{pagingBean.filter}"/>
             <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
         </f:metadata>
     </ui:define>
     <ui:define name="content">
         <div>
             <h:graphicImage
-                    url="#{p:channelThumbnail(presentationsBean.channel.id, presentationsBean.channel.thumbnailURL)}"
-                    alt="#{presentationsBean.channel.name}"
-                    rendered="#{not empty presentationsBean.channel.thumbnailURL}">
-            </h:graphicImage>
-            <h2>#{presentationsBean.filter.description}</h2>
-            <h2>#{presentationsBean.channel.name}</h2>
-            <hr/>
-            <br/>
-            <ul>
-                <ui:repeat value="#{presentationsBean.presentations}" var="thumbnail">
-                    <li class="shadowbox">
-                        <parleys:presentationLink presentation="#{thumbnail}"
-                                                  summarySize="370"
-                                                  renderStats="true"/><br/>
-                    </li>
-                </ui:repeat>
-            </ul>
+                    url="#{p:channelThumbnail(presentationsBean.currentChannel.id, presentationsBean.currentChannel.thumbnailURL)}"
+                    alt="#{presentationsBean.currentChannel.name}"
+                    rendered="#{not empty presentationsBean.currentChannel.thumbnailURL}"
+                    style="float: left;"/>
+            <h2 style="float: left;">#{pagingBean.filter.description}</h2>
+            <h2 style="float: left;">#{presentationsBean.currentChannel.name}</h2>
+            <parleys:paging targetBean="#{presentationsBean}" render="main:presentationsContainer"/>
+            <hr style="clear: both;"/>
+            <h5:div id="presentationsContainer">
+                <ul>
+                    <ui:repeat value="#{pagingBean.list}" var="thumbnail">
+                        <li class="shadowbox">
+                            <parleys:presentationLink presentation="#{thumbnail}"
+                                                      summarySize="370"
+                                                      renderStats="true"/><br/>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h5:div>
         </div>
     </ui:define>
 </ui:composition>

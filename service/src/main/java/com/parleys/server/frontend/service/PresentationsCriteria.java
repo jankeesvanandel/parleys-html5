@@ -1,18 +1,23 @@
 package com.parleys.server.frontend.service;
 
+/**
+ * Holder class for parameters to query presentations lists.
+ *
+ * @author Jan-Kees van Andel
+ */
 public class PresentationsCriteria {
 
-    private long channelId;
+    private Long channelId;
 
     private int index = 0;
 
     private int paging = 20;
 
-    public long getChannelId() {
+    public Long getChannelId() {
         return channelId;
     }
 
-    public void setChannelId(final long channelId) {
+    public void setChannelId(final Long channelId) {
         this.channelId = channelId;
     }
 

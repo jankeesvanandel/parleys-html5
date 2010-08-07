@@ -5,9 +5,6 @@ package com.parleys.server.dto;
  */
 public class NoteDetailsDTO extends AbstractDTO {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8059773735770985857L;
 
     private String text;

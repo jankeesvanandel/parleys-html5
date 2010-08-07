@@ -1,8 +1,9 @@
 package com.parleys.server.domain;
 
 /**
- * $Author$
- * $Revision$
+ * Thumbnail to display on the homepage. Used for spaces, channels and presentations.
+ *
+ * @author Jan-Kees van Andel
  */
 public class Thumbnail {
     private long id;

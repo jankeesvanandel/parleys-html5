@@ -12,9 +12,6 @@ import java.util.Date;
  */
 public abstract class AbstractEntity extends BaseObject {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8678841958284556626L;
 
     protected Long id;

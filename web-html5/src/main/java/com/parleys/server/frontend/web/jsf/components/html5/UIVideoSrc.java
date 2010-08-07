@@ -7,7 +7,9 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
+ * The source tag that can be embedded in the video tag.
  *
+ * @author Jan-Kees van Andel
  */
 @FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIVideoSrc")
 public class UIVideoSrc extends UIComponentBase {

@@ -5,14 +5,10 @@ import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import java.lang.reflect.Proxy;
 
 /**
- * @author Stephan Janssen
- */
-/**
  * AMF client service class from <a
  * href="http://bugs.adobe.com/jira/browse/BLZ-246">here</a>.
  *
  * @author <a href="mailto:rflament@laposte.net">Rémi Flament</a>
- *
  */
 public class AMFClientFactory {
 	private Class<?> serviceClass;

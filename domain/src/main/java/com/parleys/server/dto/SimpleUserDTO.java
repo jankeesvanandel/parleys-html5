@@ -5,9 +5,6 @@ package com.parleys.server.dto;
  */
 public class SimpleUserDTO extends AbstractDTO {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5936329913515033638L;
 
     private String username;

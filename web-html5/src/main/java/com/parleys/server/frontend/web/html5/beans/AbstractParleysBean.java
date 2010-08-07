@@ -6,17 +6,19 @@ import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.service.ParleysServiceDelegate;
 import com.parleys.server.security.AuthorizationException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedProperty;
 
 /**
- * Bean that holds process information.
+ * Generic base class with functionality required on all pages.
+ *
+ * @author Jan-Kees van Andel
+ * @author Stephan Janssen
  */
 public abstract class AbstractParleysBean {
 
-    private final transient Log LOG = LogFactory.getLog(getClass());
+    private static final Logger LOGGER = Logger.getLogger(AbstractParleysBean.class);
 
     private boolean isOnHomepage = false;
 
@@ -62,9 +64,9 @@ public abstract class AbstractParleysBean {
         try {
             return getParleysServiceDelegate().getSpaceOverviewDTO(channel.getSpaceId());
         } catch (AuthorizationException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         } catch (ClientStatusException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         }
         throw new IllegalArgumentException("Space does not exist");
     }
