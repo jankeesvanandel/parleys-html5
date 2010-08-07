@@ -27,3 +27,4 @@ These tasks need to be done for a successful demo, like at JavaOne.
 ==4 Low priority==
   * Add support for "sub-clips".
   * Add support for Flash video.
+  * Make paging support large number of pages, without ugly line wrapping.
