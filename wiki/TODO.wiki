@@ -17,7 +17,7 @@ These tasks need to be done for a successful demo, like at JavaOne.
   * Add pretty URL's/back button support for AJAX calls.
   * Increase test coverage.
   * Add some High Quality video's for the demo.
-  * 
+  * Add nice images for buttons etc.
 
 ==3 Medium priority==
   * Check for MyFaces internal performance optimizations. (includes stress test)
