@@ -3,103 +3,103 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
+import com.parleys.server.frontend.web.html5.util.JSFUtil;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Backing bean for the space detail page.
  *
- * @author Jan-Kees Vanandel
+ * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
 @ManagedBean @RequestScoped
-public class PresentationsBean extends AbstractParleysBean {
+public class PresentationsBean extends AbstractParleysBean implements Paginable {
 
-    private final transient Log LOG = LogFactory.getLog(getClass());
-    
-    private long channelId;
+    private static final Logger LOGGER = Logger.getLogger(PresentationsBean.class);
 
-    private ChannelOverviewDTO channel;
+    @ManagedProperty("#{presentationsViewBean}")
+    private PresentationsViewBean presentationsViewBean;
 
-    private List<PresentationOverviewDTO> presentations;
-
-    @SuppressWarnings("unchecked")
     public void init() {
-        final PresentationsCriteria criteria = new PresentationsCriteria();
-        criteria.setChannelId(getChannelId());
-        criteria.setIndex(getPagingBean().getIndex());
-        criteria.setPaging(getPagingBean().getPaging());
+        if (JSFUtil.theCurrentEventIsNoPageAction()) {
+            return;
+        }
 
-        try {
-            if (getPagingBean().getFilter() != null) {
-                switch (getPagingBean().getFilter()) {
-                    case FEATURED:
-                        presentations =
-                                (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                        .getFeatured(FeaturedType.PRESENTATION);
-                        break;
+        gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
+    }
 
-                    case LATEST:
-                        presentations =
-                                (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                        .getLatestPresentationsOverview(criteria);
-                        break;
-    
-                    case TOP_RATED:
-                        presentations =
-                                (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                        .getTopRatedPresentationsOverview(criteria);
-                        break;
+    /** {@inheritDoc} */
+    @Override
+    public void gotoPage(Filter filter, int index, int paging) {
+        getPagingBean().setFilter(filter);
+        getPagingBean().setIndex(index);
+        getPagingBean().setPaging(paging);
 
-                    // MOST_VIEWED
-                    default:    
-                        presentations =
-                                (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                        .getMostViewedPresentationsOverview(criteria);
-                }
-            } else {
-                presentations =
-                        (List<PresentationOverviewDTO>)getParleysServiceDelegate()
-                                .getPresentationsOverview(criteria);
+        List<PresentationOverviewDTO> presentations = loadPresentations(getPagingBean().getFilter());
+        getPagingBean().setPaginatedList(presentations);
+
+        Long channelId = getPresentationsViewBean().getChannelId();
+        if (channelId != null) {
+            try {
+                ChannelOverviewDTO dto = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
+                super.initializeChannel(dto);
+            } catch (Exception e) {
+                LOGGER.error(e);
             }
-
-            if (channelId != 0) {
-                    channel = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
-                super.initializeChannel(channel);
-            } else {
-                super.initializeHomepage();
-            }
-        } catch (ParleysServiceException e) {
-            LOG.error(e);
-        } catch (AuthorizationException e) {
-            LOG.error(e);
-        } catch (ClientStatusException e) {
-            LOG.error(e);
+        } else {
+            super.initializeHomepage();
         }
     }
 
-    public long getChannelId() {
-        return channelId;
+    @SuppressWarnings("unchecked")
+    private List<PresentationOverviewDTO> loadPresentations(Filter filter) {
+        try {
+            PresentationsCriteria criteria = new PresentationsCriteria();
+            criteria.setChannelId(getPresentationsViewBean().getChannelId());
+            criteria.setIndex(0);
+            criteria.setPaging(200);
+
+            if (filter != null) {
+                switch (filter) {
+                    case FEATURED:
+                        return (List<PresentationOverviewDTO>) getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION);
+                    case LATEST:
+                        return(List<PresentationOverviewDTO>) getParleysServiceDelegate().getLatestPresentationsOverview(criteria);
+                    case TOP_RATED:
+                        return(List<PresentationOverviewDTO>) getParleysServiceDelegate().getTopRatedPresentationsOverview(criteria);
+                    default: // If default, pick MOST_VIEWED
+                        return (List<PresentationOverviewDTO>) getParleysServiceDelegate().getMostViewedPresentationsOverview(criteria);
+                }
+            } else {
+                return (List<PresentationOverviewDTO>)getParleysServiceDelegate().getPresentationsOverview(criteria);
+            }
+        } catch (ParleysServiceException e) {
+            LOGGER.error(e);
+        } catch (AuthorizationException e) {
+            LOGGER.error(e);
+        } catch (ClientStatusException e) {
+            LOGGER.error(e);
+        }
+
+        return new ArrayList<PresentationOverviewDTO>();
     }
 
-    public void setChannelId(final long channelId) {
-        this.channelId = channelId;
+    public PresentationsViewBean getPresentationsViewBean() {
+        return presentationsViewBean;
     }
 
-    public ChannelOverviewDTO getChannel() {
-        return channel;
+    public void setPresentationsViewBean(PresentationsViewBean presentationsViewBean) {
+        this.presentationsViewBean = presentationsViewBean;
     }
-
-    public List<PresentationOverviewDTO> getPresentations() {
-        return presentations;
-    }
-
 }

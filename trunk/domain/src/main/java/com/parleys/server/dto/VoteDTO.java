@@ -7,14 +7,11 @@ import com.parleys.server.domain.types.VoteType;
  */
 public class VoteDTO extends AbstractDTO {
 
+    private static final long serialVersionUID = 7513460844503696497L;
+
     private VoteType value;
 
     private SimpleUserDTO user;
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7513460844503696497L;
 
     /**
      * @return the value

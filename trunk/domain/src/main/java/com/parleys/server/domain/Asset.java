@@ -8,7 +8,7 @@ import com.parleys.server.domain.types.AssetType;
  */
 public class Asset extends AbstractEntity {
 
-    static final long serialVersionUID = 8838328467405398342L;
+    private static final long serialVersionUID = 8838328467405398342L;
 
     private Integer sequence;
 

@@ -13,8 +13,7 @@ import com.parleys.server.frontend.service.PresentationsCriteria;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
 import com.parleys.server.security.AuthorizationException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,11 +24,14 @@ import java.util.List;
 
 /**
  * Backing bean for the homepage.
+ *
+ * @author Jan-Kees van Andel
+ * @author Stephan Janssen
  */
 @ManagedBean @RequestScoped
 public class HomepageBean extends AbstractParleysBean {
 
-    private final transient Log LOG = LogFactory.getLog(getClass());
+    private static final Logger LOGGER = Logger.getLogger(HomepageBean.class);
 
     @ManagedProperty("#{homepageViewBean}")
     private HomepageViewBean homepageViewBean;
@@ -46,8 +48,7 @@ public class HomepageBean extends AbstractParleysBean {
 
     @SuppressWarnings("unchecked")
     public void init() {
-        if (JSFUtil.fc().getPartialViewContext().isAjaxRequest()
-         || JSFUtil.fc().isValidationFailed()) {
+        if (JSFUtil.theCurrentEventIsNoPageAction()) {
             return;
         }
 
@@ -79,9 +80,9 @@ public class HomepageBean extends AbstractParleysBean {
             recommendedPresentation = (PresentationOverviewDTO)featuredContent.get(2);
 
         } catch (AuthorizationException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         } catch (ClientStatusException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         }
 
         initializeHomepage();
@@ -162,9 +163,9 @@ public class HomepageBean extends AbstractParleysBean {
         try {
             homepageViewBean.setNewsItems(getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
         } catch (AuthorizationException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         } catch (ClientStatusException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         }
         final List<News> newsItems = homepageViewBean.getNewsItems();
         for (int i = 0; i < newsItems.size(); i++) {

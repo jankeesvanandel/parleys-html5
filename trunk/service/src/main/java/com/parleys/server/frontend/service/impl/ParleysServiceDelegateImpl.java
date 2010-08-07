@@ -19,61 +19,48 @@ import java.util.*;
 @Service("parleysService")
 public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateImpl {
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<? extends AbstractDTO> getFeatured(final FeaturedType type) throws ClientStatusException {
         return getParleysServiceProxy().getFeatured(type.name());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<? extends AbstractDTO> getFeaturedContent() throws ClientStatusException {
         return getParleysServiceProxy().getFeaturedContent();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
     public FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(final int index, final int paging)
             throws ClientStatusException {
         return getParleysServiceProxy().getSpacesOverview(index, paging);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(final long spaceId)
             throws ParleysServiceException, AuthorizationException, ClientStatusException {
         return getParleysServiceProxy().getChannelsOverview(spaceId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public SpaceOverviewDTO getSpaceOverviewDTO(final long spaceId)
             throws AuthorizationException, ClientStatusException {
         return getParleysServiceProxy().getSpaceOverviewDTO(spaceId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ChannelOverviewDTO getChannelOverviewDTO(final long channelId)
             throws AuthorizationException, ClientStatusException {
         return getParleysServiceProxy().getChannelOverviewDTO(channelId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ExtendedPresentationDetailsDTO getPresentationDetails(final long presentationId)
             throws ClientStatusException, AuthorizationException {
@@ -81,9 +68,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
         return getParleysServiceProxy().getPresentationDetails(presentationId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<? extends AbstractDTO>
         getPresentationsOverview(final PresentationsCriteria criteria)
@@ -97,9 +82,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                                                                  PresentationDateRange.ALL_TIME.name()).getOverviews();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<PresentationOverviewDTO>
         getLatestPresentationsOverview(final PresentationsCriteria criteria)
@@ -109,9 +92,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                     .getLatestPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<PresentationOverviewDTO>
         getTopRatedPresentationsOverview(final PresentationsCriteria criteria) throws ClientStatusException {
@@ -120,9 +101,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                 .getTopRatedPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<PresentationOverviewDTO>
         getMostViewedPresentationsOverview(final PresentationsCriteria criteria) throws ClientStatusException {
@@ -131,9 +110,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                 .getMostViewedPresentationsOverview(criteria.getIndex(), criteria.getPaging()).getOverviews();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public OverviewResponseDTO<News> getNews(final NewsType newsType, 
                                              final long id,
@@ -142,9 +119,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
         return getParleysServiceProxy().getNews(newsType.name(), id, index, paging);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public List<PresentationOverviewDTO> search(final String criteria) {
         return null;

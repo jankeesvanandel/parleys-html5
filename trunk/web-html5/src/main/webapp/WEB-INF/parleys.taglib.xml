@@ -19,6 +19,12 @@
     </function>
 
     <function>
+        <function-name>floor</function-name>
+        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-signature>int floor(double)</function-signature>
+    </function>
+
+    <function>
         <function-name>spaceThumbnail</function-name>
         <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
         <function-signature>java.lang.String spaceThumbnail(long, java.lang.String)</function-signature>

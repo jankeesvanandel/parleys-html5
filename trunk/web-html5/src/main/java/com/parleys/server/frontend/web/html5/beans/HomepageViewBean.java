@@ -10,9 +10,14 @@ import java.util.List;
 
 /**
  * View scoped bean for cross-request data on the homepage.
+ *
+ * @author Jan-Kees van Andel
+ * @author Stephan Janssen
  */
 @ManagedBean @ViewScoped
 public class HomepageViewBean implements Serializable {
+
+    private static final long serialVersionUID = -5033618962891281882L;
 
     private long activeNewsItemIndex = 0L;
 

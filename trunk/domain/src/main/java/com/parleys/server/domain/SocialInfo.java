@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class SocialInfo implements Serializable {
 
-    static final long serialVersionUID = -5960051913325804215L;
+    private static final long serialVersionUID = -5960051913325804215L;
 
     /**
      * This holds the total number of thumbUp votes.

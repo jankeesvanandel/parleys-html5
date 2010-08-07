@@ -1,64 +1,74 @@
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.dto.ChannelOverviewDTO;
-import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.frontend.domain.Filter;
+import com.parleys.server.frontend.web.html5.util.JSFUtil;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 
 /**
- * Backing bean for the space detail page.
+ * Backing bean for the channels overview page.
  *
- * @author Jan-Kees Vanandel
+ * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
 @ManagedBean @RequestScoped
-public class ChannelsBean extends AbstractParleysBean {
+public class ChannelsBean extends AbstractParleysBean implements Paginable {
 
-    private final transient Log LOG = LogFactory.getLog(getClass());
+    private static final Logger LOGGER = Logger.getLogger(ChannelsBean.class);
 
-    private long spaceId;
-
-    private SpaceOverviewDTO space;
-
-    private List<ChannelOverviewDTO> channels;
+    @ManagedProperty("#{channelsViewBean}")
+    private ChannelsViewBean channelsViewBean;
 
     public void init() {
+        if (JSFUtil.theCurrentEventIsNoPageAction()) {
+            return;
+        }
+
         try {
-            space = getParleysServiceDelegate().getSpaceOverviewDTO(spaceId);
+            super.initializeSpace(getParleysServiceDelegate().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
+        } catch (Exception e) {
+            LOGGER.error(e);
+        }
 
-            channels = getParleysServiceDelegate().getChannelsOverview(spaceId).getOverviews();
+        gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
+    }
 
-            super.initializeSpace(space);
+    /** {@inheritDoc} */
+    @Override
+    public void gotoPage(Filter filter, int index, int paging) {
+        getPagingBean().setFilter(filter);
+        getPagingBean().setIndex(index);
+        getPagingBean().setPaging(paging);
 
+        try {
+            List<ChannelOverviewDTO> channels = loadChannels();
+            getPagingBean().setPaginatedList(channels);
         } catch (AuthorizationException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         } catch (ClientStatusException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         } catch (ParleysServiceException e) {
-            LOG.error(e);
+            LOGGER.error(e);
         }
     }
 
-    public long getSpaceId() {
-        return spaceId;
+    private List<ChannelOverviewDTO> loadChannels() throws ParleysServiceException, AuthorizationException, ClientStatusException {
+        return getParleysServiceDelegate().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
     }
 
-    public void setSpaceId(final long spaceId) {
-        this.spaceId = spaceId;
+    public ChannelsViewBean getChannelsViewBean() {
+        return channelsViewBean;
     }
 
-    public SpaceOverviewDTO getSpace() {
-        return space;
-    }
-
-    public List<ChannelOverviewDTO> getChannels() {
-        return channels;
+    public void setChannelsViewBean(ChannelsViewBean channelsViewBean) {
+        this.channelsViewBean = channelsViewBean;
     }
 }

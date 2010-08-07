@@ -21,7 +21,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 h3 {
@@ -346,18 +346,20 @@ div.contentBlock.pod {
     background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
 }
 
-a.paging {
-    padding: 3px;
-    border: 1px solid #ccc;
+div.pagingBar {
 }
-a.previous.paging {
-    background-color: blue;
+div.pagingBar a.paging,
+div.pagingBar span.paging {
+    display: inline-block;
+    padding: 7px 12px;
+    font-size: 1.2em;
 }
-a.current.paging {
-    background-color: green;
+div.pagingBar a.previous.paging {
 }
-a.next.paging {
-    background-color: blue;
+div.pagingBar a.current.paging {
+    background-color: #333;
+}
+div.pagingBar a.next.paging {
 }
 
 #content div#contentContainer{

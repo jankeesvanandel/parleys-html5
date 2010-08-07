@@ -8,9 +8,6 @@ import java.util.List;
  */
 public class SpaceOverviewDTO extends AbstractDTO {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -1835238806441418000L;
 
     private String name;

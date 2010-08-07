@@ -7,7 +7,11 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * @author Jan-Kees Vanandel
+ * Simple div component. Renders a simple div.
+ *
+ * The addition of the component is the ability to set te "rendered" attribute. 
+ *
+ * @author Jan-Kees van Andel
  */
 @FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIDiv")
 public class UIDiv extends UIOutput {
@@ -19,20 +23,16 @@ public class UIDiv extends UIOutput {
     public String style;
 
     public UIDiv() {
-        setRendererType(null); // Override rendererType set by UIOutput to prevent WARNING
+        setRendererType(null); // Override rendererType set by UIOutput to prevent annoying WARNINGs.
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String getFamily() {
         return FAMILY;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void encodeBegin(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();
@@ -46,9 +46,7 @@ public class UIDiv extends UIOutput {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void encodeEnd(final FacesContext context) throws IOException {
         final ResponseWriter w = context.getResponseWriter();

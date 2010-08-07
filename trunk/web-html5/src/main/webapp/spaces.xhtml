@@ -19,30 +19,9 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <h2>Spaces</h2>
-            <hr/>
-            <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"
-                           rendered="#{pagingBean.index gt 1}"
-                           styleClass="previous paging"
-                           title="Previous page"
-                           value="&lt;">
-                <f:ajax render="main:spacesContainer"/>
-            </h:commandLink>
-            <ui:repeat value="#{pagingBean.pages}" var="page">
-                <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, (page-1)*pagingBean.paging, pagingBean.paging)}"
-                               styleClass="#{(pagingBean.index/pagingBean.paging) eq page ? 'current' : ''} paging"
-                               value="#{page}">
-                    <f:ajax render="main:spacesContainer"/>
-                </h:commandLink>
-            </ui:repeat>
-            <h:commandLink action="#{spacesBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
-                           rendered="#{pagingBean.index+pagingBean.paging lt pagingBean.list.size()}"
-                           styleClass="next paging"
-                           title="Next page"
-                           value="&gt;">
-                <f:ajax render="main:spacesContainer"/>
-            </h:commandLink>
-            <hr/>
+            <h2 style="float: left;">Spaces</h2>
+            <parleys:paging targetBean="#{spacesBean}" render="main:spacesContainer"/>
+            <hr style="clear: both;"/>
             <h5:div id="spacesContainer">
                 <ul>
                     <ui:repeat value="#{pagingBean.list}" var="space">

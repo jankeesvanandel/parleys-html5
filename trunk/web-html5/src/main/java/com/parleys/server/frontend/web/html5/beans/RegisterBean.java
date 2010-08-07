@@ -1,15 +1,19 @@
 package com.parleys.server.frontend.web.html5.beans;
 
+import com.parleys.server.frontend.web.html5.util.JSFUtil;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
- * Backing bean for the homepage.
+ * Backing bean for the "register" page.
+ *
+ * @author Jan-Kees van Andel
+ * @author Stephan Janssen
  */
-@ManagedBean
-@RequestScoped
+@ManagedBean @RequestScoped
 public class RegisterBean extends AbstractParleysBean {
 
     private String username;
@@ -21,6 +25,10 @@ public class RegisterBean extends AbstractParleysBean {
     private String confirmEmail;
 
     public void init() {
+        if (JSFUtil.theCurrentEventIsNoPageAction()) {
+            return;
+        }
+
         initializeHomepage();
     }
 

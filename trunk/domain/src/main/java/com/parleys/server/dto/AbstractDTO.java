@@ -9,9 +9,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class AbstractDTO extends BaseObject {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8568707356029112380L;
 
     protected Long id;

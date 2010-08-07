@@ -14,7 +14,9 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * @author Jan-Kees Vanandel
+ * Generic functions to be used in the view.
+ *
+ * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
 public class JSFUtil {
@@ -40,6 +42,10 @@ public class JSFUtil {
         } else {
             return input;
         }
+    }
+
+    public static int floor(double in) {
+        return (int) Math.floor(in);
     }
 
     // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
@@ -174,5 +180,12 @@ public class JSFUtil {
         return maximumSeverity != null
             && (maximumSeverity.equals(FacesMessage.SEVERITY_ERROR)
             || maximumSeverity.equals(FacesMessage.SEVERITY_FATAL));
+    }
+
+    public static boolean theCurrentEventIsNoPageAction() {
+        final FacesContext fc = fc();
+        return fc.isPostback()
+            || fc.isValidationFailed()
+            || fc.getPartialViewContext().isAjaxRequest();
     }
 }

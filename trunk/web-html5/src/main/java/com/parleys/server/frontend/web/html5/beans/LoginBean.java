@@ -1,5 +1,7 @@
 package com.parleys.server.frontend.web.html5.beans;
 
+import com.parleys.server.frontend.web.html5.util.JSFUtil;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -7,6 +9,9 @@ import javax.faces.context.FacesContext;
 
 /**
  * Backing bean for the homepage.
+ *
+ * @author Jan-Kees van Andel
+ * @author Stephan Janssen
  */
 @ManagedBean
 @RequestScoped
@@ -16,6 +21,10 @@ public class LoginBean extends AbstractParleysBean {
     private String password;
 
     public void init() {
+        if (JSFUtil.theCurrentEventIsNoPageAction()) {
+            return;
+        }
+
         initializeHomepage();
     }
 

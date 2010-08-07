@@ -10,9 +10,6 @@ import java.io.Serializable;
  */
 public class BackgroundImage implements Serializable, Cloneable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -595761814444505190L;
 
     // This image is used as a background when viewing the related space.
