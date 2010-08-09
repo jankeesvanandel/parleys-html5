@@ -39,9 +39,8 @@ public class PagingBean implements Serializable {
 
     public List<Integer> getPages() {
         final Long totalCount = getTotalCount();
-        final Integer index = getIndex();
-        int totalPages = (int) Math.ceil( ((double)totalCount) / ((double) paging) );
-        List<Integer> ret = new ArrayList<Integer>(totalPages);
+        final int totalPages = (int) Math.ceil( ((double)totalCount) / ((double) paging) );
+        final List<Integer> ret = new ArrayList<Integer>(totalPages);
         for (int i = 0; i < totalPages; i++) {
             ret.add(i+1);
         }
@@ -102,9 +101,9 @@ public class PagingBean implements Serializable {
         if (index > listSize) {
             index = listSize - (listSize % paging);
         }
-        int fromIndex = Math.min(index, listSize);
-        int toIndex = Math.min(fromIndex + paging, listSize);
-        List<?> subList = completeList.subList(fromIndex, toIndex);
+        final int fromIndex = Math.min(index, listSize);
+        final int toIndex = Math.min(fromIndex + paging, listSize);
+        final List<?> subList = completeList.subList(fromIndex, toIndex);
 
         list = new ArrayList<Object>(subList);
         totalCount = listSize;

@@ -46,13 +46,13 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
 
-        List<PresentationOverviewDTO> presentations = loadPresentations(getPagingBean().getFilter());
+        final List<PresentationOverviewDTO> presentations = loadPresentations(getPagingBean().getFilter());
         getPagingBean().setPaginatedList(presentations);
 
-        Long channelId = getPresentationsViewBean().getChannelId();
+        final Long channelId = getPresentationsViewBean().getChannelId();
         if (channelId != null) {
             try {
-                ChannelOverviewDTO dto = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
+                final ChannelOverviewDTO dto = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
                 super.initializeChannel(dto);
             } catch (Exception e) {
                 LOGGER.error(e);
@@ -65,7 +65,7 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
     @SuppressWarnings("unchecked")
     private List<PresentationOverviewDTO> loadPresentations(Filter filter) {
         try {
-            PresentationsCriteria criteria = new PresentationsCriteria();
+            final PresentationsCriteria criteria = new PresentationsCriteria();
             criteria.setChannelId(getPresentationsViewBean().getChannelId());
             criteria.setIndex(0);
             criteria.setPaging(200);
