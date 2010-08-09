@@ -23,22 +23,22 @@
             <h:outputScript library="parleys" name="homepage.js"/>
             <ul id="featureHomepage">
                 <li>
-                    <h:commandLink id="featuredPresentations" action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION', 0)}" value="Featured" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredPresentations" action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION', 0)}" value="Featured" onclick="return featuredContentEvent(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="latestPresentations" action="#{homepageBean.viewThumbnails('LATEST', 'PRESENTATION', 0)}" value="Latest" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="latestPresentations" action="#{homepageBean.viewThumbnails('LATEST', 'PRESENTATION', 0)}" value="Latest" onclick="return featuredContentEvent(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="topRatedPresentations" action="#{homepageBean.viewThumbnails('TOP_RATED', 'PRESENTATION', 0)}" value="Top Rated" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="topRatedPresentations" action="#{homepageBean.viewThumbnails('TOP_RATED', 'PRESENTATION', 0)}" value="Top Rated" onclick="return featuredContentEvent(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="mostViewedPresentations" action="#{homepageBean.viewThumbnails('MOST_VIEWED', 'PRESENTATION', 0)}" value="Most Viewed" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="mostViewedPresentations" action="#{homepageBean.viewThumbnails('MOST_VIEWED', 'PRESENTATION', 0)}" value="Most Viewed" onclick="return featuredContentEvent(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="featuredSpaces" action="#{homepageBean.viewThumbnails('FEATURED', 'SPACE', 0)}" value="Featured Spaces" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredSpaces" action="#{homepageBean.viewThumbnails('FEATURED', 'SPACE', 0)}" value="Featured Spaces" onclick="return featuredContentEvent(this.id)"/>
                 </li>
                 <li>
-                    <h:commandLink id="featuredChannels" action="#{homepageBean.viewThumbnails('FEATURED', 'CHANNEL', 0)}" value="Featured Channels" onclick="return gotoThumbnails(this.id)"/>
+                    <h:commandLink id="featuredChannels" action="#{homepageBean.viewThumbnails('FEATURED', 'CHANNEL', 0)}" value="Featured Channels" onclick="return featuredContentEvent(this.id)"/>
                 </li>
             </ul>
         </div>
@@ -46,9 +46,17 @@
         <br/>
 
         <div id="thumbnailsWrapperOuter">
+            <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
             <div id="thumbnailsWrapper">
                 <h5:div id="thumbnails">
-                    <ui:repeat value="#{homepageBean.thumbnails}" var="presentation">
+                    <h:commandLink id="thumbnailsPrevious"
+                                   action="#{homepageBean.viewThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.index - 6)}"
+                                   rendered="#{pagingBean.index gt 0}"
+                                   styleClass="thumbnailsPrevious"
+                                   onclick="return featuredContentEvent(this.id)">
+                        <img src="img/featuredPrevButton.jpg" alt="Previous featured page"/>
+                    </h:commandLink>
+                    <ui:repeat value="#{pagingBean.list}" var="presentation">
                         <div class="thumbnail">
                             <h3 title="#{presentation.name}">#{p:shortenTo(17, presentation.name)}</h3>
                             <h:link outcome="#{presentation.outcome}">
@@ -60,6 +68,13 @@
                             </h:link>
                         </div>
                     </ui:repeat>
+                    <h:commandLink id="thumbnailsNext"
+                                   action="#{homepageBean.viewThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.index + 6)}"
+                                   rendered="#{pagingBean.index + 6 lt pagingBean.totalCount}"
+                                   styleClass="thumbnailsNext"
+                                   onclick="return featuredContentEvent(this.id)">
+                        <img src="img/featuredNextButton.jpg" alt="Next featured page"/>
+                    </h:commandLink>
                 </h5:div>
             </div>
         </div>
@@ -69,32 +84,41 @@
             <div class="twoCol">
                 <div class="col">
                     <h2>General News</h2>
-                    <h5:div id="newsContainer" styleClass="contentBlock news">
-                        <h3>#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].title}</h3>
-                        <span class="newsDate">#{p:formatDate(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].createdOn)}</span>
-
-                        <p>
-                            <br/>
-                            <h:outputText escape="false"
-                                          value="#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].item}"/>
-                        </p>
-                        <span class="newsNav">
-                            <h:commandLink action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex+1].id)}"
-                                           rendered="#{homepageViewBean.activeNewsItemIndex lt p:sizeOf(homepageViewBean.newsItems)-1}"
-                                           styleClass="pagingNext floatRight"
-                                           title="Previous news item">
-                                <f:ajax render="newsContainer"/>
-                            </h:commandLink>
-                            <span class="floatRight">#{homepageViewBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageViewBean.newsItems)}</span>
-                            <h:commandLink action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex-1].id)}"
-                                           rendered="#{homepageViewBean.activeNewsItemIndex gt 0}"
-                                           styleClass="pagingPrev floatRight"
-                                           title="Previous news item">
-                                <f:ajax render="newsContainer"/>
-                            </h:commandLink>
-                        </span>
-                        <br class="clear"/>
-                    </h5:div>
+                    <div id="newsContainerWrapperOuter" class="contentBlock news">
+                        <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+                        <div id="newsContainerWrapper">
+                            <h5:div id="newsContainer">
+                                <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+                                <h3>#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].title}</h3>
+                                <span class="newsDate">#{p:formatDate(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].createdOn)}</span>
+                                <p>
+                                    <br/>
+                                    <h:outputText escape="false"
+                                                  value="#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].item}"/>
+                                </p>
+                                <span class="newsNav">
+                                    <h:commandLink id="newsPreviousButton"
+                                                   action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex+1].id)}"
+                                                   rendered="#{homepageViewBean.activeNewsItemIndex lt p:sizeOf(homepageViewBean.newsItems)-1}"
+                                                   styleClass="pagingNext floatRight"
+                                                   title="Previous news item"
+                                                   onclick="return newsPaginationEvent(this.id)">
+                                        <!--<f:ajax render="newsContainer"/>-->
+                                    </h:commandLink>
+                                    <span class="floatRight">#{homepageViewBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageViewBean.newsItems)}</span>
+                                    <h:commandLink id="newsNextButton"
+                                                   action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex-1].id)}"
+                                                   rendered="#{homepageViewBean.activeNewsItemIndex gt 0}"
+                                                   styleClass="pagingPrev floatRight"
+                                                   title="Previous news item"
+                                                   onclick="return newsPaginationEvent(this.id)">
+                                        <!--<f:ajax render="newsContainer"/>-->
+                                    </h:commandLink>
+                                </span>
+                                <br class="clear"/>
+                            </h5:div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="twoCol">

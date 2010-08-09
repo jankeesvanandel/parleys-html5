@@ -283,6 +283,23 @@ div#logoBar .loginButton {
     clear: both;
 }
 
+#content div#main\:thumbnails a.thumbnailsPrevious,
+#content div#main\:thumbnails a.thumbnailsNext {
+    position: absolute;
+    b/order: 1px solid red;
+    display: block;
+    width: 20px;
+    top: 18px;
+}
+
+#content div#main\:thumbnails a.thumbnailsPrevious {
+    left: -20px;
+}
+
+#content div#main\:thumbnails a.thumbnailsNext {
+    right: -20px;
+}
+
 #content div#main\:thumbnails div.thumbnail {
     float: left;
     width: 15.5%;
@@ -329,6 +346,11 @@ div.contentBlock.news span.newsNav {
     position: absolute;
     bottom: 5px;
     right: 5px;
+}
+
+div#newsContainerWrapperOuter {
+    position: relative;
+    min-height: 100px;
 }
 
 div.contentBlock * {
@@ -755,4 +777,13 @@ div#videoNavigationBarCursor:hover{
     display: block;
     background: url("../img/progressbar_cursor.png");
     cursor: pointer;
+}
+
+img.loader {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -16px 0 0 -16px;
 }

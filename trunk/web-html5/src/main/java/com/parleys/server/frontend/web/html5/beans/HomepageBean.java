@@ -38,8 +38,6 @@ public class HomepageBean extends AbstractParleysBean {
 
     private long newsId;
 
-    private List<Thumbnail> thumbnails;
-
     private SpaceOverviewDTO recommendedSpace;
 
     private ChannelOverviewDTO recommendedChannel;
@@ -52,13 +50,15 @@ public class HomepageBean extends AbstractParleysBean {
             return;
         }
 
+        getPagingBean().setPaging(6);
+
         if (homepageViewBean.getThumbnailsFilter() == null || homepageViewBean.getThumbnailsFilterType() == null) {
             homepageViewBean.setThumbnailsFilter(Filter.FEATURED);
             homepageViewBean.setThumbnailsFilterType(Filter.Type.PRESENTATION);
         }
 
         try {
-            transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), homepageViewBean.getIndex());
+            transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), getPagingBean().getIndex());
 
             homepageViewBean.setNewsItems(getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
 
@@ -89,8 +89,8 @@ public class HomepageBean extends AbstractParleysBean {
     }
 
     public String viewThumbnails(Filter filter, Filter.Type filterType, int index) throws ClientStatusException {
-        thumbnails = Collections.emptyList();
-        homepageViewBean.setIndex(index);
+        getPagingBean().setPaginatedList(Collections.<Thumbnail>emptyList());
+        getPagingBean().setIndex(index);
         homepageViewBean.setThumbnailsFilter(filter);
         homepageViewBean.setThumbnailsFilterType(filterType);
 
@@ -119,44 +119,44 @@ public class HomepageBean extends AbstractParleysBean {
     }
 
     private void transformToThumbnails(final List<? extends AbstractDTO> thumbnailsIn, int index) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (index >= thumbnailsIn.size()) {
-            index = 0;
-        }
+//        if (index < 0) {
+//            index = 0;
+//        }
+//        if (index >= thumbnailsIn.size()) {
+//            index = 0;
+//        }
 
-        List<? extends AbstractDTO> newThumbnailsIn = thumbnailsIn;
-        if (thumbnailsIn.size() > 6) {
-            final int endIndex = Math.min(index + 6, newThumbnailsIn.size());
-            newThumbnailsIn = newThumbnailsIn.subList(index, endIndex);
-            homepageViewBean.setHasPreviousThumbnail(index > 0);
-            homepageViewBean.setHasNextThumbnail(index + 6 <= newThumbnailsIn.size());
-        }
+//        List<? extends AbstractDTO> newThumbnailsIn = thumbnailsIn;
+//        if (thumbnailsIn.size() > 6) {
+//            final int endIndex = Math.min(index + 6, newThumbnailsIn.size());
+//            newThumbnailsIn = newThumbnailsIn.subList(index, endIndex);
+//        }
 
         List<Thumbnail> ret = new ArrayList<Thumbnail>();
-
-        for (AbstractDTO abstractDTO : newThumbnailsIn) {
-            final Thumbnail thumbnail = new Thumbnail();
-            thumbnail.setId(abstractDTO.getId());
-            if (abstractDTO instanceof PresentationOverviewDTO) {
-                thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
-                thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), ((PresentationOverviewDTO) abstractDTO).getThumbnailURL()));
-                thumbnail.setOutcome("presentation");
-            } else if (abstractDTO instanceof ChannelOverviewDTO) {
-                thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
-                thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), ((ChannelOverviewDTO) abstractDTO).getThumbnailURL()));
-                thumbnail.setOutcome("presentations");
-            } else if (abstractDTO instanceof SpaceOverviewDTO) {
-                thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
-                thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), ((SpaceOverviewDTO) abstractDTO).getThumbnailURL()));
-                thumbnail.setOutcome("channels");
-            }
-
+        for (AbstractDTO thumbnailDto : thumbnailsIn) {
+            final Thumbnail thumbnail = createThumbnailFromDto(thumbnailDto);
             ret.add(thumbnail);
         }
+        getPagingBean().setPaginatedList(ret);
+    }
 
-        thumbnails = ret;
+    private Thumbnail createThumbnailFromDto(AbstractDTO abstractDTO) {
+        final Thumbnail thumbnail = new Thumbnail();
+        thumbnail.setId(abstractDTO.getId());
+        if (abstractDTO instanceof PresentationOverviewDTO) {
+            thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
+            thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), ((PresentationOverviewDTO) abstractDTO).getThumbnailURL()));
+            thumbnail.setOutcome("presentation");
+        } else if (abstractDTO instanceof ChannelOverviewDTO) {
+            thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
+            thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), ((ChannelOverviewDTO) abstractDTO).getThumbnailURL()));
+            thumbnail.setOutcome("presentations");
+        } else if (abstractDTO instanceof SpaceOverviewDTO) {
+            thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
+            thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), ((SpaceOverviewDTO) abstractDTO).getThumbnailURL()));
+            thumbnail.setOutcome("channels");
+        }
+        return thumbnail;
     }
 
     public String gotoNewsItem(Long id) {
@@ -177,10 +177,6 @@ public class HomepageBean extends AbstractParleysBean {
         }
 
         return null;
-    }
-
-    public List<Thumbnail> getThumbnails() {
-        return thumbnails;
     }
 
     public void setNewsId(final Long newsId) {
