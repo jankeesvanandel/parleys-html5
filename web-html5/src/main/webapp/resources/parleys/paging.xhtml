@@ -14,27 +14,32 @@
 </composite:interface>
 
 <composite:implementation>
-    <h5:div id="pagingBar" styleClass="pagingBar" style="float: right; position: relative;" rendered="#{pagingBean.isRendered}">
+    <h:outputScript library="parleys" name="paging.js"/>
+    <h5:div id="pagingBar" styleClass="pagingBar" rendered="#{pagingBean.isRendered}">
+        <img src="img/ajax-loader.gif" alt="" style="display:none" class="inlineLoader" width="32" height="32"/>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"
                        disabled="#{pagingBean.index le 0}"
                        styleClass="previous paging"
                        title="Previous page"
-                       value="&lt;">
-            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}"/>
+                       value="&lt;"
+                       onclick="showInlineLoader()">
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
         </h:commandLink>
         <ui:repeat value="#{pagingBean.pages}" var="page">
             <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, (page-1)*pagingBean.paging, pagingBean.paging)}"
                            styleClass="#{p:floor(pagingBean.index/pagingBean.paging) eq (page-1) ? 'current' : ''} paging"
-                           value="#{page}">
-                <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}"/>
+                           value="#{page}"
+                           onclick="showInlineLoader()">
+                <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
             </h:commandLink>
         </ui:repeat>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
                        disabled="#{pagingBean.index+pagingBean.paging ge pagingBean.totalCount}"
                        styleClass="next paging"
                        title="Next page"
-                       value="&gt;">
-            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}"/>
+                       value="&gt;"
+                       onclick="showInlineLoader()">
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
         </h:commandLink>
     </h5:div>
 </composite:implementation>
