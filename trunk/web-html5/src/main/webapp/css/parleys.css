@@ -306,7 +306,7 @@ div#logoBar .loginButton {
     overflow: hidden;
     height: 10em;
     text-align: center;
-    margin: .2em;
+    margin: .35em;
 }
 
 #content div#main\:thumbnails div.thumbnail h3 {
@@ -369,6 +369,8 @@ div.contentBlock.pod {
 }
 
 div.pagingBar {
+    float: right;
+    position: relative;
 }
 div.pagingBar a.paging,
 div.pagingBar span.paging {
@@ -786,4 +788,10 @@ img.loader {
     top: 50%;
     left: 50%;
     margin: -16px 0 0 -16px;
+}
+
+img.inlineLoader {
+    width: 32px;
+    height: 32px;
+    float: left;
 }
