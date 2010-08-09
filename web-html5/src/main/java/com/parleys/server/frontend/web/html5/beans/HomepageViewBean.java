@@ -27,12 +27,6 @@ public class HomepageViewBean implements Serializable {
 
     private Filter.Type thumbnailsFilterType;
 
-    private int index = 0;
-
-    private boolean hasPreviousThumbnail = false;
-
-    private boolean hasNextThumbnail = false;
-
     public long getActiveNewsItemIndex() {
         return activeNewsItemIndex;
     }
@@ -63,29 +57,5 @@ public class HomepageViewBean implements Serializable {
 
     public void setThumbnailsFilterType(Filter.Type thumbnailsFilterType) {
         this.thumbnailsFilterType = thumbnailsFilterType;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public boolean getHasPreviousThumbnail() {
-        return hasPreviousThumbnail;
-    }
-
-    public void setHasPreviousThumbnail(boolean hasPreviousThumbnail) {
-        this.hasPreviousThumbnail = hasPreviousThumbnail;
-    }
-
-    public boolean getHasNextThumbnail() {
-        return hasNextThumbnail;
-    }
-
-    public void setHasNextThumbnail(boolean hasNextThumbnail) {
-        this.hasNextThumbnail = hasNextThumbnail;
     }
 }

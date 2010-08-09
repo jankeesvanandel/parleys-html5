@@ -1,11 +1,16 @@
 package com.parleys.server.domain;
 
+import java.io.Serializable;
+
 /**
  * Thumbnail to display on the homepage. Used for spaces, channels and presentations.
  *
  * @author Jan-Kees van Andel
  */
-public class Thumbnail {
+public class Thumbnail implements Serializable {
+
+    private static final long serialVersionUID = -5699578590798381627L;
+
     private long id;
     private String name;
     private String thumbnailUrl;
