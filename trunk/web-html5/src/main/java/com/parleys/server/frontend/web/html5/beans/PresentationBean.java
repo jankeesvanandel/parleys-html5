@@ -74,8 +74,8 @@ public class PresentationBean extends AbstractParleysBean {
         if(slideAssets!=null){
             return slideAssets;
         }
-        List<AssetDTO> assets = presentation.getAssetDTOs();
-        List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
+        final List<AssetDTO> assets = presentation.getAssetDTOs();
+        final List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
 
         for (AssetDTO asset : assets) {
             if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
@@ -94,8 +94,7 @@ public class PresentationBean extends AbstractParleysBean {
 
 
     public String getStreamURL(){
-        List<AssetDTO> assets = presentation.getAssetDTOs();
-        List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
+        final List<AssetDTO> assets = presentation.getAssetDTOs();
         AssetDTO streamAsset = null;
         for (AssetDTO asset : assets) {
             if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
@@ -104,11 +103,15 @@ public class PresentationBean extends AbstractParleysBean {
         }
 
         //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
-        String value = streamAsset.getValue();
-        value = value.substring(1,value.length());
-        value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+"/playlist.m3u8";
-        this.streamURL = value;
-        System.out.println(streamURL);
+        if (streamAsset != null) {
+            String value = streamAsset.getValue();
+            value = value.substring(1,value.length());
+            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+"/playlist.m3u8";
+            this.streamURL = value;
+            LOGGER.info(streamURL);
+        } else {
+            throw new IllegalArgumentException("No streaming asset defined for presentation :"+presentation.getId());
+        }
         return streamURL;
 
     }

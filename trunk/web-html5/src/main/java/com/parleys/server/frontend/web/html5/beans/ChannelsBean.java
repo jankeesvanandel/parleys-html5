@@ -49,7 +49,7 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         getPagingBean().setPaging(paging);
 
         try {
-            List<ChannelOverviewDTO> channels = loadChannels();
+            final List<ChannelOverviewDTO> channels = loadChannels();
             getPagingBean().setPaginatedList(channels);
         } catch (AuthorizationException e) {
             LOGGER.error(e);

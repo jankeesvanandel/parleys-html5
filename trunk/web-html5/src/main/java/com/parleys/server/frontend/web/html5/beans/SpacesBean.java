@@ -37,7 +37,7 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
         getPagingBean().setPaging(paging);
 
         try {
-            List<SpaceOverviewDTO> spaces = loadSpaces(filter);
+            final List<SpaceOverviewDTO> spaces = loadSpaces(filter);
             getPagingBean().setPaginatedList(spaces);
         } catch (ClientStatusException e) {
             LOGGER.error(e);

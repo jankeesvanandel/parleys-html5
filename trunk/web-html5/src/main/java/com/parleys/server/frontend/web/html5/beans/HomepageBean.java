@@ -73,7 +73,7 @@ public class HomepageBean extends AbstractParleysBean {
                 }
             }
 
-            List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
+            final List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
 
             recommendedSpace = (SpaceOverviewDTO)featuredContent.get(0);
             recommendedChannel = (ChannelOverviewDTO)featuredContent.get(1);
@@ -96,7 +96,7 @@ public class HomepageBean extends AbstractParleysBean {
 
         if (filter != null && filterType != null) {
             if (filterType == Filter.Type.PRESENTATION) {
-                PresentationsCriteria criteria = new PresentationsCriteria();
+                final PresentationsCriteria criteria = new PresentationsCriteria();
                 criteria.setIndex(0);
                 criteria.setPaging(99);
                 if (filter == Filter.FEATURED) {
@@ -169,7 +169,7 @@ public class HomepageBean extends AbstractParleysBean {
         }
         final List<News> newsItems = homepageViewBean.getNewsItems();
         for (int i = 0; i < newsItems.size(); i++) {
-            News newsItem = newsItems.get(i);
+            final News newsItem = newsItems.get(i);
             if (newsItem.getId().equals(id)) {
                 homepageViewBean.setActiveNewsItemIndex(i);
                 break;
