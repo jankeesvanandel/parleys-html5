@@ -29,7 +29,8 @@ These tasks need to be done for a successful demo, like at JavaOne.
   * Make paging support large number of pages, without ugly line wrapping.
 
 
-== ==
+---------------
+
 
 ==Finished tasks==
   * Add Apache license headers to all source files.
