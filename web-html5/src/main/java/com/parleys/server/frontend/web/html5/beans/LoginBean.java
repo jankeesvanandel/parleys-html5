@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
@@ -19,6 +34,8 @@ public class LoginBean extends AbstractParleysBean {
 
     private String username;
     private String password;
+    private static final String SUCCESS_MESSAGE = "Logged in successfully";
+    private static final String ERROR_MESSAGE = "Wrong credentials entered";
 
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
@@ -31,12 +48,12 @@ public class LoginBean extends AbstractParleysBean {
     public String login() {
         final FacesContext fc = FacesContext.getCurrentInstance();
         if (username.equals("123") && password.equals("456")) {
-            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Logged in successfully", "Logged in successfully"));
+            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, SUCCESS_MESSAGE, SUCCESS_MESSAGE));
             fc.getExternalContext().getFlash().setKeepMessages(true);
 
             return "index?faces-redirect=true";
         } else {
-            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Wrong credentials entered", "Wrong credentials entered"));
+            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ERROR_MESSAGE, ERROR_MESSAGE));
             return null;
         }
     }

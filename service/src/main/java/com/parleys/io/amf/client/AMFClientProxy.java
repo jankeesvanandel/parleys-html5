@@ -1,6 +1,23 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.io.amf.client;
 
 import flex.messaging.io.amf.client.AMFConnection;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import flex.messaging.io.amf.client.exceptions.ServerStatusException;
 import org.apache.commons.codec.binary.Base64;
 
 import java.lang.reflect.Array;
@@ -17,34 +34,36 @@ public class AMFClientProxy implements InvocationHandler {
 
     private final String serviceName;
 
-    private final String url;
+    private final String serviceUrl;
 
     private String username;
 
     private String password;
 
     /**
-     * 
-     * @param url
-     * @param serviceName
+     * Full constructor.
+     *
+     * @param serviceUrl The service URL.
+     * @param serviceName The service name.
      */
-    public AMFClientProxy(final String url, final String serviceName) {
+    public AMFClientProxy(final String serviceUrl, final String serviceName) {
         this.serviceName = serviceName;
-        this.url = url;
+        this.serviceUrl = serviceUrl;
     }
 
     /**
+     * Invoke the proxy.
      *
-     * @param proxy
-     * @param method
-     * @param args
-     * @return
-     * @throws Throwable
+     * @param proxy The proxy.
+     * @param method The method to invoke.
+     * @param args The method arguments.
+     * @return The return value of the method.
+     * @throws ClientStatusException If an error occurs on the client during the service call.
+     * @throws ServerStatusException If an error occurs on the server during the service call.
      */
     public Object invoke(final Object proxy,
                          final Method method,
-                         final Object[] args) throws Throwable {
-
+                         final Object[] args) throws ClientStatusException, ServerStatusException {
         AMFConnection connection = new AMFConnection();
 
         if (username != null) {
@@ -53,7 +72,7 @@ public class AMFClientProxy implements InvocationHandler {
             connection.addHttpRequestHeader("Authorization", "Basic " + encoding);
         }
 
-        connection.connect(url);
+        connection.connect(serviceUrl);
 
         Object[] params = args;
         if (null == params) {
@@ -72,27 +91,50 @@ public class AMFClientProxy implements InvocationHandler {
         } else if ((method.getReturnType() != null) && method.getReturnType().equals(Long.class)) {
             callResult = ((Double) callResult).longValue();
         } else if (method.getReturnType().isArray()) {
-            Object[] arrayOfValidType = (Object[]) Array.newInstance(method.getReturnType().getComponentType(),
-                    ((Object[]) callResult).length);
-            System.arraycopy(callResult, 0, arrayOfValidType, 0, ((Object[]) callResult).length);
-            callResult = arrayOfValidType;
+            callResult = convertReturnValueToArray(method, callResult);
         }
 
         return callResult;
     }
 
+    @SuppressWarnings("SuspiciousSystemArraycopy")
+    private Object convertReturnValueToArray(Method method, Object callResult) {
+        Class<?> componentType = method.getReturnType().getComponentType();
+        int length = ((Object[]) callResult).length;
+        Object[] arrayOfValidType = (Object[]) Array.newInstance(componentType, length);
+        System.arraycopy(callResult, 0, arrayOfValidType, 0, ((Object[]) callResult).length);
+        callResult = arrayOfValidType;
+        return callResult;
+    }
+
+    /**
+     * Get the username.
+     * @return The username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Get the username.
+     * @param username The username.
+     */
     public void setUsername(final String username) {
         this.username = username;
     }
 
+    /**
+     * Get the username.
+     * @return The username.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Get the password.
+     * @param password The password.
+     */
     public void setPassword(final String password) {
         this.password = password;
     }

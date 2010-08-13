@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.types.FeaturedType;
@@ -17,7 +32,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class SpacesBean extends AbstractParleysBean implements Paginable {
 
     private static final Logger LOGGER = Logger.getLogger(SpacesBean.class);
@@ -47,9 +63,9 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
     @SuppressWarnings("unchecked")
     private List<SpaceOverviewDTO> loadSpaces(Filter filter) throws ClientStatusException {
         if (filter != null) {
-            return (List<SpaceOverviewDTO>) getParleysServiceDelegate().getFeatured(FeaturedType.SPACE);
+            return (List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE);
         } else {
-            return getParleysServiceDelegate().getSpacesOverview(0, 200).getOverviews();
+            return getParleysService().getSpacesOverview(0, 200).getOverviews();
         }
     }
 

@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.domain;
 
 import com.parleys.server.domain.types.AssetTargetType;
@@ -55,7 +70,7 @@ public class Asset extends AbstractEntity {
         originalHeight = original.getOriginalHeight();
         target = original.getTarget();
         value = original.getValue();
-        id = original.getId();
+        setId(original.getId());
         setCreatedOn(original.getCreatedOn());
         setModifiedOn(original.getModifiedOn());
         setVersion(original.getVersion());
@@ -90,9 +105,7 @@ public class Asset extends AbstractEntity {
      * @param newValue the duration (in seconds) of the presentation.
      * @throws IllegalArgumentException when sequence is 0
      */
-    public final void setDuration(final Float newValue)
-            throws IllegalArgumentException {
-
+    public final void setDuration(final Float newValue) {
         if (newValue == 0) {
             throw new IllegalArgumentException("Value can not be zero");
         }
@@ -229,7 +242,13 @@ public class Asset extends AbstractEntity {
         this.slideContent = slideContent;
     }
 
+    /** {@inheritDoc} */
     public final String toString() {
-        return new StringBuilder().append("id:").append(id).append(", slideContent:").append(slideContent).toString();
+        return new StringBuilder() //
+                .append("id:") //
+                .append(getId()) //
+                .append(", slideContent:") //
+                .append(slideContent) //
+                .toString();
     }
 }

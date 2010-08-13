@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.types.FeaturedType;
@@ -23,7 +38,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class PresentationsBean extends AbstractParleysBean implements Paginable {
 
     private static final Logger LOGGER = Logger.getLogger(PresentationsBean.class);
@@ -39,7 +55,9 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void gotoPage(Filter filter, int index, int paging) {
         getPagingBean().setFilter(filter);
@@ -52,7 +70,7 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         final Long channelId = getPresentationsViewBean().getChannelId();
         if (channelId != null) {
             try {
-                final ChannelOverviewDTO dto = getParleysServiceDelegate().getChannelOverviewDTO(channelId);
+                final ChannelOverviewDTO dto = getParleysService().getChannelOverviewDTO(channelId);
                 super.initializeChannel(dto);
             } catch (Exception e) {
                 LOGGER.error(e);
@@ -73,16 +91,20 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
             if (filter != null) {
                 switch (filter) {
                     case FEATURED:
-                        return (List<PresentationOverviewDTO>) getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION);
+                        return (List<PresentationOverviewDTO>)
+                                getParleysService().getFeatured(FeaturedType.PRESENTATION);
                     case LATEST:
-                        return(List<PresentationOverviewDTO>) getParleysServiceDelegate().getLatestPresentationsOverview(criteria);
+                        return (List<PresentationOverviewDTO>)
+                                getParleysService().getLatestPresentationsOverview(criteria);
                     case TOP_RATED:
-                        return(List<PresentationOverviewDTO>) getParleysServiceDelegate().getTopRatedPresentationsOverview(criteria);
+                        return (List<PresentationOverviewDTO>)
+                                getParleysService().getTopRatedPresentationsOverview(criteria);
                     default: // If default, pick MOST_VIEWED
-                        return (List<PresentationOverviewDTO>) getParleysServiceDelegate().getMostViewedPresentationsOverview(criteria);
+                        return (List<PresentationOverviewDTO>)
+                                getParleysService().getMostViewedPresentationsOverview(criteria);
                 }
             } else {
-                return (List<PresentationOverviewDTO>)getParleysServiceDelegate().getPresentationsOverview(criteria);
+                return (List<PresentationOverviewDTO>) getParleysService().getPresentationsOverview(criteria);
             }
         } catch (ParleysServiceException e) {
             LOGGER.error(e);

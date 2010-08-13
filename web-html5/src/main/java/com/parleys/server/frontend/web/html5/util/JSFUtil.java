@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.util;
 
 import com.parleys.server.domain.types.MembershipType;
@@ -22,6 +37,10 @@ import java.util.Date;
 public class JSFUtil {
 
     private static DecimalFormat formatter = new DecimalFormat("###,###,###");
+
+    private JSFUtil() {
+        throw new AssertionError("utility class");
+    }
 
     public static FacesContext fc() {
         return FacesContext.getCurrentInstance();
@@ -86,15 +105,15 @@ public class JSFUtil {
 
         float duration = presentation.getTotalDuration();
 
-        int hours = (int)Math.floor(duration / (3600));
-        int minutes = (int)Math.floor((duration % (3600)) / (60));
-        int seconds = (int)Math.floor(duration) % 60;
+        int hours = (int) Math.floor(duration / 3600);
+        int minutes = (int) Math.floor((duration % 3600) / 60);
+        int seconds = (int) Math.floor(duration) % 60;
 
         String minutesString = (minutes < 10) ? "0" + minutes : "" + minutes;
         String secondsString = (seconds < 10) ? "0" + seconds : "" + seconds;
         String hoursString = (hours < 10) ? "0" + hours : hours + ":";
 
-        if (hours==0d){
+        if (hours == 0) {
             hoursString = "";
         }
 
@@ -105,7 +124,7 @@ public class JSFUtil {
 
         builder.append(") ");
         builder.append(DateFormat.getDateInstance().format(presentation.getCreatedOn()));
-        
+
         return builder.toString();
     }
 
@@ -130,15 +149,15 @@ public class JSFUtil {
             daysAgoPosted = "today";
         } else if (days == 1) {
             daysAgoPosted = "yesterday";
-        } else if(days < 7) {
+        } else if (days < 7) {
             daysAgoPosted = days + " days ago";
         } else if (days < 32) {
-            int week = Math.round(days/7);
+            int week = Math.round(days / 7);
             daysAgoPosted = week + (week > 1 ? " weeks ago" : " week ago");
         } else if (days < 365) {
-            daysAgoPosted = Math.round(days/30) + " months ago";
+            daysAgoPosted = Math.round(days / 30) + " months ago";
         } else {
-            int year = Math.round(days/365);
+            int year = Math.round(days / 365);
             daysAgoPosted = year + ((year > 1) ? " years ago" : " year ago");
         }
 
@@ -169,7 +188,7 @@ public class JSFUtil {
         builder.append("<div style='width:");
 
         // 14.6 equals 1 star in pixels and 1.36 is 1% of the actual total width of the 5 stars
-        final double width = value * 14.6 * 1.36;        
+        final double width = value * 14.6 * 1.36;
         builder.append(width);
         builder.append("%;'></div></div>");
         return builder.toString();

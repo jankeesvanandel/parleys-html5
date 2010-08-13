@@ -1,9 +1,30 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.service;
 
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.domain.types.NewsType;
-import com.parleys.server.dto.*;
+import com.parleys.server.dto.AbstractDTO;
+import com.parleys.server.dto.ChannelOverviewDTO;
+import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
+import com.parleys.server.dto.FilteredOverviewResponseDTO;
+import com.parleys.server.dto.OverviewResponseDTO;
+import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
