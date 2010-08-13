@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.frontend.domain.Filter;
@@ -10,13 +25,14 @@ import java.util.List;
 
 /**
  * Generic bean which provides generic paging support for any list of values.
- *
+ * <p/>
  * This bean is view scoped so it remembers its state across requests within the same page.
  *
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @ViewScoped
+@ManagedBean
+@ViewScoped
 public class PagingBean implements Serializable {
 
     private static final long serialVersionUID = -2125959936450149984L;
@@ -38,11 +54,11 @@ public class PagingBean implements Serializable {
     }
 
     public List<Integer> getPages() {
-        final Long totalCount = getTotalCount();
-        final int totalPages = (int) Math.ceil( ((double)totalCount) / ((double) paging) );
+        final Long total = getTotalCount();
+        final int totalPages = (int) Math.ceil(((double) total) / ((double) paging));
         final List<Integer> ret = new ArrayList<Integer>(totalPages);
         for (int i = 0; i < totalPages; i++) {
-            ret.add(i+1);
+            ret.add(i + 1);
         }
         return ret;
     }
@@ -53,6 +69,7 @@ public class PagingBean implements Serializable {
 
     /**
      * Set the index. The index is automatically put within the range 0 - 99999 if it exceeds those bounds.
+     *
      * @param index The index.
      */
     public void setIndex(final int index) {
@@ -65,6 +82,7 @@ public class PagingBean implements Serializable {
 
     /**
      * Set the paging. The paging is automatically put within the range 1 - 50 if it exceeds those bounds.
+     *
      * @param paging The paging.
      */
     public void setPaging(final int paging) {

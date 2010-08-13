@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.News;
@@ -5,8 +20,6 @@ import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
 import com.parleys.server.security.AuthorizationException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
@@ -19,7 +32,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class NewsBean extends AbstractParleysBean {
 
     private static final Logger LOGGER = Logger.getLogger(NewsBean.class);
@@ -36,7 +50,7 @@ public class NewsBean extends AbstractParleysBean {
         }
 
         try {
-            newsItems = getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
+            newsItems = getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
         } catch (AuthorizationException e) {
             LOGGER.error(e);
         } catch (ClientStatusException e) {

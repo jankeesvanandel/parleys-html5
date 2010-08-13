@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.News;
@@ -28,7 +43,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class HomepageBean extends AbstractParleysBean {
 
     private static final Logger LOGGER = Logger.getLogger(HomepageBean.class);
@@ -58,9 +74,10 @@ public class HomepageBean extends AbstractParleysBean {
         }
 
         try {
-            transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), getPagingBean().getIndex());
+            List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
+            transformToThumbnails(thumbnailsIn, getPagingBean().getIndex());
 
-            homepageViewBean.setNewsItems(getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
+            homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
 
             if (newsId > 0) {
                 int counter = 0;
@@ -73,11 +90,11 @@ public class HomepageBean extends AbstractParleysBean {
                 }
             }
 
-            final List<? extends AbstractDTO> featuredContent = getParleysServiceDelegate().getFeaturedContent();
+            final List<? extends AbstractDTO> featuredContent = getParleysService().getFeaturedContent();
 
-            recommendedSpace = (SpaceOverviewDTO)featuredContent.get(0);
-            recommendedChannel = (ChannelOverviewDTO)featuredContent.get(1);
-            recommendedPresentation = (PresentationOverviewDTO)featuredContent.get(2);
+            recommendedSpace = (SpaceOverviewDTO) featuredContent.get(0);
+            recommendedChannel = (ChannelOverviewDTO) featuredContent.get(1);
+            recommendedPresentation = (PresentationOverviewDTO) featuredContent.get(2);
 
         } catch (AuthorizationException e) {
             LOGGER.error(e);
@@ -100,18 +117,18 @@ public class HomepageBean extends AbstractParleysBean {
                 criteria.setIndex(0);
                 criteria.setPaging(99);
                 if (filter == Filter.FEATURED) {
-                    transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.PRESENTATION), index);
+                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION), index);
                 } else if (filter == Filter.LATEST) {
-                    transformToThumbnails(getParleysServiceDelegate().getLatestPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria), index);
                 } else if (filter == Filter.TOP_RATED) {
-                    transformToThumbnails(getParleysServiceDelegate().getTopRatedPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria), index);
                 } else if (filter == Filter.MOST_VIEWED) {
-                    transformToThumbnails(getParleysServiceDelegate().getMostViewedPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria), index);
                 }
             } else if (filterType == Filter.Type.CHANNEL) {
-                transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.CHANNEL), index);
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL), index);
             } else if (filterType == Filter.Type.SPACE) {
-                transformToThumbnails(getParleysServiceDelegate().getFeatured(FeaturedType.SPACE), index);
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE), index);
             }
         }
 
@@ -145,15 +162,18 @@ public class HomepageBean extends AbstractParleysBean {
         thumbnail.setId(abstractDTO.getId());
         if (abstractDTO instanceof PresentationOverviewDTO) {
             thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
-            thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), ((PresentationOverviewDTO) abstractDTO).getThumbnailURL()));
+            String url = ((PresentationOverviewDTO) abstractDTO).getThumbnailURL();
+            thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("presentation");
         } else if (abstractDTO instanceof ChannelOverviewDTO) {
             thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
-            thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), ((ChannelOverviewDTO) abstractDTO).getThumbnailURL()));
+            String url = ((ChannelOverviewDTO) abstractDTO).getThumbnailURL();
+            thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("presentations");
         } else if (abstractDTO instanceof SpaceOverviewDTO) {
             thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
-            thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), ((SpaceOverviewDTO) abstractDTO).getThumbnailURL()));
+            String url = ((SpaceOverviewDTO) abstractDTO).getThumbnailURL();
+            thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("channels");
         }
         return thumbnail;
@@ -161,7 +181,7 @@ public class HomepageBean extends AbstractParleysBean {
 
     public String gotoNewsItem(Long id) {
         try {
-            homepageViewBean.setNewsItems(getParleysServiceDelegate().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
+            homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
         } catch (AuthorizationException e) {
             LOGGER.error(e);
         } catch (ClientStatusException e) {

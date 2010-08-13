@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.types.AssetTargetType;
@@ -19,7 +34,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class PresentationBean extends AbstractParleysBean {
 
     private static final Logger LOGGER = Logger.getLogger(PresentationBean.class);
@@ -38,7 +54,7 @@ public class PresentationBean extends AbstractParleysBean {
         }
 
         try {
-            presentation = getParleysServiceDelegate().getPresentationDetails(presentationId);
+            presentation = getParleysService().getPresentationDetails(presentationId);
         } catch (ClientStatusException e) {
             LOGGER.error(e);
         } catch (AuthorizationException e) {
@@ -65,13 +81,12 @@ public class PresentationBean extends AbstractParleysBean {
     }
 
 
-
-    public void setSlideAssets(List<AssetDTO> slideAssets){
+    public void setSlideAssets(List<AssetDTO> slideAssets) {
         this.slideAssets = slideAssets;
     }
 
-    public List getSlideAssets(){
-        if(slideAssets!=null){
+    public List getSlideAssets() {
+        if (slideAssets != null) {
             return slideAssets;
         }
         final List<AssetDTO> assets = presentation.getAssetDTOs();
@@ -81,7 +96,7 @@ public class PresentationBean extends AbstractParleysBean {
             if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
                 String value = asset.getValue();
                 if (value != null && value.length() > 4) {
-                    value = "/iphone_"+value.substring(1,value.length()-3)+"jpg";
+                    value = "/iphone_" + value.substring(1, value.length() - 3) + "jpg";
                     asset.setValue(value);
                     sAssets.add(asset);
                 }
@@ -93,7 +108,7 @@ public class PresentationBean extends AbstractParleysBean {
     }
 
 
-    public String getStreamURL(){
+    public String getStreamURL() {
         final List<AssetDTO> assets = presentation.getAssetDTOs();
         AssetDTO streamAsset = null;
         for (AssetDTO asset : assets) {
@@ -105,19 +120,20 @@ public class PresentationBean extends AbstractParleysBean {
         //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
         if (streamAsset != null) {
             String value = streamAsset.getValue();
-            value = value.substring(1,value.length());
-            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+"/playlist.m3u8";
+            value = value.substring(1, value.length());
+            String template = "http://www.bejug.org:1935/parleys/_definst_/%n/mp4:%n/playlist.m3u8";
+            value = String.format(template, presentationId, value);
             this.streamURL = value;
             LOGGER.info(streamURL);
         } else {
-            throw new IllegalArgumentException("No streaming asset defined for presentation :"+presentation.getId());
+            throw new IllegalArgumentException("No streaming asset for presentation :" + presentation.getId());
         }
         return streamURL;
 
     }
 
 
-    public void setStreamURL(String streamURL){
+    public void setStreamURL(String streamURL) {
         this.streamURL = streamURL;
     }
 }

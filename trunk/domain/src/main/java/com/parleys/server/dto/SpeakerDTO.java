@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.dto;
 
 /**
@@ -57,43 +72,43 @@ public class SpeakerDTO extends AbstractDTO {
      * @param featured the featured to set
      */
     public void setFeatured(final boolean featured) {
-	    this.featured = featured;
+        this.featured = featured;
     }
 
     /**
      * @return the featured
      */
     public boolean isFeatured() {
-	    return featured;
+        return featured;
     }
 
-	/**
-	 * @param bio the bio to set
-	 */
-	public void setBio(final String bio) {
-		this.bio = bio;
-	}
+    /**
+     * @param bio the bio to set
+     */
+    public void setBio(final String bio) {
+        this.bio = bio;
+    }
 
-	/**
-	 * @return the bio
-	 */
-	public String getBio() {
-		return bio;
-	}
+    /**
+     * @return the bio
+     */
+    public String getBio() {
+        return bio;
+    }
 
-	/**
-	 * @return the userId (null if no user yet).
-	 */
-	public final Long getUserId() {
-		return userId;
-	}
+    /**
+     * @return the userId (null if no user yet).
+     */
+    public final Long getUserId() {
+        return userId;
+    }
 
-	/**
-	 * @param userId the userId to set
-	 */
-	public final void setUserId(final Long userId) {
-		this.userId = userId;
-	}
+    /**
+     * @param userId the userId to set
+     */
+    public final void setUserId(final Long userId) {
+        this.userId = userId;
+    }
 
     public final String getName() {
         return firstName + " " + lastName;

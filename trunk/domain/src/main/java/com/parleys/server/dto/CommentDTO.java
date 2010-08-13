@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.dto;
 
 /**
@@ -18,7 +33,7 @@ public class CommentDTO extends AbstractDTO {
     private int thumbUpVote;
 
     /**
-     * This holds the total number of thumbDown votes
+     * This holds the total number of thumbDown votes.
      */
     private int thumbDownVote;
 
@@ -29,112 +44,112 @@ public class CommentDTO extends AbstractDTO {
     private boolean informReply;
 
     /**
-     * @param parent the parent to set
+     * @param parent the parent to set.
      */
     public void setParent(final Long parent) {
         this.parent = parent;
     }
 
     /**
-     * @return the parent
+     * @return the parent.
      */
     public Long getParent() {
         return parent;
     }
 
     /**
-     * @param text the text to set
+     * @param text the text to set.
      */
     public void setText(final String text) {
         this.text = text;
     }
 
     /**
-     * @return the text
+     * @return the text.
      */
     public String getText() {
         return text;
     }
 
     /**
-     * @param cuePoint the cuePoint to set
+     * @param cuePoint the cuePoint to set.
      */
     public void setCuePoint(final Integer cuePoint) {
         this.cuePoint = cuePoint;
     }
 
     /**
-     * @return the cuePoint
+     * @return the cuePoint.
      */
     public Integer getCuePoint() {
         return cuePoint;
     }
 
     /**
-     * @param user the user to set
+     * @param user the user to set.
      */
     public void setUser(final SimpleUserDTO user) {
         this.user = user;
     }
 
     /**
-     * @return the user
+     * @return the user.
      */
     public SimpleUserDTO getUser() {
         return user;
     }
 
     /**
-     * @param thumbUpVote the thumbUpVote to set
+     * @param thumbUpVote the thumbUpVote to set.
      */
     public void setThumbUpVote(final int thumbUpVote) {
         this.thumbUpVote = thumbUpVote;
     }
 
     /**
-     * @return the thumbUpVote
+     * @return the thumbUpVote.
      */
     public int getThumbUpVote() {
         return thumbUpVote;
     }
 
     /**
-     * @param thumbDownVote the thumbDownVote to set
+     * @param thumbDownVote the thumbDownVote to set.
      */
     public void setThumbDownVote(final int thumbDownVote) {
         this.thumbDownVote = thumbDownVote;
     }
 
     /**
-     * @return the thumbDownVote
+     * @return the thumbDownVote.
      */
     public int getThumbDownVote() {
         return thumbDownVote;
     }
 
     /**
-     * @param spam the spam to set
+     * @param spam the spam to set.
      */
     public void setSpam(final boolean spam) {
         this.spam = spam;
     }
 
     /**
-     * @return the spam
+     * @return the spam.
      */
     public boolean isSpam() {
         return spam;
     }
 
     /**
-     * @param spamVotes the spamVotes to set
+     * @param spamVotes the spamVotes to set.
      */
     public void setSpamVotes(final int spamVotes) {
         this.spamVotes = spamVotes;
     }
 
     /**
-     * @return the spamVotes
+     * @return the spamVotes.
      */
     public int getSpamVotes() {
         return spamVotes;

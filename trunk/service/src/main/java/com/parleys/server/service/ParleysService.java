@@ -1,9 +1,30 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.service;
 
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.types.FavoritesType;
 import com.parleys.server.domain.types.SpaceSort;
-import com.parleys.server.dto.*;
+import com.parleys.server.dto.AbstractDTO;
+import com.parleys.server.dto.ChannelOverviewDTO;
+import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
+import com.parleys.server.dto.FilteredOverviewResponseDTO;
+import com.parleys.server.dto.OverviewResponseDTO;
+import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.security.AuthorizationException;
 import com.parleys.server.service.exception.ParleysServiceException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
@@ -67,6 +88,7 @@ public interface ParleysService {
 //     */
 //    List<? extends AbstractDTO> getWatches(WatchType type);
 //
+
     /**
      * Return news for the given type. The id is not needed for GENERAL news types.
      *
@@ -166,9 +188,11 @@ public interface ParleysService {
      * @param index  start index.
      * @param paging number of spaces to return form start index.
      * @return overview info about spaces.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException thrown when AMF problem occurs
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
+     *          thrown when AMF problem occurs
      */
-    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging) throws ClientStatusException;
+    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging)
+            throws ClientStatusException;
 
 //    /**
 //     * Gets public, listed and optionally the private administered spaces for logged in user as bread crumbs.
@@ -186,7 +210,8 @@ public interface ParleysService {
      * @param paging number of spaces to return form start index.
      * @param sortBy sort spaces by
      * @return overview info about spaces.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException thrown when AMF problem occurs
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
+     *          thrown when AMF problem occurs
      */
     FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging, SpaceSort sortBy)
             throws ClientStatusException;
@@ -206,7 +231,8 @@ public interface ParleysService {
      * @param spaceId An identifier for target space.
      * @return An overview for the particular space.
      * @throws AuthorizationException User is not authorized
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException thrown when AMF problem occurs
+     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
+     *                                thrown when AMF problem occurs
      */
     SpaceOverviewDTO getSpaceOverviewDTO(long spaceId) throws AuthorizationException, ClientStatusException;
 
@@ -291,7 +317,7 @@ public interface ParleysService {
 //     *                                when something went wrong
 //     * @throws AuthorizationException User is not authorized
 //     *                                <p/>
-//     *                                TODO Change misspelled method getBreadCrumPresentations to getBreadCrumbPresentations with a 'b'
+//     * TODO Change misspelled method getBreadCrumPresentations to getBreadCrumbPresentations with a 'b'
 //     */
 //    FilteredOverviewResponseDTO<BreadCrumbDTO> getBreadCrumPresentations(long channelId,
 //                                                                         int index, int paging,
@@ -377,7 +403,8 @@ public interface ParleysService {
 //     * @param channelId Is an identifier of channel to get presentations.
 //     * @param index     start index.
 //     * @param paging    number of presentations to return form start index.
-//     * @param state     Is set of presentation states. If null PUBLIC state used. It is set of strings with states enum names.
+//     * @param state     Is set of presentation states. If null PUBLIC state used. It is set of strings with
+//                        states enum names.
 //     * @param type      the type of presentation needed
 //     * @param sort      sort by
 //     * @param date      and date region (TODAY, THIS WEEK, ...)
@@ -491,20 +518,20 @@ public interface ParleysService {
     List<? extends AbstractDTO> getFeatured(String type);
 
 //    OverviewResponseDTO<? extends AbstractDTO> getFeatured(FeaturedType type, int index, int paging);
-//
+
     /**
-     * Returns one featured content item for space, channel and presentation (in this order)
-     * This method will replace @see getFeatured(FeaturedType type)
+     * Returns one featured content item for space, channel and presentation (in this order).
+     * This method will replace @see getFeatured(FeaturedType type).
      *
      * @return list of featured content
      */
-    public List<? extends AbstractDTO> getFeaturedContent();
+    List<? extends AbstractDTO> getFeaturedContent();
 
     /**
-     * Returns the list of top rated presentations limited by parameter
+     * Returns the list of top rated presentations limited by parameter.
      *
-     * @param index     the starting index
-     * @param paging    the paging value
+     * @param index  the starting index
+     * @param paging the paging value
      * @return the list of top rated presentations
      */
     OverviewResponseDTO<PresentationOverviewDTO> getTopRatedPresentationsOverview(int index, int paging);
@@ -512,8 +539,8 @@ public interface ParleysService {
     /**
      * Returns the last presentations made public using index and paging.
      *
-     * @param index     the starting index
-     * @param paging    the paging value
+     * @param index  the starting index
+     * @param paging the paging value
      * @return the list of the last presentations made public available
      */
     OverviewResponseDTO<PresentationOverviewDTO> getLatestPresentationsOverview(int index, int paging);
@@ -608,7 +635,8 @@ public interface ParleysService {
 //     * @param resultsCount number of elements to return
 //     * @return search results
 //     */
-//    OverviewResponseDTO<PresentationOverviewDTO> searchPresentations(String searchText, int startIndex, int resultsCount);
+//    OverviewResponseDTO<PresentationOverviewDTO> searchPresentations(String searchText, int startIndex,
+//                                                                     int resultsCount);
 //
 //    /**
 //     * Search the lucene indexes for presentations but searching only using tags.
@@ -618,7 +646,8 @@ public interface ParleysService {
 //     * @param resultsCount number of elements to return
 //     * @return search results
 //     */
-//    OverviewResponseDTO<PresentationOverviewDTO> searchPresentationsByTags(String searchText, int startIndex, int resultsCount);
+//    OverviewResponseDTO<PresentationOverviewDTO> searchPresentationsByTags(String searchText, int startIndex,
+//                                                                           int resultsCount);
 //
 //    /**
 //     * This will increment the presentation download counter triggered by the standalone Parleys client.

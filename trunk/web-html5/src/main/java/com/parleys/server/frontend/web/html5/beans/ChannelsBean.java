@@ -1,11 +1,23 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import com.parleys.server.security.AuthorizationException;
-import com.parleys.server.service.exception.ParleysServiceException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
@@ -19,7 +31,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class ChannelsBean extends AbstractParleysBean implements Paginable {
 
     private static final Logger LOGGER = Logger.getLogger(ChannelsBean.class);
@@ -33,7 +46,7 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         }
 
         try {
-            super.initializeSpace(getParleysServiceDelegate().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
+            super.initializeSpace(getParleysService().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
         } catch (Exception e) {
             LOGGER.error(e);
         }
@@ -41,7 +54,9 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void gotoPage(Filter filter, int index, int paging) {
         getPagingBean().setFilter(filter);
@@ -51,17 +66,13 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         try {
             final List<ChannelOverviewDTO> channels = loadChannels();
             getPagingBean().setPaginatedList(channels);
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        } catch (ParleysServiceException e) {
+        } catch (Exception e) {
             LOGGER.error(e);
         }
     }
 
-    private List<ChannelOverviewDTO> loadChannels() throws ParleysServiceException, AuthorizationException, ClientStatusException {
-        return getParleysServiceDelegate().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
+    private List<ChannelOverviewDTO> loadChannels() throws Exception {
+        return getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
     }
 
     public ChannelsViewBean getChannelsViewBean() {

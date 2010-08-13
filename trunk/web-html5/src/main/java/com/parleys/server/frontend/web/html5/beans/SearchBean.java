@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.dto.PresentationOverviewDTO;
@@ -13,7 +28,8 @@ import java.util.List;
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
-@ManagedBean @RequestScoped
+@ManagedBean
+@RequestScoped
 public class SearchBean extends AbstractParleysBean {
 
     private String criteria;
@@ -30,7 +46,7 @@ public class SearchBean extends AbstractParleysBean {
 
     public String search() {
         // TODO
-        // results = getParleysServiceDelegate().search(criteria);
+        // results = getParleysService().search(criteria);
 //        if (results.isEmpty()) {
 //            final FacesContext fc = FacesContext.getCurrentInstance();
 //            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "No results", "No results"));
