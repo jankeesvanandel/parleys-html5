@@ -107,8 +107,7 @@ public class AbstractDTO extends BaseObject {
 
     @Override
     public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("id", this.id);
+        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("id", this.id);
         return sb.toString();
     }
 

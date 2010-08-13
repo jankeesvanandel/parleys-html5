@@ -17,7 +17,6 @@ package com.parleys.server.frontend.service.impl;
 
 import com.parleys.io.amf.client.AMFClientFactory;
 import com.parleys.server.frontend.service.ParleysService;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 /**
  * @author Stephan Janssen
@@ -30,7 +29,7 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
     @SuppressWarnings("unchecked")
-    private <T> T getService(String serviceName, Class<T> serviceClass) throws ClientStatusException {
+    private <T> T getService(String serviceName, Class<T> serviceClass) {
         AMFClientFactory clientFactory = new AMFClientFactory();
         clientFactory.setServiceClass(serviceClass);
         clientFactory.setServiceName(serviceName);
@@ -42,10 +41,8 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
      * Returns either the AMF service or local bean (still to do) to operate on.
      *
      * @return ParleysService instance.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
-     *          flex AMF client status exception
      */
-    protected com.parleys.server.service.ParleysService getParleysServiceProxy() throws ClientStatusException {
+    protected com.parleys.server.service.ParleysService getParleysServiceProxy() {
         return getService("parleysService", com.parleys.server.service.ParleysService.class);
     }
 

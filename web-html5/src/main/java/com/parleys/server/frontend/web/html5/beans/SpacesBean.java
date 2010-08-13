@@ -19,7 +19,6 @@ import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
@@ -52,16 +51,12 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
 
-        try {
-            final List<SpaceOverviewDTO> spaces = loadSpaces(filter);
-            getPagingBean().setPaginatedList(spaces);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        }
+        final List<SpaceOverviewDTO> spaces = loadSpaces(filter);
+        getPagingBean().setPaginatedList(spaces);
     }
 
     @SuppressWarnings("unchecked")
-    private List<SpaceOverviewDTO> loadSpaces(Filter filter) throws ClientStatusException {
+    private List<SpaceOverviewDTO> loadSpaces(Filter filter) {
         if (filter != null) {
             return (List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE);
         } else {

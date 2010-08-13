@@ -18,9 +18,6 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import com.parleys.server.security.AuthorizationException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -36,8 +33,6 @@ import java.util.List;
 @RequestScoped
 public class NewsBean extends AbstractParleysBean {
 
-    private static final Logger LOGGER = Logger.getLogger(NewsBean.class);
-
     private long newsId;
 
     private News activeNewsItem;
@@ -49,13 +44,7 @@ public class NewsBean extends AbstractParleysBean {
             return;
         }
 
-        try {
-            newsItems = getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        }
+        newsItems = getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews();
 
         if (newsId > 0) {
             for (News newsItem : newsItems) {
