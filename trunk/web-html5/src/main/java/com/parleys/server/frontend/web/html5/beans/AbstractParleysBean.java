@@ -19,8 +19,6 @@ import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.service.ParleysService;
-import com.parleys.server.security.AuthorizationException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedProperty;
@@ -76,14 +74,7 @@ public abstract class AbstractParleysBean {
     }
 
     private SpaceOverviewDTO findSpaceForChannel(final ChannelOverviewDTO channel) {
-        try {
-            return getParleysService().getSpaceOverviewDTO(channel.getSpaceId());
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        }
-        throw new IllegalArgumentException("Space does not exist");
+        return getParleysService().getSpaceOverviewDTO(channel.getSpaceId());
     }
 
     private ChannelOverviewDTO findChannelForPresentation(final ExtendedPresentationDetailsDTO presentation) {

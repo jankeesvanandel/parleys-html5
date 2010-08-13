@@ -26,8 +26,6 @@ import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import com.parleys.server.security.AuthorizationException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
@@ -73,39 +71,32 @@ public class HomepageBean extends AbstractParleysBean {
             homepageViewBean.setThumbnailsFilterType(Filter.Type.PRESENTATION);
         }
 
-        try {
-            List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
-            transformToThumbnails(thumbnailsIn, getPagingBean().getIndex());
+        List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
+        transformToThumbnails(thumbnailsIn, getPagingBean().getIndex());
 
-            homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
+        homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
 
-            if (newsId > 0) {
-                int counter = 0;
-                for (News newsItem : homepageViewBean.getNewsItems()) {
-                    if (newsItem.getId().equals(newsId)) {
-                        homepageViewBean.setActiveNewsItemIndex(counter);
-                        break;
-                    }
-                    counter++;
+        if (newsId > 0) {
+            int counter = 0;
+            for (News newsItem : homepageViewBean.getNewsItems()) {
+                if (newsItem.getId().equals(newsId)) {
+                    homepageViewBean.setActiveNewsItemIndex(counter);
+                    break;
                 }
+                counter++;
             }
-
-            final List<? extends AbstractDTO> featuredContent = getParleysService().getFeaturedContent();
-
-            recommendedSpace = (SpaceOverviewDTO) featuredContent.get(0);
-            recommendedChannel = (ChannelOverviewDTO) featuredContent.get(1);
-            recommendedPresentation = (PresentationOverviewDTO) featuredContent.get(2);
-
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
         }
+
+        final List<? extends AbstractDTO> featuredContent = getParleysService().getFeaturedContent();
+
+        recommendedSpace = (SpaceOverviewDTO) featuredContent.get(0);
+        recommendedChannel = (ChannelOverviewDTO) featuredContent.get(1);
+        recommendedPresentation = (PresentationOverviewDTO) featuredContent.get(2);
 
         initializeHomepage();
     }
 
-    public String viewThumbnails(Filter filter, Filter.Type filterType, int index) throws ClientStatusException {
+    public String viewThumbnails(Filter filter, Filter.Type filterType, int index) {
         getPagingBean().setPaginatedList(Collections.<Thumbnail>emptyList());
         getPagingBean().setIndex(index);
         homepageViewBean.setThumbnailsFilter(filter);
@@ -180,13 +171,7 @@ public class HomepageBean extends AbstractParleysBean {
     }
 
     public String gotoNewsItem(Long id) {
-        try {
-            homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        }
+        homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
         final List<News> newsItems = homepageViewBean.getNewsItems();
         for (int i = 0; i < newsItems.size(); i++) {
             final News newsItem = newsItems.get(i);

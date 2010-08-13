@@ -117,17 +117,7 @@ public abstract class AbstractEntity extends BaseObject {
     }
 
     public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("id", this.id);
+        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("id", this.id);
         return sb.toString();
-    }
-
-    /**
-     * Checks is it new entity or existing one.
-     *
-     * @return Checking result.
-     */
-    public boolean isNew() {
-        return (id == null) || (id <= 0);
     }
 }

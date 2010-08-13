@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.service.exception;
-
-import org.apache.log4j.Logger;
+package com.parleys.server.common.exception;
 
 /**
  * @author Stephan Janssen
  */
-public class ParleysServiceException extends Exception {
-
-    private static final Logger LOGGER = Logger.getLogger(ParleysServiceException.class);
+public class ParleysServiceException extends RuntimeException {
 
     private static final long serialVersionUID = -4459402701708672620L;
 

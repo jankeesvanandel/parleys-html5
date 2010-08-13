@@ -15,6 +15,8 @@
  */
 package com.parleys.io.amf.client;
 
+import com.parleys.server.common.exception.AuthorizationException;
+import flex.messaging.io.amf.ASObject;
 import flex.messaging.io.amf.client.AMFConnection;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import flex.messaging.io.amf.client.exceptions.ServerStatusException;
@@ -39,6 +41,7 @@ public class AMFClientProxy implements InvocationHandler {
     private String username;
 
     private String password;
+    private static final String AUTHORIZATIONEXCEPTION_CLASSNAME = AuthorizationException.class.getName();
 
     /**
      * Full constructor.
@@ -82,6 +85,14 @@ public class AMFClientProxy implements InvocationHandler {
         Object callResult = null;
         try {
             callResult = connection.call(serviceName + "." + method.getName(), params);
+        } catch (ServerStatusException e) {
+            ASObject asObject = (ASObject) e.getData();
+            Object cause = asObject.get("rootCause");
+            if (cause instanceof AuthorizationException) {
+                throw (AuthorizationException) cause;
+            } else {
+                throw e;
+            }
         } finally {
             connection.close();
         }

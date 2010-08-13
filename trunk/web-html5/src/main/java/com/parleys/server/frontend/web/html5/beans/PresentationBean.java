@@ -19,8 +19,6 @@ import com.parleys.server.domain.types.AssetTargetType;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import com.parleys.server.security.AuthorizationException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
@@ -53,14 +51,7 @@ public class PresentationBean extends AbstractParleysBean {
             return;
         }
 
-        try {
-            presentation = getParleysService().getPresentationDetails(presentationId);
-        } catch (ClientStatusException e) {
-            LOGGER.error(e);
-        } catch (AuthorizationException e) {
-            LOGGER.error(e);
-        }
-
+        presentation = getParleysService().getPresentationDetails(presentationId);
         super.initializePresentation(presentation);
     }
 

@@ -13,39 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.security;
+package com.parleys.server.common.exception;
 
 /**
  * @author Stephan Janssen
  */
-public class AuthorizationException extends Exception {
+public class AuthorizationException extends RuntimeException {
 
     private static final long serialVersionUID = -5254305053400819901L;
 
-    /**
-     * Full constructor.
-     *
-     * @param message The error message.
-     * @param cause The cause.
-     */
-    public AuthorizationException(String message, Throwable cause) {
-        super(message, cause);
+    public AuthorizationException() {
     }
 
-    /**
-     * Constructor.
-     *
-     * @param message The error message.
-     */
     public AuthorizationException(String message) {
         super(message);
     }
 
-    /**
-     * Constructor.
-     *
-     * @param cause The cause.
-     */
+    public AuthorizationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public AuthorizationException(Throwable cause) {
         super(cause);
     }

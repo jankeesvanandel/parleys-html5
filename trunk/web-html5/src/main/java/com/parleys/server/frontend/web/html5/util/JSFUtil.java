@@ -27,6 +27,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Generic functions to be used in the view.
@@ -68,20 +69,17 @@ public class JSFUtil {
     }
 
     // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
-    public static String spaceThumbnail(final long spaceId,
-                                        final String thumbnail) {
+    public static String spaceThumbnail(final long spaceId, final String thumbnail) {
         return String.format("http://www.parleys.com/assets/spaces/%1$s/%2$s", spaceId, thumbnail);
     }
 
     // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
-    public static String channelThumbnail(final long channelId,
-                                          final String thumbnail) {
+    public static String channelThumbnail(final long channelId, final String thumbnail) {
         return String.format("http://www.parleys.com/assets/channels/%1$s/%2$s", channelId, thumbnail);
     }
 
     // TODO The asset root context can be different depending on the space/channel, this should be reflected in this URL
-    public static String presentationThumbnail(final long presentationId,
-                                               final String thumbnail) {
+    public static String presentationThumbnail(final long presentationId, final String thumbnail) {
         if (thumbnail == null || thumbnail.length() == 0) {
             return "./img/nothumb.jpg";
         } else {
@@ -93,35 +91,32 @@ public class JSFUtil {
         StringBuilder builder = new StringBuilder();
         builder.append("by ");
 
-        for (SpeakerDTO speaker : presentation.getSpeakers()) {
+        List<SpeakerDTO> speakers = presentation.getSpeakers();
+        for (SpeakerDTO speaker : speakers) {
             builder.append(speaker.getName());
-
-            if (presentation.getSpeakers().size() > 1) {
+            if (speakers.size() > 1) {
                 builder.append(", ");
             }
         }
 
-        builder.append(" (Play time: ");
-
         float duration = presentation.getTotalDuration();
-
         int hours = (int) Math.floor(duration / 3600);
         int minutes = (int) Math.floor((duration % 3600) / 60);
         int seconds = (int) Math.floor(duration) % 60;
 
         String minutesString = (minutes < 10) ? "0" + minutes : "" + minutes;
         String secondsString = (seconds < 10) ? "0" + seconds : "" + seconds;
-        String hoursString = (hours < 10) ? "0" + hours : hours + ":";
+        String hoursString = (hours < 10) ? "0" + hours + ":" : hours + ":";
 
         if (hours == 0) {
             hoursString = "";
         }
 
+        builder.append(" (Play time: ");
         builder.append(hoursString);
         builder.append(minutesString);
         builder.append(":");
         builder.append(secondsString);
-
         builder.append(") ");
         builder.append(DateFormat.getDateInstance().format(presentation.getCreatedOn()));
 
@@ -143,25 +138,24 @@ public class JSFUtil {
         final Days daysAgo = Days.daysBetween(start, end);
         final int days = daysAgo.getDays();
 
-        String daysAgoPosted;
-
+        String whileAgoPosted;
         if (days == 0) {
-            daysAgoPosted = "today";
+            whileAgoPosted = "today";
         } else if (days == 1) {
-            daysAgoPosted = "yesterday";
+            whileAgoPosted = "yesterday";
         } else if (days < 7) {
-            daysAgoPosted = days + " days ago";
+            whileAgoPosted = days + " days ago";
         } else if (days < 32) {
             int week = Math.round(days / 7);
-            daysAgoPosted = week + (week > 1 ? " weeks ago" : " week ago");
+            whileAgoPosted = week + (week > 1 ? " weeks ago" : " week ago");
         } else if (days < 365) {
-            daysAgoPosted = Math.round(days / 30) + " months ago";
+            whileAgoPosted = Math.round(days / 30) + " months ago";
         } else {
             int year = Math.round(days / 365);
-            daysAgoPosted = year + ((year > 1) ? " years ago" : " year ago");
+            whileAgoPosted = year + ((year > 1) ? " years ago" : " year ago");
         }
 
-        return daysAgoPosted;
+        return whileAgoPosted;
     }
 
     public static String subscription(final String membership) {

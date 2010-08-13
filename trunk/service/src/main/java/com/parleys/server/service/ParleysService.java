@@ -25,9 +25,6 @@ import com.parleys.server.dto.FilteredOverviewResponseDTO;
 import com.parleys.server.dto.OverviewResponseDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
-import com.parleys.server.security.AuthorizationException;
-import com.parleys.server.service.exception.ParleysServiceException;
-import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 import java.util.List;
 
@@ -97,10 +94,8 @@ public interface ParleysService {
      * @param index    the starting index
      * @param paging   the paging value
      * @return a list of news items
-     * @throws AuthorizationException thrown when parent space is private and user has no permissions
      */
-    OverviewResponseDTO<News> getNews(String newsType, long id, int index, int paging)
-            throws AuthorizationException;
+    OverviewResponseDTO<News> getNews(String newsType, long id, int index, int paging);
 
 //    /**
 //     * Return the comments for the given presentation id.
@@ -116,9 +111,8 @@ public interface ParleysService {
      *
      * @param presentationId the presentation identifier
      * @return the complete presentation info set
-     * @throws AuthorizationException user has no authorization to call this method
      */
-    ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId) throws AuthorizationException;
+    ExtendedPresentationDetailsDTO getPresentationDetails(long presentationId);
 
 //    /**
 //     * Has the current logged in user already voted for the given presentation ?
@@ -188,11 +182,8 @@ public interface ParleysService {
      * @param index  start index.
      * @param paging number of spaces to return form start index.
      * @return overview info about spaces.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
-     *          thrown when AMF problem occurs
      */
-    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging)
-            throws ClientStatusException;
+    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging);
 
 //    /**
 //     * Gets public, listed and optionally the private administered spaces for logged in user as bread crumbs.
@@ -210,11 +201,8 @@ public interface ParleysService {
      * @param paging number of spaces to return form start index.
      * @param sortBy sort spaces by
      * @return overview info about spaces.
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
-     *          thrown when AMF problem occurs
      */
-    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging, SpaceSort sortBy)
-            throws ClientStatusException;
+    FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(int index, int paging, SpaceSort sortBy);
 
     /**
      * Gets public spaces that include iphone enabled channels.
@@ -230,11 +218,8 @@ public interface ParleysService {
      *
      * @param spaceId An identifier for target space.
      * @return An overview for the particular space.
-     * @throws AuthorizationException User is not authorized
-     * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
-     *                                thrown when AMF problem occurs
      */
-    SpaceOverviewDTO getSpaceOverviewDTO(long spaceId) throws AuthorizationException, ClientStatusException;
+    SpaceOverviewDTO getSpaceOverviewDTO(long spaceId);
 
     /**
      * Returns overview info about channels for particular space.
@@ -242,11 +227,8 @@ public interface ParleysService {
      *
      * @param spaceId Is an identifier of space to get channels.
      * @return overview     info about channels for particular space.
-     * @throws AuthorizationException  User is not authorized
-     * @throws ParleysServiceException internal error occured
      */
-    FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(long spaceId)
-            throws ParleysServiceException, AuthorizationException;
+    FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(long spaceId);
 
 //    /**
 //     * Returns overview info about channels for particular space.
@@ -255,7 +237,7 @@ public interface ParleysService {
 //     * @param paging  number of channels to return form start index.
 //     * @param spaceId Is an identifier of space to get channels.
 //     * @return overview info about channels for particular space.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                paging was too high
 //     * @throws AuthorizationException User is not authorized
 //     */
@@ -269,7 +251,7 @@ public interface ParleysService {
 //     * @param paging  number of channels to return form start index.
 //     * @param spaceId Is an identifier of space to get channels.
 //     * @return overview info about channels for particular space.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                paging was too high
 //     * @throws AuthorizationException User is not authorized
 //     */
@@ -284,7 +266,7 @@ public interface ParleysService {
 //     * @param sortBy  sort channels by...
 //     * @param spaceId Is an identifier of space to get channels.
 //     * @return overview info about channels for particular space.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                paging was too high
 //     * @throws AuthorizationException User is not authorized
 //     */
@@ -299,9 +281,8 @@ public interface ParleysService {
      *
      * @param channelId An identifier for the target channel/
      * @return channel overview object for the particular channel.
-     * @throws AuthorizationException User is not authorized
      */
-    ChannelOverviewDTO getChannelOverviewDTO(long channelId) throws AuthorizationException;
+    ChannelOverviewDTO getChannelOverviewDTO(long channelId);
 
 //    /**
 //     * Returns list with breadcrum presentations dtos for particular channel.
@@ -313,7 +294,7 @@ public interface ParleysService {
 //     * @param sort      sort by
 //     * @param date      and date region (TODAY, THIS WEEK, ...)
 //     * @return overview info about presentations for particular channel.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                when something went wrong
 //     * @throws AuthorizationException User is not authorized
 //     *                                <p/>
@@ -336,16 +317,11 @@ public interface ParleysService {
      * @param sort      sort by
      * @param date      and date region (TODAY, THIS WEEK, ...)
      * @return overview info about presentations for particular channel.
-     * @throws com.parleys.server.service.exception.ParleysServiceException
+     * @throws com.parleys.server.common.exception.ParleysServiceException
      *                                when something went wrong
-     * @throws AuthorizationException User is not authorized
      */
-    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(long channelId,
-                                                                                  int index, int paging,
-                                                                                  String type,
-                                                                                  String sort,
-                                                                                  String date)
-            throws ParleysServiceException, AuthorizationException;
+    FilteredOverviewResponseDTO<PresentationOverviewDTO> getPresentationsOverview(
+            long channelId, int index, int paging, String type, String sort, String date);
 
 //    /**
 //     * Returns list with short info about presentations for particular channel.
@@ -359,7 +335,7 @@ public interface ParleysService {
 //     * @param filter    Search string to filter (search on presentation title, summary and description, tag name
 //     *                  and speaker's bio, first name and last name)
 //     * @return overview info about presentations for particular channel.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                when something went wrong
 //     * @throws AuthorizationException User is not authorized
 //     */
@@ -384,7 +360,7 @@ public interface ParleysService {
 //     *                  and speaker's bio, first name and last name)
 //     * @param target    the target presentation device
 //     * @return overview info about presentations for particular channel.
-//     * @throws com.parleys.server.service.exception.ParleysServiceException
+//     * @throws com.parleys.server.common.exception.ParleysServiceException
 //     *                                when something went wrong
 //     * @throws AuthorizationException User is not authorized
 //     */

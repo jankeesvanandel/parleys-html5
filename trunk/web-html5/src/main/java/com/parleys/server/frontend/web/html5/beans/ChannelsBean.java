@@ -18,7 +18,6 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -35,8 +34,6 @@ import java.util.List;
 @RequestScoped
 public class ChannelsBean extends AbstractParleysBean implements Paginable {
 
-    private static final Logger LOGGER = Logger.getLogger(ChannelsBean.class);
-
     @ManagedProperty("#{channelsViewBean}")
     private ChannelsViewBean channelsViewBean;
 
@@ -45,11 +42,7 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
             return;
         }
 
-        try {
-            super.initializeSpace(getParleysService().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
+        super.initializeSpace(getParleysService().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
 
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
@@ -63,15 +56,11 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
 
-        try {
-            final List<ChannelOverviewDTO> channels = loadChannels();
-            getPagingBean().setPaginatedList(channels);
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
+        final List<ChannelOverviewDTO> channels = loadChannels();
+        getPagingBean().setPaginatedList(channels);
     }
 
-    private List<ChannelOverviewDTO> loadChannels() throws Exception {
+    private List<ChannelOverviewDTO> loadChannels() {
         return getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
     }
 
