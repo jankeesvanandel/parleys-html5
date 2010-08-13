@@ -18,7 +18,7 @@ package com.parleys.server.frontend.web.html5.beans;
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
+import com.parleys.server.frontend.service.ParleysService;
 import com.parleys.server.security.AuthorizationException;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.apache.log4j.Logger;
@@ -47,14 +47,14 @@ public abstract class AbstractParleysBean {
     private PagingBean pagingBean;
 
     @ManagedProperty("#{parleysService}")
-    private ParleysServiceDelegate parleysServiceDelegate;
+    private ParleysService parleysService;
 
-    public ParleysServiceDelegate getParleysService() {
-        return parleysServiceDelegate;
+    public ParleysService getParleysService() {
+        return parleysService;
     }
 
-    public void setParleysService(final ParleysServiceDelegate parleysServiceDelegate) {
-        this.parleysServiceDelegate = parleysServiceDelegate;
+    public void setParleysService(final ParleysService parleysService) {
+        this.parleysService = parleysService;
     }
 
     public final void initializeHomepage() {
