@@ -40,7 +40,7 @@ import java.util.List;
  *
  * @author Stephan Janssen
  */
-public interface ParleysServiceDelegate {
+public interface ParleysService {
 
     /**
      * Returns the list of featured content based on the selected type, used on the home page.

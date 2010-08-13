@@ -16,14 +16,13 @@
 package com.parleys.server.frontend.service.impl;
 
 import com.parleys.io.amf.client.AMFClientFactory;
-import com.parleys.server.frontend.service.ParleysServiceDelegate;
-import com.parleys.server.service.ParleysService;
+import com.parleys.server.frontend.service.ParleysService;
 import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 
 /**
  * @author Stephan Janssen
  */
-public abstract class AbstractParleysServiceDelegateImpl implements ParleysServiceDelegate {
+public abstract class AbstractParleysServiceDelegateImpl implements ParleysService {
 
     // TODO Inject the AMF context root using a property value
     private static final String PARLEYS_CONTEXT = "http://www.parleys.com/parleysserver/";
@@ -46,8 +45,8 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
      * @throws flex.messaging.io.amf.client.exceptions.ClientStatusException
      *          flex AMF client status exception
      */
-    protected ParleysService getParleysServiceProxy() throws ClientStatusException {
-        return getService("parleysService", ParleysService.class);
+    protected com.parleys.server.service.ParleysService getParleysServiceProxy() throws ClientStatusException {
+        return getService("parleysService", com.parleys.server.service.ParleysService.class);
     }
 
     /**

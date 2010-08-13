@@ -22,12 +22,11 @@ import org.apache.log4j.Logger;
  */
 public class ParleysServiceException extends Exception {
 
-    private static final Logger LOG = Logger.getLogger(ParleysServiceException.class);
+    private static final Logger LOGGER = Logger.getLogger(ParleysServiceException.class);
 
     private static final long serialVersionUID = -4459402701708672620L;
 
     public ParleysServiceException(final String message) {
         super(message);
-        LOG.error(message);
     }
 }
