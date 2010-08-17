@@ -29,7 +29,7 @@ html, body {
 body {
     width: 100%;
     background: #222;
-    min-width: 900px;
+   /* min-width: 900px;  */
 }
 
 h1 {
@@ -98,14 +98,13 @@ form#main {
     min-height: 100%;
     width:100%;
     position: absolute;
-    b/ackground-color: green;
 }
 
 #container {
     min-height: 100%;
     width:100%;
     position: absolute;
-    b/ackground-color: red;
+    
 }
 
 img {
@@ -250,7 +249,7 @@ div#logoBar .loginButton {
     position:absolute;
     width: 100%;
     top:20px;
-    bottom:80px;
+    bottom:100px;
 }
 
 /*
@@ -459,7 +458,6 @@ div#videoNavigationBar div#videoTimeAndPosition {
 
 div#videoNavigationBar div#videoNavigationBarChapters {
     /*float: left;  */
-    background-color:aqua;
     position:absolute;
     left:146px;
     right:0;
@@ -558,7 +556,7 @@ a.pagingPrev:hover {
 }
 
 #footer.videoPage {
-    background-color:#a52a2a;
+
     height: 6em;
 }
 
@@ -686,7 +684,6 @@ div#agenda li:hover{
 	background-color:#000000;
 	-webkit-transform:rotateY(0deg) translateZ(0px) translate(0,0);
 	-webkit-transition-timing-function: ease-in-out;
-    -webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
 
 }
 
@@ -694,7 +691,6 @@ div#agenda li:hover{
 	-webkit-transition: all 0.4s ease-in-out;
 	position:absolute;
 	background-color:#000000;
-	-webkit-box-reflect:below 5px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.6, transparent), to(white));
 }
 
 .slide{

@@ -110,12 +110,19 @@ public class PresentationBean extends AbstractParleysBean {
 
         //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
         if (streamAsset != null) {
+            /*
             String value = streamAsset.getValue();
             value = value.substring(1, value.length());
             String template = "http://www.bejug.org:1935/parleys/_definst_/%n/mp4:%n/playlist.m3u8";
             value = String.format(template, presentationId, value);
             this.streamURL = value;
             LOGGER.info(streamURL);
+            */
+            String value = streamAsset.getValue();
+            value = value.substring(1,value.length());
+            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+"/playlist.m3u8";
+            this.streamURL = value;
+
         } else {
             throw new IllegalArgumentException("No streaming asset for presentation :" + presentation.getId());
         }

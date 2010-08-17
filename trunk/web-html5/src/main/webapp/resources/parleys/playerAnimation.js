@@ -47,6 +47,10 @@ $(document).bind('ready', function() {
   $("#videoContainer").single_double_click(onVideoClick,onVideoDoubleClick);
   $("#slidesContainer").single_double_click(onSlideClick,onSlideDoubleClick);
 
+    
+    //$("#videoContainer").bind('gesturestart',onVideoDoubleClick);
+
+
 
   slideOriginalRect.x = 0;
   slideOriginalRect.y = 0;
@@ -65,11 +69,36 @@ $(document).bind('ready', function() {
   agenda = $("#agenda");
 
 
+  oldWidth = $("#mainContent").width();
+
+  setInterval(checkSize,2000);
   actuallyResize();
+    allowZoom(false);
 
 });
 
 
+
+function allowZoom(flag) {
+  if (flag == true) {
+    $('head meta[name=viewport]').remove();
+    $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, minimum-scale=1, user-scalable=1" />');
+  } else {
+    $('head meta[name=viewport]').remove();
+    $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />');
+  }
+}
+
+
+
+var oldWidth = 0;
+function checkSize(){
+    if($("#mainContent").width()!=oldWidth){
+             actuallyResize();
+    }
+
+    oldWidth = $("#mainContent").width();
+}
 
 
 function onVideoDoubleClick(){
@@ -147,7 +176,7 @@ var resizeTimer;
 
 function onResize(){
     clearTimeout(resizeTimer);
-     resizeTimer = setTimeout(actuallyResize,1000);
+     resizeTimer = setTimeout(actuallyResize,200);
 
 
 }
@@ -158,30 +187,61 @@ function actuallyResize(){
 	var contentHeight = $("#mainContent").height();
 
 	var contentEqualRight = new Object();
-	contentEqualRight.x = contentWidth / 2;
-	contentEqualRight.y = 0;
-	contentEqualRight.width = contentWidth / 2;
-	contentEqualRight.height = contentHeight;
+    var contentEqualLeft = new Object();
+    var contentBig = new Object();
+    var contentSmall = new Object();
+    var contentFull = new Object();
 
-	var contentEqualLeft = new Object();
-	contentEqualLeft.x = 0;
-	contentEqualLeft.y = 0;
-	contentEqualLeft.width = contentWidth / 2;
-	contentEqualLeft.height = contentHeight;
+    if(contentWidth>contentHeight){
+        contentEqualRight.x = contentWidth / 2;
+        contentEqualRight.y = 0;
+        contentEqualRight.width = contentWidth / 2;
+        contentEqualRight.height = contentHeight;
 
-	var contentBig = new Object();
-	contentBig.x = contentWidth * 0.2;
-	contentBig.y = 0;
-	contentBig.width = contentWidth * 0.8;
-	contentBig.height = contentHeight;
 
-	var contentSmall = new Object();
-	contentSmall.x = 0;
-	contentSmall.y = 0;
-	contentSmall.width = contentWidth * 0.2;
-	contentSmall.height = contentHeight;
+        contentEqualLeft.x = 0;
+        contentEqualLeft.y = 0;
+        contentEqualLeft.width = contentWidth / 2;
+        contentEqualLeft.height = contentHeight;
 
-	var contentFull = new Object();
+
+        contentBig.x = contentWidth * 0.2;
+        contentBig.y = 0;
+        contentBig.width = contentWidth * 0.8;
+        contentBig.height = contentHeight;
+
+
+        contentSmall.x = 0;
+        contentSmall.y = 0;
+        contentSmall.width = contentWidth * 0.2;
+        contentSmall.height = contentHeight;
+
+    }else{
+        contentEqualRight.x = 0;
+	    contentEqualRight.y = 0;
+	    contentEqualRight.width = contentWidth;
+	    contentEqualRight.height = contentHeight/2;
+
+
+	    contentEqualLeft.x = 0;
+	    contentEqualLeft.y = contentHeight/2;
+	    contentEqualLeft.width = contentWidth;
+	    contentEqualLeft.height = contentHeight/2;
+
+
+	    contentBig.x = contentWidth * 0.2;
+	    contentBig.y = 0;
+	    contentBig.width = contentWidth * 0.8;
+	    contentBig.height = contentHeight;
+
+
+	    contentSmall.x = 0;
+	    contentSmall.y = 0;
+	    contentSmall.width = contentWidth * 0.2;
+	    contentSmall.height = contentHeight;
+
+    }
+
 	contentFull.x = 0;
 	contentFull.y = 0;
 	contentFull.width = contentWidth;
@@ -300,6 +360,7 @@ function toggleAgenda(){
 
 	if (agenda_btn.value=="Show Agenda"){
 
+        agenda.css("display","block");
 		if (currentState == STATE_EQUAL) {
 			v.css("webkitTransform", "rotateY(-45deg) translateZ(-250px) translate(100px,0)");
 			s.css("webkitTransform", "rotateY(45deg) translateZ(-250px) translate(-100px,0)");
@@ -327,8 +388,8 @@ function toggleAgenda(){
 }
 
 function hideAgenda(){
-//    var agenda = document.getElementById('agenda');
-//    agenda.style.display = "none";
+
+    agenda.css("display","none");
 }
 
 jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {
