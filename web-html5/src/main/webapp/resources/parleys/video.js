@@ -179,7 +179,11 @@ function setInitialPosition() {
         var slideId = href.substr(indexOfAnchor + 1);
         var slide = findSlideById(slideId);
         var time = parseFloat(slide.attr("startTime"));
-        $("#videoPlayer")[0].currentTime = time;
+        try {
+            $("#videoPlayer")[0].currentTime = time;
+        } catch (e) {
+            logger.log("Error setting initial position to time " + time + ": " + e)
+        }
     }
 }
 
@@ -227,16 +231,25 @@ function getStartTimeForChapter(chapterIndex) {
     return parseFloat(slide.attr("startTime"));
 }
 
-function getTimeFromCursorPosition() {
+/*function getTimeFromCursorPosition() {
     var chapters = $("#chapters");
     var totalDuration = parseFloat($("#chapters").attr("totalduration"));
     var positionInPercentage = position / $("#chapters").width();
     var time = positionInPercentage * totalDuration;
     return time;
-}
+}*/
 
+var updateVideoCatchAlert = 0;
 function updateVideo(timeChangedEvent) {
-    $("#videoPlayer")[0].currentTime = timeChangedEvent.currentTime;
+    try {
+        $("#videoPlayer")[0].currentTime = timeChangedEvent.currentTime;
+    } catch (e) {
+        // only alert a couple of times because otherwise we're spammed with alerts
+        if (updateVideoCatchAlert < 5) {
+            updateVideoCatchAlert++;
+            logger.log("Error updating video to time " + timeChangedEvent.currentTime + ": " + e)
+        }
+    }
 }
 
 function initializeVideoEventSource() {

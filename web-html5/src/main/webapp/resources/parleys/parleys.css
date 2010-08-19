@@ -113,7 +113,7 @@ img {
 
 /* The topmost header */
 div#logoBar {
-    background: #373737 url(../img/header_sprite.png) repeat-x 0 -180px;
+    background: #373737 url(#{resource['img:header_sprite.png']}) repeat-x 0 -180px;
     position: relative;
     width: 100%;
     height: 30px;
@@ -122,7 +122,7 @@ div#logoBar {
 }
 
 div#logoBar h1#parleysHeader {
-    background: #a40202 url(../img/header_sprite.png) no-repeat -50px 0;
+    background: #a40202 url(#{resource['img:header_sprite.png']}) no-repeat -50px 0;
     float: left;
     width: 100px;
     height: 30px;
@@ -139,14 +139,14 @@ div#logoBar ul li {
 }
 
 div#logoBar ul li.homeButton a {
-    background: #a40202 url(../img/header_sprite.png) no-repeat !important;
+    background: #a40202 url(#{resource['img:header_sprite.png']}) no-repeat !important;
     height: 30px !important;
     padding: 0 !important;
     width: 40px;
 }
 
 div#logoBar ul li.homeButton a:hover {
-    background: url(../img/header_sprite.png) no-repeat 0 -45px !important;
+    background: url(#{resource['img:header_sprite.png']}) no-repeat 0 -45px !important;
 }
 
 div#logoBar ul li.navButton,
@@ -155,7 +155,7 @@ div#logoBar ul li.navButton a {
 }
 
 div#logoBar ul li.navButton a {
-    background: #a40202 url(../img/header_sprite.png) repeat-x 0 -90px;
+    background: #a40202 url(#{resource['img:header_sprite.png']}) repeat-x 0 -90px;
     height: 14px;
     padding: 8px 15px 8px 15px;
     color: #ffcc00;
@@ -164,11 +164,11 @@ div#logoBar ul li.navButton a {
 }
 
 div#logoBar ul li.navButton a:hover {
-    background: url(../img/header_sprite.png) repeat-x 0 -135px;
+    background: url(#{resource['img:header_sprite.png']}) repeat-x 0 -135px;
 }
 
 div#logoBar span.navEnd {
-    background: url(../img/header_sprite.png) no-repeat -170px 0 !important;
+    background: url(#{resource['img:header_sprite.png']}) no-repeat -170px 0 !important;
     float: left;
     height: 30px !important;
     width: 25px;
@@ -184,7 +184,7 @@ div#logoBar .loginButton {
 }
 
 #navigationBar {    
-    background: #414141 url(../img/header_sprite.png) repeat-x 0 -225px;
+    background: #414141 url(#{resource['img:header_sprite.png']}) repeat-x 0 -225px;
     padding-left: 150px;
     position: relative;
     height: 30px;
@@ -224,7 +224,7 @@ div#logoBar .loginButton {
 .search {
     width: 20px;
     height: 20px;
-    background: transparent url(../img/icon_search_up.png) no-repeat center center;
+    background: transparent url(#{resource['img:icon_search_up.png']}) no-repeat center center;
 }
 
 #navigationBar div span {
@@ -234,7 +234,7 @@ div#logoBar .loginButton {
 }
 
 #navigationBar div a:hover {
-    background: #666 url(../img/header_sprite.png) repeat-x 0 -270px;
+    background: #666 url(#{resource['img:header_sprite.png']}) repeat-x 0 -270px;
 }
 
 
@@ -412,7 +412,7 @@ div.pagingBar a.next.paging {
 div#videoControls {
     float: left;
     width: 100%;
-    background: url("../img/presentationBottomBG.jpg") repeat-x;
+    background: url(#{resource['img:presentationBottomBG.jpg']}) repeat-x;
     position: relative;
 }
 
@@ -482,11 +482,11 @@ div#videoNavigationBar li a {
     border-top: 1px solid #333;
     border-bottom: 1px solid #333;
     display: block;
-    background: url("../img/progressbar_sprite.png") repeat-x 0 0;
+    background: url(#{resource['img:progressbar_sprite.png']}) repeat-x 0 0;
 }
 
 div#videoNavigationBar li a:hover {
-    background: url("../img/progressbar_sprite.png") repeat-x 0 -50px;
+    background: url(#{resource['img:progressbar_sprite.png']}) repeat-x 0 -50px;
 }
 
 div#videoNavigationBar li span {
@@ -517,34 +517,34 @@ span.newsDate {
 
 a.bugLink {
     padding-left: 20px; /*18px + 2 padding*/
-    background: transparent url(../img/bug.jpg) no-repeat center left;
+    background: transparent url(#{resource['img:bug.jpg']}) no-repeat center left;
 }
 
 a.twitterLink {
     padding-left: 20px; /*18px + 2 padding*/
-    background: transparent url(../img/twitter.jpg) no-repeat center left;
+    background: transparent url(#{resource['img:twitter.jpg']}) no-repeat center left;
 }
 
 a.pagingNext {
     border: none;
-    background-image: url('../img/paging_next.jpg');
+    background-image: url(#{resource['img:paging_next.jpg']});
     width: 18px;
     height: 18px;
 }
 
 a.pagingNext:hover {
-    background-image: url('../img/paging_next_hover.jpg');
+    background-image: url(#{resource['img:paging_next_hover.jpg']});
 }
 
 a.pagingPrev {
     border: none;
-    background-image: url('../img/paging_prev.jpg');
+    background-image: url(#{resource['img:paging_prev.jpg']});
     width: 18px;
     height: 18px;
 }
 
 a.pagingPrev:hover {
-    background-image: url('../img/paging_prev_hover.jpg');
+    background-image: url(#{resource['img:paging_prev_hover.jpg']});
 }
 
 /* Footer styles */
@@ -572,12 +572,12 @@ a.pagingPrev:hover {
 
 .rating_bar {
     width: 73px;
-    background: url('../img/starsUnselected.png') 0 0 no-repeat;
+    background: url(#{resource['img:starsUnselected.png']}) 0 0 no-repeat;
 }
 
 .rating_bar div {
     height: 13px;
-    background: url('../img/starsSelected.png') 0 0 no-repeat;
+    background: url(#{resource['img:starsSelected.png']}) 0 0 no-repeat;
 }
 
 .shadowbox {
@@ -600,7 +600,7 @@ a.pagingPrev:hover {
 }
 
 .rightcol {
-    background: url('../img/podDivider.png') 10px 15px no-repeat;
+    background: url(#{resource['img:podDivider.png']}) 10px 15px no-repeat;
     padding: 10px 10px 10px 30px;
     vertical-align: top;
 }
@@ -634,7 +634,7 @@ div#agenda li a {
 }
 
 div#agenda li a:hover {
-    background: #ebebeb url(border.png) no-repeat;
+    background: #ebebeb url(#{resource['img:border.png']}) no-repeat;
     color: #67a5cd;
     padding: 7px 15px 7px 30px;
     -webkit-box-shadow: 2px 2px 4px #888;
@@ -777,7 +777,7 @@ div#videoNavigationBarCursor {
     width: 14px;
     height: 34px;
     display: block;
-    background: url("../img/progressbar_cursor.png");
+    background: url(#{resource['img:progressbar_cursor.png']});
     cursor: pointer;
 }
 
@@ -789,7 +789,7 @@ div#videoNavigationBarCursor:hover{
     width: 14px;
     height: 34px;
     display: block;
-    background: url("../img/progressbar_cursor.png");
+    background: url(#{resource['img:progressbar_cursor.png']});
     cursor: pointer;
 }
 
