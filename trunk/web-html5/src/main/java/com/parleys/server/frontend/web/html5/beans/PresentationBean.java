@@ -119,8 +119,8 @@ public class PresentationBean extends AbstractParleysBean {
             LOGGER.info(streamURL);
             */
             String value = streamAsset.getValue();
-            value = value.substring(1,value.length());
-            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+"/playlist.m3u8";
+            value = value.substring(1,value.length()).split("\\.")[0];
+            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+".mp4/playlist.m3u8";
             this.streamURL = value;
 
         } else {
