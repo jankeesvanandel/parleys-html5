@@ -6,13 +6,10 @@ This is a quick list with tasks that still need to be done.
 
 ==1 Ultra High priority!!!==
 These tasks need to be done ASAP!
-  * Improve error handling for the service layer
-  * Implement error handling at the view level, like a nice error page.
   * 
 
 ==2 High priority==
 These tasks need to be done for a successful demo, like at JavaOne.
-  * Add PrettyFaces.
   * Add pretty URL's/back button support for AJAX calls.
   * Increase test coverage.
   * Add some High Quality video's for the demo.
@@ -34,3 +31,6 @@ These tasks need to be done for a successful demo, like at JavaOne.
 
 ==Finished tasks==
   * Add Apache license headers to all source files.
+  * Improve error handling for the service layer
+  * Implement error handling at the view level, like a nice error page.
+  * Add PrettyFaces.
