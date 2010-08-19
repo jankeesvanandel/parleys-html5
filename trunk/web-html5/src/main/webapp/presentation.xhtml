@@ -41,6 +41,15 @@
                     <h:outputScript library="parleys" name="playerAnimation.js" target="head"/>
 				    <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="100%" height="100%">
                         <source src="#{presentationBean.streamURL}" type="video/mp4"/>
+                        <!--object class="playerpreview" id="myFlash" type="application/x-shockwave-flash" data="#{resource['parleys:player_flv_js.swf']}" width="320" height="240">
+                            <param name="movie" value="#{resource['parleys:player_flv_js.swf']}" />
+                            <param name="AllowScriptAccess" value="always" />
+                            <param name="FlashVars" value="listener=myListener&amp;interval=500&amp;useHandCursor=0&amp;bgcolor=000000&amp;buffer=9" />
+                        </object>
+                        <script type="text/javascript">
+//                            document.getElementById("myFlash").SetVariable("method:setUrl", "#{presentationBean.streamURL}");
+//                            document.getElementById("myFlash").SetVariable("method:play", "");
+                        </script-->
                     </video>
                 </div>
 
@@ -59,7 +68,7 @@
         <div id="playButtonOverlayBackground"></div>
 
         <div id="playButtonOverlay">
-            <a href="#" title="Click to play"><img src="img/playButton.jpg" alt="Click to play"></img></a>
+            <a href="#" title="Click to play"><img src="#{resource['img:playButton.jpg']}" alt="Click to play"/></a>
         </div>
 
         <div id="agenda">
@@ -95,10 +104,10 @@
             <div id="videoControls">
                 <div id="tagsAndComments"></div>
                 <div id="controls">
-                    <a href="#" id="prevChapterButton"><img src="img/prevChapterButton.jpg" alt="Previous chapter"/></a>
-                    <a href="#" id="playButton" style="display: none"><img src="img/playButton.jpg" alt="Play"/></a>
-                    <a href="#" id="pauzeButton"><img src="img/pauzeButton.jpg" alt="Pauze"/></a>
-                    <a href="#" id="nextChapterButton"><img src="img/nextChapterButton.jpg" alt="Previous chapter"/></a>
+                    <a href="#" id="prevChapterButton"><img src="#{resource['img:prevChapterButton.jpg']}" alt="Previous chapter"/></a>
+                    <a href="#" id="playButton" style="display: none"><img src="#{resource['img:playButton.jpg']}" alt="Play"/></a>
+                    <a href="#" id="pauzeButton"><img src="#{resource['img:pauzeButton.jpg']}" alt="Pauze"/></a>
+                    <a href="#" id="nextChapterButton"><img src="#{resource['img:nextChapterButton.jpg']}" alt="Previous chapter"/></a>
                     <input type="button" value="Show Agenda" onclick="toggleAgenda()" id="agenda_btn" />
                 </div>
                 <div id="volume">

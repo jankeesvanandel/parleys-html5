@@ -110,6 +110,24 @@
         <!--<dispatcher>ERROR</dispatcher>-->
     <!--</filter-mapping>-->
 
+    <filter>
+        <filter-name>Pretty Filter</filter-name>
+        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Pretty Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <listener>
+        <description>Reloads the PrettyFaces configuration when changed in Development ProjectStage</description>
+        <listener-class>com.ocpsoft.pretty.faces.config.PrettyConfigListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>faces</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

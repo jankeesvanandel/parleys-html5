@@ -62,7 +62,7 @@
         <br/>
 
         <div id="thumbnailsWrapperOuter">
-            <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+            <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
             <div id="thumbnailsWrapper">
                 <h5:div id="thumbnails">
                     <h:commandLink id="thumbnailsPrevious"
@@ -70,7 +70,7 @@
                                    rendered="#{pagingBean.index gt 0}"
                                    styleClass="thumbnailsPrevious"
                                    onclick="return featuredContentEvent(this.id)">
-                        <img src="img/featuredPrevButton.jpg" alt="Previous featured page"/>
+                        <img src="#{resource['img:featuredPrevButton.jpg']}" alt="Previous featured page"/>
                     </h:commandLink>
                     <ui:repeat value="#{pagingBean.list}" var="presentation">
                         <div class="thumbnail">
@@ -89,7 +89,7 @@
                                    rendered="#{pagingBean.index + 6 lt pagingBean.totalCount}"
                                    styleClass="thumbnailsNext"
                                    onclick="return featuredContentEvent(this.id)">
-                        <img src="img/featuredNextButton.jpg" alt="Next featured page"/>
+                        <img src="#{resource['img:featuredNextButton.jpg']}" alt="Next featured page"/>
                     </h:commandLink>
                 </h5:div>
             </div>
@@ -101,10 +101,10 @@
                 <div class="col">
                     <h2>General News</h2>
                     <div id="newsContainerWrapperOuter" class="contentBlock news">
-                        <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+                        <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
                         <div id="newsContainerWrapper">
                             <h5:div id="newsContainer">
-                                <img src="img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+                                <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
                                 <h3>#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].title}</h3>
                                 <span class="newsDate">#{p:formatDate(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].createdOn)}</span>
                                 <p>
