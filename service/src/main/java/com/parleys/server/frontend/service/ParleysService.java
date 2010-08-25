@@ -139,7 +139,4 @@ public interface ParleysService {
      * @return a list of news items
      */
     OverviewResponseDTO<News> getNews(NewsType newsType, long id, int index, int paging);
-
-    // TODO
-    List<PresentationOverviewDTO> search(String criteria);
 }
