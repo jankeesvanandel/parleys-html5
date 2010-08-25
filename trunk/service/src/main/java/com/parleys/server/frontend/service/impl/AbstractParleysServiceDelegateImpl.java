@@ -30,7 +30,7 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
 
     @SuppressWarnings("unchecked")
     private <T> T getService(String serviceName, Class<T> serviceClass) {
-        AMFClientFactory clientFactory = new AMFClientFactory();
+        final AMFClientFactory clientFactory = new AMFClientFactory();
         clientFactory.setServiceClass(serviceClass);
         clientFactory.setServiceName(serviceName);
         clientFactory.setServiceUrl(getAMFChannel());

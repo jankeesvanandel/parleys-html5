@@ -15,6 +15,7 @@
  */
 package com.parleys.server.frontend.service.impl;
 
+import com.googlecode.ehcache.annotations.Cacheable;
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.domain.types.NewsType;
@@ -42,36 +43,42 @@ import java.util.List;
 public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateImpl {
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="featured")
     @Override
     public List<? extends AbstractDTO> getFeatured(final FeaturedType type) {
         return getParleysServiceProxy().getFeatured(type.name());
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="featured")
     @Override
     public List<? extends AbstractDTO> getFeaturedContent() {
         return getParleysServiceProxy().getFeaturedContent();
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="spaces")
     @Override
     public FilteredOverviewResponseDTO<SpaceOverviewDTO> getSpacesOverview(final int index, final int paging) {
         return getParleysServiceProxy().getSpacesOverview(index, paging);
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="channels")
     @Override
     public FilteredOverviewResponseDTO<ChannelOverviewDTO> getChannelsOverview(final long spaceId) {
         return getParleysServiceProxy().getChannelsOverview(spaceId);
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="spaces")
     @Override
     public SpaceOverviewDTO getSpaceOverviewDTO(final long spaceId) {
         return getParleysServiceProxy().getSpaceOverviewDTO(spaceId);
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="channels")
     @Override
     public ChannelOverviewDTO getChannelOverviewDTO(final long channelId) {
         return getParleysServiceProxy().getChannelOverviewDTO(channelId);
@@ -84,6 +91,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="presentations")
     @Override
     public List<? extends AbstractDTO> getPresentationsOverview(final PresentationsCriteria criteria) {
         return getParleysServiceProxy().getPresentationsOverview(criteria.getChannelId(),
@@ -95,6 +103,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="presentations")
     @Override
     public List<PresentationOverviewDTO> getLatestPresentationsOverview(final PresentationsCriteria criteria) {
         int index = criteria.getIndex();
@@ -103,6 +112,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="presentations")
     @Override
     public List<PresentationOverviewDTO> getTopRatedPresentationsOverview(final PresentationsCriteria criteria) {
         int index = criteria.getIndex();
@@ -111,6 +121,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="presentation")
     @Override
     public List<PresentationOverviewDTO> getMostViewedPresentationsOverview(final PresentationsCriteria criteria) {
         int index = criteria.getIndex();
@@ -119,17 +130,12 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
+    @Cacheable(cacheName="news")
     @Override
     public OverviewResponseDTO<News> getNews(final NewsType newsType,
                                              final long id,
                                              final int index,
                                              final int paging) {
         return getParleysServiceProxy().getNews(newsType.name(), id, index, paging);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public List<PresentationOverviewDTO> search(final String criteria) {
-        return null;
     }
 }
