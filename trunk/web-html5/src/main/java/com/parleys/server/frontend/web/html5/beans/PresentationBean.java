@@ -19,7 +19,6 @@ import com.parleys.server.domain.types.AssetTargetType;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -35,8 +34,6 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class PresentationBean extends AbstractParleysBean {
-
-    private static final Logger LOGGER = Logger.getLogger(PresentationBean.class);
 
     private long presentationId;
 

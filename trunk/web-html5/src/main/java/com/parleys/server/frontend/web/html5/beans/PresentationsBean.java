@@ -21,7 +21,6 @@ import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,8 +36,6 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class PresentationsBean extends AbstractParleysBean implements Paginable {
-
-    private static final Logger LOGGER = Logger.getLogger(PresentationsBean.class);
 
     @ManagedProperty("#{presentationsViewBean}")
     private PresentationsViewBean presentationsViewBean;

@@ -26,7 +26,6 @@ import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 import com.parleys.server.frontend.web.html5.util.JSFUtil;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -45,7 +44,6 @@ import java.util.List;
 @RequestScoped
 public class HomepageBean extends AbstractParleysBean {
 
-    private static final Logger LOGGER = Logger.getLogger(HomepageBean.class);
 
     @ManagedProperty("#{homepageViewBean}")
     private HomepageViewBean homepageViewBean;
@@ -153,19 +151,22 @@ public class HomepageBean extends AbstractParleysBean {
         thumbnail.setId(abstractDTO.getId());
         if (abstractDTO instanceof PresentationOverviewDTO) {
             thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
+            thumbnail.setSecondLine(((PresentationOverviewDTO) abstractDTO).getSpeakers().get(0).getName());
             String url = ((PresentationOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("presentation");
-        } else if (abstractDTO instanceof ChannelOverviewDTO) {
-            thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
-            String url = ((ChannelOverviewDTO) abstractDTO).getThumbnailURL();
-            thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), url));
-            thumbnail.setOutcome("presentations");
         } else if (abstractDTO instanceof SpaceOverviewDTO) {
             thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
+            thumbnail.setSecondLine(((SpaceOverviewDTO) abstractDTO).getTotalChannelCount() + " channels");
             String url = ((SpaceOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("channels");
+        } else if (abstractDTO instanceof ChannelOverviewDTO) {
+            thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
+            thumbnail.setSecondLine("" + ((ChannelOverviewDTO) abstractDTO).getTotalPresentationCount() + " presentations");
+            String url = ((ChannelOverviewDTO) abstractDTO).getThumbnailURL();
+            thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), url));
+            thumbnail.setOutcome("presentations");
         }
         return thumbnail;
     }
