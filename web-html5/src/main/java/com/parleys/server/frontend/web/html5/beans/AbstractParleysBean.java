@@ -19,7 +19,6 @@ import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.service.ParleysService;
-import org.apache.log4j.Logger;
 
 import javax.faces.bean.ManagedProperty;
 
@@ -30,8 +29,6 @@ import javax.faces.bean.ManagedProperty;
  * @author Stephan Janssen
  */
 public abstract class AbstractParleysBean {
-
-    private static final Logger LOGGER = Logger.getLogger(AbstractParleysBean.class);
 
     private boolean isOnHomepage = false;
 

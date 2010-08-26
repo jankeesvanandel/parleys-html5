@@ -40,8 +40,8 @@ public class UtilBean {
         if (basePath == null) {
             final FacesContext fc = FacesContext.getCurrentInstance();
             //TODO: fix when deployed online
-//            basePath = fc.getExternalContext().getRequestContextPath()
-            basePath = "http://www.parleys.com/";
+            basePath = fc.getExternalContext().getRequestContextPath();
+//            basePath = "http://www.parleys.com/";
         }
         return basePath;
     }

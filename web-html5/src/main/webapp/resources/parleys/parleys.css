@@ -634,7 +634,6 @@ div#agenda li a {
 }
 
 div#agenda li a:hover {
-    background: #ebebeb url(#{resource['img:border.png']}) no-repeat;
     color: #67a5cd;
     padding: 7px 15px 7px 30px;
     -webkit-box-shadow: 2px 2px 4px #888;

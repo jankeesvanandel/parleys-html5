@@ -16,7 +16,8 @@
 package com.parleys.server.frontend.web.html5.util;
 
 import com.parleys.server.common.exception.AuthorizationException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ProjectStage;
@@ -41,7 +42,7 @@ import java.util.Iterator;
  */
 public class ParleysExceptionHandler extends ExceptionHandlerWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(ParleysExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParleysExceptionHandler.class);
 
     private final ExceptionHandler wrapped;
 

@@ -28,6 +28,7 @@ public class Thumbnail implements Serializable {
 
     private long id;
     private String name;
+    private String secondLine;
     private String thumbnailUrl;
     private String outcome;
 
@@ -45,6 +46,14 @@ public class Thumbnail implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSecondLine() {
+        return secondLine;
+    }
+
+    public void setSecondLine(String secondLine) {
+        this.secondLine = secondLine;
     }
 
     public String getThumbnailUrl() {
