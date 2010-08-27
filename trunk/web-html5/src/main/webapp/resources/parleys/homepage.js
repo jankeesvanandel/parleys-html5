@@ -14,6 +14,23 @@
  * limitations under the License.
  */
 
+var myScroll;
+
+function setHeight() {
+	var headerH = document.getElementById('logoBar').offsetHeight;
+	var wrapperH = window.innerHeight - headerH;
+	document.getElementById('innerContainer').style.height = wrapperH + 'px';
+}
+
+window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', setHeight, false);
+document.addEventListener('touchstart', function(e){ e.preventDefault(); }, false);
+document.addEventListener('DOMContentLoaded', loaded, false);
+
+function loaded() {
+	setHeight();
+	myScroll = new iScroll('content');
+}
+
 function featuredContentEvent(id) {
     try {
         $('#thumbnailsWrapper').fadeOut('fast', function() {

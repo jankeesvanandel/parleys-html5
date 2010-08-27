@@ -26,6 +26,8 @@
     <h:outputStylesheet library="parleys" name="parleysIpad.css"/>
     <h:outputScript library="javax.faces" name="jsf.js"/>
     <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
+    <h:outputScript library="parleys" name="iscroll-min.js"/>
+    <h:outputScript library="parleys" name="homepage.js"/>
     <ui:insert name="header"/>
 </h:head>
 <h:body>
@@ -69,10 +71,12 @@
             </div>
             <hr style="display: none;"/>
 
-            <div id="content">
-                <h:messages globalOnly="true"/>
+            <div id="innerContainer">
+                <div id="content">
+                    <h:messages globalOnly="true"/>
 
-                <ui:insert name="content"/>
+                    <ui:insert name="content"/>
+                </div>
             </div>
         </h:form>
     </div>
