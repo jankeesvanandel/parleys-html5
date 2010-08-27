@@ -66,15 +66,12 @@ a:hover {
     background-color: #000;
 
     filter: alpha(opacity=50);
-	-moz-opacity: 0.5;
-	-khtml-opacity: 0.5;
 	opacity: 0.5;
 }
 
 #playButtonOverlay a {
     display: block;
     z-index: 999;
-    border: 1px solid red;
     position: fixed;
     width: 200px;
     height: 200px;
@@ -86,10 +83,7 @@ a:hover {
 
 #playButtonOverlay a img{
     filter: alpha(opacity=100);
-	-moz-opacity: 1;
-	-khtml-opacity: 1;
 	opacity: 1;
-
     width: 200px;
     height: 200px;
 }
@@ -416,13 +410,17 @@ div#videoControls {
     position: relative;
 }
 
+div#videoControls div#agenda_btn {
+    border: 1px solid red;
+}
+
 div#videoControls div#tagsAndComments {
     float: left;
     width: 150px;
 }
 
 div#videoControls div#controls {
-    margin: 0 auto 0 auto;
+    margin: 5px auto 0 auto;
     width: 150px;
     white-space: nowrap;
 }
@@ -647,22 +645,44 @@ a.pagingPrev:hover {
 #agenda{
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
-	 border:5px solid #ffffff;
-	 padding:0px;
-	 width:380px;
-	 bottom:50px;
+	border:5px solid #ffffff;
+	padding:0px;
+	width:380px;
+	bottom:50px;
     top:0px;
-	 background-color:#3b3b3b;
-	 position:absolute;
+	background-color:#3b3b3b;
+	position:absolute;
 	-moz-box-shadow:0 20px 40px #888;
 	-webkit-box-shadow:0 10px 10px #888;
-	 -webkit-transform:rotateY(0deg) translateZ(500px) translate(0,0);
-     -webkit-transition-property: -webkit-transform, opacity;
-     -webkit-transition-duration: 0.5s;
-	 -webkit-transition-timing-function: ease-in-out;
-	 opacity:0;
+	-webkit-transform:rotateY(0deg) translateZ(500px) translate(0,0);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	opacity:0;
     overflow-y: scroll;
-	 }
+}
+
+div#agenda li a {
+    -webkit-transition: all 0.3s ease-out;
+    color: #174867;
+    padding: 7px 15px 7px 15px;
+    -webkit-border-radius:10px;
+    width: 250px;
+    display: block;
+    text-decoration: none;
+}
+
+div#agenda li{
+     -webkit-border-radius:10px;
+    border:1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+
+div#agenda li{
+    -webkit-transition: all 0.3s ease-out;
+}
 
 #chapters{
     position:absolute;
