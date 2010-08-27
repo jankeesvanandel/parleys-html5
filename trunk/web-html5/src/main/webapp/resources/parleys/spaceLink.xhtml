@@ -31,7 +31,7 @@
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
 </composite:interface>
 <composite:implementation>
-    <h:link outcome="channels">
+    <h:link outcome="channelsipad">
         <f:param name="id" value="#{cc.attrs.space.id}"/>
         <table>
             <tr>
@@ -45,7 +45,7 @@
 
                 <td class="centercol">
                     <h4><h:outputText value="#{cc.attrs.label}" class="contentHeader" rendered="#{cc.attrs.renderLabel}"/></h4>
-                    <br/><br/>
+                    <br/>
                     <h:outputText escape="false" rendered="#{cc.attrs.renderDescription}"
                                   value="#{cc.attrs.descriptionSize > 0 ? p:shortenTo(cc.attrs.descriptionSize, cc.attrs.description) : cc.attrs.description}"/>
                     <br/>

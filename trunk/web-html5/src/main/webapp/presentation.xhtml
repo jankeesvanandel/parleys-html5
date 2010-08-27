@@ -72,6 +72,7 @@
         </div>
 
         <div id="agenda">
+            <div id="msg">Scroll the agenda with two fingers!</div>
             <ul>
                 <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
                     <li>
@@ -110,9 +111,9 @@
                     <a href="#" id="nextChapterButton"><img src="#{resource['img:nextChapterButton.jpg']}" alt="Previous chapter"/></a>
                     <input type="button" value="Show Agenda" onclick="toggleAgenda()" id="agenda_btn" />
                 </div>
-                <div id="volume">
-                    <div id="videoVolumeSlider"></div>
-                </div>
+                <!--<div id="volume">-->
+                    <!--<div id="videoVolumeSlider"></div>-->
+                <!--</div>-->
             </div>
         </div>
         
