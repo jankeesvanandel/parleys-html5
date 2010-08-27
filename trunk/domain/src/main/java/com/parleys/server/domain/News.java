@@ -72,7 +72,7 @@ public class News extends AbstractEntity {
         return isGeneral;
     }
 
-    public void setGeneral(boolean general) {
+    public void setGeneral(final boolean general) {
         isGeneral = general;
     }
 }
