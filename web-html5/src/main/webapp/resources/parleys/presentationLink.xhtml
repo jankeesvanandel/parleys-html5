@@ -25,8 +25,6 @@
     <composite:attribute name="summary" type="java.lang.String" default="#{cc.attrs.presentation.summary}"/>
     <composite:attribute name="renderThumbnail" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderLabel" type="java.lang.Boolean" default="true"/>
-    <composite:attribute name="titleSize" type="int" default="0"/>
-    <composite:attribute name="summarySize" type="int" default="0"/>
     <composite:attribute name="renderSubLabel" type="java.lang.Boolean" default="true"/>
     <composite:attribute name="renderStats" type="java.lang.Boolean" default="false"/>
     <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
@@ -46,15 +44,17 @@
                 </td>
                 <td class="centercol">
                     <h4><h:outputText
-                            value="#{cc.attrs.titleSize > 0 ? p:shortenTo(cc.attrs.titleSize, cc.attrs.label) : cc.attrs.label }"
+                            styleClass="presTitle"
+                            value="#{p:title(cc.attrs.presentation)}"
                             rendered="#{cc.attrs.renderLabel}"/></h4>
                     <h:outputText
-                            value="#{p:subLabel(cc.attrs.presentation)}"
+                            value="#{p:subLabel(cc.attrs.presentation)}"                            
                             style="font-style:italic;"
                             rendered="#{cc.attrs.renderSubLabel}"/><br/>
                     <h:outputText
+                            styleClass="presSummary"
                             escape="false"
-                            value="#{cc.attrs.summarySize > 0 ? p:shortenTo(cc.attrs.summarySize, cc.attrs.summary) : cc.attrs.summary }"/>
+                            value="#{cc.attrs.summary}"/>
                 </td>
                 <c:if test="#{cc.attrs.renderStats}">
                     <td class="rightcol">
