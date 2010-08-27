@@ -39,21 +39,21 @@
                         </h:link>
                     </li>
                     <li class="navButton">
-                        <h:link outcome="news" value="News"/>
+                        <h:link outcome="newsipad" value="News"/>
                     </li>
                     <li class="navButton">
-                        <h:link outcome="spaces" value="Spaces"/>
+                        <h:link outcome="spacesipad" value="Spaces"/>
                     </li>
                     <h:panelGroup rendered="#{!empty parleysBean.currentSpace}">
                         <li class="navButton">
-                            <h:link outcome="channels" value="#{parleysBean.currentSpace.name}">
+                            <h:link outcome="channelsipad" value="#{parleysBean.currentSpace.name}">
                                 <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
                             </h:link>
                         </li>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{!empty parleysBean.currentChannel}">
                         <li class="navButton">
-                            <h:link outcome="presentations" value="#{parleysBean.currentChannel.name}">
+                            <h:link outcome="presentationsipad" value="#{parleysBean.currentChannel.name}">
                                 <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
                             </h:link>
                         </li>

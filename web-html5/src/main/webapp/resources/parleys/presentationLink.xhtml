@@ -47,7 +47,7 @@
                 <td class="centercol">
                     <h4><h:outputText
                             value="#{cc.attrs.titleSize > 0 ? p:shortenTo(cc.attrs.titleSize, cc.attrs.label) : cc.attrs.label }"
-                            rendered="#{cc.attrs.renderLabel}"/></h4><br/>
+                            rendered="#{cc.attrs.renderLabel}"/></h4>
                     <h:outputText
                             value="#{p:subLabel(cc.attrs.presentation)}"
                             style="font-style:italic;"
@@ -58,7 +58,7 @@
                 </td>
                 <c:if test="#{cc.attrs.renderStats}">
                     <td class="rightcol">
-                        <h:outputText escape="false" value="#{p:ratingBar(cc.attrs.presentation.totalVoteValue)}"/><br/>
+                        <h:outputText escape="false" value="#{p:ratingBar(cc.attrs.presentation.totalVoteValue)}"/>
                         <h:outputText value="#{p:totalVotes(cc.attrs.presentation.totalVotes)}"/><br/>
                         <h:outputText value="#{p:formatNumber(cc.attrs.presentation.totalViews)} views"/><br/>
                         <h:outputText value="#{p:formatNumber(cc.attrs.presentation.totalDownloads)} downloads"/><br/>

@@ -186,3 +186,44 @@ div.thumbnail {
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
+
+.rating_bar {
+    width: 73px;
+    background: url(#{resource['img:starsUnselected.png']}) 0 0 no-repeat;
+}
+
+.rating_bar div {
+    height: 13px;
+    background: url(#{resource['img:starsSelected.png']}) 0 0 no-repeat;
+}
+
+.shadowbox {
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    margin-left: 30px;
+    height: 110px;
+    display: inline-block;
+    text-align: left;
+    border: 1px dotted #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.leftcol {
+    padding: 10px 10px 10px 10px;
+    vertical-align: baseline;
+}
+
+.centercol {
+    padding: 10px 5px 10px 0;
+    width: 580px;
+    vertical-align: top;
+}
+
+.rightcol {
+    background: url(#{resource['img:podDivider.png']}) 10px 15px no-repeat;
+    padding: 10px 10px 10px 40px;
+    width: 180px;
+    vertical-align: top;
+}

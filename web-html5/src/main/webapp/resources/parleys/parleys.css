@@ -605,60 +605,7 @@ a.pagingPrev:hover {
     vertical-align: top;
 }
 
-/*
-#agenda {
-    z-index: 990;
-    position:absolute;
-    width: 300px;
-    top:50px;
-    bottom:100px;
-    display:none;
-    padding:10px;
-    background-color:#222222;
-    position:absolute;
-    -webkit-transform:rotateY(0deg) translateZ(100px) translate(0,0);
-    -webkit-transition-property: -webkit-transform, opacity;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;
-    opacity:100;
-}
 
-div#agenda li a {
-    -webkit-transition: all 0.3s ease-out;
-    color: #174867;
-    padding: 7px 15px 7px 15px;
-    -webkit-border-radius:10px;
-    width: 250px;
-    display: block;
-    text-decoration: none;
-}
-
-div#agenda li a:hover {
-    color: #67a5cd;
-    padding: 7px 15px 7px 30px;
-    -webkit-box-shadow: 2px 2px 4px #888;
-}
-
-div#agenda li{
-     -webkit-border-radius:10px;
-    border:1px solid black;
-    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
-    margin-top: 5px;
-    height: 100%;
-}
-
-div#agenda li{
-    -webkit-transition: all 0.3s ease-out;
-}
-
-div#agenda li:hover{
-     -webkit-border-radius:10px;
-    border:1px solid black;
-    background: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#343434));
-    margin-top: 5px;
-    height: 100%;
-}
-*/
 
 #mainContent{
     position:absolute;
@@ -696,35 +643,6 @@ div#agenda li:hover{
     width:100%;
     height:100%;
 }
-
-
-/*
-#agenda{
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-    border: 5px solid #ffffff;
-    padding: 0;
-    width: 380px;
-    height: 400px;
-    top: 50%;
-    left: 50%;
-    margin-top: -200px;
-    margin-left: -190px;
-    background-color: #3b3b3b;
-    position: fixed;
-    d/isplay: block;
-	-moz-box-shadow: 0 20px 40px #888;
-	-webkit-box-shadow: 0 10px 10px #888;
-    -webkit-transform: rotateY(0deg) translateZ(500px) translate(0,0);
-    -webkit-transition-property: -webkit-transform, opacity;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;
-    overflow-y: scroll;
-    opacity: 0;
-}
-*/
-
-
 
 #agenda{
 	-moz-border-radius: 10px;
