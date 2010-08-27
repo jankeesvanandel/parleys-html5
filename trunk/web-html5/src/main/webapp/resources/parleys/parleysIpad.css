@@ -228,6 +228,20 @@ div.thumbnail {
     vertical-align: top;
 }
 
+.presTitle {
+    display: block;
+    width: 580px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.presSummary {
+    height: 50px;
+    display: block;
+    overflow: hidden;
+}
+
 .newsitem {
     background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
     margin: 5px 30px 5px 30px;

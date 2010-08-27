@@ -87,37 +87,44 @@ public class JSFUtil {
         }
     }
 
-    public static String subLabel(final PresentationOverviewDTO presentation) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("by ");
+    public static String title(final PresentationOverviewDTO presentation) {
+        final float duration = presentation.getTotalDuration();
+        final int hours = (int) Math.floor(duration / 3600);
+        final int minutes = (int) Math.floor((duration % 3600) / 60);
+        final int seconds = (int) Math.floor(duration) % 60;
 
-        List<SpeakerDTO> speakers = presentation.getSpeakers();
-        for (SpeakerDTO speaker : speakers) {
-            builder.append(speaker.getName());
-            if (speakers.size() > 1) {
-                builder.append(", ");
-            }
-        }
-
-        float duration = presentation.getTotalDuration();
-        int hours = (int) Math.floor(duration / 3600);
-        int minutes = (int) Math.floor((duration % 3600) / 60);
-        int seconds = (int) Math.floor(duration) % 60;
-
-        String minutesString = (minutes < 10) ? "0" + minutes : "" + minutes;
-        String secondsString = (seconds < 10) ? "0" + seconds : "" + seconds;
+        final String minutesString = (minutes < 10) ? "0" + minutes : "" + minutes;
+        final String secondsString = (seconds < 10) ? "0" + seconds : "" + seconds;
         String hoursString = (hours < 10) ? "0" + hours + ":" : hours + ":";
 
         if (hours == 0) {
             hoursString = "";
         }
 
-        builder.append(" (Play time: ");
+        final StringBuilder builder = new StringBuilder();
+        builder.append(presentation.getTitle());
+        builder.append(" (");
         builder.append(hoursString);
         builder.append(minutesString);
         builder.append(":");
         builder.append(secondsString);
         builder.append(") ");
+        return builder.toString();        
+    }
+
+    public static String subLabel(final PresentationOverviewDTO presentation) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("by ");
+
+        List<SpeakerDTO> speakers = presentation.getSpeakers();
+        int counter = 1;
+        for (SpeakerDTO speaker : speakers) {
+            builder.append(speaker.getName());
+            if (speakers.size() > 1 && counter++ < speakers.size()) {
+                builder.append(", ");
+            }
+        }
+        builder.append(" - ");
         builder.append(DateFormat.getDateInstance().format(presentation.getCreatedOn()));
 
         return builder.toString();
