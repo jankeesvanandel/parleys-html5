@@ -26,9 +26,18 @@ window.addEventListener('onorientationchange' in window ? 'orientationchange' : 
 document.addEventListener('touchstart', function(e){ e.preventDefault(); }, false);
 document.addEventListener('DOMContentLoaded', loaded, false);
 
+//$(document).ready(function() {
 function loaded() {
 	setHeight();
 	myScroll = new iScroll('content');
+
+    $("#logoBar a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
+    $("#footer a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; })
+}
+//});
+
+function onTouchEndTriggerClick() {
+    window.location = this.href;
 }
 
 function featuredContentEvent(id) {
