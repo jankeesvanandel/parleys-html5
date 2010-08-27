@@ -227,3 +227,15 @@ div.thumbnail {
     width: 180px;
     vertical-align: top;
 }
+
+.newsitem {
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin: 5px 30px 5px 30px;
+    padding: 5px 5px 5px 5px;
+    display: inline-block;
+    text-align: left;
+    border: 1px dotted #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
