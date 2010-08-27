@@ -125,19 +125,6 @@ public class HomepageBean extends AbstractParleysBean {
     }
 
     private void transformToThumbnails(final List<? extends AbstractDTO> thumbnailsIn, int index) {
-//        if (index < 0) {
-//            index = 0;
-//        }
-//        if (index >= thumbnailsIn.size()) {
-//            index = 0;
-//        }
-
-//        List<? extends AbstractDTO> newThumbnailsIn = thumbnailsIn;
-//        if (thumbnailsIn.size() > 6) {
-//            final int endIndex = Math.min(index + 6, newThumbnailsIn.size());
-//            newThumbnailsIn = newThumbnailsIn.subList(index, endIndex);
-//        }
-
         List<Thumbnail> ret = new ArrayList<Thumbnail>();
         for (AbstractDTO thumbnailDto : thumbnailsIn) {
             final Thumbnail thumbnail = createThumbnailFromDto(thumbnailDto);
@@ -151,7 +138,9 @@ public class HomepageBean extends AbstractParleysBean {
         thumbnail.setId(abstractDTO.getId());
         if (abstractDTO instanceof PresentationOverviewDTO) {
             thumbnail.setName(((PresentationOverviewDTO) abstractDTO).getTitle());
-            thumbnail.setSecondLine(((PresentationOverviewDTO) abstractDTO).getSpeakers().get(0).getName());
+            if (!((PresentationOverviewDTO) abstractDTO).getSpeakers().isEmpty()) {
+                thumbnail.setSecondLine(((PresentationOverviewDTO) abstractDTO).getSpeakers().get(0).getName());
+            }
             String url = ((PresentationOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("presentation");

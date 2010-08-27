@@ -121,7 +121,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
     /** {@inheritDoc} */
-    @Cacheable(cacheName="presentation")
+    @Cacheable(cacheName="presentations")
     @Override
     public List<PresentationOverviewDTO> getMostViewedPresentationsOverview(final PresentationsCriteria criteria) {
         int index = criteria.getIndex();

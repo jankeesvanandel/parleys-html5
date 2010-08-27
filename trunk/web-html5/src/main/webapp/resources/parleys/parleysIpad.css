@@ -48,7 +48,7 @@ a:hover {
 /* Start sticky footer */
 html, body, #container { height: 100%; }
 body > #container { height: auto; min-height: 100%; }
-#content { padding-bottom: 75px; }
+#content { padding-bottom: 95px; /* 75px + 20px extra padding */ }
 #footer { clear: both; position: relative; z-index: 10; height: 75px; margin-top: -75px; }
 /* End sticky footer */
 
@@ -177,6 +177,7 @@ div.thumbnail {
     position: relative;
     display: inline-block;
     text-align: center;
+    vertical-align: top;
     width: 200px;
     height: 130px;
     padding: 20px;
