@@ -148,7 +148,6 @@ div#thumbnailControls ul {
     background: -webkit-gradient(linear, left top, left bottom, from(#960000), to(#ed0000)); /* for webkit browsers */
     background: -moz-linear-gradient(top,  #960000,  #ed0000); /* for firefox 3.6+ */
 
-
     width: 700px;
     text-align: center;
     border: 1px solid #111;
@@ -156,6 +155,7 @@ div#thumbnailControls ul {
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
+
 div#thumbnailControls ul li {
     display: inline-block;
     border-right: 1px solid #111;
@@ -238,4 +238,22 @@ div.thumbnail {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+}
+
+div.pagingBar {
+    float: right;
+    position: relative;
+}
+div.pagingBar a.paging,
+div.pagingBar span.paging {
+    display: inline-block;
+    padding: 7px 12px;
+    font-size: 1.2em;
+}
+div.pagingBar a.previous.paging {
+}
+div.pagingBar a.current.paging {
+    background-color: #333;
+}
+div.pagingBar a.next.paging {
 }
