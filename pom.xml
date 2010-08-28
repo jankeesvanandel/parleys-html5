@@ -84,12 +84,117 @@
         </extensions>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project dependencies -->
+            <dependency>
+                <groupId>com.parleys.server</groupId>
+                <artifactId>parleys-frontend-html5</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.parleys.server</groupId>
+                <artifactId>parleys-frontend-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.parleys.server</groupId>
+                <artifactId>parleys-frontend-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JSF dependencies -->
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ocpsoft</groupId>
+                <artifactId>prettyfaces-jsf2</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+
+            <!-- Utility dependencies -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+            <!-- Java EE dependencies -->
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-servlet_2.5_spec</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jsp_2.1_spec</artifactId>
+                <version>1.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-el_2.2_spec</artifactId>
+                <version>1.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Parleys service layer dependencies -->
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-core</artifactId>
+                <version>3.2.0.3978</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-common</artifactId>
+                <version>3.2.0.3978</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.10</version>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.12</version>
         </dependency>
+
+        <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -159,41 +264,6 @@
             </roles>
         </developer>
     </developers>
-
-    <!--profiles>
-        <profile>
-            <id>local</id>
-            <properties>
-                <application.properties.file>classpath:/application.properties</application.properties.file>
-                <test.properties.file>classpath:/applicationTest.properties</test.properties.file>
-                <log4j.cofig>classpath:/staging.log4j.xml</log4j.cofig>
-                <test.log4j.cofig>classpath:/server.log4j.xml</test.log4j.cofig>
-                <application.quartz.properties>classpath:/quartz.properties</application.quartz.properties>
-            </properties>
-        </profile>
-        <profile>
-            <id>staging</id>
-            <properties>
-                <application.properties.file>classpath:/staging.application.properties</application.properties.file>
-                <test.properties.file>classpath:/server.applicationTest.properties</test.properties.file>
-                <log4j.cofig>classpath:/staging.log4j.xml</log4j.cofig>
-                <test.log4j.cofig>classpath:/server.test.log4j.xml</test.log4j.cofig>
-                <application.quartz.properties>classpath:/staging.quartz.properties</application.quartz.properties>
-                <distribution.repository.url>scp://www.bejug.org/home/hosting</distribution.repository.url>
-            </properties>
-        </profile>
-        <profile>
-            <id>server</id>
-            <properties>
-                <application.properties.file>classpath:/server.application.properties</application.properties.file>
-                <test.properties.file>classpath:/server.applicationTest.properties</test.properties.file>
-                <log4j.cofig>classpath:/server.log4j.xml</log4j.cofig>
-                <test.log4j.cofig>classpath:/server.test.log4j.xml</test.log4j.cofig>
-                <application.quartz.properties>classpath:/server.quartz.properties</application.quartz.properties>
-                <distribution.repository.url>scp://www.devoxx.com/home/hosting</distribution.repository.url>
-            </properties>
-        </profile>
-    </profiles-->
 
     <repositories>
         <repository>

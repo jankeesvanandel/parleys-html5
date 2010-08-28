@@ -28,8 +28,8 @@ import java.io.IOException;
  *
  * @author Jan-Kees van Andel
  */
-@FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIDiv")
-public class UIDiv extends UIOutput {
+@FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIListItem")
+public class UIListItem extends UIOutput {
 
     private static final String FAMILY = "com.parleys.server.frontend.web.jsf.components.html5";
 
@@ -37,7 +37,7 @@ public class UIDiv extends UIOutput {
 
     private String style;
 
-    public UIDiv() {
+    public UIListItem() {
         setRendererType(null); // Override rendererType set by UIOutput to prevent annoying WARNINGs.
     }
 
@@ -52,7 +52,7 @@ public class UIDiv extends UIOutput {
     public void encodeBegin(final FacesContext context) throws IOException {
         super.encodeBegin(context);
         final ResponseWriter w = context.getResponseWriter();
-        w.startElement("div", this);
+        w.startElement("li", this);
         w.writeAttribute("id", getClientId(context), "id");
         if (styleClass != null) {
             w.writeAttribute("class", styleClass, "styleClass");
@@ -67,7 +67,7 @@ public class UIDiv extends UIOutput {
     public void encodeEnd(final FacesContext context) throws IOException {
         super.encodeEnd(context);
         final ResponseWriter w = context.getResponseWriter();
-        w.endElement("div");
+        w.endElement("li");
     }
 
     public String getStyleClass() {

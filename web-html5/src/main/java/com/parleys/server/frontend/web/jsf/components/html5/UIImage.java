@@ -15,6 +15,8 @@
  */
 package com.parleys.server.frontend.web.jsf.components.html5;
 
+import com.parleys.server.frontend.web.html5.util.JSFUtil;
+
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
@@ -28,16 +30,21 @@ import java.io.IOException;
  *
  * @author Jan-Kees van Andel
  */
-@FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIDiv")
-public class UIDiv extends UIOutput {
+@FacesComponent("com.parleys.server.frontend.web.jsf.components.html5.UIImage")
+public class UIImage extends UIOutput {
 
     private static final String FAMILY = "com.parleys.server.frontend.web.jsf.components.html5";
 
     private String styleClass;
 
     private String style;
+    private String src;
+    private String alt;
+    private String width;
+    private String height;
+    private String border;
 
-    public UIDiv() {
+    public UIImage() {
         setRendererType(null); // Override rendererType set by UIOutput to prevent annoying WARNINGs.
     }
 
@@ -49,25 +56,21 @@ public class UIDiv extends UIOutput {
 
     /** {@inheritDoc} */
     @Override
-    public void encodeBegin(final FacesContext context) throws IOException {
-        super.encodeBegin(context);
-        final ResponseWriter w = context.getResponseWriter();
-        w.startElement("div", this);
-        w.writeAttribute("id", getClientId(context), "id");
-        if (styleClass != null) {
-            w.writeAttribute("class", styleClass, "styleClass");
-        }
-        if (style != null) {
-            w.writeAttribute("style", style, "style");
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public void encodeEnd(final FacesContext context) throws IOException {
         super.encodeEnd(context);
         final ResponseWriter w = context.getResponseWriter();
-        w.endElement("div");
+        w.startElement("img", this);
+        w.writeAttribute("id", getClientId(context), "id");
+
+        JSFUtil.writeComponentAttribute(this, context, "class", styleClass);
+        JSFUtil.writeComponentAttribute(this, context, "style", style);
+        JSFUtil.writeComponentAttribute(this, context, "src", src);
+        JSFUtil.writeComponentAttribute(this, context, "alt", alt);
+        JSFUtil.writeComponentAttribute(this, context, "width", width);
+        JSFUtil.writeComponentAttribute(this, context, "height", height);
+        JSFUtil.writeComponentAttribute(this, context, "border", border);
+
+        w.endElement("img");
     }
 
     public String getStyleClass() {
@@ -84,5 +87,45 @@ public class UIDiv extends UIOutput {
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
+    public String getAlt() {
+        return alt;
+    }
+
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getBorder() {
+        return border;
+    }
+
+    public void setBorder(String border) {
+        this.border = border;
     }
 }

@@ -21,8 +21,13 @@ import com.parleys.server.dto.SpeakerDTO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Collection;
@@ -207,5 +212,15 @@ public class JSFUtil {
         return fc.isPostback()
             || fc.isValidationFailed()
             || fc.getPartialViewContext().isAjaxRequest();
+    }
+
+    public static void writeComponentAttribute(UIComponent component, FacesContext fc, String name, Object value) throws IOException {
+        ResponseWriter w = fc.getResponseWriter();
+        ELContext elContext = fc.getELContext();
+        ValueExpression expression = component.getValueExpression(name);
+        if (expression != null) {
+            value = expression.getValue(elContext);
+        }
+        w.writeAttribute(name, value, name);
     }
 }

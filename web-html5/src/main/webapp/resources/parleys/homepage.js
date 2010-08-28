@@ -14,36 +14,99 @@
  * limitations under the License.
  */
 
-var myScroll;
+//var myScroll;
+//
+//function setHeight() {
+//	var headerH = document.getElementById('logoBar').offsetHeight;
+//	var wrapperH = window.innerHeight - headerH;
+//	document.getElementById('innerContainer').style.height = wrapperH + 'px';
+//}
 
-function setHeight() {
-	var headerH = document.getElementById('logoBar').offsetHeight;
-	var wrapperH = window.innerHeight - headerH;
-	document.getElementById('innerContainer').style.height = wrapperH + 'px';
-}
-
-window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', setHeight, false);
-document.addEventListener('touchstart', function(e){ e.preventDefault(); }, false);
+//window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', setHeight, false);
+//document.addEventListener('touchstart', function(e){ e.preventDefault(); }, false);
 document.addEventListener('DOMContentLoaded', loaded, false);
 
-//$(document).ready(function() {
 function loaded() {
-	setHeight();
-	myScroll = new iScroll('content');
+//	setHeight();
+//	myScroll = new iScroll('content');
 
-    $("#logoBar a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
-    $("#footer a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; })
-}
-//});
+//    $("#logoBar a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
+//    $("#footer a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
 
-function onTouchEndTriggerClick() {
-    window.location = this.href;
+    initializeBanner();
 }
+
+function initializeBanner() {
+    var photoWidth = $("#featuredPhotoWrapper").width();
+    var photoCount = $("#featuredPhotoList img").size();
+    var photosTotalWidth = photoWidth * photoCount;
+
+    //Adjust the image reel to its new size
+    $("#featuredPhotoList").css({'width' : photosTotalWidth});
+
+    function updateButtons(index) {
+        $("#featuredPhotoPaging a").removeClass('active');
+        $("#featuredPhotoPaging a").eq(index).addClass('active');
+        $("#featuredPhotoPaging h2").hide();
+        $("#featuredPhotoPaging h2").eq(index).show();
+        $("#featuredPhotoPaging h3").hide();
+        $("#featuredPhotoPaging h3").eq(index).show();
+    }
+
+    updateButtons(0);
+
+    //Paging and Slider Function
+    function rotate() {
+        var photoIndex = activePhoto.attr("rel") - 1;
+        var featuredPhotoListPosition = photoIndex * photoWidth;
+
+        updateButtons(photoIndex);
+
+        //Slider Animation
+        $("#featuredPhotoList").animate({
+            left: -featuredPhotoListPosition
+        }, 500);
+    }
+
+    //Rotation  and Timing Event
+    function rotateSwitch(){
+        play = setInterval(function() {
+            activePhoto = $('#featuredPhotoPaging a.active').next();
+            if (activePhoto.length === 0) {
+                activePhoto = $('#featuredPhotoPaging a:first');
+            }
+            rotate();
+        }, 5000);
+    }
+
+    rotateSwitch(); //Run function on launch
+
+	$("#featuredPhotoPaging a").click(function() {
+		activePhoto = $(this);
+
+		//Reset Timer
+		clearInterval(play);
+		rotate();
+		rotateSwitch();
+		return false;
+	});
+
+    window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', function() {
+        $("#featuredPhotoPaging a").unbind();
+        clearInterval(play);
+        delete activePhoto;
+        initializeBanner();
+    }, false);
+}
+
+//function onTouchEndTriggerClick() {
+//    window.location = this.href;
+//}
 
 function featuredContentEvent(id) {
     try {
         $('#thumbnailsWrapper').fadeOut('fast', function() {
-            $('#thumbnailsWrapperOuter img.loader').show();
+            $('#lowerThumbnailsContainer > img.loader').show();
             jsf.ajax.request(id, "event", {
                 render: 'main:thumbnails',
                 onevent: onFeaturedContentAjaxEvent,
@@ -59,8 +122,31 @@ function featuredContentEvent(id) {
 
 function onFeaturedContentAjaxEvent(evt) {
     if (evt.status == 'complete') {
-        $('#thumbnailsWrapperOuter img.loader').hide();
+        $('#lowerThumbnailsContainer > img.loader').hide();
         $('#thumbnailsWrapper').fadeIn('fast');
+//        setTimeout(function () { myScroll.refresh() }, 0)
+    }
+}
+
+function loadMoreFeaturedContentEvent(id) {
+    try {
+        $('.showMoreThumbnails img.loader').show();
+        jsf.ajax.request(id, "event", {
+            render: 'main:thumbnails',
+            onevent: onFeaturedContentAjaxEvent,
+            'javax.faces.behavior.event': 'action'
+        });
+    } catch (e) {
+        alert(e.message);
+    }
+
+    return false;
+}
+
+function onLoadMoreFeaturedContentAjaxEvent(evt) {
+    if (evt.status == 'complete') {
+        $('.showMoreThumbnails img.loader').hide();
+//        setTimeout(function () { myScroll.refresh() }, 0)
     }
 }
 

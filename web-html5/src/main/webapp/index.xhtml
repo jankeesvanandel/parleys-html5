@@ -34,7 +34,35 @@
     </ui:define>
     <ui:define name="content">
         <div id="upperPhotoContainer">
-            <img src="#{utilBean.basePath}/resources/ipad/jbloch.jpg" alt="" width="981" height="471" border="0"/>
+            <div id="featuredPhotoWrapper">
+                <div id="featuredPhotoList">
+                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
+                        <h:link outcome="#{thumbnail.outcome}" rendered="#{varStatus.index lt 4}">
+                            <img src="#{utilBean.basePath}/resources/ipad/#{thumbnail.photo}" alt=""/>
+                        </h:link>
+                    </ui:repeat>
+                </div>
+            </div>
+            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader"/>
+            <div id="featuredPhotoPaging">
+                <div>
+                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
+                        <h:link outcome="#{thumbnail.outcome}" href="#" rel="#{varStatus.index+1}" rendered="#{varStatus.index lt 4}">
+                            <span class="degrade">#{varStatus.index+1}</span>
+                        </h:link>
+                    </ui:repeat>
+                </div>
+                <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
+                    <h5:div styleClass="featuredPhotoinfo" rendered="#{varStatus.index lt 4}">
+                        <h2>
+                            #{p:shortenTo(70, thumbnail.name)}
+                        </h2>
+                        <h3>
+                            #{p:shortenTo(70, thumbnail.secondLine)}
+                        </h3>
+                    </h5:div>
+                </ui:repeat>
+            </div>
         </div>
         <div id="thumbnailControls">
             <ul>
@@ -61,7 +89,7 @@
         <hr class="clear" style="display:none"/>
 
         <div id="lowerThumbnailsContainer">
-            <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
+            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
             <div id="thumbnailsWrapper">
                 <h5:div id="thumbnails">
                     <ui:repeat value="#{pagingBean.list}" var="presentation">
@@ -72,11 +100,18 @@
                                                 title="#{presentation.name}"
                                                 alt=""
                                                 width="133" height="88" styleClass="reflect"/>
-                                <h3 title="#{presentation.name}">#{p:shortenTo(25, presentation.name)}</h3>
-                                <p>#{presentation.secondLine}</p>
+                                <h3 title="#{presentation.name}">#{p:shortenTo(24, presentation.name)}</h3>
+                                <p>#{p:shortenTo(24, presentation.secondLine)}</p>
                             </h:link>
                         </div>
                     </ui:repeat>
+
+                    <h5:div styleClass="thumbnail showMoreThumbnails" rendered="#{pagingBean.list.size() lt pagingBean.totalCount}">
+                        <h:commandLink id="showMoreThumbnails" action="#{homepageBean.showMoreThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.list.size() + 6)}" onclick="return loadMoreFeaturedContentEvent(this.id)">
+                            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+                            <img src="#{utilBean.basePath}/resources/ipad/show_more.png" alt="Show more" width="224" height="144"/>
+                        </h:commandLink>
+                    </h5:div>
                 </h5:div>
             </div>
         </div>

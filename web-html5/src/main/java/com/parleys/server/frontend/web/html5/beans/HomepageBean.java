@@ -70,7 +70,7 @@ public class HomepageBean extends AbstractParleysBean {
         }
 
         List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
-        transformToThumbnails(thumbnailsIn, getPagingBean().getIndex());
+        transformToThumbnails(thumbnailsIn);
 
         homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
 
@@ -97,6 +97,7 @@ public class HomepageBean extends AbstractParleysBean {
     public String viewThumbnails(Filter filter, Filter.Type filterType, int index) {
         getPagingBean().setPaginatedList(Collections.<Thumbnail>emptyList());
         getPagingBean().setIndex(index);
+        getPagingBean().setPaging(6);
         homepageViewBean.setThumbnailsFilter(filter);
         homepageViewBean.setThumbnailsFilterType(filterType);
 
@@ -106,28 +107,69 @@ public class HomepageBean extends AbstractParleysBean {
                 criteria.setIndex(0);
                 criteria.setPaging(99);
                 if (filter == Filter.FEATURED) {
-                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION), index);
+                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
                 } else if (filter == Filter.LATEST) {
-                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
                 } else if (filter == Filter.TOP_RATED) {
-                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
                 } else if (filter == Filter.MOST_VIEWED) {
-                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria), index);
+                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
                 }
             } else if (filterType == Filter.Type.CHANNEL) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL), index);
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
             } else if (filterType == Filter.Type.SPACE) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE), index);
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
             }
         }
 
         return null;
     }
 
-    private void transformToThumbnails(final List<? extends AbstractDTO> thumbnailsIn, int index) {
+    public String showMoreThumbnails(Filter filter, Filter.Type filterType, int amount) {
+        getPagingBean().setPaginatedList(Collections.<Thumbnail>emptyList());
+        getPagingBean().setIndex(0);
+        getPagingBean().setPaging(amount);
+        homepageViewBean.setThumbnailsFilter(filter);
+        homepageViewBean.setThumbnailsFilterType(filterType);
+
+        if (filter != null && filterType != null) {
+            if (filterType == Filter.Type.PRESENTATION) {
+                final PresentationsCriteria criteria = new PresentationsCriteria();
+                criteria.setIndex(0);
+                criteria.setPaging(999);
+                if (filter == Filter.FEATURED) {
+                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
+                } else if (filter == Filter.LATEST) {
+                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
+                } else if (filter == Filter.TOP_RATED) {
+                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
+                } else if (filter == Filter.MOST_VIEWED) {
+                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
+                }
+            } else if (filterType == Filter.Type.CHANNEL) {
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
+            } else if (filterType == Filter.Type.SPACE) {
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
+            }
+        }
+
+        return null;
+    }
+
+    private void transformToThumbnails(final List<? extends AbstractDTO> thumbnailsIn) {
         List<Thumbnail> ret = new ArrayList<Thumbnail>();
-        for (AbstractDTO thumbnailDto : thumbnailsIn) {
+        for (int i = 0, thumbnailsInSize = thumbnailsIn.size(); i < thumbnailsInSize; i++) {
+            AbstractDTO thumbnailDto = thumbnailsIn.get(i);
             final Thumbnail thumbnail = createThumbnailFromDto(thumbnailDto);
+            final String photo;
+            switch (i % 4) {
+                case 0: photo = "josh.jpg"; break;
+                case 1: photo = "beatbox.jpg"; break;
+                case 2: photo = "javaposse.jpg"; break;
+                case 3: photo = "james.jpg"; break;
+                default: throw new AssertionError("Weird");
+            }
+            thumbnail.setPhoto(photo);
             ret.add(thumbnail);
         }
         getPagingBean().setPaginatedList(ret);
@@ -143,19 +185,19 @@ public class HomepageBean extends AbstractParleysBean {
             }
             String url = ((PresentationOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.presentationThumbnail(thumbnail.getId(), url));
-            thumbnail.setOutcome("presentation");
+            thumbnail.setOutcome("presentationipad");
         } else if (abstractDTO instanceof SpaceOverviewDTO) {
             thumbnail.setName(((SpaceOverviewDTO) abstractDTO).getName());
             thumbnail.setSecondLine(((SpaceOverviewDTO) abstractDTO).getTotalChannelCount() + " channels");
             String url = ((SpaceOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.spaceThumbnail(thumbnail.getId(), url));
-            thumbnail.setOutcome("channels");
+            thumbnail.setOutcome("channelsipad");
         } else if (abstractDTO instanceof ChannelOverviewDTO) {
             thumbnail.setName(((ChannelOverviewDTO) abstractDTO).getName());
             thumbnail.setSecondLine("" + ((ChannelOverviewDTO) abstractDTO).getTotalPresentationCount() + " presentations");
             String url = ((ChannelOverviewDTO) abstractDTO).getThumbnailURL();
             thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), url));
-            thumbnail.setOutcome("presentations");
+            thumbnail.setOutcome("presentationsipad");
         }
         return thumbnail;
     }
