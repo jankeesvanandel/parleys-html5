@@ -63,6 +63,7 @@ public class UIVideo extends UIComponentBase {
      */
     @Override
     public void encodeBegin(final FacesContext context) throws IOException {
+        super.encodeBegin(context);
         final ResponseWriter w = context.getResponseWriter();
         w.write("<video");
         writeIfNotNull("id", getClientId(context), w);
@@ -89,6 +90,7 @@ public class UIVideo extends UIComponentBase {
 
     @Override
     public void encodeEnd(final FacesContext context) throws IOException {
+        super.encodeEnd(context);
         final UIComponent facet = getFacet(NOTSUPPORTED_FACET);
         if (facet != null) {
             facet.encodeAll(context);

@@ -31,6 +31,7 @@ public class Thumbnail implements Serializable {
     private String secondLine;
     private String thumbnailUrl;
     private String outcome;
+    private String photo;
 
     public long getId() {
         return id;
@@ -70,5 +71,13 @@ public class Thumbnail implements Serializable {
 
     public void setOutcome(String outcome) {
         this.outcome = outcome;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

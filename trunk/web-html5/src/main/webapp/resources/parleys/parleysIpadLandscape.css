@@ -16,3 +16,7 @@
 div#upperPhotoContainer {
     display: none;
 }
+
+div#lowerThumbnailsContainer {
+    width: 950px;
+}

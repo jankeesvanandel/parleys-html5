@@ -131,13 +131,9 @@ div#upperPhotoContainer {
 div#upperPhotoContainer img {
 }
 
-div#lowerThumbnailsContainer {
-    text-align: center;
-}
-
 div#thumbnailControls {
-    width: 100%;
-    margin-top: 20px;
+    /*width: 100%;*/
+    margin: 20px;
 }
 
 div#thumbnailControls ul {
@@ -171,21 +167,56 @@ div#thumbnailControls ul li a {
     color: #fc0;
 }
 
+div#lowerThumbnailsContainer {
+    margin: 0 auto;
+    position: relative;
+}
 
 div.thumbnail {
-    f/loat: left;
     position: relative;
     display: inline-block;
     text-align: center;
     vertical-align: top;
     width: 200px;
-    height: 130px;
-    padding: 20px;
-    margin: 20px;
-    border: 1px dotted #666;
+    height: 120px;
+    padding: 10px;
+    margin: 0px 5px 10px;
+    border: 2px solid #333;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    background-color: rgba(51,51,51,0.5);
+}
+
+div.thumbnail.showMoreThumbnails {
+    width: 224px;
+    height: 142px;
+    margin: 0px 5px 10px 10px;
+    border: none;
+    border-radius: 0;
+    background: none;
+    padding: 0;
+}
+
+.loader {
+    width: 32px;
+    height: 32px;
+}
+
+#lowerThumbnailsContainer > .loader {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    margin-left: -16px;
+}
+
+.showMoreThumbnails .loader {
+    z-index: 999;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
 }
 
 .rating_bar {

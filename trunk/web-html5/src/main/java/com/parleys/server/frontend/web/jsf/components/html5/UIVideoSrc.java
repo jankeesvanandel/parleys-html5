@@ -47,6 +47,7 @@ public class UIVideoSrc extends UIComponentBase {
      */
     @Override
     public void encodeEnd(final FacesContext context) throws IOException {
+        super.encodeEnd(context);
         final ResponseWriter w = context.getResponseWriter();
         w.write("<source");
         writeIfNotNull("src", source, w);
