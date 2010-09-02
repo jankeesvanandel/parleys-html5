@@ -20,3 +20,7 @@ div#upperPhotoContainer {
 div#lowerThumbnailsContainer {
     width: 950px;
 }
+
+div#mainContent {
+    height: 480px;
+}

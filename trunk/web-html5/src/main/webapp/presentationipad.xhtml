@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <ui:composition
-        template="WEB-INF/facelets/templateplayer.xhtml"
+        template="WEB-INF/facelets/templateIpad.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
@@ -34,8 +34,8 @@
 
     <ui:define name="content">
         <div id="mainContent">
-            <div id="inner">
-                <div id="videoContainer">
+            <!--<div id="inner" style="border:1px solid yellow;">-->
+                <div id="videoContainer" style="border:1px solid red; background-color: #fcc;">
                     <h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js" target="head"/>
                     <h:outputScript library="parleys" name="video.js" target="head"/>
                     <h:outputScript library="parleys" name="playerAnimation.js" target="head"/>
@@ -44,7 +44,7 @@
                     </video>
                 </div>
 
-                <div id="slidesContainer">
+                <div id="slidesContainer" style="border:1px solid green; background-color: #cfc;">
                     <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
                         <img class="slide" id="slide_#{asset.id}" style="display: none"
                             src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
@@ -53,13 +53,13 @@
                             endTime="#{asset.cuePoint + asset.duration}"/>
                     </ui:repeat>
                 </div>
-		    </div>
+		    <!--</div>-->
         </div>
 
         <div id="playButtonOverlayBackground"></div>
 
         <div id="playButtonOverlay">
-            <a href="#" title="Click to play"><img src="#{resource['img:playButton.png']}" alt="Click to play"/></a>
+            <a href="#" title="Click to play"><img src="#{resource['ipad:play_btn_large.png']}" alt="Click to play"/></a>
         </div>
 
         <div id="agenda">
