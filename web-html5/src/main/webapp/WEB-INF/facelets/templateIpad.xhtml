@@ -24,8 +24,6 @@
     <title>Parleys.com HTML5 - The #1 e-learning platform, now with HTML5 support</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
     <h:outputStylesheet library="parleys" name="parleysIpad.css"/>
-    <!--<h:outputStylesheet library="parleys" name="parleysIpadPortrait.css" media="screen and (orientation:portrait)"/>-->
-    <!--<h:outputStylesheet library="parleys" name="parleysIpadLandscape.css" media="screen and (orientation:landscape)"/>-->
     <link rel="stylesheet" media="screen and (orientation:portrait)" href="#{utilBean.basePath}/resources/parleys/parleysIpadPortrait.css"/>
     <link rel="stylesheet" media="screen and (orientation:landscape)" href="#{utilBean.basePath}/resources/parleys/parleysIpadLandscape.css"/>
     <h:outputScript library="javax.faces" name="jsf.js"/>
@@ -44,20 +42,32 @@
                             <span class="degrade">Home</span>
                         </h:link>
                     </li>
-                    <li class="navButton">
-                        <h:link outcome="newsipad" value="News"/>
-                    </li>
-                    <li class="navButton">
-                        <h:link outcome="spacesipad" value="Spaces"/>
-                    </li>
-                    <h:panelGroup rendered="#{!empty parleysBean.currentSpace}">
+                    <h:panelGroup rendered="#{parleysBean.isOnHomepage}">
+                        <li class="navButton">
+                            <h:link outcome="newsipad" value="News"/>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{parleysBean.isOnHomepage}">
+                        <li class="navButton">
+                            <h:link outcome="spacesipad" value="Spaces"/>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{!empty parleysBean.currentSpace and empty parleysBean.currentChannel}">
+                        <li class="navButton">
+                            <h:link outcome="spacesipad" value="&lt;"/>
+                        </li>
                         <li class="navButton">
                             <h:link outcome="channelsipad" value="#{parleysBean.currentSpace.name}">
                                 <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
                             </h:link>
                         </li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{!empty parleysBean.currentChannel}">
+                    <h:panelGroup rendered="#{!empty parleysBean.currentChannel and empty parleysBean.currentPresentation}">
+                        <li class="navButton">
+                            <h:link outcome="channelsipad" value="&lt;">
+                                <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
+                            </h:link>
+                        </li>
                         <li class="navButton">
                             <h:link outcome="presentationsipad" value="#{parleysBean.currentChannel.name}">
                                 <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
@@ -66,7 +76,12 @@
                     </h:panelGroup>
                     <h:panelGroup rendered="#{!empty parleysBean.currentPresentation}">
                         <li class="navButton">
-                            <h:link outcome="presentation" value="#{parleysBean.currentPresentation.title}">
+                            <h:link outcome="presentationsipad" value="&lt;">
+                                <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
+                            </h:link>
+                        </li>
+                        <li class="navButton">
+                            <h:link outcome="presentationipad" value="#{parleysBean.currentPresentation.title}">
                                 <f:param name="id" value="#{parleysBean.currentPresentation.id}"/>
                             </h:link>
                         </li>
@@ -75,13 +90,13 @@
             </div>
             <hr style="display: none;"/>
 
-            <div id="innerContainer">
-                <div id="content">
+            <!--<div id="innerContainer">-->
+                <div id="content" class="#{extraStyleClasses}">
                     <h:messages globalOnly="true"/>
 
                     <ui:insert name="content"/>
                 </div>
-            </div>
+            <!--</div>-->
         </h:form>
     </div>
     <ui:insert name="footer">

@@ -91,6 +91,8 @@ div#logoBar {
     background: #a40202 url(#{utilBean.basePath}/resources/ipad/header_bg.jpg) repeat-x;
     border-bottom: 1px solid #000;
 
+    white-space:nowrap;
+    max-width: 100%;
     /* Turned shadows off, b/c they're not shown and cause a margin on the right
     box-shadow: 0px 2px 20px #000;
     -webkit-box-shadow: #000 0px 2px 20px;*/
@@ -101,7 +103,8 @@ div#logoBar ul {
 
 div#logoBar ul li {
     position: relative;
-    display: inline-block;
+    display: inline-table;
+    overflow-x: hidden;
     height: 75px;
     list-style: none;
 }
@@ -111,7 +114,7 @@ div#logoBar ul li a {
     padding: 20px;
     color: #fc0;
     font-weight: bold;
-    font-size: 18pt;
+    font-size: 14pt;
     text-shadow: 2px 2px 0 #000;
 }
 
@@ -302,4 +305,129 @@ div.pagingBar a.current.paging {
     background-color: #333;
 }
 div.pagingBar a.next.paging {
+}
+
+
+
+
+#mainContent {
+    border: 1px solid red;
+    background-color: #fcc;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-perspective: 500;
+	/*-webkit-perspective: 400;*/
+	-webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
+}
+
+#videoContainer {
+	position: absolute;
+	-webkit-transition: all 0.4s ease-in-out;
+	background-color: #000000;
+	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
+	-webkit-transition-timing-function: ease-in-out;
+
+}
+
+#slidesContainer {
+	-webkit-transition: all 0.4s ease-in-out;
+	position: absolute;
+	background-color: #000000;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+}
+
+#agenda {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 5px solid #ffffff;
+	padding: 0px;
+	width: 380px;
+	bottom: 50px;
+    top: 0px;
+	background-color: #3b3b3b;
+	position: absolute;
+	-moz-box-shadow: 0 20px 40px #888;
+	-webkit-box-shadow: 0 10px 10px #888;
+	-webkit-transform: rotateY(0deg) translateZ(500px) translate(0,0);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	opacity: 0;
+    overflow-y: scroll;
+}
+
+div#agenda li a {
+    -webkit-transition: all 0.3s ease-out;
+    color: #174867;
+    padding: 7px 15px 7px 15px;
+    -webkit-border-radius: 10px;
+    width: 250px;
+    display: block;
+    text-decoration: none;
+}
+
+div#agenda li {
+     -webkit-border-radius: 10px;
+    border: 1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+
+div#agenda li {
+    -webkit-transition: all 0.3s ease-out;
+}
+
+#chapters {
+    position: absolute;
+    left: 147px;
+    right: 0;
+    height: 30;
+    background-color: #8a2be2;
+}
+
+#chapters div {
+	background: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#343434));
+	border: 1px black solid;
+	border-bottom: none;
+	border-top: none;
+	position: absolute;
+	width: 30px;
+	height: 100%;
+}
+
+#chapters div:hover {
+	background: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#444444));
+}
+
+div#videoNavigationBarCursor {
+    border: none;
+    position: absolute;
+    left: -7px;
+    top: -5px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url(#{resource['img:progressbar_cursor.png']});
+    cursor: pointer;
+}
+
+div#videoNavigationBarCursor:hover {
+    border: none;
+    position: absolute;
+    left: -7px;
+    top: -5px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url(#{resource['img:progressbar_cursor.png']});
+    cursor: pointer;
 }
