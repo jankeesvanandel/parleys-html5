@@ -32,6 +32,11 @@
             <f:event type="preRenderView" listener="#{homepageBean.init}"/>
         </f:metadata>
     </ui:define>
+
+    <ui:define name="scripts">
+        <h:outputScript library="parleys" name="homepage.js"/>
+    </ui:define>
+
     <ui:define name="content">
         <div id="upperPhotoContainer">
             <div id="featuredPhotoWrapper">
@@ -116,6 +121,5 @@
             </div>
         </div>
         <hr class="clear" style="display:none"/>
-
     </ui:define>
 </ui:composition>

@@ -38,6 +38,7 @@ var v;
 var s;
 var agenda;
 var inner;
+var agenda_btn;
 
 $(window).bind('resize', onResize);
 
@@ -45,6 +46,7 @@ $(document).bind('ready', function() {
     $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
     $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
 
+    agenda_btn = $("#agenda_btn");
     agenda_btn.value = "hide";
 
     //$("#videoContainer").bind('gesturestart',onVideoDoubleClick);

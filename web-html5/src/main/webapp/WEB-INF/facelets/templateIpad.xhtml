@@ -26,10 +26,6 @@
     <h:outputStylesheet library="parleys" name="parleysIpad.css"/>
     <link rel="stylesheet" media="screen and (orientation:portrait)" href="#{utilBean.basePath}/resources/parleys/parleysIpadPortrait.css"/>
     <link rel="stylesheet" media="screen and (orientation:landscape)" href="#{utilBean.basePath}/resources/parleys/parleysIpadLandscape.css"/>
-    <h:outputScript library="javax.faces" name="jsf.js"/>
-    <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
-    <h:outputScript library="parleys" name="iscroll-min.js"/>
-    <h:outputScript library="parleys" name="homepage.js"/>
     <ui:insert name="header"/>
 </h:head>
 <h:body>
@@ -42,14 +38,14 @@
                             <span class="degrade">Home</span>
                         </h:link>
                     </li>
-                    <h:panelGroup rendered="#{parleysBean.isOnHomepage}">
+                    <h:panelGroup rendered="#{empty parleysBean.currentSpace}">
                         <li class="navButton">
-                            <h:link outcome="newsipad" value="News"/>
+                            <h:link outcome="spacesipad" value="Spaces"/>
                         </li>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{parleysBean.isOnHomepage}">
                         <li class="navButton">
-                            <h:link outcome="spacesipad" value="Spaces"/>
+                            <h:link outcome="newsipad" value="News"/>
                         </li>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{!empty parleysBean.currentSpace and empty parleysBean.currentChannel}">
@@ -91,7 +87,7 @@
             <hr style="display: none;"/>
 
             <!--<div id="innerContainer">-->
-                <div id="content" class="#{extraStyleClasses}">
+                <div id="content">
                     <h:messages globalOnly="true"/>
 
                     <ui:insert name="content"/>
@@ -111,5 +107,10 @@
             </p>
         </div>
     </ui:insert>
+
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
+    <!--<h:outputScript library="parleys" name="iscroll-min.js"/>-->
+    <ui:insert name="scripts"/>
 </h:body>
 </html>
