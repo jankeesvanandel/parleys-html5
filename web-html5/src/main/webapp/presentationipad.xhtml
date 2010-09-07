@@ -78,7 +78,7 @@
     </ui:define>
 
     <ui:define name="footer">
-        <div id="footer" class="videoPage">
+        <div id="footer">
             <div id="videoNavigationBar">
 
                 <div id="videoTimeAndPosition">
@@ -90,7 +90,7 @@
                     <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
                         <div duration="#{asset.duration}" cuepoint="#{asset.cuePoint}"></div>
                     </ui:repeat>
-<!--&gt;&lt;!&ndash; TODO: why is this here? The progress bar doesn't work without it &ndash;&gt;-->
+&gt;<!-- TODO: why is this here? The progress bar doesn't work without it -->
                     <div id="videoNavigationBarCursor"></div>
                 </div>
 

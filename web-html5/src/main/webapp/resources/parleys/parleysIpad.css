@@ -92,6 +92,7 @@ div#logoBar {
     border-bottom: 1px solid #000;
 
     white-space:nowrap;
+    overflow-x: hidden;
     max-width: 100%;
     /* Turned shadows off, b/c they're not shown and cause a margin on the right
     box-shadow: 0px 2px 20px #000;
@@ -105,7 +106,6 @@ div#logoBar ul {
 div#logoBar ul li {
     position: relative;
     display: inline-table;
-    overflow-x: hidden;
     height: 70px;
     list-style: none;
 }
@@ -390,7 +390,7 @@ div#agenda li {
     left: 147px;
     top: 0;
     right: 0;
-    height: 30;
+    height: 18px;
 }
 
 #chapters div {
@@ -423,7 +423,7 @@ div#videoNavigationBarCursor:hover {
     border: none;
     position: absolute;
     left: -7px;
-    top: -5px;
+    top: -15px;
     width: 14px;
     height: 34px;
     display: block;
