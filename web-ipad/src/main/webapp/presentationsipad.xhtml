@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<ui:composition
+        template="WEB-INF/facelets/templateIpad.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+    <ui:param name="parleysBean" value="#{presentationsBean}"/>
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{presentationsViewBean.channelId}"/>
+            <f:viewParam name="index" value="#{pagingBean.index}"/>
+            <f:viewParam name="paging" value="#{pagingBean.paging}"/>
+            <f:viewParam name="filter" value="#{pagingBean.filter}"/>
+            <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="content">
+        <div>
+            <!--<h:graphicImage-->
+                    <!--url="#{p:channelThumbnail(presentationsBean.currentChannel.id, presentationsBean.currentChannel.thumbnailURL)}"-->
+                    <!--alt="#{presentationsBean.currentChannel.name}"-->
+                    <!--rendered="#{not empty presentationsBean.currentChannel.thumbnailURL}"-->
+                    <!--style="float: left;"/>-->
+            <c:if test="#{not empty pagingBean.filter.description}">
+                <h2 style="float: left;">#{pagingBean.filter.description}</h2>
+            </c:if>
+            <parleys:paging targetBean="#{presentationsBean}" render="main:presentationsContainer"/>
+            <h5:div id="presentationsContainer">
+                <ul>
+                    <ui:repeat value="#{pagingBean.list}" var="thumbnail">
+                        <li class="shadowbox">
+                            <parleys:presentationLink presentation="#{thumbnail}"
+                                                      summarySize="370"
+                                                      renderStats="true"/><br/>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h5:div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://www.parleys.com/jsf/taglib">
+<h:head>
+    <title>Parleys.com HTML5 - The #1 e-learning platform, now with HTML5 support</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <h:outputStylesheet library="parleys" name="parleysIpad.css"/>
+    <!--<h:outputStylesheet library="parleys" name="parleysIpadPortrait.css" media="screen and (orientation:portrait)"/>-->
+    <!--<h:outputStylesheet library="parleys" name="parleysIpadLandscape.css" media="screen and (orientation:landscape)"/>-->
+    <link rel="stylesheet" media="screen and (orientation:portrait)" href="#{utilBean.basePath}/resources/parleys/parleysIpadPortrait.css"/>
+    <link rel="stylesheet" media="screen and (orientation:landscape)" href="#{utilBean.basePath}/resources/parleys/parleysIpadLandscape.css"/>
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
+    <h:outputScript library="parleys" name="iscroll-min.js"/>
+    <h:outputScript library="parleys" name="homepage.js"/>
+    <ui:insert name="header"/>
+</h:head>
+<h:body>
+    <div id="container">
+        <h:form id="main">
+            <div id="logoBar">
+                <ul>
+                    <li class="homeButton">
+                        <h:link outcome="index">
+                            <span class="degrade">Home</span>
+                        </h:link>
+                    </li>
+                    <li class="navButton">
+                        <h:link outcome="newsipad" value="News"/>
+                    </li>
+                    <li class="navButton">
+                        <h:link outcome="spacesipad" value="Spaces"/>
+                    </li>
+                    <h:panelGroup rendered="#{!empty parleysBean.currentSpace}">
+                        <li class="navButton">
+                            <h:link outcome="channelsipad" value="#{parleysBean.currentSpace.name}">
+                                <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
+                            </h:link>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{!empty parleysBean.currentChannel}">
+                        <li class="navButton">
+                            <h:link outcome="presentationsipad" value="#{parleysBean.currentChannel.name}">
+                                <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
+                            </h:link>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{!empty parleysBean.currentPresentation}">
+                        <li class="navButton">
+                            <h:link outcome="presentation" value="#{parleysBean.currentPresentation.title}">
+                                <f:param name="id" value="#{parleysBean.currentPresentation.id}"/>
+                            </h:link>
+                        </li>
+                    </h:panelGroup>
+                </ul>
+            </div>
+            <hr style="display: none;"/>
+
+            <div id="innerContainer">
+                <div id="content">
+                    <h:messages globalOnly="true"/>
+
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+        </h:form>
+    </div>
+    <ui:insert name="footer">
+        <div id="footer">
+            <p>
+                <a class="bugLink"
+                   href="http://jira.parleys.com/browse/PLT"
+                   title="Click here to submit bug/feature requests into our Jira instance">Bug/feature request</a>
+                <a class="twitterLink"
+                   href="http://twitter.com/parleys"
+                   title="Follow us on Twitter">Follow us</a>
+            </p>
+        </div>
+    </ui:insert>
+</h:body>
+</html>
