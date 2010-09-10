@@ -92,7 +92,7 @@ div#logoBar {
     border-bottom: 1px solid #000;
 
     white-space:nowrap;
-    overflow-x: hidden;
+    overflow: hidden;
     max-width: 100%;
     /* Turned shadows off, b/c they're not shown and cause a margin on the right
     box-shadow: 0px 2px 20px #000;
@@ -200,6 +200,11 @@ div.thumbnail.showMoreThumbnails {
     border-radius: 0;
     background: none;
     padding: 0;
+}
+
+div.thumbnail h3,
+div.thumbnail p {
+    white-space: nowrap;
 }
 
 .loader {

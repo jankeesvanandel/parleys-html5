@@ -28,31 +28,10 @@
         <view-id>/index.xhtml</view-id>
     </url-mapping>
 
-    <url-mapping id="login">
-        <pattern value="/login" />
-        <view-id>/login.xhtml</view-id>
-    </url-mapping>
-
     <url-mapping id="news">
         <pattern value="/news" />
         <view-id>/newsipad.xhtml</view-id>
     </url-mapping>
-
-    <url-mapping id="register">
-        <pattern value="/register" />
-        <view-id>/register.xhtml</view-id>
-    </url-mapping>
-
-    <url-mapping id="recoverPassword">
-        <pattern value="/recoverPassword" />
-        <view-id>/forgotPassword.xhtml</view-id>
-    </url-mapping>
-
-    <url-mapping id="search">
-        <pattern value="/search" />
-        <view-id>/search.xhtml</view-id>
-    </url-mapping>
-
 
 	<url-mapping id="channel">
 		<pattern value="/channel/#{id}" />
