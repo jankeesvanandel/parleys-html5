@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.html5.beans;
+package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.types.AssetTargetType;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
-import com.parleys.server.frontend.web.html5.util.JSFUtil;
+import com.parleys.server.frontend.web.shared.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
