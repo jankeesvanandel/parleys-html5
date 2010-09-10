@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.html5.beans;
+package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.frontend.domain.Filter;
 

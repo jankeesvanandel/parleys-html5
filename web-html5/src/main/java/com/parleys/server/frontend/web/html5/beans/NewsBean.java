@@ -17,7 +17,7 @@ package com.parleys.server.frontend.web.html5.beans;
 
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.types.NewsType;
-import com.parleys.server.frontend.web.html5.util.JSFUtil;
+import com.parleys.server.frontend.web.shared.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

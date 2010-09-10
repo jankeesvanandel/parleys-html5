@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.html5.beans;
+package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.News;
 import com.parleys.server.domain.Thumbnail;
@@ -25,7 +25,7 @@ import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
-import com.parleys.server.frontend.web.html5.util.JSFUtil;
+import com.parleys.server.frontend.web.shared.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
