@@ -36,6 +36,8 @@
     <modules>
         <module>domain</module>
         <module>service</module>
+        <module>web-shared</module>
+        <module>web-ipad</module>
         <module>web-html5</module>
     </modules>
 
@@ -89,7 +91,7 @@
             <!-- Project dependencies -->
             <dependency>
                 <groupId>com.parleys.server</groupId>
-                <artifactId>parleys-frontend-html5</artifactId>
+                <artifactId>parleys-frontend-shared</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
