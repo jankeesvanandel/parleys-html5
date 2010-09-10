@@ -17,5 +17,5 @@
 <sun-web-app>
     <class-loader delegate="false"/>
     <property name="useMyFaces" value="true"/>
-    <context-root>/parleys</context-root>
+    <context-root>/parleys-html5</context-root>
 </sun-web-app>

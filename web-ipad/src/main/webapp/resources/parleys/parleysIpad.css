@@ -198,6 +198,11 @@ div.thumbnail.showMoreThumbnails {
     padding: 0;
 }
 
+div.thumbnail h3,
+div.thumbnail p {
+    white-space: nowrap;
+}
+
 .loader {
     width: 32px;
     height: 32px;
