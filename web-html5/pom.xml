@@ -25,11 +25,11 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>parleys-frontend-html5</artifactId>
+    <artifactId>parleys-frontend-ipad</artifactId>
     <packaging>war</packaging>
 
-    <name>Parleys.com frontend - HTML5-JSF2 frontend module</name>
-    <description>Parleys.com frontend - Frontend module with HTML5 and JSF 2.0.</description>
+    <name>Parleys.com frontend - HTML5-JSF2 iPad application</name>
+    <description>Parleys.com frontend - iPad application with HTML5 and JSF 2.0.</description>
 
     <build>
         <plugins>
@@ -44,7 +44,7 @@
                         </connector>
                     </connectors>
                     <webAppConfig>
-                        <contextPath>/html5parleys</contextPath>
+                        <contextPath>/parleys-ipad</contextPath>
                     </webAppConfig>
                 </configuration>
                 <dependencies>
@@ -95,6 +95,10 @@
         <dependency>
             <groupId>com.parleys.server</groupId>
             <artifactId>parleys-frontend-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.parleys.server</groupId>
+            <artifactId>parleys-frontend-shared</artifactId>
         </dependency>
         <dependency>
             <groupId>com.parleys.server</groupId>
