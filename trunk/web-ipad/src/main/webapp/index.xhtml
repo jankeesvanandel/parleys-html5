@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <ui:composition
-        template="WEB-INF/facelets/templateIpad.xhtml"
+        template="WEB-INF/facelets/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
@@ -29,43 +29,15 @@
         <f:metadata>
             <f:viewParam name="filter" value="#{homepageViewBean.thumbnailsFilter}"/>
             <f:viewParam name="filterType" value="#{homepageViewBean.thumbnailsFilterType}"/>
+            <f:viewParam name="newsId" value="#{homepageBean.newsId}"/>
             <f:event type="preRenderView" listener="#{homepageBean.init}"/>
         </f:metadata>
     </ui:define>
     <ui:define name="content">
-        <div id="upperPhotoContainer">
-            <div id="featuredPhotoWrapper">
-                <div id="featuredPhotoList">
-                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                        <h:link outcome="#{thumbnail.outcome}" rendered="#{varStatus.index lt 4}">
-                            <img src="#{utilBean.basePath}/resources/ipad/#{thumbnail.photo}" alt=""/>
-                        </h:link>
-                    </ui:repeat>
-                </div>
-            </div>
-            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader"/>
-            <div id="featuredPhotoPaging">
-                <div>
-                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                        <h:link outcome="#{thumbnail.outcome}" href="#" rel="#{varStatus.index+1}" rendered="#{varStatus.index lt 4}">
-                            <span class="degrade">#{varStatus.index+1}</span>
-                        </h:link>
-                    </ui:repeat>
-                </div>
-                <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                    <h5:div styleClass="featuredPhotoinfo" rendered="#{varStatus.index lt 4}">
-                        <h2>
-                            #{p:shortenTo(70, thumbnail.name)}
-                        </h2>
-                        <h3>
-                            #{p:shortenTo(70, thumbnail.secondLine)}
-                        </h3>
-                    </h5:div>
-                </ui:repeat>
-            </div>
-        </div>
-        <div id="thumbnailControls">
-            <ul>
+        <div>
+            <h2>Overview</h2>
+            <h:outputScript library="parleys" name="homepage.js"/>
+            <ul id="featureHomepage">
                 <li>
                     <h:commandLink id="featuredPresentations" action="#{homepageBean.viewThumbnails('FEATURED', 'PRESENTATION', 0)}" value="Featured" onclick="return featuredContentEvent(this.id)"/>
                 </li>
@@ -87,35 +59,130 @@
             </ul>
         </div>
         <hr class="clear" style="display:none"/>
+        <br/>
 
-        <div id="lowerThumbnailsContainer">
-            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
+        <div id="thumbnailsWrapperOuter">
+            <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
             <div id="thumbnailsWrapper">
                 <h5:div id="thumbnails">
+                    <h:commandLink id="thumbnailsPrevious"
+                                   action="#{homepageBean.viewThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.index - 6)}"
+                                   rendered="#{pagingBean.index gt 0}"
+                                   styleClass="thumbnailsPrevious"
+                                   onclick="return featuredContentEvent(this.id)">
+                        <img src="#{resource['img:featuredPrevButton.jpg']}" alt="Previous featured page"/>
+                    </h:commandLink>
                     <ui:repeat value="#{pagingBean.list}" var="presentation">
                         <div class="thumbnail">
+                            <h3 title="#{presentation.name}">#{p:shortenTo(17, presentation.name)}</h3>
                             <h:link outcome="#{presentation.outcome}">
                                 <f:param name="id" value="#{presentation.id}"/>
                                 <h:graphicImage value="#{presentation.thumbnailUrl}"
                                                 title="#{presentation.name}"
                                                 alt=""
                                                 width="133" height="88" styleClass="reflect"/>
-                                <h3 title="#{presentation.name}">#{p:shortenTo(24, presentation.name)}</h3>
-                                <p>#{p:shortenTo(24, presentation.secondLine)}</p>
                             </h:link>
                         </div>
                     </ui:repeat>
-
-                    <h5:div styleClass="thumbnail showMoreThumbnails" rendered="#{pagingBean.list.size() lt pagingBean.totalCount}">
-                        <h:commandLink id="showMoreThumbnails" action="#{homepageBean.showMoreThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.list.size() + 6)}" onclick="return loadMoreFeaturedContentEvent(this.id)">
-                            <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
-                            <img src="#{utilBean.basePath}/resources/ipad/show_more.png" alt="Show more" width="224" height="144"/>
-                        </h:commandLink>
-                    </h5:div>
+                    <h:commandLink id="thumbnailsNext"
+                                   action="#{homepageBean.viewThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.index + 6)}"
+                                   rendered="#{pagingBean.index + 6 lt pagingBean.totalCount}"
+                                   styleClass="thumbnailsNext"
+                                   onclick="return featuredContentEvent(this.id)">
+                        <img src="#{resource['img:featuredNextButton.jpg']}" alt="Next featured page"/>
+                    </h:commandLink>
                 </h5:div>
             </div>
         </div>
         <hr class="clear" style="display:none"/>
 
+        <div id="frontpage">
+            <div class="twoCol">
+                <div class="col">
+                    <h2>General News</h2>
+                    <div id="newsContainerWrapperOuter" class="contentBlock news">
+                        <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
+                        <div id="newsContainerWrapper">
+                            <h5:div id="newsContainer">
+                                <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="loader" width="32" height="32"/>
+                                <h3>#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].title}</h3>
+                                <span class="newsDate">#{p:formatDate(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].createdOn)}</span>
+                                <p>
+                                    <br/>
+                                    <h:outputText escape="false"
+                                                  value="#{homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex].item}"/>
+                                </p>
+                                <span class="newsNav">
+                                    <h:commandLink id="newsPreviousButton"
+                                                   action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex+1].id)}"
+                                                   rendered="#{homepageViewBean.activeNewsItemIndex lt p:sizeOf(homepageViewBean.newsItems)-1}"
+                                                   styleClass="pagingNext floatRight"
+                                                   title="Previous news item"
+                                                   onclick="return newsPaginationEvent(this.id)">
+                                        <!--<f:ajax render="newsContainer"/>-->
+                                    </h:commandLink>
+                                    <span class="floatRight">#{homepageViewBean.activeNewsItemIndex+1} / #{p:sizeOf(homepageViewBean.newsItems)}</span>
+                                    <h:commandLink id="newsNextButton"
+                                                   action="#{homepageBean.gotoNewsItem(homepageViewBean.newsItems[homepageViewBean.activeNewsItemIndex-1].id)}"
+                                                   rendered="#{homepageViewBean.activeNewsItemIndex gt 0}"
+                                                   styleClass="pagingPrev floatRight"
+                                                   title="Previous news item"
+                                                   onclick="return newsPaginationEvent(this.id)">
+                                        <!--<f:ajax render="newsContainer"/>-->
+                                    </h:commandLink>
+                                </span>
+                                <br class="clear"/>
+                            </h5:div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="twoCol">
+                <div class="col">
+                    <h2>Featured</h2>
+
+                    <div class="contentBlock">
+                            <parleys:spaceLink space="#{homepageBean.recommendedSpace}"
+                                               styleClasses="breathe floatLeft"/>
+                    </div>
+                    <div class="contentBlock">
+                            <parleys:channelLink channel="#{homepageBean.recommendedChannel}"
+                                                 styleClasses="breathe floatRight"/>
+                    </div>
+                    <div class="contentBlock">
+                            <parleys:presentationLink presentation="#{homepageBean.recommendedPresentation}"
+                                                      renderSubLabel="false"
+                                                      titleSize="40"
+                                                      summarySize="220"
+                                                      styleClasses="breathe floatLeft "/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pods">
+            <div class="threeCol">
+                <div class="col">
+                    <div class="contentBlock pod">
+                        Get Your Own Space
+                    </div>
+                </div>
+            </div>
+            <div class="threeCol">
+                <div class="col">
+                    <div class="contentBlock pod">
+                        License Our Platform
+                    </div>
+                </div>
+            </div>
+            <div class="threeCol">
+                <div class="col">
+                    <div class="contentBlock pod">
+                        Parleys Blog
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br class="clear"/>
     </ui:define>
 </ui:composition>

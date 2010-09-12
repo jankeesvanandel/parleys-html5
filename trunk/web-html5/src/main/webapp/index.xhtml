@@ -43,7 +43,7 @@
                 <div id="featuredPhotoList">
                     <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
                         <h:link outcome="#{thumbnail.outcome}" rendered="#{varStatus.index lt 4}">
-                            <img src="#{utilBean.basePath}/resources/ipad/#{thumbnail.photo}" alt=""/>
+                            <img src="#{utilBean.basePath}/resources/img/#{thumbnail.photo}" alt=""/>
                         </h:link>
                     </ui:repeat>
                 </div>
@@ -114,7 +114,7 @@
                     <h5:div styleClass="thumbnail showMoreThumbnails" rendered="#{pagingBean.list.size() lt pagingBean.totalCount}">
                         <h:commandLink id="showMoreThumbnails" action="#{homepageBean.showMoreThumbnails(homepageViewBean.thumbnailsFilter, homepageViewBean.thumbnailsFilterType, pagingBean.list.size() + 6)}" onclick="return loadMoreFeaturedContentEvent(this.id)">
                             <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader" width="32" height="32"/>
-                            <img src="#{utilBean.basePath}/resources/ipad/show_more.png" alt="Show more" width="224" height="144"/>
+                            <img src="#{utilBean.basePath}/resources/img/show_more.png" alt="Show more" width="224" height="144"/>
                         </h:commandLink>
                     </h5:div>
                 </h5:div>

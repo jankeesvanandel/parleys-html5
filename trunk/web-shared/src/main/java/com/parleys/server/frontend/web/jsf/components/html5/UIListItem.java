@@ -13,38 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.shared.components.html5;
+package com.parleys.server.frontend.web.jsf.components.html5;
 
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Simple div component. Renders a simple div.
+ * Div component. Renders a simple div.
  *
  * The addition of the component is the ability to set te "rendered" attribute.
  *
  * @author Jan-Kees van Andel
  */
-@FacesComponent("com.parleys.jsf.components.html5.UIDiv")
-public class UIDiv extends UIOutput {
-
-    private static final String FAMILY = "com.parleys.jsf.components.html5";
+@FacesComponent(ParleysHtml5.BASE_COMPONENT_ID + ".UIListItem")
+public class UIListItem extends UIComponentBase {
 
     private String styleClass;
 
     private String style;
 
-    public UIDiv() {
-        setRendererType(null); // Override rendererType set by UIOutput to prevent annoying WARNINGs.
-    }
-
     /** {@inheritDoc} */
     @Override
     public String getFamily() {
-        return FAMILY;
+        return ParleysHtml5.FAMILY;
     }
 
     /** {@inheritDoc} */
@@ -52,7 +47,7 @@ public class UIDiv extends UIOutput {
     public void encodeBegin(final FacesContext context) throws IOException {
         super.encodeBegin(context);
         final ResponseWriter w = context.getResponseWriter();
-        w.startElement("div", this);
+        w.startElement("li", this);
         w.writeAttribute("id", getClientId(context), "id");
         if (styleClass != null) {
             w.writeAttribute("class", styleClass, "styleClass");
@@ -67,7 +62,7 @@ public class UIDiv extends UIOutput {
     public void encodeEnd(final FacesContext context) throws IOException {
         super.encodeEnd(context);
         final ResponseWriter w = context.getResponseWriter();
-        w.endElement("div");
+        w.endElement("li");
     }
 
     public String getStyleClass() {

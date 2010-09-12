@@ -18,7 +18,7 @@ package com.parleys.server.frontend.web.ipad.beans;
 import com.parleys.server.domain.types.AssetTargetType;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
-import com.parleys.server.frontend.web.shared.util.JSFUtil;
+import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

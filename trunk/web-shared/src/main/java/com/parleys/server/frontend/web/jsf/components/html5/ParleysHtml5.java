@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-div#upperPhotoContainer {
-    display: none;
-}
+package com.parleys.server.frontend.web.jsf.components.html5;
 
-div#lowerThumbnailsContainer {
-    width: 950px;
+/**
+ * Simple utility for internal use only.
+ *
+ * @author Jan-Kees van Andel
+ */
+final class ParleysHtml5 {
+    static final String BASE_COMPONENT_ID = "com.parleys.server.frontend.web.jsf.components.html5";
+    static final String FAMILY = "com.parleys.jsf.components.html5";
 }

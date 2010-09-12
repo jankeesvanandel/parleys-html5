@@ -104,7 +104,6 @@ function showPlayButtonOverlay() {
     $("#playButtonOverlayBackground").css("display", "block");
     $("#agenda").css("display", "none"); // Hide the agenda to keep the play button clickable
     $("#playButtonOverlay a").click(function(e) {
-//        $("#agenda").css("display", "block"); // Turn the agenda on
         $("#playButtonOverlay").css("display", "none");
         $("#playButtonOverlayBackground").css("display", "none");
         $("#videoPlayer")[0].play();
@@ -140,30 +139,6 @@ function initializeControlsEventHandlers() {
         $("#videoPlayer")[0].pause();
         return false;
     });
-
-//    try {
-//        var videoVolume = localStorage.videoVolume;
-//    } catch (e) {
-//        logger.log(e.message);
-//    }
-//    if (videoVolume == null) {
-//        videoVolume = 1;
-//    }
-//    $("#videoVolumeSlider").slider({
-//        min: 0,
-//        max: 1,
-//        step: 0.01,
-//        value: videoVolume,
-//        slide: function(event, ui) {
-//            var volume = ui.value;
-//            $("#videoPlayer")[0].volume = volume;
-//            try {
-//                localStorage.setItem("videoVolume", volume);
-//            } catch (e) {
-//                logger.log(e.message);
-//            }
-//        }
-//    });
 }
 
 var allSlides;
@@ -223,35 +198,25 @@ function initializeProgressBarEventSource() {
     $("#chapters div").not("#videoNavigationBarCursor").bind("click", function() {
         var href = $(this).attr("cuepoint");
         mainVideoLoop.timeChanged(href, OBSERVER_TYPE_PROGRESSBAR);
+        return false;
     });
 
     $("#agenda a").bind("click", function() {
         var href = $(this).attr("href");
         var id = href.substr(1);
         var slide = findSlideById(id);
+        toggleAgenda();
         mainVideoLoop.timeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
+        $("#videoPlayer")[0].play();
+
+        return false;
+    });
+
+    $("a#agendaButton").bind("click", function() {
+        toggleAgenda();
+        return false;
     });
 }
-
-//function initializeProgressBarCursor() {
-//    $("#videoNavigationBarCursor").draggable({
-//        axis: 'x',
-//        containment: 'parent',
-//        cursor: 'pointer',
-//        start: function() {
-//            isCursorDragging = true;
-//        },
-//        stop: function() {
-//            var chapters = $("#chapters");
-//            var totalDuration = parseFloat($("#chapters").attr("totalduration"));
-//            var positionInPercentage = position / chapters.width();
-//            var time = positionInPercentage * totalDuration;
-//
-//            mainVideoLoop.timeChanged(time, OBSERVER_TYPE_PROGRESSBAR);
-//            isCursorDragging = false;
-//        }
-//    });
-//}
 
 function getStartTimeForChapter(chapterIndex) {
     var presentationSlides = $("#slidesContainer img");
@@ -262,14 +227,6 @@ function getStartTimeForChapter(chapterIndex) {
     var slide = $(presentationSlides[chapterIndex]);
     return parseFloat(slide.attr("startTime"));
 }
-
-/*function getTimeFromCursorPosition() {
-    var chapters = $("#chapters");
-    var totalDuration = parseFloat($("#chapters").attr("totalduration"));
-    var positionInPercentage = position / $("#chapters").width();
-    var time = positionInPercentage * totalDuration;
-    return time;
-}*/
 
 var updateVideoCatchAlert = 0;
 function updateVideo(timeChangedEvent) {
@@ -293,7 +250,6 @@ function initializeVideoEventSource() {
 function initializeVideoEventSources() {
     initializeVideoEventSource();
     initializeProgressBarEventSource();
-//    initializeProgressBarCursor();
 }
 
 function updateSlide(timeChangedEvent) {
@@ -310,19 +266,17 @@ function updateSlide(timeChangedEvent) {
 }
 
 function updateProgressBar(timeChangedEvent) {
-//    if (!isCursorDragging) {
-        var now = timeChangedEvent.currentTime;
-        var chapters = $("#chapters");
-        var totalDuration = parseFloat($("#chapters").attr("totalduration"));
+    var now = timeChangedEvent.currentTime;
+    var chapters = $("#chapters");
+    var totalDuration = parseFloat($("#chapters").attr("totalduration"));
 
-        var videoNavigationBarWidth = $("#chapters").width();
+    var videoNavigationBarWidth = $("#chapters").width();
 
-        var position = (now / totalDuration) * videoNavigationBarWidth;
-        position -= 7; // Half the cursor width
-        $("#videoNavigationBarCursor").css("left", position + "px");
+    var position = (now / totalDuration) * videoNavigationBarWidth;
+    position -= 7; // Half the cursor width
+    $("#videoNavigationBarCursor").css("left", position + "px");
 
-        updateVideoPositionIndicator(now);
-//    }
+    updateVideoPositionIndicator(now);
 }
 
 function findSlideById(id) {
@@ -412,8 +366,6 @@ function ontimeupdateHandler() {
 }
 
 function resizeElements() {
-    // Reposition the agenda
-
     // Resize the Chapters
     initializeVideoNavigationBar();
 }

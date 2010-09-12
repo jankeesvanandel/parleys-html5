@@ -410,7 +410,7 @@ div#videoControls {
     position: relative;
 }
 
-div#videoControls div#agenda_btn {
+div#videoControls div#agendaButton {
     border: 1px solid red;
 }
 

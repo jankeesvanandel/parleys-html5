@@ -15,50 +15,60 @@
  */
 package com.parleys.server.frontend.web.ipad.beans;
 
-import com.parleys.server.domain.types.FeaturedType;
-import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
-import com.parleys.server.frontend.web.shared.util.JSFUtil;
+import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 
 /**
- * Backing bean for the "spaces overview" page.
+ * Backing bean for the channels overview page.
  *
  * @author Jan-Kees van Andel
  * @author Stephan Janssen
  */
 @ManagedBean
 @RequestScoped
-public class SpacesBean extends AbstractParleysBean implements Paginable {
+public class ChannelsBean extends AbstractParleysBean implements Paginable {
+
+    @ManagedProperty("#{channelsViewBean}")
+    private ChannelsViewBean channelsViewBean;
 
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
             return;
         }
 
-        getPagingBean().setPaging(6);
+        super.initializeSpace(getParleysService().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
+
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void gotoPage(Filter filter, int index, int paging) {
         getPagingBean().setFilter(filter);
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
 
-        final List<SpaceOverviewDTO> spaces = loadSpaces(filter);
-        getPagingBean().setPaginatedList(spaces);
+        final List<ChannelOverviewDTO> channels = loadChannels();
+        getPagingBean().setPaginatedList(channels);
     }
 
-    @SuppressWarnings("unchecked")
-    private List<SpaceOverviewDTO> loadSpaces(Filter filter) {
-        if (filter != null) {
-            return (List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE);
-        } else {
-            return getParleysService().getSpacesOverview(0, 200).getOverviews();
-        }
+    private List<ChannelOverviewDTO> loadChannels() {
+        return getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
     }
 
+    public ChannelsViewBean getChannelsViewBean() {
+        return channelsViewBean;
+    }
+
+    public void setChannelsViewBean(ChannelsViewBean channelsViewBean) {
+        this.channelsViewBean = channelsViewBean;
+    }
 }

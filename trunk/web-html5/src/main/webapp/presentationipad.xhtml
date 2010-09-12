@@ -23,7 +23,6 @@
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:h5="http://www.parleys.com/jsf/components/html5">
     <ui:param name="parleysBean" value="#{presentationBean}"/>
-    <!--<ui:param name="extraStyleClasses" value="fullWidth"/>-->
 
     <ui:define name="header">
         <f:metadata>
@@ -33,36 +32,33 @@
     </ui:define>
 
     <ui:define name="scripts">
-        <!--<h:outputScript library="parleys" name="jquery-ui-1.8.2.custom.min.js"/>-->
         <h:outputScript library="parleys" name="videoIpad.js"/>
         <h:outputScript library="parleys" name="playerAnimation.js"/>
     </ui:define>
 
     <ui:define name="content">
         <div id="mainContent">
-            <!--<div id="inner">-->
-                <div id="videoContainer">
-				    <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="100%" height="100%">
-                        <source src="#{presentationBean.streamURL}" type="video/mp4"/>
-                    </video>
-                </div>
+            <div id="videoContainer">
+                <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="100%" height="100%">
+                    <source src="#{presentationBean.streamURL}" type="video/mp4"/>
+                </video>
+            </div>
 
-                <div id="slidesContainer">
-                    <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
-                        <img class="slide" id="slide_#{asset.id}" style="display: none"
-                            source="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
-                            alt="#{asset.value}"
-                            startTime="#{asset.cuePoint}"
-                            endTime="#{asset.cuePoint + asset.duration}"/>
-                    </ui:repeat>
-                </div>
-		    <!--</div>-->
+            <div id="slidesContainer">
+                <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
+                    <img class="slide" id="slide_#{asset.id}" style="display: none"
+                        source="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
+                        alt="#{asset.value}"
+                        startTime="#{asset.cuePoint}"
+                        endTime="#{asset.cuePoint + asset.duration}"/>
+                </ui:repeat>
+            </div>
         </div>
 
         <div id="playButtonOverlayBackground"></div>
 
         <div id="playButtonOverlay">
-            <a href="#" title="Click to play"><img src="#{resource['ipad:play_btn_large.png']}" alt="Click to play"/></a>
+            <a href="#" title="Click to play"><img src="#{resource['img:play_btn_large.png']}" alt="Click to play"/></a>
         </div>
 
         <div id="agenda">
@@ -93,7 +89,6 @@
 &gt;<!-- TODO: why is this here? The progress bar doesn't work without it -->
                     <div id="videoNavigationBarCursor"></div>
                 </div>
-
             </div>
 
             <div id="videoControls">
@@ -103,7 +98,7 @@
                     <a href="#" id="playButton" style="display: none"><img src="#{resource['img:playButton.png']}" alt="Play"/></a>
                     <a href="#" id="pauzeButton"><img src="#{resource['img:pauseButton.png']}" alt="Pauze"/></a>
                     <a href="#" id="nextChapterButton"><img src="#{resource['img:nextChapterButton.png']}" alt="Previous chapter"/></a>
-                    <a style="padding-left: 200px;" href="#" id="agenda_btn" onclick="toggleAgenda()"><img src="#{resource['img:agenda.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="agendaButton"><img src="#{resource['img:agenda.png']}" alt="Previous chapter"/></a>
                 </div>
             </div>
         </div>

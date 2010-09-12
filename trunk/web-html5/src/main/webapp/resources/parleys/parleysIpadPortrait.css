@@ -55,7 +55,7 @@ div#upperPhotoContainer #featuredPhotoPaging a {
     margin: 5px 20px;
     width: 44px;
     height: 44px;
-    background: url(/parleys/resources/ipad/featuredphoto_paging_btn.png) no-repeat -50px 0;
+    background: url(../img/featuredphoto_paging_btn.png) no-repeat -50px 0;
 }
 
 div#upperPhotoContainer #featuredPhotoPaging a.active {

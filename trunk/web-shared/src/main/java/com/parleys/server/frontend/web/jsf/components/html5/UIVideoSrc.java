@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.shared.components.html5;
+package com.parleys.server.frontend.web.jsf.components.html5;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
@@ -26,25 +26,20 @@ import java.io.IOException;
  *
  * @author Jan-Kees van Andel
  */
-@FacesComponent("com.parleys.jsf.components.html5.UIVideoSrc")
+@FacesComponent(ParleysHtml5.BASE_COMPONENT_ID + ".UIVideoSrc")
 public class UIVideoSrc extends UIComponentBase {
-    public static final String FAMILY = UIVideo.FAMILY;
 
     private String source;
 
     private String type;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String getFamily() {
-        return FAMILY;
+        return ParleysHtml5.FAMILY;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void encodeEnd(final FacesContext context) throws IOException {
         super.encodeEnd(context);

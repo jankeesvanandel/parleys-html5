@@ -280,6 +280,10 @@
             <id>myfaces.releases</id>
             <url>http://people.apache.org/~lu4242/myfaces201</url>
         </repository>
+        <repository>
+            <id>prettyfaces.snapshots</id>
+            <url>http://ocpsoft.com/repository</url>
+        </repository>
     </repositories>
 
     <scm>

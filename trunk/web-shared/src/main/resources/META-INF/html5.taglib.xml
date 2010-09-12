@@ -48,11 +48,4 @@
         </component>
     </tag>
 
-    <tag>
-        <tag-name>img</tag-name>
-        <component>
-            <component-type>com.parleys.server.frontend.web.jsf.components.html5.UIImage</component-type>
-        </component>
-    </tag>
-
 </facelet-taglib>

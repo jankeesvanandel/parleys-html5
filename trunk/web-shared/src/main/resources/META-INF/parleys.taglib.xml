@@ -22,79 +22,79 @@
 
     <function>
         <function-name>sizeOf</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>int sizeOf(java.util.Collection)</function-signature>
     </function>
 
     <function>
         <function-name>shortenTo</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String shortenTo(int, java.lang.String)</function-signature>
     </function>
 
     <function>
         <function-name>floor</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>int floor(double)</function-signature>
     </function>
 
     <function>
         <function-name>spaceThumbnail</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String spaceThumbnail(long, java.lang.String)</function-signature>
     </function>
 
     <function>
         <function-name>channelThumbnail</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String channelThumbnail(long, java.lang.String)</function-signature>
     </function>
 
     <function>
         <function-name>presentationThumbnail</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String presentationThumbnail(long, java.lang.String)</function-signature>
     </function>
 
     <function>
         <function-name>formatDate</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
     </function>
 
     <function>
         <function-name>formatNumber</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String formatNumber(int)</function-signature>
     </function>
 
     <function>
         <function-name>title</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String title(com.parleys.server.dto.PresentationOverviewDTO)</function-signature>
     </function>
 
     <function>
         <function-name>subLabel</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String subLabel(com.parleys.server.dto.PresentationOverviewDTO)</function-signature>
     </function>
 
     <function>
         <function-name>subscription</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String subscription(java.lang.String)</function-signature>
     </function>
 
     <function>
         <function-name>totalVotes</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String totalVotes(int)</function-signature>
     </function>
 
     <function>
         <function-name>ratingBar</function-name>
-        <function-class>com.parleys.server.frontend.web.html5.util.JSFUtil</function-class>
+        <function-class>com.parleys.server.frontend.web.jsf.util.JSFUtil</function-class>
         <function-signature>java.lang.String ratingBar(double)</function-signature>
     </function>
 </facelet-taglib>

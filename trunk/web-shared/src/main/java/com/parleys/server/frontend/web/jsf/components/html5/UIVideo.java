@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.shared.components.html5;
+package com.parleys.server.frontend.web.jsf.components.html5;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
@@ -23,16 +23,14 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Simple video component.
+ * Video component.
  *
  * For now, it renders an HTML5 video tag, but in the future it might support other players, like Flash.
  *
  * @author Jan-Kees van Andel
  */
-@FacesComponent("com.parleys.jsf.components.html5.UIVideo")
+@FacesComponent(ParleysHtml5.BASE_COMPONENT_ID + ".UIVideo")
 public class UIVideo extends UIComponentBase {
-
-    static final String FAMILY = "com.parleys.jsf.components.html5";
 
     private static final String NOTSUPPORTED_FACET = "notSupported";
 
@@ -50,17 +48,13 @@ public class UIVideo extends UIComponentBase {
 
     private String ontimeupdate;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String getFamily() {
-        return FAMILY;
+        return ParleysHtml5.FAMILY;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void encodeBegin(final FacesContext context) throws IOException {
         super.encodeBegin(context);

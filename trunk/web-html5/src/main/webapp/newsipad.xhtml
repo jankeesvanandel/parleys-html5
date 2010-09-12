@@ -31,18 +31,16 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <div class="contentBlock">
-                <h:panelGroup rendered="#{empty newsBean.activeNewsItem}">
-                    <ul>
-                        <ui:repeat value="#{newsBean.newsItems}" var="newsItem">
-                            <li class="newsitem">
-                                <h4>#{newsItem.title}</h4>
-                                <br/>
-                                <h:outputText escape="false" value="#{newsItem.item}"/><br/>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </h:panelGroup>
+            <div class="contentBlock overviewList">
+                <ul>
+                    <ui:repeat value="#{newsBean.newsItems}" var="newsItem">
+                        <li class="newsitem">
+                            <h4>#{newsItem.title}</h4>
+                            <br/>
+                            <h:outputText escape="false" value="#{newsItem.item}"/><br/>
+                        </li>
+                    </ui:repeat>
+                </ul>
             </div>
         </div>
     </ui:define>

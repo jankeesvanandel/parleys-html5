@@ -20,30 +20,12 @@
          version="2.5">
 
     <session-config>
-        <session-timeout>2</session-timeout>
+        <session-timeout>10</session-timeout>
     </session-config>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-    <context-param>
-        <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-        <param-value>
-            /WEB-INF/html5.taglib.xml;
-            /WEB-INF/parleys.taglib.xml
-        </param-value>
-    </context-param>
-
-    <!--<context-param>-->
-        <!--<param-name>facelets.RESOURCE_RESOLVER</param-name>-->
-        <!--<param-value>org.apache.myfaces.extensions.scripting.facelet.ReroutingResourceResolver</param-value>-->
-    <!--</context-param>-->
 
     <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
@@ -64,74 +46,26 @@
 
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>client</param-value>
+        <param-value>server</param-value>
     </context-param>
 
-    <!--<context-param>-->
-        <!--<param-name>javax.faces.SEPARATOR_CHAR</param-name>-->
-        <!--<param-value>_</param-value>-->
-    <!--</context-param>-->
-
-    <!--<context-param>-->
-        <!--<description>-->
-            <!--Enables our scripting engine support plugins-->
-        <!--</description>-->
-        <!--<param-name>org.apache.myfaces.FACES_INIT_PLUGINS</param-name>-->
-        <!--<param-value>org.apache.myfaces.extensions.scripting.servlet.StartupServletContextPluginChainLoader-->
-        <!--</param-value>-->
-    <!--</context-param>-->
-
-    <!--<context-param>-->
-        <!--<description>-->
-            <!--Additional comma separated loader paths to allow direct editing-->
-            <!--on the sources directory instead of the deployment dir-->
-        <!--</description>-->
-        <!--<param-name>org.apache.myfaces.extensions.scripting.java.LOADER_PATHS</param-name>-->
-        <!--<param-value>-->
-            <!--D:/dev/work/idea9/parleys/web-html5/src/main/java-->
-        <!--</param-value>-->
-    <!--</context-param>-->
-    <!--<context-param>-->
-        <!--<description>-->
-            <!--Additional comma separated loader paths to allow direct editing-->
-            <!--on the sources directory instead of the deployment dir-->
-        <!--</description>-->
-        <!--<param-name>org.apache.myfaces.extensions.scripting.resources.LOADER_PATHS</param-name>-->
-        <!--<param-value>-->
-            <!--D:/dev/work/idea9/parleys/web-html5/src/main/webapp-->
-        <!--</param-value>-->
-    <!--</context-param>-->
-
     <!--<filter>-->
-        <!--<filter-name>scriptingFilter</filter-name>-->
-        <!--<filter-class>org.apache.myfaces.extensions.scripting.servlet.ScriptingServletFilter</filter-class>-->
+        <!--<filter-name>Pretty Filter</filter-name>-->
+        <!--<filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>-->
     <!--</filter>-->
+
     <!--<filter-mapping>-->
-        <!--<filter-name>scriptingFilter</filter-name>-->
+        <!--<filter-name>Pretty Filter</filter-name>-->
         <!--<url-pattern>/*</url-pattern>-->
-        <!--<dispatcher>REQUEST</dispatcher>-->
         <!--<dispatcher>FORWARD</dispatcher>-->
-        <!--<dispatcher>INCLUDE</dispatcher>-->
+        <!--<dispatcher>REQUEST</dispatcher>-->
         <!--<dispatcher>ERROR</dispatcher>-->
     <!--</filter-mapping>-->
 
-    <filter>
-        <filter-name>Pretty Filter</filter-name>
-        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>Pretty Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-
-    <listener>
-        <description>Reloads the PrettyFaces configuration when changed in Development ProjectStage</description>
-        <listener-class>com.ocpsoft.pretty.faces.config.PrettyConfigListener</listener-class>
-    </listener>
+    <!--<listener>-->
+        <!--<description>Reloads the PrettyFaces configuration when changed in Development ProjectStage</description>-->
+        <!--<listener-class>com.ocpsoft.pretty.faces.config.PrettyConfigListener</listener-class>-->
+    <!--</listener>-->
 
     <servlet>
         <servlet-name>faces</servlet-name>

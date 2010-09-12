@@ -24,7 +24,7 @@
 }
 
 body {
-    background: #0d0d0d url(#{utilBean.basePath}/resources/ipad/bg.jpg) repeat-x;
+    background: #0d0d0d url(#{utilBean.basePath}/resources/img/bg.jpg) repeat-x;
 }
 
 a, a:visited {
@@ -59,7 +59,7 @@ body > #container { height: auto; min-height: 100%; }
 #footer {
     width: 100%;
     border-top: 1px solid #fff;
-    background: #333 url(#{utilBean.basePath}/resources/ipad/footer_bg.jpg);
+    background: #333 url(#{utilBean.basePath}/resources/img/footer_bg.jpg);
 }
 
 #footer p {
@@ -88,7 +88,7 @@ img {
 }
 
 div#logoBar {
-    background: #a40202 url(#{utilBean.basePath}/resources/ipad/header_bg.jpg) repeat-x;
+    background: #a40202 url(#{utilBean.basePath}/resources/img/header_bg.jpg) repeat-x;
     border-bottom: 1px solid #000;
 
     white-space:nowrap;
@@ -120,7 +120,7 @@ div#logoBar ul li a {
 }
 
 div#logoBar ul li.homeButton {
-    background: url(#{utilBean.basePath}/resources/ipad/header_parleys_logo.jpg);
+    background: url(#{utilBean.basePath}/resources/img/header_parleys_logo.jpg);
     width: 360px;
 }
 
@@ -214,7 +214,7 @@ div.thumbnail p {
 
 #lowerThumbnailsContainer > .loader {
     position: absolute;
-    top: 200px;
+    top: 100px;
     left: 50%;
     margin-left: -16px;
 }
@@ -229,6 +229,10 @@ div.thumbnail p {
 }
 
 .rating_bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 13px;
     width: 73px;
     background: url(#{resource['img:starsUnselected.png']}) 0 0 no-repeat;
 }
@@ -238,35 +242,45 @@ div.thumbnail p {
     background: url(#{resource['img:starsSelected.png']}) 0 0 no-repeat;
 }
 
-.shadowbox {
+div.overviewList {
+    padding-top: 50px;
+}
+
+li.shadowbox {
+    position: relative;
     background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
-    margin-top: 5px;
-    margin-left: 30px;
+    margin: 5px;
+    list-style: none;
     height: 110px;
-    display: inline-block;
-    text-align: left;
     border: 1px dotted #666;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
 
-.leftcol {
-    padding: 10px 10px 10px 10px;
-    vertical-align: baseline;
+div.overviewListThumbnail,
+div.overviewListText,
+div.overviewListStats {
+    position: absolute;
+    top: 10px;
 }
 
-.centercol {
-    padding: 10px 5px 10px 0;
-    width: 580px;
-    vertical-align: top;
+div.overviewListThumbnail {
+    width: 100px;
+    left: 10px;
+    padding: 10px;
 }
 
-.rightcol {
-    background: url(#{resource['img:podDivider.png']}) 10px 15px no-repeat;
-    padding: 10px 10px 10px 40px;
-    width: 180px;
-    vertical-align: top;
+div.overviewListText {
+    left: 110px;
+    right: 180px;
+}
+
+div.overviewListStats {
+    text-align: right;
+    width: 170px;
+    right: 10px;
+    font-style: italic;
 }
 
 .presTitle {
@@ -296,12 +310,13 @@ div.thumbnail p {
 }
 
 div.pagingBar {
-    float: right;
-    position: relative;
+    position: absolute;
+    right: 0;
+    padding: 5px 0;
 }
 div.pagingBar a.paging,
 div.pagingBar span.paging {
-    display: inline-block;
+    display: inline-table;
     padding: 7px 12px;
     font-size: 1.2em;
 }
@@ -313,15 +328,11 @@ div.pagingBar a.current.paging {
 div.pagingBar a.next.paging {
 }
 
-
-
-
 #mainContent {
     position: absolute;
     width: 100%;
     height: 100%;
     -webkit-perspective: 500;
-	/*-webkit-perspective: 400;*/
 	-webkit-transition-property: -webkit-transform;
     -webkit-transition-duration: 0.5s;
 	-webkit-transition-timing-function: ease-in-out;
@@ -334,7 +345,6 @@ div.pagingBar a.next.paging {
 	background-color: #000000;
 	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
 	-webkit-transition-timing-function: ease-in-out;
-
 }
 
 #slidesContainer {
@@ -354,8 +364,8 @@ div.pagingBar a.next.paging {
 	border: 5px solid #ffffff;
 	padding: 0px;
 	width: 380px;
-	bottom: 50px;
-    top: 0px;
+	bottom: 110px;
+    top: 20px;
 	background-color: #3b3b3b;
 	position: absolute;
 	-moz-box-shadow: 0 20px 40px #888;
@@ -467,4 +477,10 @@ div#videoNavigationBarCursor:hover {
 	opacity: 1;
     width: 200px;
     height: 200px;
+}
+
+#agendaButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }

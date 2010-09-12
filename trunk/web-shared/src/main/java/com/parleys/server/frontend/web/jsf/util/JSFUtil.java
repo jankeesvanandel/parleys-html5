@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.parleys.server.frontend.web.shared.util;
+package com.parleys.server.frontend.web.jsf.util;
 
 import com.parleys.server.domain.types.MembershipType;
 import com.parleys.server.dto.PresentationOverviewDTO;
@@ -41,8 +41,6 @@ import java.util.List;
  * @author Stephan Janssen
  */
 public class JSFUtil {
-
-    private static DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     private JSFUtil() {
         throw new AssertionError("utility class");
@@ -136,7 +134,9 @@ public class JSFUtil {
     }
 
     public static String formatNumber(final int value) {
-        return formatter.format(value);
+        final DecimalFormat format = new DecimalFormat("###,###,###");
+
+        return format.format(value);
     }
 
     public static String formatDate(final Date date) {
@@ -191,7 +191,7 @@ public class JSFUtil {
     public static String ratingBar(final double value) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<div class='rating_bar'>");
-        builder.append("<div style='width:");
+        builder.append("<div style='position:absolute;width:");
 
         // 14.6 equals 1 star in pixels and 1.36 is 1% of the actual total width of the 5 stars
         final double width = value * 14.6 * 1.36;

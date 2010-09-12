@@ -35,18 +35,32 @@
     </ui:define>
     <ui:define name="content">
         <div>
-            <!--<h:graphicImage url="#{p:spaceThumbnail(channelsBean.currentSpace.id, channelsBean.currentSpace.thumbnailURL)}"-->
-                            <!--alt="#{channelsBean.currentSpace.name}"-->
-                            <!--rendered="#{not empty channelsBean.currentSpace.thumbnailURL}"-->
-                            <!--style="float: left;"/>-->
             <parleys:paging targetBean="#{channelsBean}" render="main:channelsContainer"/>
-            <h5:div id="channelsContainer">
+
+            <h5:div id="channelsContainer" styleClass="overviewList">
                 <ul>
                     <ui:repeat value="#{pagingBean.list}" var="channel">
                         <li class="shadowbox">
-                            <parleys:channelLink channel="#{channel}"
-                                                 descriptionSize="370"
-                                                 renderStats="true"/>
+                            <f:param name="id" value="#{channel.id}"/>
+                            <div class="overviewListThumbnail">
+                                <h:link outcome="presentationsipad">
+                                    <f:param name="id" value="#{channel.id}"/>
+                                    <h:graphicImage value="#{p:channelThumbnail(channel.id, channel.thumbnailURL)}" alt="#{channel.name}" height="70" width="70"/>
+                                </h:link>
+                            </div>
+                            <div class="overviewListText">
+                                <h:link outcome="presentationsipad">
+                                    <f:param name="id" value="#{channel.id}"/>
+                                    <h4><h:outputText value="#{channel.name}" class="contentHeader"/></h4>
+                                    <h:outputText value="#{p:shortenTo(270, channel.description)}"/>
+                                </h:link>
+                            </div>
+                            <div class="overviewListStats">
+                                <h:outputText value="created #{p:formatDate(channel.createdOn)}"/><br/><br/>
+                                <h:outputText value="#{channel.totalPresentationCount} talks"/><br/>
+                                <h:outputText value="#{p:formatNumber(channel.totalViewCount)} views"/><br/>
+                                <h:outputText value="#{p:subscription(channel.membership)}"/>
+                            </div>
                         </li>
                     </ui:repeat>
                 </ul>
