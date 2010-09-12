@@ -20,7 +20,7 @@ import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
-import com.parleys.server.frontend.web.shared.util.JSFUtil;
+import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;

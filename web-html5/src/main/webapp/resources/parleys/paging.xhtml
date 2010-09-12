@@ -37,7 +37,7 @@
                        styleClass="previous paging"
                        title="Previous page"
                        value="&lt;"
-                       onclick="showInlineLoader()">
+                       onclick="#{pagingBean.index gt 0 ? 'showInlineLoader()' : ''}">
             <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
         </h:commandLink>
         <ui:repeat value="#{pagingBean.pages}" var="page">
@@ -53,7 +53,7 @@
                        styleClass="next paging"
                        title="Next page"
                        value="&gt;"
-                       onclick="showInlineLoader()">
+                       onclick="#{pagingBean.index+pagingBean.paging lt pagingBean.totalCount ? 'showInlineLoader()' : ''}">
             <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
         </h:commandLink>
     </h5:div>

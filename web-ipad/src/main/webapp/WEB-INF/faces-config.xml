@@ -24,7 +24,7 @@
     </application>
 
     <factory>
-        <exception-handler-factory>com.parleys.server.frontend.web.html5.util.ParleysExceptionHandlerFactory</exception-handler-factory>
+        <exception-handler-factory>com.parleys.server.frontend.web.jsf.util.ParleysExceptionHandlerFactory</exception-handler-factory>
     </factory>
 
 </faces-config>

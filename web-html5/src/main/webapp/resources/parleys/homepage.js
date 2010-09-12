@@ -14,26 +14,13 @@
  * limitations under the License.
  */
 
-//var myScroll;
-//
-//function setHeight() {
-//	var headerH = document.getElementById('logoBar').offsetHeight;
-//	var wrapperH = window.innerHeight - headerH;
-//	document.getElementById('innerContainer').style.height = wrapperH + 'px';
-//}
+var initialized = false;
 
-//window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', setHeight, false);
-//document.addEventListener('touchstart', function(e){ e.preventDefault(); }, false);
 document.addEventListener('DOMContentLoaded', loaded, false);
 
 function loaded() {
-//	setHeight();
-//	myScroll = new iScroll('content');
-
-//    $("#logoBar a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
-//    $("#footer a").each(function(index) { this.ontouchend=onTouchEndTriggerClick; });
-
     initializeBanner();
+    initialized = true;
 }
 
 function initializeBanner() {
@@ -43,17 +30,6 @@ function initializeBanner() {
 
     //Adjust the image reel to its new size
     $("#featuredPhotoList").css({'width' : photosTotalWidth});
-
-    function updateButtons(index) {
-        $("#featuredPhotoPaging a").removeClass('active');
-        $("#featuredPhotoPaging a").eq(index).addClass('active');
-        $("#featuredPhotoPaging h2").hide();
-        $("#featuredPhotoPaging h2").eq(index).show();
-        $("#featuredPhotoPaging h3").hide();
-        $("#featuredPhotoPaging h3").eq(index).show();
-    }
-
-    updateButtons(0);
 
     //Paging and Slider Function
     function rotate() {
@@ -68,40 +44,48 @@ function initializeBanner() {
         }, 500);
     }
 
-    //Rotation  and Timing Event
-    function rotateSwitch(){
-        play = setInterval(function() {
-            activePhoto = $('#featuredPhotoPaging a.active').next();
-            if (activePhoto.length === 0) {
-                activePhoto = $('#featuredPhotoPaging a:first');
-            }
-            rotate();
-        }, 5000);
-    }
+    $("#featuredPhotoPaging a").click(function() {
+        activePhoto = $(this);
 
-    rotateSwitch(); //Run function on launch
-
-	$("#featuredPhotoPaging a").click(function() {
-		activePhoto = $(this);
-
-		//Reset Timer
-		clearInterval(play);
-		rotate();
-		rotateSwitch();
-		return false;
-	});
-
-    window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', function() {
-        $("#featuredPhotoPaging a").unbind();
+        //Reset Timer
         clearInterval(play);
-        delete activePhoto;
-        initializeBanner();
-    }, false);
-}
+        rotate();
+        rotateSwitch();
+        return false;
+    });
 
-//function onTouchEndTriggerClick() {
-//    window.location = this.href;
-//}
+    if (!initialized) {
+        function updateButtons(index) {
+            $("#featuredPhotoPaging a").removeClass('active');
+            $("#featuredPhotoPaging a").eq(index).addClass('active');
+            $("#featuredPhotoPaging h2").hide();
+            $("#featuredPhotoPaging h2").eq(index).show();
+            $("#featuredPhotoPaging h3").hide();
+            $("#featuredPhotoPaging h3").eq(index).show();
+        }
+
+        updateButtons(0);
+
+        //Rotation  and Timing Event
+        function rotateSwitch(){
+            play = setInterval(function() {
+                activePhoto = $('#featuredPhotoPaging a.active').next();
+                if (activePhoto.length === 0) {
+                    activePhoto = $('#featuredPhotoPaging a:first');
+                }
+                rotate();
+            }, 5000);
+        }
+
+        //Run function on launch
+        rotateSwitch();
+
+        window.addEventListener('onorientationchange' in window ? 'onorientationchange' : 'resize', function() {
+            $("#featuredPhotoPaging a").unbind();
+            initializeBanner();
+        }, false);
+    }
+}
 
 function featuredContentEvent(id) {
     try {
@@ -124,7 +108,6 @@ function onFeaturedContentAjaxEvent(evt) {
     if (evt.status == 'complete') {
         $('#lowerThumbnailsContainer > img.loader').hide();
         $('#thumbnailsWrapper').fadeIn('fast');
-//        setTimeout(function () { myScroll.refresh() }, 0)
     }
 }
 
@@ -146,30 +129,5 @@ function loadMoreFeaturedContentEvent(id) {
 function onLoadMoreFeaturedContentAjaxEvent(evt) {
     if (evt.status == 'complete') {
         $('.showMoreThumbnails img.loader').hide();
-//        setTimeout(function () { myScroll.refresh() }, 0)
-    }
-}
-
-function newsPaginationEvent(id) {
-    try {
-        $('#newsContainerWrapper').fadeOut('fast', function() {
-            $('#newsContainerWrapperOuter img.loader').show();
-            jsf.ajax.request(id, "event", {
-                render: 'main:newsContainer',
-                onevent: onNewsPaginationAjaxEvent,
-                'javax.faces.behavior.event': 'action'
-            });
-        });
-    } catch (e) {
-        alert(e.message);
-    }
-
-    return false;
-}
-
-function onNewsPaginationAjaxEvent(evt) {
-    if (evt.status == 'complete') {
-        $('#newsContainerWrapperOuter img.loader').hide();
-        $('#newsContainerWrapper').fadeIn('fast');
     }
 }

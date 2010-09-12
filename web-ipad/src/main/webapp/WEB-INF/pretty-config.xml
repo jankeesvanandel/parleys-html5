@@ -21,6 +21,7 @@
 
 	<!-- Begin RewriteRules -->
 	<rewrite trailingSlash="remove"/>
+    <rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="$1$2" redirect="chain"/>
 
 	<!-- Homepage -->
     <url-mapping id="home">
@@ -30,52 +31,52 @@
 
     <url-mapping id="news">
         <pattern value="/news" />
-        <view-id>/newsipad.xhtml</view-id>
+        <view-id>/news.xhtml</view-id>
     </url-mapping>
 
 	<url-mapping id="channel">
 		<pattern value="/channel/#{id}" />
-		<view-id>/channelsipad.xhtml</view-id>
+		<view-id>/channels.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="channels">
 		<pattern value="/channels" />
-		<view-id>/channelsipad.xhtml</view-id>
+		<view-id>/channels.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="channelsForSpace">
 		<pattern value="/channels/#{id}" />
-		<view-id>/channelsipad.xhtml</view-id>
+		<view-id>/channels.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="presentation">
 		<pattern value="/presentation/#{id}" />
-		<view-id>/presentationipad.xhtml</view-id>
+		<view-id>/presentation.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="presentationList">
 		<pattern value="/presentations" />
-		<view-id>/presentationsipad.xhtml</view-id>
+		<view-id>/presentations.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="presentations">
 		<pattern value="/presentations/#{id}" />
-		<view-id>/presentationsipad.xhtml</view-id>
+		<view-id>/presentations.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="presentationsWithFilter">
 		<pattern value="/presentations/filter/#{filter}" />
-		<view-id>/presentationsipad.xhtml</view-id>
+		<view-id>/presentations.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="spaces">
 		<pattern value="/spaces" />
-		<view-id>/spacesipad.xhtml</view-id>
+		<view-id>/spaces.xhtml</view-id>
 	</url-mapping>
 
 	<url-mapping id="spacesFiltered">
 		<pattern value="/spaces/#{filter}" />
-		<view-id>/spacesipad.xhtml</view-id>
+		<view-id>/spaces.xhtml</view-id>
 	</url-mapping>
 
 </pretty-config> 

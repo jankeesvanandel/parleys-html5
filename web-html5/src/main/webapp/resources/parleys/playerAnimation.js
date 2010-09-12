@@ -38,7 +38,7 @@ var v;
 var s;
 var agenda;
 var inner;
-var agenda_btn;
+var agendaButton;
 
 $(window).bind('resize', onResize);
 
@@ -46,10 +46,8 @@ $(document).bind('ready', function() {
     $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
     $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
 
-    agenda_btn = $("#agenda_btn");
-    agenda_btn.value = "hide";
-
-    //$("#videoContainer").bind('gesturestart',onVideoDoubleClick);
+    agendaButton = $("#agendaButton");
+    agendaButton.value = "hide";
 
     slideOriginalRect.x = 0;
     slideOriginalRect.y = 0;
@@ -265,7 +263,6 @@ function actuallyResize() {
         applyRect(videoFullRect, v);
     }
 
-    //	var agenda = document.getElementById('agenda');
     if (currentState == STATE_EQUAL) {
         agenda.css("left", window.innerWidth / 2 - 190 + "px");
     } else {
@@ -325,7 +322,7 @@ function toggleAgenda() {
         agenda.css("left", window.innerWidth / 2 - 400 + "px");
     }
 
-    if (agenda_btn.value == "hide") {
+    if (agendaButton.value == "hide") {
         agenda.css("display", "block");
         if (currentState == STATE_EQUAL) {
             v.css("webkitTransform", "rotateY(-45deg) translateZ(-250px) translate(100px,0)");
@@ -339,13 +336,13 @@ function toggleAgenda() {
         } else {
             agenda.css("webkitTransform", "rotateY(20deg) translateZ(-200px)");
         }
-        agenda_btn.value = "show";
+        agendaButton.value = "show";
     } else {
         setTimeout(hideAgenda, 600);
         v.css("webkitTransform", "rotateY(0deg)");
         s.css("webkitTransform", "rotateY(0deg)");
         inner.css("webkitTransform", "rotateY(0deg) translateZ(0px)");
-        agenda_btn.value = "hide";
+        agendaButton.value = "hide";
         agenda.css("opacity", "0");
         agenda.css("webkitTransform", "rotateY(0deg) translateZ(500px)");
     }
