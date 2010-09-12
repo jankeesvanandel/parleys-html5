@@ -23,14 +23,15 @@
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:h5="http://www.parleys.com/jsf/components/html5"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
-    <ui:param name="parleysBean" value="#{channelsBean}"/>
     <ui:define name="header">
         <f:metadata>
             <f:viewParam name="id" value="#{channelsViewBean.spaceId}"/>
+            <f:viewParam name="id" value="#{navigationBean.id}"/>
             <f:viewParam name="index" value="#{pagingBean.index}"/>
             <f:viewParam name="paging" value="#{pagingBean.paging}"/>
             <f:viewParam name="filter" value="#{pagingBean.filter}"/>
             <f:event type="preRenderView" listener="#{channelsBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initChannelsPage}"/>
         </f:metadata>
     </ui:define>
     <ui:define name="content">
@@ -51,15 +52,15 @@
                             <div class="overviewListText">
                                 <h:link outcome="presentationsipad">
                                     <f:param name="id" value="#{channel.id}"/>
-                                    <h4><h:outputText value="#{channel.name}" class="contentHeader"/></h4>
-                                    <h:outputText value="#{p:shortenTo(270, channel.description)}"/>
+                                    <h4>#{channel.name}</h4>
+                                    #{p:shortenTo(270, channel.description)}
                                 </h:link>
                             </div>
                             <div class="overviewListStats">
-                                <h:outputText value="created #{p:formatDate(channel.createdOn)}"/><br/><br/>
-                                <h:outputText value="#{channel.totalPresentationCount} talks"/><br/>
-                                <h:outputText value="#{p:formatNumber(channel.totalViewCount)} views"/><br/>
-                                <h:outputText value="#{p:subscription(channel.membership)}"/>
+                                created #{p:formatDate(channel.createdOn)}<br/><br/>
+                                #{channel.totalPresentationCount} talks<br/>
+                                #{p:formatNumber(channel.totalViewCount)} views<br/>
+                                #{p:subscription(channel.membership)}
                             </div>
                         </li>
                     </ui:repeat>

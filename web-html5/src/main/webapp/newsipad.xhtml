@@ -22,13 +22,15 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
-    <ui:param name="parleysBean" value="#{newsBean}"/>
+
     <ui:define name="header">
         <f:metadata>
             <f:viewParam name="id" value="#{newsBean.newsId}"/>
             <f:event type="preRenderView" listener="#{newsBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initNewsPage}"/>
         </f:metadata>
     </ui:define>
+
     <ui:define name="content">
         <div>
             <div class="contentBlock overviewList">
@@ -36,8 +38,7 @@
                     <ui:repeat value="#{newsBean.newsItems}" var="newsItem">
                         <li class="newsitem">
                             <h4>#{newsItem.title}</h4>
-                            <br/>
-                            <h:outputText escape="false" value="#{newsItem.item}"/><br/>
+                            #{newsItem.item}<br/>
                         </li>
                     </ui:repeat>
                 </ul>

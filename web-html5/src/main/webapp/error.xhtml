@@ -22,13 +22,19 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://www.parleys.com/jsf/taglib"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
-    <ui:param name="parleysBean" value="#{errorBean}"/>
+
+    <ui:define name="header">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationBean.initHomepage}"/>
+        </f:metadata>
+    </ui:define>
+
     <ui:define name="content">
         <div>
             <div class="contentBlock">
                 <h2>An error occurred</h2>
-                <h3>#{flash.errorSummary}</h3>
-                <p>#{flash.errorDetail}</p>
+                <h3><h:outputText value="#{param.summary}"/></h3>
+                <p><h:outputText value="#{param.detail}"/></p>
             </div>
         </div>
     </ui:define>
