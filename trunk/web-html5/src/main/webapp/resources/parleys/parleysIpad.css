@@ -252,6 +252,7 @@ li.shadowbox {
     margin: 5px;
     list-style: none;
     height: 110px;
+    overflow: hidden;
     border: 1px dotted #666;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -273,28 +274,20 @@ div.overviewListThumbnail {
 
 div.overviewListText {
     left: 110px;
-    right: 180px;
+    right: 130px;
+}
+
+div.overviewListText h4 {
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 div.overviewListStats {
     text-align: right;
-    width: 170px;
+    width: 120px;
     right: 10px;
     font-style: italic;
-}
-
-.presTitle {
-    display: block;
-    width: 580px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.presSummary {
-    height: 50px;
-    display: block;
-    overflow: hidden;
+    font-size: small;
 }
 
 .newsitem {

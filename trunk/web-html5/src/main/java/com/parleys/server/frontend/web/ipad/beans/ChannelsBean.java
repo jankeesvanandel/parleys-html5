@@ -42,14 +42,10 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
             return;
         }
 
-        super.initializeSpace(getParleysService().getSpaceOverviewDTO(channelsViewBean.getSpaceId()));
-
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void gotoPage(Filter filter, int index, int paging) {
         getPagingBean().setFilter(filter);

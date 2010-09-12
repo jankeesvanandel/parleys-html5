@@ -38,47 +38,47 @@
                             <span class="degrade">Home</span>
                         </h:link>
                     </li>
-                    <h:panelGroup rendered="#{empty parleysBean.currentSpace}">
+                    <h:panelGroup rendered="#{navigationBean.isOnHomepage}">
                         <li class="navButton">
                             <h:link outcome="spacesipad" value="Spaces"/>
                         </li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{parleysBean.isOnHomepage}">
+                    <h:panelGroup rendered="#{navigationBean.isOnHomepage}">
                         <li class="navButton">
                             <h:link outcome="newsipad" value="News"/>
                         </li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{!empty parleysBean.currentSpace and empty parleysBean.currentChannel}">
+                    <h:panelGroup rendered="#{!empty navigationBean.spaceId and empty navigationBean.channelId}">
                         <li class="navButton">
                             <h:link outcome="spacesipad" value="&lt;"/>
                         </li>
                         <li class="navButton">
-                            <h:link outcome="channelsipad" value="#{parleysBean.currentSpace.name}">
-                                <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
+                            <h:link outcome="channelsipad" value="#{navigationBean.spaceName}">
+                                <f:param name="id" value="#{navigationBean.spaceId}"/>
                             </h:link>
                         </li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{!empty parleysBean.currentChannel and empty parleysBean.currentPresentation}">
+                    <h:panelGroup rendered="#{!empty navigationBean.channelId and empty navigationBean.presentationId}">
                         <li class="navButton">
                             <h:link outcome="channelsipad" value="&lt;">
-                                <f:param name="id" value="#{parleysBean.currentSpace.id}"/>
+                                <f:param name="id" value="#{navigationBean.spaceId}"/>
                             </h:link>
                         </li>
                         <li class="navButton">
-                            <h:link outcome="presentationsipad" value="#{parleysBean.currentChannel.name}">
-                                <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
+                            <h:link outcome="presentationsipad" value="#{navigationBean.channelName}">
+                                <f:param name="id" value="#{navigationBean.channelId}"/>
                             </h:link>
                         </li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{!empty parleysBean.currentPresentation}">
+                    <h:panelGroup rendered="#{!empty navigationBean.presentationId}">
                         <li class="navButton">
                             <h:link outcome="presentationsipad" value="&lt;">
-                                <f:param name="id" value="#{parleysBean.currentChannel.id}"/>
+                                <f:param name="id" value="#{navigationBean.channelId}"/>
                             </h:link>
                         </li>
                         <li class="navButton">
-                            <h:link outcome="presentationipad" value="#{parleysBean.currentPresentation.title}">
-                                <f:param name="id" value="#{parleysBean.currentPresentation.id}"/>
+                            <h:link outcome="presentationipad" value="#{navigationBean.presentationName}">
+                                <f:param name="id" value="#{navigationBean.presentationId}"/>
                             </h:link>
                         </li>
                     </h:panelGroup>
@@ -86,13 +86,10 @@
             </div>
             <hr style="display: none;"/>
 
-            <!--<div id="innerContainer">-->
-                <div id="content">
-                    <h:messages globalOnly="true"/>
-
-                    <ui:insert name="content"/>
-                </div>
-            <!--</div>-->
+            <div id="content">
+                <h:messages globalOnly="true"/>
+                <ui:insert name="content"/>
+            </div>
         </h:form>
     </div>
     <ui:insert name="footer">
@@ -110,7 +107,6 @@
 
     <h:outputScript library="javax.faces" name="jsf.js"/>
     <h:outputScript library="parleys" name="jquery-1.4.2.min.js"/>
-    <!--<h:outputScript library="parleys" name="iscroll-min.js"/>-->
     <ui:insert name="scripts"/>
 </h:body>
 </html>

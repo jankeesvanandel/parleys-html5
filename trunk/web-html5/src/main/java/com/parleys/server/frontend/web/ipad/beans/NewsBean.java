@@ -20,6 +20,7 @@ import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class NewsBean extends AbstractParleysBean {
 
     private List<News> newsItems;
 
+    @ManagedProperty("#{navigationBean}")
+    private NavigationBean navigationBean;
+
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
             return;
@@ -55,7 +59,7 @@ public class NewsBean extends AbstractParleysBean {
             }
         }
 
-        initializeHomepage();
+        navigationBean.initHomepage();
     }
 
     public void setNewsId(final long newsId) {
@@ -80,5 +84,13 @@ public class NewsBean extends AbstractParleysBean {
 
     public void setNewsItems(final List<News> newsItems) {
         this.newsItems = newsItems;
+    }
+
+    public NavigationBean getNavigationBean() {
+        return navigationBean;
+    }
+
+    public void setNavigationBean(NavigationBean navigationBean) {
+        this.navigationBean = navigationBean;
     }
 }

@@ -21,6 +21,7 @@ import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,9 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class PresentationBean extends AbstractParleysBean {
+
+    @ManagedProperty("#{navigationBean}")
+    private NavigationBean navigationBean;
 
     private long presentationId;
 
@@ -49,7 +53,6 @@ public class PresentationBean extends AbstractParleysBean {
         }
 
         presentation = getParleysService().getPresentationDetails(presentationId);
-        super.initializePresentation(presentation);
     }
 
     public long getPresentationId() {
@@ -130,5 +133,13 @@ public class PresentationBean extends AbstractParleysBean {
 
     public void setStreamURL(String streamURL) {
         this.streamURL = streamURL;
+    }
+
+    public NavigationBean getNavigationBean() {
+        return navigationBean;
+    }
+
+    public void setNavigationBean(NavigationBean navigationBean) {
+        this.navigationBean = navigationBean;
     }
 }

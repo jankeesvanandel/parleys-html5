@@ -24,16 +24,19 @@
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:h5="http://www.parleys.com/jsf/components/html5"
         xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
-    <ui:param name="parleysBean" value="#{presentationsBean}"/>
+
     <ui:define name="header">
         <f:metadata>
             <f:viewParam name="id" value="#{presentationsViewBean.channelId}"/>
+            <f:viewParam name="id" value="#{navigationBean.id}"/>
             <f:viewParam name="index" value="#{pagingBean.index}"/>
             <f:viewParam name="paging" value="#{pagingBean.paging}"/>
             <f:viewParam name="filter" value="#{pagingBean.filter}"/>
             <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initPresentationsPage}"/>
         </f:metadata>
     </ui:define>
+
     <ui:define name="content">
         <div>
             <c:if test="#{not empty pagingBean.filter.description}">
@@ -55,27 +58,17 @@
                             <div class="overviewListText">
                                 <h:link outcome="presentationipad">
                                     <f:param name="id" value="#{thumbnail.id}"/>
-                                    <h:outputText
-                                            styleClass="presTitle"
-                                            value="#{p:title(thumbnail)}"/>
-                                    <h:outputText
-                                            value="#{p:subLabel(thumbnail)}"
-                                            style="font-style:italic;"/><br/>
-                                    <h:outputText
-                                            styleClass="presSummary"
-                                            escape="false"
-                                            value="#{thumbnail.summary}"/>
-                                    <!--<h4><h:outputText value="#{thumbnail.title}" class="contentHeader"/></h4>-->
-                                    <!--<h:outputText value="#{p:shortenTo(270, thumbnail.summary)}"/>-->
-                                    <!--<h:outputText value="#{p:shortenTo(270, thumbnail.summary)}"/>-->
+                                    <h4>#{p:title(thumbnail)}</h4>
+                                    <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
+                                    #{p:shortenTo(270, thumbnail.summary)}
                                 </h:link>
                             </div>
                             <div class="overviewListStats">
-                                <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/>
-                                <h:outputText value="#{p:totalVotes(thumbnail.totalVotes)}"/><br/>
-                                <h:outputText value="#{p:formatNumber(thumbnail.totalViews)} views"/><br/>
-                                <h:outputText value="#{p:formatNumber(thumbnail.totalDownloads)} downloads"/><br/>
-                                <h:outputText value="#{p:formatNumber(thumbnail.totalComments)} comments"/>
+                                <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/><br/>
+                                #{p:totalVotes(thumbnail.totalVotes)}<br/>
+                                #{p:formatNumber(thumbnail.totalViews)} views<br/>
+                                #{p:formatNumber(thumbnail.totalDownloads)} downloads<br/>
+                                #{p:formatNumber(thumbnail.totalComments)} comments
                             </div>
                         </li>
                     </ui:repeat>

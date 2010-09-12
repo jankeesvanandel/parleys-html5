@@ -16,7 +16,6 @@
 package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.types.FeaturedType;
-import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.domain.Filter;
 import com.parleys.server.frontend.service.PresentationsCriteria;
@@ -59,14 +58,6 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
 
         final List<PresentationOverviewDTO> presentations = loadPresentations(getPagingBean().getFilter());
         getPagingBean().setPaginatedList(presentations);
-
-        final Long channelId = getPresentationsViewBean().getChannelId();
-        if (channelId != null) {
-            final ChannelOverviewDTO dto = getParleysService().getChannelOverviewDTO(channelId);
-            super.initializeChannel(dto);
-        } else {
-            super.initializeHomepage();
-        }
     }
 
     @SuppressWarnings("unchecked")

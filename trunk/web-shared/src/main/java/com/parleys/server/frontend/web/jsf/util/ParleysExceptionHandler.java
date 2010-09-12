@@ -24,11 +24,12 @@ import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerWrapper;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -153,12 +154,15 @@ public class ParleysExceptionHandler extends ExceptionHandlerWrapper {
 
     private void showErrorPage(FacesMessage message) {
         FacesContext facesContext = JSFUtil.fc();
+        ExternalContext externalContext = facesContext.getExternalContext();
         try {
-            Flash flash = facesContext.getExternalContext().getFlash();
-            flash.put("errorSummary", message.getSummary());
-            flash.put("errorDetail", message.getDetail());
+            String summary = URLEncoder.encode(message.getSummary(), "UTF-8");
+            String detail = URLEncoder.encode(message.getDetail(), "UTF-8");
 
-            facesContext.getExternalContext().redirect("error.xhtml");
+            String queryString = "?summary=" + summary + "&detail=" + detail;
+
+            String errorPage = externalContext.getRequestContextPath() + "/error.xhtml";
+            externalContext.redirect(errorPage + queryString);
         } catch (IOException e) {
             LOGGER.error("Error redirecting to error page", e);
         }

@@ -15,9 +15,6 @@
  */
 package com.parleys.server.frontend.web.ipad.beans;
 
-import com.parleys.server.dto.ChannelOverviewDTO;
-import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
-import com.parleys.server.dto.SpaceOverviewDTO;
 import com.parleys.server.frontend.service.ParleysService;
 
 import javax.faces.bean.ManagedProperty;
@@ -29,14 +26,6 @@ import javax.faces.bean.ManagedProperty;
  * @author Stephan Janssen
  */
 public abstract class AbstractParleysBean {
-
-    private boolean isOnHomepage = false;
-
-    private SpaceOverviewDTO currentSpace;
-
-    private ChannelOverviewDTO currentChannel;
-
-    private ExtendedPresentationDetailsDTO currentPresentation;
 
     @ManagedProperty("#{pagingBean}")
     private PagingBean pagingBean;
@@ -50,48 +39,6 @@ public abstract class AbstractParleysBean {
 
     public void setParleysService(final ParleysService parleysService) {
         this.parleysService = parleysService;
-    }
-
-    public final void initializeHomepage() {
-        isOnHomepage = true;
-    }
-
-    public final void initializeSpace(final SpaceOverviewDTO space) {
-        currentSpace = space;
-    }
-
-    public final void initializeChannel(final ChannelOverviewDTO channel) {
-        currentChannel = channel;
-        initializeSpace(findSpaceForChannel(channel));
-    }
-
-    public final void initializePresentation(final ExtendedPresentationDetailsDTO presentation) {
-        currentPresentation = presentation;
-        initializeChannel(findChannelForPresentation(presentation));
-    }
-
-    private SpaceOverviewDTO findSpaceForChannel(final ChannelOverviewDTO channel) {
-        return getParleysService().getSpaceOverviewDTO(channel.getSpaceId());
-    }
-
-    private ChannelOverviewDTO findChannelForPresentation(final ExtendedPresentationDetailsDTO presentation) {
-        return presentation.getChannel();
-    }
-
-    public SpaceOverviewDTO getCurrentSpace() {
-        return currentSpace;
-    }
-
-    public ChannelOverviewDTO getCurrentChannel() {
-        return currentChannel;
-    }
-
-    public ExtendedPresentationDetailsDTO getCurrentPresentation() {
-        return currentPresentation;
-    }
-
-    public boolean getIsOnHomepage() {
-        return isOnHomepage;
     }
 
     public PagingBean getPagingBean() {

@@ -15,10 +15,8 @@
  */
 package com.parleys.server.frontend.web.ipad.beans;
 
-import com.parleys.server.domain.News;
 import com.parleys.server.domain.Thumbnail;
 import com.parleys.server.domain.types.FeaturedType;
-import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.dto.AbstractDTO;
 import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
@@ -44,17 +42,8 @@ import java.util.List;
 @RequestScoped
 public class HomepageBean extends AbstractParleysBean {
 
-
     @ManagedProperty("#{homepageViewBean}")
     private HomepageViewBean homepageViewBean;
-
-    private long newsId;
-
-    private SpaceOverviewDTO recommendedSpace;
-
-    private ChannelOverviewDTO recommendedChannel;
-
-    private PresentationOverviewDTO recommendedPresentation;
 
     @SuppressWarnings("unchecked")
     public void init() {
@@ -64,34 +53,8 @@ public class HomepageBean extends AbstractParleysBean {
 
         getPagingBean().setPaging(6);
 
-        if (homepageViewBean.getThumbnailsFilter() == null || homepageViewBean.getThumbnailsFilterType() == null) {
-            homepageViewBean.setThumbnailsFilter(Filter.FEATURED);
-            homepageViewBean.setThumbnailsFilterType(Filter.Type.PRESENTATION);
-        }
-
         List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
         transformToThumbnails(thumbnailsIn);
-
-        homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
-
-        if (newsId > 0) {
-            int counter = 0;
-            for (News newsItem : homepageViewBean.getNewsItems()) {
-                if (newsItem.getId().equals(newsId)) {
-                    homepageViewBean.setActiveNewsItemIndex(counter);
-                    break;
-                }
-                counter++;
-            }
-        }
-
-        final List<? extends AbstractDTO> featuredContent = getParleysService().getFeaturedContent();
-
-        recommendedSpace = (SpaceOverviewDTO) featuredContent.get(0);
-        recommendedChannel = (ChannelOverviewDTO) featuredContent.get(1);
-        recommendedPresentation = (PresentationOverviewDTO) featuredContent.get(2);
-
-        initializeHomepage();
     }
 
     public String viewThumbnails(Filter filter, Filter.Type filterType, int index) {
@@ -101,25 +64,23 @@ public class HomepageBean extends AbstractParleysBean {
         homepageViewBean.setThumbnailsFilter(filter);
         homepageViewBean.setThumbnailsFilterType(filterType);
 
-        if (filter != null && filterType != null) {
-            if (filterType == Filter.Type.PRESENTATION) {
-                final PresentationsCriteria criteria = new PresentationsCriteria();
-                criteria.setIndex(0);
-                criteria.setPaging(99);
-                if (filter == Filter.FEATURED) {
-                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
-                } else if (filter == Filter.LATEST) {
-                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
-                } else if (filter == Filter.TOP_RATED) {
-                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
-                } else if (filter == Filter.MOST_VIEWED) {
-                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
-                }
-            } else if (filterType == Filter.Type.CHANNEL) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
-            } else if (filterType == Filter.Type.SPACE) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
+        if (filterType == Filter.Type.PRESENTATION) {
+            final PresentationsCriteria criteria = new PresentationsCriteria();
+            criteria.setIndex(0);
+            criteria.setPaging(99);
+            if (filter == Filter.FEATURED) {
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
+            } else if (filter == Filter.LATEST) {
+                transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
+            } else if (filter == Filter.TOP_RATED) {
+                transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
+            } else if (filter == Filter.MOST_VIEWED) {
+                transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
             }
+        } else if (filterType == Filter.Type.CHANNEL) {
+            transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
+        } else if (filterType == Filter.Type.SPACE) {
+            transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
         }
 
         return null;
@@ -132,25 +93,23 @@ public class HomepageBean extends AbstractParleysBean {
         homepageViewBean.setThumbnailsFilter(filter);
         homepageViewBean.setThumbnailsFilterType(filterType);
 
-        if (filter != null && filterType != null) {
-            if (filterType == Filter.Type.PRESENTATION) {
-                final PresentationsCriteria criteria = new PresentationsCriteria();
-                criteria.setIndex(0);
-                criteria.setPaging(999);
-                if (filter == Filter.FEATURED) {
-                    transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
-                } else if (filter == Filter.LATEST) {
-                    transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
-                } else if (filter == Filter.TOP_RATED) {
-                    transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
-                } else if (filter == Filter.MOST_VIEWED) {
-                    transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
-                }
-            } else if (filterType == Filter.Type.CHANNEL) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
-            } else if (filterType == Filter.Type.SPACE) {
-                transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
+        if (filterType == Filter.Type.PRESENTATION) {
+            final PresentationsCriteria criteria = new PresentationsCriteria();
+            criteria.setIndex(0);
+            criteria.setPaging(999);
+            if (filter == Filter.FEATURED) {
+                transformToThumbnails(getParleysService().getFeatured(FeaturedType.PRESENTATION));
+            } else if (filter == Filter.LATEST) {
+                transformToThumbnails(getParleysService().getLatestPresentationsOverview(criteria));
+            } else if (filter == Filter.TOP_RATED) {
+                transformToThumbnails(getParleysService().getTopRatedPresentationsOverview(criteria));
+            } else if (filter == Filter.MOST_VIEWED) {
+                transformToThumbnails(getParleysService().getMostViewedPresentationsOverview(criteria));
             }
+        } else if (filterType == Filter.Type.CHANNEL) {
+            transformToThumbnails(getParleysService().getFeatured(FeaturedType.CHANNEL));
+        } else if (filterType == Filter.Type.SPACE) {
+            transformToThumbnails(getParleysService().getFeatured(FeaturedType.SPACE));
         }
 
         return null;
@@ -202,57 +161,11 @@ public class HomepageBean extends AbstractParleysBean {
         return thumbnail;
     }
 
-    public String gotoNewsItem(Long id) {
-        homepageViewBean.setNewsItems(getParleysService().getNews(NewsType.GENERAL, 0, 0, 10).getOverviews());
-        final List<News> newsItems = homepageViewBean.getNewsItems();
-        for (int i = 0; i < newsItems.size(); i++) {
-            final News newsItem = newsItems.get(i);
-            if (newsItem.getId().equals(id)) {
-                homepageViewBean.setActiveNewsItemIndex(i);
-                break;
-            }
-        }
-
-        return null;
-    }
-
-    public void setNewsId(final Long newsId) {
-        this.newsId = newsId;
-    }
-
-    public Long getNewsId() {
-        return newsId;
-    }
-
-    public SpaceOverviewDTO getRecommendedSpace() {
-        return recommendedSpace;
-    }
-
-    public void setRecommendedSpace(final SpaceOverviewDTO recommendedSpace) {
-        this.recommendedSpace = recommendedSpace;
-    }
-
-    public ChannelOverviewDTO getRecommendedChannel() {
-        return recommendedChannel;
-    }
-
-    public void setRecommendedChannel(final ChannelOverviewDTO recommendedChannel) {
-        this.recommendedChannel = recommendedChannel;
-    }
-
-    public PresentationOverviewDTO getRecommendedPresentation() {
-        return recommendedPresentation;
-    }
-
-    public void setRecommendedPresentation(final PresentationOverviewDTO recommendedPresentation) {
-        this.recommendedPresentation = recommendedPresentation;
+    public HomepageViewBean getHomepageViewBean() {
+        return homepageViewBean;
     }
 
     public void setHomepageViewBean(HomepageViewBean homepageViewBean) {
         this.homepageViewBean = homepageViewBean;
-    }
-
-    public HomepageViewBean getHomepageViewBean() {
-        return homepageViewBean;
     }
 }
