@@ -92,8 +92,9 @@ public class PresentationBean extends AbstractParleysBean {
                 if (value != null && value.length() > 4) {
                     value = "/iphone_" + value.substring(1, value.length() - 3) + "jpg";
                     asset.setValue(value);
-                    sAssets.add(asset);
+
                 }
+                 sAssets.add(asset);
             }
         }
 
