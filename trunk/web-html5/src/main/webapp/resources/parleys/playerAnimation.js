@@ -160,7 +160,7 @@ var resizeTimer;
 function onResize() {
     var contentWidth = $("#mainContent").width();
     var contentHeight = $("#mainContent").height();
-    console.log("onResize: " + contentWidth + "x" + contentHeight);
+//    console.log("onResize: " + contentWidth + "x" + contentHeight);
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(actuallyResize, 200);
 }

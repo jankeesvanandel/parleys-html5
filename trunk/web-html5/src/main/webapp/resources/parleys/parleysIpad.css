@@ -441,6 +441,10 @@ div#videoNavigationBarCursor:hover {
     cursor: pointer;
 }
 
+div#videoControls div#controls {
+    text-align: center;
+}
+
 #playButtonOverlayBackground {
     display: none;
     z-index: 998;
