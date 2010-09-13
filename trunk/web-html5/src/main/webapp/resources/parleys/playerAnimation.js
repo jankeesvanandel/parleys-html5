@@ -22,6 +22,14 @@ var STATE_SLIDE_BIG = "STATE_SLIDE_BIG";
 var STATE_VIDEO_FULL = "STATE_VIDEO_FULL";
 var STATE_SLIDE_FULL = "STATE_SLIDE_FULL";
 
+
+var TYPE_AUDIO_AND_SLIDES = "AUDIO_AND_SLIDES";
+var TYPE_VIDEO_AND_SLIDES = "VIDEO_AND_SLIDES";
+var TYPE_SLIDES_ONLY = "SLIDES_ONLY";
+var TYPE_VIDEO_ONLY = "VIDEO_ONLY";
+var TYPE_ADVERTISEMENT = "ADVERTISEMENT";
+var TYPE_ALL  = "ALL";
+
 var slideEqualRect = new Object();
 var videoEqualRect = new Object();
 var slideSmallRect = new Object();
@@ -40,14 +48,34 @@ var agenda;
 var inner;
 var agendaButton;
 
+var presentationType;
+
 $(window).bind('resize', onResize);
 
 $(document).bind('ready', function() {
+
+    presentationType =   $("#mainContent").attr("presentationType");
+   // presentationType = TYPE_VIDEO_ONLY;
+
+    if(presentationType == TYPE_VIDEO_ONLY){
+        $("#slidesContainer").css("display", "none");
+        $("#videoContainer").css("display", "block");
+        currentState = STATE_VIDEO_FULL;
+    }
+
+    if(presentationType == TYPE_AUDIO_AND_SLIDES){
+        $("#slidesContainer").css("display", "block");
+        $("#videoContainer").css("display", "none");
+        currentState = STATE_SLIDE_FULL;
+    }
+
+
+
+
     $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
     $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
 
-    agendaButton = $("#agendaButton");
-    agendaButton.value = "hide";
+
 
     slideOriginalRect.x = 0;
     slideOriginalRect.y = 0;
@@ -63,6 +91,8 @@ $(document).bind('ready', function() {
     s = $("#slidesContainer");
     inner = $("#inner");
     agenda = $("#agenda");
+    agendaButton = $("#agendaButton");
+    agendaButton.value = "hide";
 
     oldWidth = $("#mainContent").width();
 
@@ -266,7 +296,7 @@ function actuallyResize() {
     if (currentState == STATE_EQUAL) {
         agenda.css("left", window.innerWidth / 2 - 190 + "px");
     } else {
-        agenda.css("left", window.innerWidth / 2 - 400 + "px");
+        agenda.css("left","100px");
     }
 
     resizeChapters();
@@ -319,23 +349,29 @@ function toggleAgenda() {
     if (currentState == STATE_EQUAL) {
         agenda.css("left", window.innerWidth / 2 - 190 + "px");
     } else {
-        agenda.css("left", window.innerWidth / 2 - 400 + "px");
+        agenda.css("left","100px");
     }
+
+
 
     if (agendaButton.value == "hide") {
         agenda.css("display", "block");
+        agenda.css("z-index", "50");
+        s.css("z-index", "49");
+        v.css("z-index", "48");
         if (currentState == STATE_EQUAL) {
             v.css("webkitTransform", "rotateY(-45deg) translateZ(-250px) translate(100px,0)");
             s.css("webkitTransform", "rotateY(45deg) translateZ(-250px) translate(-100px,0)");
         } else {
-            inner.css("webkitTransform", "rotateY(-45deg) translateZ(-500px) translate(100px,0)");
+            inner.css("webkitTransform", "rotateY(-45deg) translateZ(-500px) translate(-180px,0)");
         }
-        agenda.css("opacity", "100");
+
         if (currentState == STATE_EQUAL) {
             agenda.css("webkitTransform", "rotateY(0deg) translateZ(0px)");
         } else {
             agenda.css("webkitTransform", "rotateY(20deg) translateZ(-200px)");
         }
+        agenda.css("opacity", "100");
         agendaButton.value = "show";
     } else {
         setTimeout(hideAgenda, 600);
@@ -349,7 +385,8 @@ function toggleAgenda() {
 }
 
 function hideAgenda() {
-    agenda.css("display", "none");
+   // agenda.css("display", "none");
+    agenda.css("left","-3000px");
 }
 
 jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {

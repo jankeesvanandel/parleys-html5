@@ -16,6 +16,7 @@
 package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.types.AssetTargetType;
+import com.parleys.server.domain.types.PresentationType;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
@@ -46,6 +47,8 @@ public class PresentationBean extends AbstractParleysBean {
     private List<AssetDTO> slideAssets;
 
     private String streamURL;
+
+    private String type;
 
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
@@ -133,6 +136,22 @@ public class PresentationBean extends AbstractParleysBean {
 
     public void setStreamURL(String streamURL) {
         this.streamURL = streamURL;
+    }
+
+
+
+    public void setType(String value) {
+        this.type = value;
+    }
+
+    public String getType(){
+
+
+        String t = presentation.getType();
+
+
+        return t;
+       // return type;
     }
 
     public NavigationBean getNavigationBean() {
