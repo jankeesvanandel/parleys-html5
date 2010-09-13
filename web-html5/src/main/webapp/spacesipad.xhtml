@@ -42,13 +42,13 @@
                 <ul>
                     <ui:repeat value="#{pagingBean.list}" var="space">
                         <li class="shadowbox">
-                            <div class="overviewListThumbnail">
+                            <div class="overviewListThumbnail smallThumbnail">
                                 <h:link outcome="channelsipad">
                                     <f:param name="id" value="#{space.id}"/>
                                     <h:graphicImage value="#{p:spaceThumbnail(space.id, space.thumbnailURL)}" alt="#{space.name}" height="70" width="70"/>
                                 </h:link>
                             </div>
-                            <div class="overviewListText">
+                            <div class="overviewListText smallThumbnail">
                                 <h:link outcome="channelsipad">
                                     <f:param name="id" value="#{space.id}"/>
                                     <h4>#{space.name}</h4>
