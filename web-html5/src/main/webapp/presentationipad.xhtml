@@ -38,7 +38,8 @@
     </ui:define>
 
     <ui:define name="content">
-        <div id="mainContent">
+        <div id="mainContent" presentationType="#{presentationBean.type}">
+           <div id="inner">
             <div id="videoContainer">
                 <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="100%" height="100%"
                        src="#{presentationBean.streamURL}"/>
@@ -52,6 +53,7 @@
                         startTime="#{asset.cuePoint}"
                         endTime="#{asset.cuePoint + asset.duration}"/>
                 </ui:repeat>
+            </div>
             </div>
         </div>
 
@@ -94,11 +96,11 @@
             <div id="videoControls">
                 <div id="tagsAndComments"></div>
                 <div id="controls">
-                    <a href="#" id="prevChapterButton"><img src="#{resource['img:prevChapterButton.png']}" alt="Previous chapter"/></a>
-                    <a href="#" id="playButton" style="display: none"><img src="#{resource['img:playButton.png']}" alt="Play"/></a>
-                    <a href="#" id="pauzeButton"><img src="#{resource['img:pauseButton.png']}" alt="Pauze"/></a>
-                    <a href="#" id="nextChapterButton"><img src="#{resource['img:nextChapterButton.png']}" alt="Previous chapter"/></a>
-                    <a href="#" id="agendaButton"><img src="#{resource['img:agenda.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="prevChapterButton"><img src="#{resource['img:chapterBack_normal.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="playButton" style="display: none"><img src="#{resource['img:play_normal.png']}" alt="Play"/></a>
+                    <a href="#" id="pauzeButton"><img src="#{resource['img:pause_normal.png']}" alt="Pauze"/></a>
+                    <a href="#" id="nextChapterButton"><img src="#{resource['img:chapterForward_normal.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="agendaButton"><img src="#{resource['img:agenda_btn.png']}" alt="Agenda"/></a>
                 </div>
             </div>
         </div>

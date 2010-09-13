@@ -299,7 +299,7 @@ function initializeVideoNavigationBar() {
     var presentationSlides = $("#slidesContainer img");
     var noOfSlides = presentationSlides.length;
     var lastSlide = presentationSlides.last();
-    var videoDuration = parseFloat(lastSlide.attr("endTime"));
+    var videoDuration = parseFloat($("#chapters").attr("totalduration"));
 
     updateVideoDurationIndicator(videoDuration);
 
