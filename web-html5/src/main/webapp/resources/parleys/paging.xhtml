@@ -29,7 +29,6 @@
 </composite:interface>
 
 <composite:implementation>
-    <h:outputScript library="parleys" name="paging.js"/>
     <h5:div id="pagingBar" styleClass="pagingBar" rendered="#{pagingBean.isRendered}">
         <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="inlineLoader" width="32" height="32"/>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"

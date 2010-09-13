@@ -29,11 +29,9 @@ body {
 
 a, a:visited {
     text-decoration: none;
-    f/ont-size: 0.8em;
 }
 
 a:hover {
-    color: #fff;
     text-decoration: none;
 }
 
@@ -76,11 +74,6 @@ a.bugLink {
 a.twitterLink {
     padding-left: 20px; /*18px + 2 padding*/
     background: transparent url(#{utilBean.basePath}/resources/img/twitter.jpg) no-repeat center left;
-}
-
-form#main {
-    m/in-height: 100%;
-    w/idth: 100%;
 }
 
 img {
