@@ -75,9 +75,9 @@ public class PresentationDetailsDTO extends AbstractDTO {
 
     private SocialInfo socialInfo = new SocialInfo();
 
-    private PresentationType type = PresentationType.AUDIO_AND_SLIDES;
+    private String type = PresentationType.AUDIO_AND_SLIDES.name();
 
-    private PresentationState state = PresentationState.STAGING;
+    private String state = PresentationState.STAGING.name();
 
     private SimpleUserDTO publisher;
 
@@ -342,28 +342,28 @@ public class PresentationDetailsDTO extends AbstractDTO {
     /**
      * @return the type
      */
-    public final PresentationType getType() {
+    public final String getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public final void setType(final PresentationType type) {
+    public final void setType(final String type) {
         this.type = type;
     }
 
     /**
      * @return the state
      */
-    public final PresentationState getState() {
+    public final String getState() {
         return state;
     }
 
     /**
      * @param state the state to set
      */
-    public final void setState(final PresentationState state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
