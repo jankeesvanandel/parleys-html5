@@ -37,6 +37,10 @@
         </f:metadata>
     </ui:define>
 
+    <ui:define name="scripts">
+        <h:outputScript library="parleys" name="paging.js"/>
+    </ui:define>
+
     <ui:define name="content">
         <div>
             <c:if test="#{not empty pagingBean.filter.description}">
@@ -56,12 +60,10 @@
                                 </h:link>
                             </div>
                             <div class="overviewListText">
-                                <h:link outcome="presentationipad">
-                                    <f:param name="id" value="#{thumbnail.id}"/>
-                                    <h4>#{p:title(thumbnail)}</h4>
-                                    <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
-                                    #{p:shortenTo(270, thumbnail.summary)}
-                                </h:link>
+                                <f:param name="id" value="#{thumbnail.id}"/>
+                                <h4>#{p:title(thumbnail)}</h4>
+                                <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
+                                <h:outputText escape="false" value="#{p:shortenTo(270, thumbnail.summary)}"/>
                             </div>
                             <div class="overviewListStats">
                                 <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/><br/>

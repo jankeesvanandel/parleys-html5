@@ -34,6 +34,10 @@
         </f:metadata>
     </ui:define>
 
+    <ui:define name="scripts">
+        <h:outputScript library="parleys" name="paging.js"/>
+    </ui:define>
+
     <ui:define name="content">
         <div>
             <parleys:paging targetBean="#{spacesBean}" render="main:spacesContainer"/>
@@ -49,11 +53,9 @@
                                 </h:link>
                             </div>
                             <div class="overviewListText smallThumbnail">
-                                <h:link outcome="channelsipad">
-                                    <f:param name="id" value="#{space.id}"/>
-                                    <h4>#{space.name}</h4>
-                                    #{p:shortenTo(270, space.description)}
-                                </h:link>
+                                <f:param name="id" value="#{space.id}"/>
+                                <h4>#{space.name}</h4>
+                                <h:outputText escape="false" value="#{p:shortenTo(270, space.description)}"/>
                             </div>
                             <div class="overviewListStats">
                                 created #{p:formatDate(space.createdOn)}<br/>

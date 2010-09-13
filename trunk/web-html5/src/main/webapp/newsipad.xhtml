@@ -38,7 +38,7 @@
                     <ui:repeat value="#{newsBean.newsItems}" var="newsItem">
                         <li class="newsitem">
                             <h4>#{newsItem.title}</h4>
-                            #{newsItem.item}<br/>
+                            <h:outputText escape="false" value="#{newsItem.item}"/>
                         </li>
                     </ui:repeat>
                 </ul>
