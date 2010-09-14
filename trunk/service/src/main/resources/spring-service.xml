@@ -33,4 +33,8 @@
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
 
+    <bean id="amfEndPoint" class="java.lang.String">
+		<constructor-arg value="http://www.parleys.com/parleysserver/" />
+	</bean>
+
 </beans>
