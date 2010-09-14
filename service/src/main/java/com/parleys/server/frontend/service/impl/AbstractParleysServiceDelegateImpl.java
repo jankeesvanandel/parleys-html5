@@ -17,14 +17,15 @@ package com.parleys.server.frontend.service.impl;
 
 import com.parleys.io.amf.client.AMFClientFactory;
 import com.parleys.server.frontend.service.ParleysService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * @author Stephan Janssen
  */
 public abstract class AbstractParleysServiceDelegateImpl implements ParleysService {
 
-    // TODO Inject the AMF context root using a property value
-    private static final String PARLEYS_CONTEXT = "http://www.parleys.com/parleysserver/";
+    private String amfEndPoint;
 
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
@@ -50,6 +51,15 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
      * @return the target AMF channel
      */
     protected String getAMFChannel() {
-        return PARLEYS_CONTEXT + MESSAGEBROKER_AMF;
+        return getAmfEndPoint() + MESSAGEBROKER_AMF;
+    }
+
+    @Autowired
+    public void setAmfEndPoint(final String amfEndPoint) {
+        this.amfEndPoint = amfEndPoint;
+    }
+
+    public String getAmfEndPoint() {
+        return amfEndPoint;
     }
 }
