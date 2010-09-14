@@ -70,6 +70,7 @@ $(document).bind('ready', function() {
     }
 
 
+    
 
 
     $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
@@ -100,6 +101,9 @@ $(document).bind('ready', function() {
     actuallyResize();
     allowZoom(false);
 });
+
+
+
 
 function allowZoom(flag) {
     if (flag) {

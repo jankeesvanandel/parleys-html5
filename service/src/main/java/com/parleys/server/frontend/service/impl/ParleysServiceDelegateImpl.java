@@ -138,4 +138,19 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
                                              final int paging) {
         return getParleysServiceProxy().getNews(newsType.name(), id, index, paging);
     }
+
+
+     /** {@inheritDoc} */
+    @Cacheable(cacheName="presentations")
+    @Override
+    public List<PresentationOverviewDTO> searchPresentations(String searchText,
+                                                                 int startIndex,
+                                                                 int resultsCount) {
+        return getParleysServiceProxy().searchPresentations(searchText,startIndex,resultsCount).getOverviews();
+    }
+
+
+
+
+
 }

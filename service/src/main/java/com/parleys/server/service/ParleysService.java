@@ -603,16 +603,16 @@ public interface ParleysService {
 //     */
 //    OverviewResponseDTO<ChannelOverviewDTO> searchChannels(String searchText, int startIndex, int resultsCount);
 //
-//    /**
-//     * Search the lucene indexes for presentations.
-//     *
-//     * @param searchText   the text to search for
-//     * @param startIndex   start index
-//     * @param resultsCount number of elements to return
-//     * @return search results
-//     */
-//    OverviewResponseDTO<PresentationOverviewDTO> searchPresentations(String searchText, int startIndex,
-//                                                                     int resultsCount);
+    /**
+     * Search the lucene indexes for presentations.
+     *
+     * @param searchText   the text to search for
+     * @param startIndex   start index
+     * @param resultsCount number of elements to return
+     * @return search results
+     */
+    OverviewResponseDTO<PresentationOverviewDTO> searchPresentations(String searchText, int startIndex,
+                                                                     int resultsCount);
 //
 //    /**
 //     * Search the lucene indexes for presentations but searching only using tags.
@@ -659,16 +659,16 @@ public interface ParleysService {
 //     */
 //    List<ChannelOverviewDTO> getRelatedChannelsByKeyword(String keyword, int startIndex, int resultsCount);
 //
-//    /**
-//     * Returns presentations contained the same keyword.
-//     *
-//     * @param keyword      Is keyword to search presentations for (exact match).
-//     * @param startIndex   Start index.
-//     * @param resultsCount Number of elements to return.
-//     * @return Resulting spaces list.
-//     */
-//    List<PresentationOverviewDTO> getRelatedPresentationsByKeyword(String keyword, int startIndex, int resultsCount);
-//
+      /**
+      * Returns presentations contained the same keyword.
+      *
+      * @param keyword      Is keyword to search presentations for (exact match).
+      * @param startIndex   Start index.
+      * @param resultsCount Number of elements to return.
+      * @return Resulting spaces list.
+      */
+      List<PresentationOverviewDTO> getRelatedPresentationsByKeyword(String keyword, int startIndex, int resultsCount);
+
 //    /**
 //     * Has user paid for this non-free presentation?
 //     *

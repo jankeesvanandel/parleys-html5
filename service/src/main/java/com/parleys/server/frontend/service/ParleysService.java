@@ -139,4 +139,15 @@ public interface ParleysService {
      * @return a list of news items
      */
     OverviewResponseDTO<News> getNews(NewsType newsType, long id, int index, int paging);
+
+
+     /**
+     * Search the lucene indexes for presentations.
+     *
+     * @param searchText   the text to search for
+     * @param startIndex   start index
+     * @param resultsCount number of elements to return
+     * @return search results
+     */
+    List<? extends AbstractDTO> searchPresentations(String searchText, int startIndex, int resultsCount);
 }

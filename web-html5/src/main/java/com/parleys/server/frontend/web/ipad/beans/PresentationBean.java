@@ -17,8 +17,10 @@ package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.types.AssetTargetType;
 import com.parleys.server.domain.types.PresentationType;
+import com.parleys.server.dto.AbstractDTO;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
+import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
@@ -42,9 +44,13 @@ public class PresentationBean extends AbstractParleysBean {
 
     private long presentationId;
 
+    private String presentationTitle;
+
     private ExtendedPresentationDetailsDTO presentation;
 
     private List<AssetDTO> slideAssets;
+
+    private List<? extends AbstractDTO> relatedPresentations;
 
     private String streamURL;
 
@@ -56,6 +62,17 @@ public class PresentationBean extends AbstractParleysBean {
         }
 
         presentation = getParleysService().getPresentationDetails(presentationId);
+
+        setRelatedPresentations(getParleysService().searchPresentations(presentation.getKeywordsString(),0,5));
+    }
+
+    public List<? extends AbstractDTO> getRelatedPresentations(){
+        return relatedPresentations;
+    }
+
+    public void setRelatedPresentations(List<? extends AbstractDTO> value){
+        relatedPresentations = value;
+
     }
 
     public long getPresentationId() {
@@ -146,13 +163,16 @@ public class PresentationBean extends AbstractParleysBean {
     }
 
     public String getType(){
-
-
         String t = presentation.getType();
-
-
         return t;
-       // return type;
+    }
+
+    public void setPresentationTitle(String value){
+        this.presentationTitle = value;
+    }
+
+    public String getPresentationTitle(){
+        return presentation.getTitle();
     }
 
     public NavigationBean getNavigationBean() {
