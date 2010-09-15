@@ -50,9 +50,7 @@
 					break;
 			}
 
-           // alert("Target: "+targetURL+"    "+to+"    "+link);
             var load = window.open(targetURL,'','scrollbars=no,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no')
-            //location.href = targetURL;
 		}
 
 
@@ -65,7 +63,7 @@ var presentationTitle;
 $(document).bind('ready', function() {
 
 
-    $("#tabs").tabs();
+    $("#tabs").tabs({ fx: {opacity: 'toggle' } });
 
 
     $('#tabs').bind('tabsselect', function(event, ui) {
