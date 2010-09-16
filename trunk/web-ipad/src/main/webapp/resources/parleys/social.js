@@ -70,7 +70,7 @@ $(document).bind('ready', function() {
 
         if(ui.index == 2){
           $("#tabs").css("left", "0px");
-          $("#tabs").css("width", "700px");
+          $("#tabs").css("width", "750px");
         } else{
             $("#tabs").css("left", "0px");
             $("#tabs").css("width", "550px");
@@ -88,7 +88,7 @@ $(document).bind('ready', function() {
     });
 
 
-     $("#share a").bind("click", function() {
+     $("#tabs-1 a").bind("click", function() {
         var type = $(this).attr("type");
         var link = "http://www.parleys.com/d/"+presentationId;
 

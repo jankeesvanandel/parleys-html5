@@ -353,50 +353,6 @@ div.pagingBar a.next.paging {
     height: 100%;
 }
 
-#agenda {
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border: 5px solid #ffffff;
-	padding: 0px;
-	width: 380px;
-	bottom: 110px;
-    top: 20px;
-    left:-3000px;
-	background-color: #3b3b3b;
-	position: absolute;
-	-moz-box-shadow: 0 20px 40px #888;
-	-webkit-box-shadow: 0 10px 10px #888;
-	-webkit-transform: rotateY(0deg) translateZ(500px) translate(0,0);
-    -webkit-transition-property: -webkit-transform, opacity;
-    -webkit-transition-duration: 0.5s;
-	-webkit-transition-timing-function: ease-in-out;
-	opacity: 0;
-    overflow-y: scroll;
-}
-
-
-
-#tabs{
-    width:550px;
-    top:80px;
-    bottom:100px;
-    left:-560px;
-    position:absolute;
-    background-color: #3b3b3b;
-
-    -webkit-transition-property: -webkit-transform, left,width;
-    -webkit-transition-duration: 0.5s;
-	-webkit-transition-timing-function: ease-in-out;
-}
-
-div#tabs-1 li{
-     -webkit-border-radius: 10px;
-    border: 1px solid black;
-    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
-    margin-top: 5px;
-    height: 100%;
-}
-
 
 #inner {
     width: 100%;
@@ -409,27 +365,6 @@ div#tabs-1 li{
 
 }
 
-div#agenda li a {
-    -webkit-transition: all 0.3s ease-out;
-    color: #174867;
-    padding: 7px 15px 7px 15px;
-    -webkit-border-radius: 10px;
-    width: 250px;
-    display: block;
-    text-decoration: none;
-}
-
-div#agenda li {
-     -webkit-border-radius: 10px;
-    border: 1px solid black;
-    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
-    margin-top: 5px;
-    height: 100%;
-}
-
-div#agenda li {
-    -webkit-transition: all 0.3s ease-out;
-}
 
 #chapters {
     position: absolute;
@@ -525,4 +460,109 @@ div#videoControls div#controls {
     left: 10px;
     bottom: 10px;
 }
+
+
+
+#agenda {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 5px solid #ffffff;
+	padding: 0px;
+	width: 380px;
+	bottom: 110px;
+    top: 20px;
+    left:-3000px;
+	background-color: #3b3b3b;
+	position: absolute;
+	-moz-box-shadow: 0 20px 40px #888;
+	-webkit-box-shadow: 0 10px 10px #888;
+	-webkit-transform: rotateY(0deg) translateZ(500px) translate(0,0);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	opacity: 0;
+    overflow-y: scroll;
+}
+
+div#agenda li a {
+    -webkit-transition: all 0.3s ease-out;
+    color: #174867;
+
+    -webkit-border-radius: 10px;
+    width: 250px;
+    display: block;
+    text-decoration: none;
+}
+
+div#agenda li {
+     -webkit-border-radius: 10px;
+    border: 1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+
+div#agenda li {
+    -webkit-transition: all 0.3s ease-out;
+}
+
+
+#tabs{
+    width:550px;
+    top:80px;
+    bottom:100px;
+    left:-560px;
+    position:absolute;
+    background-color: #3b3b3b;
+
+    -webkit-transition-property: -webkit-transform, left,width;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+div#tabs-1 li{
+     -webkit-border-radius: 10px;
+    border: 1px solid black;
+    padding: 7px 15px 7px 15px;
+    margin-top:5px; /*for the border*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    height: 100%;
+}
+
+
+div#tabs li a:active {
+    color:#ffc900;
+}
+
+div#tabs-1 ul {
+    padding:0;
+    margin:0;
+}
+
+div#tabs ul{
+    list-style-type: none;
+}
+
+div.overviewListStatsInfo{
+    position:absolute;
+    text-align: right;
+    width: 100px;
+    left: 200px;
+    top: 70px;
+    font-style: italic;
+    font-size: small;
+}
+
+div.infoImage{
+    position:absolute;
+    left:10px;
+    top:10px;
+}
+div.infoDescription{
+    position:absolute;
+    left:10px;
+    top:200px;
+}
+
+
 
