@@ -71,10 +71,12 @@ $(document).bind('ready', function() {
 
 
     
+     if(presentationType == TYPE_VIDEO_AND_SLIDES){
+        $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
+        $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);  
+     }
 
 
-    $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
-    $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
 
 
 
