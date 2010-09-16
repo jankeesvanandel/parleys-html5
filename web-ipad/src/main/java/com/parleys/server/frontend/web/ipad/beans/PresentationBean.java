@@ -63,16 +63,17 @@ public class PresentationBean extends AbstractParleysBean {
 
         presentation = getParleysService().getPresentationDetails(presentationId);
 
-        setRelatedPresentations(getParleysService().searchPresentations(presentation.getKeywordsString(),0,5));
+        // TODO: Will need to add some kind of paging and filter the current presentation from the result
+        setRelatedPresentations(getParleysService().searchPresentations(presentation.getKeywordsString(),0,4));
     }
 
     public List<? extends AbstractDTO> getRelatedPresentations(){
+
         return relatedPresentations;
     }
 
     public void setRelatedPresentations(List<? extends AbstractDTO> value){
         relatedPresentations = value;
-
     }
 
     public long getPresentationId() {

@@ -33,7 +33,7 @@
     </ui:define>
 
     <ui:define name="scripts">
-        <h:outputStylesheet library="parleys/themes/ui-darkness" name="jquery-ui-1.8.4.custom.css"/>
+        <h:outputStylesheet library="parleys/themes/custom" name="jquery-ui-1.8.4.custom.css"/>
         <h:outputScript library="parleys" name="videoIpad.js"/>
         <h:outputScript library="parleys" name="playerAnimation.js"/>
         <h:outputScript library="parleys" name="social.js"/>
@@ -82,11 +82,11 @@
 
 
 
-        <div id="tabs">
+       <div id="tabs">
             <ul>
-                <li><a href="#tabs-1"><span>Share</span></a></li>
-                <li><a href="#tabs-2"><span>Talk Info</span></a></li>
-                <li><a href="#tabs-3"><span>Related Talks</span></a></li>
+                <li><a href="#tabs-1">Share</a></li>
+                <li><a href="#tabs-2">Talk Info</a></li>
+                <li><a href="#tabs-3">Related Talks</a></li>
             </ul>
             <div id="tabs-1" >
 
@@ -102,8 +102,18 @@
                 </ul>
              </div>
             <div id="tabs-2">
-                 <img src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.getThumbnailURL()}" alt="" width="140" height="90"> </img>
-                 <span>#{presentationBean.presentation.description}</span>
+
+                <img id="infoImage" src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.getThumbnailURL()}" alt="" width="140" height="90"> </img>
+                <div class="overviewListStatsInfo">
+                                <h:outputText escape="false" value="#{p:ratingBar(presentationBean.presentation.totalVoteValue)}"/><br/>
+                                #{p:totalVotes(presentationBean.presentation.totalVotes)}<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalViews)} views<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalDownloads)} downloads<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalComments)} comments
+                            </div>
+
+                <div id="infoDescription">#{presentationBean.presentation.description}</div>
+
             </div>
             <div id="tabs-3">
                <ul>
@@ -119,7 +129,7 @@
                                 <f:param name="id" value="#{thumbnail.id}"/>
                                 <h4>#{p:title(thumbnail)}</h4>
                                 <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
-                                <h:outputText escape="false" value="#{p:shortenTo(270, thumbnail.summary)}"/>
+                                <h:outputText escape="false" value="#{p:shortenTo(100, thumbnail.summary)}"/>
                             </div>
                             <div class="overviewListStats">
                                 <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/><br/>
@@ -134,7 +144,6 @@
             </div>
 
          </div>
-
         
 
          
@@ -164,7 +173,7 @@
             <div id="videoControls">
                 <div id="tagsAndComments"></div>
                 <div id="controls">
-                    <a href="#" id="shareButton"><img src="#{resource['img:agenda_btn.png']}" alt="Share"/></a>
+                    <a href="#" id="shareButton"><img src="#{resource['img:more_btn.png']}" alt="Share"/></a>
                     <a href="#" id="prevChapterButton"><img src="#{resource['img:chapterBack_normal.png']}" alt="Previous chapter"/></a>
                     <a href="#" id="playButton" style="display: none"><img src="#{resource['img:play_normal.png']}" alt="Play"/></a>
                     <a href="#" id="pauzeButton"><img src="#{resource['img:pause_normal.png']}" alt="Pauze"/></a>
