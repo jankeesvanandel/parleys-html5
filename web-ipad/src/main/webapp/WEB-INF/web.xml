@@ -29,7 +29,7 @@
 
     <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
-        <param-value>true</param-value>
+        <param-value>false</param-value>
     </context-param>
 
     <context-param>
@@ -41,7 +41,7 @@
 
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
 
     <context-param>
@@ -49,23 +49,28 @@
         <param-value>server</param-value>
     </context-param>
 
-    <!--<filter>-->
-        <!--<filter-name>Pretty Filter</filter-name>-->
-        <!--<filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>-->
-    <!--</filter>-->
+    <context-param>
+        <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+    </context-param>
 
-    <!--<filter-mapping>-->
-        <!--<filter-name>Pretty Filter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-        <!--<dispatcher>FORWARD</dispatcher>-->
-        <!--<dispatcher>REQUEST</dispatcher>-->
-        <!--<dispatcher>ERROR</dispatcher>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>Pretty Filter</filter-name>
+        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+    </filter>
 
-    <!--<listener>-->
-        <!--<description>Reloads the PrettyFaces configuration when changed in Development ProjectStage</description>-->
-        <!--<listener-class>com.ocpsoft.pretty.faces.config.PrettyConfigListener</listener-class>-->
-    <!--</listener>-->
+    <filter-mapping>
+        <filter-name>Pretty Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <listener>
+        <description>Reloads the PrettyFaces configuration when changed in Development ProjectStage</description>
+        <listener-class>com.ocpsoft.pretty.faces.config.PrettyConfigListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>faces</servlet-name>
