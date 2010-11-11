@@ -104,6 +104,8 @@ public class PresentationOverviewDTO extends AbstractDTO {
 
     private Long channelId;
 
+    private boolean visibleOnIpad;
+
     public String getTitle() {
         return title;
     }
@@ -405,5 +407,13 @@ public class PresentationOverviewDTO extends AbstractDTO {
 
     public void setChannelId(Long channelId) {
         this.channelId = channelId;
+    }
+
+    public boolean getVisibleOnIpad() {
+        return visibleOnIpad;
+    }
+
+    public void setVisibleOnIpad(boolean visibleOnIpad) {
+        this.visibleOnIpad = visibleOnIpad;
     }
 }

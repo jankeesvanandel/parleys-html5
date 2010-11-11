@@ -32,6 +32,7 @@ public class Thumbnail implements Serializable {
     private String thumbnailUrl;
     private String outcome;
     private String photo;
+    private boolean visibleOnIpad;
 
     public long getId() {
         return id;
@@ -79,5 +80,13 @@ public class Thumbnail implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public void setVisibleOnIpad(boolean visibleOnIpad) {
+        this.visibleOnIpad = visibleOnIpad;
+    }
+
+    public boolean getVisibleOnIpad() {
+        return visibleOnIpad;
     }
 }

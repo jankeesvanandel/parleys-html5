@@ -45,22 +45,26 @@ public class HomepageBean extends AbstractParleysBean {
     @ManagedProperty("#{homepageViewBean}")
     private HomepageViewBean homepageViewBean;
 
+    private List<Thumbnail> photoSlideShow;
+
     @SuppressWarnings("unchecked")
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
             return;
         }
 
-        getPagingBean().setPaging(6);
+        getPagingBean().setPaging(8);
 
         List<? extends AbstractDTO> thumbnailsIn = getParleysService().getFeatured(FeaturedType.PRESENTATION);
         transformToThumbnails(thumbnailsIn);
+
+        photoSlideShow = getParleysService().loadPhotoSlideShow();
     }
 
     public String viewThumbnails(Filter filter, Filter.Type filterType, int index) {
         getPagingBean().setPaginatedList(Collections.<Thumbnail>emptyList());
         getPagingBean().setIndex(index);
-        getPagingBean().setPaging(6);
+        getPagingBean().setPaging(8);
         homepageViewBean.setThumbnailsFilter(filter);
         homepageViewBean.setThumbnailsFilterType(filterType);
 
@@ -158,6 +162,7 @@ public class HomepageBean extends AbstractParleysBean {
             thumbnail.setThumbnailUrl(JSFUtil.channelThumbnail(thumbnail.getId(), url));
             thumbnail.setOutcome("presentationsipad");
         }
+        thumbnail.setVisibleOnIpad(UtilBean.determineIpadVisibility(abstractDTO));
         return thumbnail;
     }
 
@@ -167,5 +172,9 @@ public class HomepageBean extends AbstractParleysBean {
 
     public void setHomepageViewBean(HomepageViewBean homepageViewBean) {
         this.homepageViewBean = homepageViewBean;
+    }
+
+    public List<Thumbnail> getPhotoSlideShow() {
+        return photoSlideShow;
     }
 }

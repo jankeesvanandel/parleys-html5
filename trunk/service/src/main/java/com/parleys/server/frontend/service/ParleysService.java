@@ -16,6 +16,7 @@
 package com.parleys.server.frontend.service;
 
 import com.parleys.server.domain.News;
+import com.parleys.server.domain.Thumbnail;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.dto.AbstractDTO;
@@ -23,7 +24,6 @@ import com.parleys.server.dto.ChannelOverviewDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.dto.FilteredOverviewResponseDTO;
 import com.parleys.server.dto.OverviewResponseDTO;
-import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
 
 import java.util.List;
@@ -150,4 +150,10 @@ public interface ParleysService {
      * @return search results
      */
     List<? extends AbstractDTO> searchPresentations(String searchText, int startIndex, int resultsCount);
+
+    /**
+     * Load 4 photo-enabled presentations for on the homepage.
+     * @return The list with the presentations.
+     */
+    List<Thumbnail> loadPhotoSlideShow();
 }

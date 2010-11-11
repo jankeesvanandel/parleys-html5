@@ -57,7 +57,15 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
     }
 
     private List<ChannelOverviewDTO> loadChannels() {
-        return getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews();
+        return enhanceWithIpadStuff(getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews());
+    }
+
+    private List<ChannelOverviewDTO> enhanceWithIpadStuff(List<ChannelOverviewDTO> list) {
+        for (ChannelOverviewDTO dto : list) {
+            dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
+        }
+
+        return list;
     }
 
     public ChannelsViewBean getChannelsViewBean() {

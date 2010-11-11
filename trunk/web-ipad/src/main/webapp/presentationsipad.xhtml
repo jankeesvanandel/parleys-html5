@@ -56,7 +56,14 @@
                             <div class="overviewListThumbnail">
                                 <h:link outcome="presentationipad">
                                     <f:param name="id" value="#{thumbnail.id}"/>
-                                    <h:graphicImage value="#{p:presentationThumbnail(thumbnail.id, thumbnail.thumbnailURL)}" alt="#{thumbnail.title}" height="88" width="133"/>
+                                    <div class="thumbnailWrapper">
+                                        <h:graphicImage value="#{p:presentationThumbnail(thumbnail.id, thumbnail.thumbnailURL)}" alt="#{thumbnail.title}" height="88" width="133"/>
+                                        <h:graphicImage value="/resources/img/notavailable_small.jpg"
+                                                        title="This presentation is not available on iPad"
+                                                        alt=""
+                                                        width="133" height="20" styleClass="thumbnailNotAvailable"
+                                                        rendered="#{!thumbnail.visibleOnIpad}"/>
+                                    </div>
                                 </h:link>
                             </div>
                             <div class="overviewListText">

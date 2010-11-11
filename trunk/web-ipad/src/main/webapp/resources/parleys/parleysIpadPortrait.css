@@ -48,6 +48,7 @@ div#upperPhotoContainer #featuredPhotoPaging {
     background: rgba(0, 0, 0, 0.75);
     bottom: 0;
     text-align: center;
+    overflow: hidden;
 }
 
 div#upperPhotoContainer #featuredPhotoPaging a {
@@ -64,6 +65,7 @@ div#upperPhotoContainer #featuredPhotoPaging a.active {
 
 div#upperPhotoContainer .featuredPhotoinfo {
     top: 30px;
+    margin-bottom: 10px;
 }
 
 div#upperPhotoContainer .featuredPhotoinfo h2 {

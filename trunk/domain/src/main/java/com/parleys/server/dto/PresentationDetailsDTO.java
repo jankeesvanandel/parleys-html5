@@ -95,6 +95,8 @@ public class PresentationDetailsDTO extends AbstractDTO {
 
     private boolean free;
 
+    private boolean visibleOnIpad;
+
     /**
      * @return the pageId
      */
@@ -496,5 +498,13 @@ public class PresentationDetailsDTO extends AbstractDTO {
 
     public void setTotalPodcastDownloads(final int totalPodcastDownloads) {
         this.totalPodcastDownloads = totalPodcastDownloads;
+    }
+
+    public boolean getVisibleOnIpad() {
+        return visibleOnIpad;
+    }
+
+    public void setVisibleOnIpad(boolean visibleOnIpad) {
+        this.visibleOnIpad = visibleOnIpad;
     }
 }

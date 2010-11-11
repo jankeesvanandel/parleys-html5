@@ -39,9 +39,10 @@
         <div id="upperPhotoContainer">
             <div id="featuredPhotoWrapper">
                 <div id="featuredPhotoList">
-                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                        <h:link outcome="#{thumbnail.outcome}" rendered="#{varStatus.index lt 4}">
-                            <img src="#{utilBean.basePath}/resources/img/#{thumbnail.photo}" alt=""/>
+                    <ui:repeat value="#{homepageBean.photoSlideShow}" var="photo">
+                        <h:link outcome="presentationipad">
+                            <f:param name="id" value="#{photo.id}"/>
+                            <img src="#{utilBean.basePath}/resources/img/highres/#{photo.photo}.jpg" alt=""/>
                         </h:link>
                     </ui:repeat>
                 </div>
@@ -49,19 +50,20 @@
             <img src="#{utilBean.basePath}/resources/img/ajax-loader.gif" alt="" style="display:none" class="loader"/>
             <div id="featuredPhotoPaging">
                 <div>
-                    <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                        <h:link outcome="#{thumbnail.outcome}" href="#" rel="#{varStatus.index+1}" rendered="#{varStatus.index lt 4}">
+                    <ui:repeat value="#{homepageBean.photoSlideShow}" var="photo" varStatus="varStatus">
+                        <h:link outcome="presentationipad" href="#" rel="#{varStatus.index+1}">
+                            <f:param name="id" value="#{photo.id}"/>
                             <span class="degrade">#{varStatus.index+1}</span>
                         </h:link>
                     </ui:repeat>
                 </div>
-                <ui:repeat value="#{pagingBean.list}" var="thumbnail" varStatus="varStatus">
-                    <h5:div styleClass="featuredPhotoinfo" rendered="#{varStatus.index lt 4}">
+                <ui:repeat value="#{homepageBean.photoSlideShow}" var="photo">
+                    <h5:div styleClass="featuredPhotoinfo">
                         <h2>
-                            #{p:shortenTo(70, thumbnail.name)}
+                            #{p:shortenTo(70, photo.name)}
                         </h2>
                         <h3>
-                            #{p:shortenTo(70, thumbnail.secondLine)}
+                            #{p:shortenTo(70, photo.secondLine)}
                         </h3>
                     </h5:div>
                 </ui:repeat>
@@ -99,10 +101,17 @@
                         <div class="thumbnail">
                             <h:link outcome="#{presentation.outcome}">
                                 <f:param name="id" value="#{presentation.id}"/>
-                                <h:graphicImage value="#{presentation.thumbnailUrl}"
-                                                title="#{presentation.name}"
-                                                alt=""
-                                                width="133" height="88" styleClass="reflect"/>
+                                <div class="thumbnailWrapper">
+                                    <h:graphicImage value="#{presentation.thumbnailUrl}"
+                                                    title="#{presentation.name}"
+                                                    alt=""
+                                                    width="133" height="88" styleClass="reflect"/>
+                                    <h:graphicImage value="/resources/img/notavailable.jpg"
+                                                    title="This presentation is not available on iPad"
+                                                    alt=""
+                                                    width="133" height="20" styleClass="thumbnailNotAvailable"
+                                                    rendered="#{!presentation.visibleOnIpad}"/>
+                                </div>
                                 <h3 title="#{presentation.name}">#{p:shortenTo(24, presentation.name)}</h3>
                                 <p>#{p:shortenTo(24, presentation.secondLine)}</p>
                             </h:link>

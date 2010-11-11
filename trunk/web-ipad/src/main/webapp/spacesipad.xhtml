@@ -49,7 +49,14 @@
                             <div class="overviewListThumbnail smallThumbnail">
                                 <h:link outcome="channelsipad">
                                     <f:param name="id" value="#{space.id}"/>
-                                    <h:graphicImage value="#{p:spaceThumbnail(space.id, space.thumbnailURL)}" alt="#{space.name}" height="70" width="70"/>
+                                    <div class="thumbnailWrapper small">
+                                        <h:graphicImage value="#{p:spaceThumbnail(space.id, space.thumbnailURL)}" alt="#{space.name}" height="70" width="70"/>
+                                        <h:graphicImage value="/resources/img/notavailable_small.jpg"
+                                                        title="This space is not available on iPad"
+                                                        alt=""
+                                                        width="70" height="12" styleClass="thumbnailNotAvailable"
+                                                        rendered="#{!space.visibleOnIpad}"/>
+                                    </div>
                                 </h:link>
                             </div>
                             <div class="overviewListText smallThumbnail">

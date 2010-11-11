@@ -78,6 +78,8 @@ public class ChannelOverviewDTO extends AbstractDTO {
 
     private boolean hostedInPublicSpace = false;
 
+    private boolean visibleOnIpad;
+
     public String getName() {
         return name;
     }
@@ -291,5 +293,13 @@ public class ChannelOverviewDTO extends AbstractDTO {
 
     public void setHostedInPublicSpace(boolean hostedInPublicSpace) {
         this.hostedInPublicSpace = hostedInPublicSpace;
+    }
+
+    public boolean getVisibleOnIpad() {
+        return visibleOnIpad;
+    }
+
+    public void setVisibleOnIpad(boolean visibleOnIpad) {
+        this.visibleOnIpad = visibleOnIpad;
     }
 }
