@@ -28,6 +28,28 @@ public class PresentationsCriteria {
 
     private int paging = 20;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PresentationsCriteria)) return false;
+
+        PresentationsCriteria that = (PresentationsCriteria) o;
+
+        if (index != that.index) return false;
+        if (paging != that.paging) return false;
+        if (channelId != null ? !channelId.equals(that.channelId) : that.channelId != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = channelId != null ? channelId.hashCode() : 0;
+        result = 31 * result + index;
+        result = 31 * result + paging;
+        return result;
+    }
+
     public Long getChannelId() {
         return channelId;
     }

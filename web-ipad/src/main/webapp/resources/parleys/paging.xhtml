@@ -37,14 +37,14 @@
                        title="Previous page"
                        value="&lt;"
                        onclick="#{pagingBean.index gt 0 ? 'showInlineLoader()' : ''}">
-            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
         </h:commandLink>
         <ui:repeat value="#{pagingBean.pages}" var="page">
             <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, (page-1)*pagingBean.paging, pagingBean.paging)}"
                            styleClass="#{p:floor(pagingBean.index/pagingBean.paging) eq (page-1) ? 'current' : ''} paging"
                            value="#{page}"
                            onclick="showInlineLoader()">
-                <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
+                <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
             </h:commandLink>
         </ui:repeat>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
@@ -53,7 +53,7 @@
                        title="Next page"
                        value="&gt;"
                        onclick="#{pagingBean.index+pagingBean.paging lt pagingBean.totalCount ? 'showInlineLoader()' : ''}">
-            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent"/>
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
         </h:commandLink>
     </h5:div>
 </composite:implementation>

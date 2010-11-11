@@ -53,6 +53,16 @@ public class SpaceOverviewDTO extends AbstractDTO {
 
     private List<String> keywordList = new ArrayList<String>();
 
+    public boolean getVisibleOnIpad() {
+        return visibleOnIpad;
+    }
+
+    public void setVisibleOnIpad(boolean visibleOnIpad) {
+        this.visibleOnIpad = visibleOnIpad;
+    }
+
+    private boolean visibleOnIpad;
+
     public String getName() {
         return name;
     }

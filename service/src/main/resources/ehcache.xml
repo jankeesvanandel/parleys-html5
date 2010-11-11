@@ -16,7 +16,6 @@
             maxElementsInMemory="1000"
             overflowToDisk="false"
             diskPersistent="false"
-            timeToIdleSeconds="0"
             timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
@@ -25,7 +24,6 @@
            maxElementsInMemory="1000"
            overflowToDisk="false"
            diskPersistent="false"
-           timeToIdleSeconds="0"
            timeToLiveSeconds="3600"
            memoryStoreEvictionPolicy="LRU" />
 
@@ -34,7 +32,6 @@
            maxElementsInMemory="20"
            overflowToDisk="false" 
            diskPersistent="false"
-           timeToIdleSeconds="0"
            timeToLiveSeconds="3600"
            memoryStoreEvictionPolicy="LRU" />
 
@@ -43,7 +40,6 @@
            maxElementsInMemory="100"
            overflowToDisk="false"
            diskPersistent="false"
-           timeToIdleSeconds="0"
            timeToLiveSeconds="3600"
            memoryStoreEvictionPolicy="LRU" />
 
@@ -57,6 +53,10 @@
            memoryStoreEvictionPolicy="LRU" />
 
     <cache name="news"
+           eternal="true"
+           maxElementsInMemory="1" />
+
+    <cache name="photoSlideShow"
            eternal="false"
            maxElementsInMemory="20"
            overflowToDisk="false"

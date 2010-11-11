@@ -70,21 +70,29 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         if (filter != null) {
             switch (filter) {
                 case FEATURED:
-                    return (List<PresentationOverviewDTO>)
-                            getParleysService().getFeatured(FeaturedType.PRESENTATION);
+                    return enhanceWithIpadStuff((List<PresentationOverviewDTO>)
+                            getParleysService().getFeatured(FeaturedType.PRESENTATION));
                 case LATEST:
-                    return (List<PresentationOverviewDTO>)
-                            getParleysService().getLatestPresentationsOverview(criteria);
+                    return enhanceWithIpadStuff((List<PresentationOverviewDTO>)
+                            getParleysService().getLatestPresentationsOverview(criteria));
                 case TOP_RATED:
-                    return (List<PresentationOverviewDTO>)
-                            getParleysService().getTopRatedPresentationsOverview(criteria);
+                    return enhanceWithIpadStuff((List<PresentationOverviewDTO>)
+                            getParleysService().getTopRatedPresentationsOverview(criteria));
                 default: // If default, pick MOST_VIEWED
-                    return (List<PresentationOverviewDTO>)
-                            getParleysService().getMostViewedPresentationsOverview(criteria);
+                    return enhanceWithIpadStuff((List<PresentationOverviewDTO>)
+                            getParleysService().getMostViewedPresentationsOverview(criteria));
             }
         } else {
-            return (List<PresentationOverviewDTO>) getParleysService().getPresentationsOverview(criteria);
+            return enhanceWithIpadStuff((List<PresentationOverviewDTO>) getParleysService().getPresentationsOverview(criteria));
         }
+    }
+
+    private List<PresentationOverviewDTO> enhanceWithIpadStuff(List<PresentationOverviewDTO> list) {
+        for (PresentationOverviewDTO dto : list) {
+            dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
+        }
+
+        return list;
     }
 
     public PresentationsViewBean getPresentationsViewBean() {

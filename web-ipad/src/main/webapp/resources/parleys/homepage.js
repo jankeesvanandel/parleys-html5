@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', loaded, false);
 function loaded() {
     initializeBanner();
     initialized = true;
+    addMp4Check();
+}
+
+function addMp4Check() {
+    $("img.thumbnailNotAvailable").each(function(index) {
+        $(this).closest("a").attr("href", "http://www.parleys.com");
+        $(this).closest("a").click(function() {
+            return confirm("This cannot be viewed on iPad. Do you want to go to the Parleys.com Flex client instead?");
+        });
+    });
 }
 
 function initializeBanner() {
@@ -58,10 +68,8 @@ function initializeBanner() {
         function updateButtons(index) {
             $("#featuredPhotoPaging a").removeClass('active');
             $("#featuredPhotoPaging a").eq(index).addClass('active');
-            $("#featuredPhotoPaging h2").hide();
-            $("#featuredPhotoPaging h2").eq(index).show();
-            $("#featuredPhotoPaging h3").hide();
-            $("#featuredPhotoPaging h3").eq(index).show();
+            $("#featuredPhotoPaging .featuredPhotoinfo").hide();
+            $("#featuredPhotoPaging .featuredPhotoinfo").eq(index).show();
         }
 
         updateButtons(0);
@@ -94,6 +102,7 @@ function featuredContentEvent(id) {
             jsf.ajax.request(id, "event", {
                 render: 'main:thumbnails',
                 onevent: onFeaturedContentAjaxEvent,
+                onerror: handlePossibleTimeout,
                 'javax.faces.behavior.event': 'action'
             });
         });
@@ -108,6 +117,7 @@ function onFeaturedContentAjaxEvent(evt) {
     if (evt.status == 'complete') {
         $('#lowerThumbnailsContainer > img.loader').hide();
         $('#thumbnailsWrapper').fadeIn('fast');
+        addMp4Check();
     }
 }
 
@@ -117,6 +127,7 @@ function loadMoreFeaturedContentEvent(id) {
         jsf.ajax.request(id, "event", {
             render: 'main:thumbnails',
             onevent: onFeaturedContentAjaxEvent,
+            onerror: handlePossibleTimeout,
             'javax.faces.behavior.event': 'action'
         });
     } catch (e) {
@@ -129,5 +140,6 @@ function loadMoreFeaturedContentEvent(id) {
 function onLoadMoreFeaturedContentAjaxEvent(evt) {
     if (evt.status == 'complete') {
         $('.showMoreThumbnails img.loader').hide();
+        addMp4Check();
     }
 }

@@ -177,7 +177,7 @@ div.thumbnail {
     width: 200px;
     height: 120px;
     padding: 10px;
-    margin: 0px 5px 10px;
+    margin: 0 5px 10px;
     border: 2px solid #333;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -188,7 +188,6 @@ div.thumbnail {
 div.thumbnail.showMoreThumbnails {
     width: 224px;
     height: 142px;
-    margin: 0px 5px 10px 10px;
     border: none;
     border-radius: 0;
     background: none;
@@ -198,6 +197,21 @@ div.thumbnail.showMoreThumbnails {
 div.thumbnail h3,
 div.thumbnail p {
     white-space: nowrap;
+}
+
+div.thumbnailWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+img.thumbnailNotAvailable {
+    position: absolute;
+    top: 68px;
+    left: 0;
+}
+
+div.thumbnailWrapper.small img.thumbnailNotAvailable {
+    top: 58px;
 }
 
 .loader {

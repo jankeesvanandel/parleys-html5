@@ -17,6 +17,7 @@ package com.parleys.server.frontend.service.impl;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.parleys.server.domain.News;
+import com.parleys.server.domain.Thumbnail;
 import com.parleys.server.domain.types.FeaturedType;
 import com.parleys.server.domain.types.NewsType;
 import com.parleys.server.domain.types.PresentationDateRange;
@@ -29,9 +30,12 @@ import com.parleys.server.dto.FilteredOverviewResponseDTO;
 import com.parleys.server.dto.OverviewResponseDTO;
 import com.parleys.server.dto.PresentationOverviewDTO;
 import com.parleys.server.dto.SpaceOverviewDTO;
+import com.parleys.server.dto.SpeakerDTO;
 import com.parleys.server.frontend.service.PresentationsCriteria;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -140,7 +144,7 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     }
 
 
-     /** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Cacheable(cacheName="presentations")
     @Override
     public List<PresentationOverviewDTO> searchPresentations(String searchText,
@@ -149,8 +153,42 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
         return getParleysServiceProxy().searchPresentations(searchText,startIndex,resultsCount).getOverviews();
     }
 
+    /** {@inheritDoc} */
+    @Cacheable(cacheName="photoSlideShow")
+    @Override
+    public List<Thumbnail> loadPhotoSlideShow() {
+        List<Long> ids = Arrays.asList(1759L, 1789L, 1571L, 1881L);
+        List<Thumbnail> ret = new ArrayList<Thumbnail>();
 
+        for (Long id : ids) {
+            ExtendedPresentationDetailsDTO dto = getParleysServiceProxy().getPresentationDetails(id);
+            Thumbnail photo = transformToPhotoSlideShowItem(dto);
+            if (id == 1759) {
+                photo.setPhoto("james");
+            } else if (id == 1789) {
+                photo.setPhoto("keesjan");
+            } else if (id == 1571) {
+                photo.setPhoto("cameron");
+            } else if (id == 1881) {
+                photo.setPhoto("lombok");
+            } else {
+                throw new AssertionError("Unsupported presentation");
+            }
+            ret.add(photo);
+        }
 
+        return ret;
+    }
+
+    private Thumbnail transformToPhotoSlideShowItem(ExtendedPresentationDetailsDTO dto) {
+        Thumbnail thumbnail = new Thumbnail();
+        thumbnail.setId(dto.getId());
+        thumbnail.setName(dto.getTitle());
+        List<SpeakerDTO> speakers = dto.getSpeakers();
+        String secondLine = (speakers != null && !speakers.isEmpty()) ? speakers.get(0).getName() : "Unknown speaker";
+        thumbnail.setSecondLine(secondLine);
+        return thumbnail;
+    }
 
 
 }

@@ -55,10 +55,17 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
     @SuppressWarnings("unchecked")
     private List<SpaceOverviewDTO> loadSpaces(Filter filter) {
         if (filter != null) {
-            return (List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE);
+            return enhanceWithIpadStuff((List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE));
         } else {
-            return getParleysService().getSpacesOverview(0, 200).getOverviews();
+            return enhanceWithIpadStuff(getParleysService().getSpacesOverview(0, 200).getOverviews());
         }
     }
 
+    private List<SpaceOverviewDTO> enhanceWithIpadStuff(List<SpaceOverviewDTO> list) {
+        for (SpaceOverviewDTO dto : list) {
+            dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
+        }
+
+        return list;
+    }
 }
