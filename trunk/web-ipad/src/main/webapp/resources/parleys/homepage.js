@@ -18,9 +18,15 @@ var initialized = false;
 
 document.addEventListener('DOMContentLoaded', loaded, false);
 
+/** Interval for the photo slideshow */
+var play = null;
+/** Total width of all photos in the slideshow */
+var photoWidth = 0;
+/** The DOM element of the current photo (IMG element) */
+var activePhoto = null;
+
 function loaded() {
     initializeBanner();
-    initialized = true;
     addMp4Check();
 }
 
@@ -34,45 +40,37 @@ function addMp4Check() {
 }
 
 function initializeBanner() {
-    var photoWidth = $("#featuredPhotoWrapper").width();
-    var photoCount = $("#featuredPhotoList img").size();
-    var photosTotalWidth = photoWidth * photoCount;
+    calculateOrientation();
 
-    //Adjust the image reel to its new size
-    $("#featuredPhotoList").css({'width' : photosTotalWidth});
+//    if (!initialized) {
 
-    //Paging and Slider Function
-    function rotate() {
-        var photoIndex = activePhoto.attr("rel") - 1;
-        var featuredPhotoListPosition = photoIndex * photoWidth;
+        //Paging and Slider Function
+        function rotate() {
+            var photoIndex = activePhoto.attr("rel") - 1;
+            var featuredPhotoListPosition = photoIndex * photoWidth;
 
-        updateButtons(photoIndex);
+            updateButtons(photoIndex);
 
-        //Slider Animation
-        $("#featuredPhotoList").animate({
-            left: -featuredPhotoListPosition
-        }, 500);
-    }
+            //Slider Animation
+            $("#featuredPhotoList").css("left", -featuredPhotoListPosition);
+        }
 
-    $("#featuredPhotoPaging a").click(function() {
-        activePhoto = $(this);
+        $("#featuredPhotoPaging a").click(function() {
+            activePhoto = $(this);
 
-        //Reset Timer
-        clearInterval(play);
-        rotate();
-        rotateSwitch();
-        return false;
-    });
+            //Reset Timer
+            clearInterval(play);
+            rotate();
+            rotateSwitch();
+            return false;
+        });
 
-    if (!initialized) {
         function updateButtons(index) {
             $("#featuredPhotoPaging a").removeClass('active');
             $("#featuredPhotoPaging a").eq(index).addClass('active');
             $("#featuredPhotoPaging .featuredPhotoinfo").hide();
             $("#featuredPhotoPaging .featuredPhotoinfo").eq(index).show();
         }
-
-        updateButtons(0);
 
         //Rotation  and Timing Event
         function rotateSwitch(){
@@ -88,10 +86,32 @@ function initializeBanner() {
         //Run function on launch
         rotateSwitch();
 
-        window.addEventListener('onorientationchange' in window ? 'onorientationchange' : 'resize', function() {
-            $("#featuredPhotoPaging a").unbind();
-            initializeBanner();
-        }, false);
+    if (!initialized) {
+        updateButtons(0);
+
+        if ('onorientationchange' in window) {
+            window.onorientationchange = function() {
+                clearInterval(play)
+                $("#featuredPhotoPaging a").unbind();
+                activePhoto = $('#featuredPhotoPaging a:first');
+                calculateOrientation();
+                initializeBanner();
+            };
+        }
+
+        initialized = true;
+    }
+}
+
+function calculateOrientation() {
+    var orientation = window.orientation;
+    if (orientation == 0 || orientation == 180) {
+        //Set image list to full size of its children
+        photoWidth = $("#featuredPhotoList img").first().width();
+        var photoCount = $("#featuredPhotoList img").size();
+        var photosTotalWidth = photoWidth * photoCount;
+
+        $("#featuredPhotoList").css({'width' : photosTotalWidth});
     }
 }
 
