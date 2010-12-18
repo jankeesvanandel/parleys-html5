@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Parleys.com HTML5 - The #1 e-learning platform, now with HTML5 support</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <script type="text/javascript" src="resources/parleys/jquery-1.4.2.js"></script>
+</head>
+<body>
+
+<video id="videoPlayer" class="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="200px" height="200px" src=""></video>
+
+<a href="#" onclick="klik()">asdasd</a>
+
+<script type="text/javascript">
+
+    var urls = [
+                "http://stream2.parleys.com/secured/_definst_/2103/mp4:201011240955287223769.mp4/playlist.m3u8",
+                "http://stream2.parleys.com/secured/_definst_/2103/mp4:201011240958486255133.mp4/playlist.m3u8",
+                "http://stream2.parleys.com/secured/_definst_/2103/mp4:201011241001426884254.mp4/playlist.m3u8",
+                "http://stream2.parleys.com/secured/_definst_/2103/mp4:201011241008299519313.mp4/playlist.m3u8",
+                "http://stream2.parleys.com/secured/_definst_/2103/mp4:201011241008368137708.mp4/playlist.m3u8"
+    ];
+
+    function klik() {
+        var video = $("#videoPlayer")[0];
+
+        video.src = urls[1];
+        video.addEventListener('loadedmetadata', function() {
+            console.log('loadedmetadata');
+
+            console.log('startTime: '  +video.startTime);
+
+            console.log('duration: '  +video.duration);
+
+            video.play();
+            function setCurrentTime(time) {
+                try {
+                    video.currentTime = time;
+                } catch (e) {
+                    setTimeout(function() {
+                        setCurrentTime(time);
+                    }, 200);
+                }
+            }
+            setCurrentTime(50)
+        }, false);
+        video.load();
+    }
+
+    function ontimeupdateHandler() {
+        
+    }
+
+</script>
+
+</body>
+</html>
