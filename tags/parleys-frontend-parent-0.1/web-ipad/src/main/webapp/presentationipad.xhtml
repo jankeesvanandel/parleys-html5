@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<ui:composition
+        template="WEB-INF/facelets/templateIpad.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5">
+
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
+            <f:viewParam name="id" value="#{navigationBean.id}"/>
+            <f:event type="preRenderView" listener="#{presentationBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initPresentationPage}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="scripts">
+        <h:outputStylesheet library="parleys/themes/custom" name="jquery-ui-1.8.4.custom.css"/>
+        <h:outputScript library="parleys" name="videoIpad.js"/>
+        <h:outputScript library="parleys" name="playerAnimation.js"/>
+        <h:outputScript library="parleys" name="social.js"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div id="mainContent">
+            <h:outputText value="#{presentationBean.type}" styleClass="presentationType" style="display:none"/>
+            <h:outputText value="#{presentationBean.presentationId}" styleClass="presentationId" style="display:none"/>
+            <h:outputText value="#{presentationBean.presentationTitle}" styleClass="presentationTitle" style="display:none"/>
+            <div id="inner">
+                <div id="videoContainer">
+                    <ui:repeat value="#{presentationBean.streams}" var="stream" varStatus="status">
+                        <input type="hidden" source="#{stream.url}" duration="#{stream.duration}"/>
+                    </ui:repeat>
+                    <video id="videoPlayer" class="videoPlayer"
+                           src="#{presentationBean.streams[0]}"
+                           width="100%" height="100%"></video>
+                </div>
+
+                <div id="slidesContainer">
+                    <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
+                        <img class="slide" id="slide_#{asset.id}" style="display: none"
+                            src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
+                            alt="#{asset.value}"
+                            startTime="#{asset.cuePoint}"
+                            endTime="#{asset.cuePoint + asset.duration}"/>
+                    </ui:repeat>
+                </div>
+            </div>
+        </div>
+
+        <div id="playButtonOverlayBackground"></div>
+
+        <div id="playButtonOverlay">
+            <a title="Click to play"><img src="#{resource['img:play_btn_large.png']}" alt="Click to play"/></a>
+        </div>
+
+        <div id="agenda">
+            <div id="msg">Scroll the agenda with two fingers!</div>
+            <ul>
+                <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
+                    <li>
+                        <a href="##{asset.id}"><span>#{asset.cuePointName}</span></a>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Share</a></li>
+                <li><a href="#tabs-2">Talk Info</a></li>
+                <li><a href="#tabs-3">Related Talks</a></li>
+            </ul>
+            <div id="tabs-1" >
+
+                <ul>
+                    <li><img src="#{resource['img:social/facebook.png']}" alt="" width="24" height="24"> </img> <a href="#" type="faceBook"><span>Facebook</span></a></li>
+                    <li><img src="#{resource['img:social/twitter.png']}" alt="" width="24" height="24"> </img> <a href="#" type="twitter"><span>Twitter</span></a></li>
+                    <li><img src="#{resource['img:social/google.png']}" alt="" width="24" height="24"></img> <a href="#" type="googleBookmark"><span>Google Bookmark</span></a></li>
+                    <li><img src="#{resource['img:social/digg.png']}" alt="" width="24" height="24"></img> <a href="#" type="digg"><span>DIGG</span></a></li>
+                    <li><img src="#{resource['img:social/myspace.png']}" alt="" width="24" height="24"></img> <a href="#" type="myspace"><span>MySpace</span></a></li>
+                    <li><img src="#{resource['img:social/yahoo.png']}" alt="" width="24" height="24"></img> <a href="#" type="yahooBookmark"><span>Yahoo Bookmark</span></a></li>
+                    <li><img src="#{resource['img:social/technorati.png']}" alt="" width="24" height="24"></img> <a href="#" type="technorati"><span>Technorati</span></a></li>
+                    <li><img src="#{resource['img:social/stumbleupon.png']}" alt="" width="24" height="24"></img> <a href="#" type="stumbleUpon"><span>StumbleUpon</span></a></li>
+                </ul>
+            </div>
+            <div id="tabs-2">
+
+                <img id="infoImage" src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.getThumbnailURL()}" alt="" width="140" height="90"> </img>
+                <div class="overviewListStatsInfo">
+                                <h:outputText escape="false" value="#{p:ratingBar(presentationBean.presentation.totalVoteValue)}"/><br/>
+                                #{p:totalVotes(presentationBean.presentation.totalVotes)}<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalViews)} views<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalDownloads)} downloads<br/>
+                                #{p:formatNumber(presentationBean.presentation.totalComments)} comments
+                            </div>
+
+                <div id="infoDescription">#{presentationBean.presentation.description}</div>
+
+            </div>
+            <div id="tabs-3">
+               <ul>
+                <ui:repeat value="#{presentationBean.relatedPresentations}" var="thumbnail">
+                        <li class="shadowbox">
+                            <div class="overviewListThumbnail">
+                                <h:link outcome="presentationipad">
+                                    <f:param name="id" value="#{thumbnail.id}"/>
+                                    <h:graphicImage value="#{p:presentationThumbnail(thumbnail.id, thumbnail.thumbnailURL)}" alt="#{thumbnail.title}" height="88" width="133"/>
+                                </h:link>
+                            </div>
+                            <div class="overviewListText">
+                                <f:param name="id" value="#{thumbnail.id}"/>
+                                <h4>#{p:title(thumbnail)}</h4>
+                                <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
+                                <h:outputText escape="false" value="#{p:shortenTo(100, thumbnail.summary)}"/>
+                            </div>
+                            <div class="overviewListStats">
+                                <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/><br/>
+                                #{p:totalVotes(thumbnail.totalVotes)}<br/>
+                                #{p:formatNumber(thumbnail.totalViews)} views<br/>
+                                #{p:formatNumber(thumbnail.totalDownloads)} downloads<br/>
+                                #{p:formatNumber(thumbnail.totalComments)} comments
+                            </div>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </div>
+
+        </div>
+        
+    </ui:define>
+
+    <ui:define name="footer">
+        <div id="footer">
+            <div id="videoNavigationBar">
+
+                <div id="videoTimeAndPosition">
+                    <span class="position"></span>
+                    <span class="duration"></span>
+                </div>
+
+                <div id="chapters" totalduration="#{presentationBean.presentation.totalDuration}">
+                    <ui:repeat value="#{presentationBean.slideAssets}" var="asset" varStatus="status">
+                        <div duration="#{asset.duration}" cuepoint="#{asset.cuePoint}"></div>
+                    </ui:repeat>
+&gt;<!-- TODO: why is this here? The progress bar doesn't work without it -->
+                    <div id="videoNavigationBarCursor"></div>
+                </div>
+            </div>
+
+            <div id="videoControls">
+                <div id="tagsAndComments"></div>
+                <div id="controls">
+                    <a href="#" id="shareButton"><img src="#{resource['img:more_btn.png']}" alt="Share"/></a>
+                    <a href="#" id="prevChapterButton"><img src="#{resource['img:chapterBack_normal.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="playButton" style="display: none"><img src="#{resource['img:play_normal.png']}" alt="Play"/></a>
+                    <a href="#" id="pauzeButton"><img src="#{resource['img:pause_normal.png']}" alt="Pauze"/></a>
+                    <a href="#" id="nextChapterButton"><img src="#{resource['img:chapterForward_normal.png']}" alt="Previous chapter"/></a>
+                    <a href="#" id="agendaButton"><img src="#{resource['img:agenda_btn.png']}" alt="Agenda"/></a>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

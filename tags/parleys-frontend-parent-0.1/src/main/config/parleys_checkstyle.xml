@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Copyright 2004 Johan Känngård, http://dev.kanngard.net
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<!--
+  Based on the Checkstyle configuration file sun_checks.xml with some minor modifications..
+  Checkstyle is very configurable. Be sure to read the documentation at
+  http://checkstyle.sf.net
+-->
+<module name="Checker">
+
+    <!-- Checks that a package.html file exists for each package.     -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml -->
+    <!--<module name="PackageHtml"/>-->
+
+    <!-- Checks whether files end with a new line.                        -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+    <!--<module name="NewlineAtEndOfFile"/>-->
+
+    <!-- Checks that property files contain the same keys.         -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+    <!--<module name="Translation"/>-->
+
+    <!--<module name="TreeWalker">-->
+        <!--&lt;!&ndash; Checks for Javadoc comments.                     &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_javadoc.html &ndash;&gt;-->
+        <!--<module name="JavadocMethod">-->
+            <!--<property name="excludeScope" value="private"/>-->
+        <!--</module>-->
+        <!--<module name="JavadocType"/>-->
+        <!--&lt;!&ndash;<module name="JavadocVariable"/>&ndash;&gt;-->
+        <!--<module name="JavadocStyle"/>-->
+
+        <!--<module name="AnnotationUseStyle">-->
+            <!--<property name="elementStyle" value="compact"/>-->
+            <!--<property name="trailingArrayComma" value="never"/>-->
+            <!--<property name="closingParens" value="ignore"/>-->
+        <!--</module>-->
+
+        <!--&lt;!&ndash; Checks for Naming Conventions.                  &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_naming.html &ndash;&gt;-->
+        <!--<module name="ConstantName"/>-->
+        <!--&lt;!&ndash;<module name="LocalFinalVariableName"/>&ndash;&gt;-->
+        <!--<module name="LocalVariableName"/>-->
+        <!--<module name="MemberName"/>-->
+        <!--<module name="MethodName"/>-->
+        <!--<module name="PackageName"/>-->
+        <!--<module name="ParameterName"/>-->
+        <!--<module name="StaticVariableName"/>-->
+        <!--<module name="TypeName"/>-->
+
+        <!--&lt;!&ndash; Following interprets the header file as regular expressions. &ndash;&gt;-->
+        <!--&lt;!&ndash; <module name="RegexpHeader"/>                                &ndash;&gt;-->
+
+        <!--&lt;!&ndash; Checks for imports                              &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_import.html &ndash;&gt;-->
+        <!--<module name="AvoidStarImport"/>-->
+        <!--<module name="IllegalImport"/> &lt;!&ndash; defaults to sun.* packages &ndash;&gt;-->
+        <!--<module name="RedundantImport"/>-->
+        <!--<module name="UnusedImports"/>-->
+
+        <!--<module name="LineLength">-->
+            <!--<property name="max" value="120"/>-->
+        <!--</module>-->
+        <!--<module name="MethodLength"/>-->
+        <!--<module name="ParameterNumber"/>-->
+
+
+        <!--&lt;!&ndash; Checks for whitespace                               &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_whitespace.html &ndash;&gt;-->
+        <!--<module name="EmptyForIteratorPad"/>-->
+        <!--<module name="MethodParamPad"/>-->
+        <!--<module name="NoWhitespaceAfter"/>-->
+        <!--<module name="NoWhitespaceBefore"/>-->
+        <!--<module name="OperatorWrap"/>-->
+        <!--<module name="ParenPad"/>-->
+        <!--<module name="TypecastParenPad"/>-->
+
+        <!--&lt;!&ndash; Modifier Checks                                    &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_modifiers.html &ndash;&gt;-->
+        <!--<module name="ModifierOrder"/>-->
+        <!--<module name="RedundantModifier"/>-->
+
+        <!--&lt;!&ndash; Checks for blocks. You know, those {}'s         &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_blocks.html &ndash;&gt;-->
+        <!--<module name="AvoidNestedBlocks"/>-->
+        <!--<module name="EmptyBlock"/>-->
+        <!--<module name="LeftCurly"/>-->
+        <!--<module name="NeedBraces"/>-->
+        <!--<module name="RightCurly"/>-->
+
+        <!--&lt;!&ndash; Checks for common coding problems               &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_coding.html &ndash;&gt;-->
+        <!--&lt;!&ndash;<module name="AvoidInlineConditionals"/>&ndash;&gt;-->
+        <!--<module name="DoubleCheckedLocking"/>    &lt;!&ndash; MY FAVOURITE &ndash;&gt;-->
+        <!--<module name="EmptyStatement"/>-->
+        <!--<module name="EqualsHashCode"/>-->
+        <!--<module name="HiddenField">-->
+            <!--<property name="tokens" value="VARIABLE_DEF"/>-->
+        <!--</module>-->
+
+        <!--<module name="IllegalInstantiation"/>-->
+        <!--&lt;!&ndash;<module name="InnerAssignment"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<module name="MagicNumber"/>&ndash;&gt;-->
+        <!--<module name="MissingSwitchDefault"/>-->
+        <!--<module name="RedundantThrows"/>-->
+        <!--<module name="SimplifyBooleanExpression"/>-->
+        <!--<module name="SimplifyBooleanReturn"/>-->
+
+        <!--&lt;!&ndash; Checks for class design                         &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_design.html &ndash;&gt;-->
+        <!--&lt;!&ndash; <module name="DesignForExtension"/>         &ndash;&gt;-->
+        <!--&lt;!&ndash;<module name="FinalClass"/>&ndash;&gt;-->
+        <!--<module name="HideUtilityClassConstructor"/>-->
+        <!--<module name="InterfaceIsType"/>-->
+        <!--<module name="VisibilityModifier"/>-->
+
+        <!--&lt;!&ndash; Miscellaneous other checks.                   &ndash;&gt;-->
+        <!--&lt;!&ndash; See http://checkstyle.sf.net/config_misc.html &ndash;&gt;-->
+        <!--<module name="ArrayTypeStyle"/>-->
+        <!--&lt;!&ndash;<module name="FinalParameters"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<module name="TodoComment"/>&ndash;&gt;-->
+        <!--<module name="UpperEll"/>-->
+
+        <!--<module name="WhitespaceAfter"/>-->
+        <!--<module name="WhitespaceAround"/>-->
+    <!--</module>-->
+
+    <!-- Checks for Headers                                -->
+    <!-- See http://checkstyle.sf.net/config_header.html   -->
+    <module name="Header">
+        <!-- The follow property value demonstrates the ability     -->
+        <!-- to have access to ANT properties. In this case it uses -->
+        <!-- the ${basedir} property to allow Checkstyle to be run  -->
+        <!-- from any directory within a project. See property      -->
+        <!-- expansion,                                             -->
+        <!-- http://checkstyle.sf.net/config.html#properties        -->
+        <property name="headerFile" value="${checkstyle.header.file}"/>
+    </module>
+
+    <!-- Checks for Size Violations.                    -->
+    <!-- See http://checkstyle.sf.net/config_sizes.html -->
+    <!--<module name="FileLength"/>-->
+
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <!--<module name="RegexpSingleline">-->
+        <!--<property name="format" value="\s+$"/>-->
+        <!--<property name="message" value="Line has trailing spaces."/>-->
+    <!--</module>-->
+
+</module>

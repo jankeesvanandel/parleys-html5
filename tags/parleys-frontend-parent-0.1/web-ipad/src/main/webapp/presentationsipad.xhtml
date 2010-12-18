@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<ui:composition
+        template="WEB-INF/facelets/templateIpad.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{presentationsViewBean.channelId}"/>
+            <f:viewParam name="id" value="#{navigationBean.id}"/>
+            <f:viewParam name="index" value="#{pagingBean.index}"/>
+            <f:viewParam name="paging" value="#{pagingBean.paging}"/>
+            <f:viewParam name="filter" value="#{pagingBean.filter}"/>
+            <f:event type="preRenderView" listener="#{presentationsBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initPresentationsPage}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="scripts">
+        <h:outputScript library="parleys" name="paging.js"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <div>
+            <c:if test="#{not empty pagingBean.filter.description}">
+                <h2 style="float: left;">#{pagingBean.filter.description}</h2>
+            </c:if>
+
+            <parleys:paging targetBean="#{presentationsBean}" render="main:presentationsContainer"/>
+
+            <h5:div id="presentationsContainer" styleClass="overviewList">
+                <ul>
+                    <ui:repeat value="#{pagingBean.list}" var="thumbnail">
+                        <li class="shadowbox">
+                            <div class="overviewListThumbnail">
+                                <h:link outcome="presentationipad">
+                                    <f:param name="id" value="#{thumbnail.id}"/>
+                                    <div class="thumbnailWrapper">
+                                        <h:graphicImage value="#{p:presentationThumbnail(thumbnail.id, thumbnail.thumbnailURL)}" alt="#{thumbnail.title}" height="88" width="133"/>
+                                        <h:graphicImage value="/resources/img/notavailable_small.jpg"
+                                                        title="This presentation is not available on iPad"
+                                                        alt=""
+                                                        width="133" height="20" styleClass="thumbnailNotAvailable"
+                                                        rendered="#{!thumbnail.visibleOnIpad}"/>
+                                    </div>
+                                </h:link>
+                            </div>
+                            <div class="overviewListText">
+                                <f:param name="id" value="#{thumbnail.id}"/>
+                                <h4>#{p:title(thumbnail)}</h4>
+                                <h:outputText value="#{p:subLabel(thumbnail)}" style="font-style:italic;font-size:small"/><br/>
+                                <h:outputText escape="false" value="#{p:shortenTo(270, thumbnail.summary)}"/>
+                            </div>
+                            <div class="overviewListStats">
+                                <h:outputText escape="false" value="#{p:ratingBar(thumbnail.totalVoteValue)}"/><br/>
+                                #{p:totalVotes(thumbnail.totalVotes)}<br/>
+                                #{p:formatNumber(thumbnail.totalViews)} views<br/>
+                                #{p:formatNumber(thumbnail.totalDownloads)} downloads<br/>
+                                #{p:formatNumber(thumbnail.totalComments)} comments
+                            </div>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h5:div>
+        </div>
+    </ui:define>
+</ui:composition>
