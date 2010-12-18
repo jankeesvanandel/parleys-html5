@@ -20,7 +20,7 @@
          version="2.5">
 
     <session-config>
-        <session-timeout>30</session-timeout>
+        <session-timeout>10</session-timeout>
     </session-config>
 
     <listener>
@@ -42,6 +42,7 @@
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
+        <!--<param-value>Development</param-value>-->
     </context-param>
 
     <context-param>

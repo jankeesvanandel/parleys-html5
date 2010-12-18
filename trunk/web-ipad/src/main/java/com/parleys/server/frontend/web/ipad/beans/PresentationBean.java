@@ -16,11 +16,10 @@
 package com.parleys.server.frontend.web.ipad.beans;
 
 import com.parleys.server.domain.types.AssetTargetType;
-import com.parleys.server.domain.types.PresentationType;
 import com.parleys.server.dto.AbstractDTO;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
-import com.parleys.server.dto.PresentationOverviewDTO;
+import com.parleys.server.frontend.domain.Stream;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
@@ -42,9 +41,7 @@ public class PresentationBean extends AbstractParleysBean {
     @ManagedProperty("#{navigationBean}")
     private NavigationBean navigationBean;
 
-    private long presentationId;
-
-    private String presentationTitle;
+    private Long presentationId;
 
     private ExtendedPresentationDetailsDTO presentation;
 
@@ -52,9 +49,7 @@ public class PresentationBean extends AbstractParleysBean {
 
     private List<? extends AbstractDTO> relatedPresentations;
 
-    private String streamURL;
-
-    private String type;
+    private List<Stream> streams;
 
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
@@ -68,7 +63,6 @@ public class PresentationBean extends AbstractParleysBean {
     }
 
     public List<? extends AbstractDTO> getRelatedPresentations(){
-
         return relatedPresentations;
     }
 
@@ -76,11 +70,11 @@ public class PresentationBean extends AbstractParleysBean {
         relatedPresentations = value;
     }
 
-    public long getPresentationId() {
+    public Long getPresentationId() {
         return presentationId;
     }
 
-    public void setPresentationId(final long presentationId) {
+    public void setPresentationId(final Long presentationId) {
         this.presentationId = presentationId;
     }
 
@@ -88,50 +82,53 @@ public class PresentationBean extends AbstractParleysBean {
         return presentation;
     }
 
-    public void setPresentation(final ExtendedPresentationDetailsDTO presentation) {
-        this.presentation = presentation;
-    }
+    public List<AssetDTO> getSlideAssets() {
+        if (this.slideAssets == null) {
+            if (presentation == null) {
+                return null;
+            }
+            final List<AssetDTO> assets = presentation.getAssetDTOs();
+            final List<AssetDTO> slideAssets = new ArrayList<AssetDTO>();
 
-
-    public void setSlideAssets(List<AssetDTO> slideAssets) {
-        this.slideAssets = slideAssets;
-    }
-
-    public List getSlideAssets() {
-        if (slideAssets != null) {
-            return slideAssets;
-        }
-        final List<AssetDTO> assets = presentation.getAssetDTOs();
-        final List<AssetDTO> sAssets = new ArrayList<AssetDTO>();
-
-        for (AssetDTO asset : assets) {
-            if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
-                String value = asset.getValue();
-                if (value != null && value.length() > 4) {
-                    value = "/iphone_" + value.substring(1, value.length() - 3) + "jpg";
-                    asset.setValue(value);
-
+            for (AssetDTO asset : assets) {
+                if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
+                    String value = asset.getValue();
+                    if (value != null && value.length() >= 4) {
+                        value = "/ipad_" + value.substring(1, value.length() - 3) + "jpg";
+                        asset.setValue(value);
+                    }
+                    slideAssets.add(asset);
                 }
-                 sAssets.add(asset);
             }
-        }
+            for (int i = 0, assetsSize = slideAssets.size(); i < assetsSize; i++) {
+                AssetDTO asset = slideAssets.get(i);
+                if (asset.getValue() == null
+                 || asset.getValue().length() < 4) {
+                    AssetDTO nextAsset;
+                    if (i <= 0) {
+                        nextAsset = slideAssets.get(i+1);
+                    } else {
+                        nextAsset = slideAssets.get(i-1);
+                    }
+                    asset.setValue(nextAsset.getValue());
+                }
+            }
 
-        slideAssets = sAssets;
-        return slideAssets;
+            this.slideAssets = slideAssets;
+        }
+        return this.slideAssets;
     }
 
-
-    public String getStreamURL() {
-        final List<AssetDTO> assets = presentation.getAssetDTOs();
-        AssetDTO streamAsset = null;
-        for (AssetDTO asset : assets) {
-            if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
-                streamAsset = asset;
+    public List<Stream> getStreams() {
+        if (this.streams == null) {
+            if (presentation == null) {
+                return null;
             }
-        }
+            final List<AssetDTO> assets = presentation.getAssetDTOs();
 
-        //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
-        if (streamAsset != null) {
+            String baseUrl = presentation.getStreamingURL();
+
+            //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
             /*
             String value = streamAsset.getValue();
             value = value.substring(1, value.length());
@@ -140,40 +137,36 @@ public class PresentationBean extends AbstractParleysBean {
             this.streamURL = value;
             LOGGER.info(streamURL);
             */
-            String value = streamAsset.getValue();
-            value = value.substring(1,value.length()).split("\\.")[0];
-            value = "http://www.bejug.org:1935/parleys/_definst_/"+presentationId+"/mp4:"+value+".mp4/playlist.m3u8";
-            this.streamURL = value;
-
-        } else {
-            throw new IllegalArgumentException("No streaming asset for presentation :" + presentation.getId());
+            this.streams = new ArrayList<Stream>();
+            for (AssetDTO asset : assets) {
+                if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
+                    String streamUrl = baseUrl.replaceFirst("rtmp", "http");
+                    streamUrl += "_definst_/";
+                    streamUrl += presentationId;
+                    streamUrl += "/mp4:";
+                    streamUrl += (asset.getValue().substring(1));
+                    streamUrl += "/playlist.m3u8";
+                    this.streams.add(new Stream(streamUrl, asset.getDuration()));
+                }
+            }
         }
-        return streamURL;
-
-    }
-
-
-    public void setStreamURL(String streamURL) {
-        this.streamURL = streamURL;
-    }
-
-
-
-    public void setType(String value) {
-        this.type = value;
+        return this.streams;
     }
 
     public String getType(){
-        String t = presentation.getType();
-        return t;
-    }
-
-    public void setPresentationTitle(String value){
-        this.presentationTitle = value;
+        if (presentation != null) {
+            return presentation.getType();
+        } else {
+            return null;
+        }
     }
 
     public String getPresentationTitle(){
-        return presentation.getTitle();
+        if (presentation != null) {
+            return presentation.getTitle();
+        } else {
+            return null;
+        }
     }
 
     public NavigationBean getNavigationBean() {

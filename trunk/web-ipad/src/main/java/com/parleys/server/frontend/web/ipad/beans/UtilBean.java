@@ -68,7 +68,8 @@ public class UtilBean {
             visibleOnIpad = ipadChannels.contains(dto.getId().intValue());
             ((ChannelOverviewDTO)dto).setVisibleOnIpad(visibleOnIpad);
         } else if (dto instanceof PresentationOverviewDTO) {
-            visibleOnIpad = ipadPresentations.contains(dto.getId().intValue());
+            visibleOnIpad = ipadPresentations.contains(dto.getId().intValue())
+                         || ((PresentationOverviewDTO)dto).getChannelId().equals(102906L);
             ((PresentationOverviewDTO)dto).setVisibleOnIpad(visibleOnIpad);
         } else if (dto instanceof PresentationDetailsDTO) {
             visibleOnIpad = ipadPresentations.contains(dto.getId().intValue());

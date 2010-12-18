@@ -13,9 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function handlePossibleTimeout(data) {
-    if (data.responseCode == "500") {
-        alert("Your session has ended. You are now redirected to the homepage");
-        document.location = "http://ipad.parleys.com";
+package com.parleys.server.frontend.domain;
+
+/**
+ * A simple object representing a video stream.
+ *
+ * @author Jan-Kees van Andel
+ */
+public class Stream {
+
+    private final String url;
+    private final double duration;
+
+    public Stream(String url, double duration) {
+        this.url = url;
+        this.duration = duration;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public double getDuration() {
+        return duration;
     }
 }

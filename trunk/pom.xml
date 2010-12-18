@@ -46,6 +46,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -58,7 +59,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                     <executions>
                         <execution>
                             <goals>
@@ -109,17 +110,17 @@
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
-                <version>2.0.3-SNAPSHOT</version>
+                <version>2.0.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-impl</artifactId>
-                <version>2.0.3-SNAPSHOT</version>
+                <version>2.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.ocpsoft</groupId>
                 <artifactId>prettyfaces-jsf2</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
             </dependency>
 
             <!-- Utility dependencies -->
@@ -254,7 +255,9 @@
             <id>jankees</id>
             <email>jankeesvanandel@gmail.com</email>
             <name>Jan-Kees van Andel</name>
-            <organization>Ordina J-Technologies</organization>
+            <organization>JPoint, The Netherlands</organization>
+            <organizationUrl>http://www.jpoint.nl</organizationUrl>
+            <timezone>+1</timezone>
             <roles>
                 <role>Project Lead</role>
                 <role>developer</role>
@@ -271,14 +274,6 @@
             <id>maven2</id>
             <url>http://repo1.maven.org/maven2</url>
         </repository>
-        <repository>
-            <id>myfaces.releases</id>
-            <url>http://people.apache.org/~lu4242/myfaces201</url>
-        </repository>
-        <repository>
-            <id>prettyfaces.snapshots</id>
-            <url>http://ocpsoft.com/repository</url>
-        </repository>
     </repositories>
 
     <scm>
@@ -287,7 +282,7 @@
     </scm>
 
     <properties>
-        <spring.version>3.0.3.RELEASE</spring.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

@@ -354,7 +354,12 @@ div.pagingBar a.next.paging {
 	background-color: #000000;
 	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
 	-webkit-transition-timing-function: ease-in-out;
+    /*border: 1px solid red;*/
 }
+
+/*.videoPlayer {*/
+    /*display: inline-block;*/
+/*}*/
 
 #slidesContainer {
 	-webkit-transition: all 0.4s ease-in-out;
@@ -577,6 +582,7 @@ div.infoDescription{
     left:10px;
     top:200px;
 }
+
 
 
 

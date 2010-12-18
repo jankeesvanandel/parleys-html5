@@ -22,13 +22,12 @@ var STATE_SLIDE_BIG = "STATE_SLIDE_BIG";
 var STATE_VIDEO_FULL = "STATE_VIDEO_FULL";
 var STATE_SLIDE_FULL = "STATE_SLIDE_FULL";
 
-
 var TYPE_AUDIO_AND_SLIDES = "AUDIO_AND_SLIDES";
 var TYPE_VIDEO_AND_SLIDES = "VIDEO_AND_SLIDES";
 var TYPE_SLIDES_ONLY = "SLIDES_ONLY";
 var TYPE_VIDEO_ONLY = "VIDEO_ONLY";
 var TYPE_ADVERTISEMENT = "ADVERTISEMENT";
-var TYPE_ALL  = "ALL";
+var TYPE_ALL = "ALL";
 
 var slideEqualRect = new Object();
 var videoEqualRect = new Object();
@@ -47,38 +46,29 @@ var s;
 var agenda;
 var inner;
 var agendaButton;
-
 var presentationType;
 
 $(window).bind('resize', onResize);
 
 $(document).bind('ready', function() {
+    presentationType = $("#mainContent .presentationType").val();
 
-    presentationType =   $("#mainContent").attr("presentationType");
-   // presentationType = TYPE_VIDEO_ONLY;
-
-    if(presentationType == TYPE_VIDEO_ONLY){
+    if (presentationType == TYPE_VIDEO_ONLY) {
         $("#slidesContainer").css("display", "none");
         $("#videoContainer").css("display", "block");
         currentState = STATE_VIDEO_FULL;
     }
 
-    if(presentationType == TYPE_AUDIO_AND_SLIDES){
+    if (presentationType == TYPE_AUDIO_AND_SLIDES) {
         $("#slidesContainer").css("display", "block");
         $("#videoContainer").css("display", "none");
         currentState = STATE_SLIDE_FULL;
     }
 
-
-    
-     if(presentationType == TYPE_VIDEO_AND_SLIDES){
+    if (presentationType == TYPE_VIDEO_AND_SLIDES) {
         $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
-        $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);  
-     }
-
-
-
-
+        $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
+    }
 
     slideOriginalRect.x = 0;
     slideOriginalRect.y = 0;
@@ -103,9 +93,6 @@ $(document).bind('ready', function() {
     actuallyResize();
     allowZoom(false);
 });
-
-
-
 
 function allowZoom(flag) {
     if (flag) {
@@ -192,11 +179,9 @@ function changeState() {
 }
 
 var resizeTimer;
-
 function onResize() {
     var contentWidth = $("#mainContent").width();
     var contentHeight = $("#mainContent").height();
-//    console.log("onResize: " + contentWidth + "x" + contentHeight);
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(actuallyResize, 200);
 }
@@ -231,7 +216,6 @@ function actuallyResize() {
         contentSmall.y = 0;
         contentSmall.width = contentWidth * 0.2;
         contentSmall.height = contentHeight;
-
     } else {
         contentEqualRight.x = 0;
         contentEqualRight.y = 0;
@@ -283,26 +267,22 @@ function actuallyResize() {
     if (currentState == STATE_EQUAL) {
         applyRect(videoEqualRect, v);
         applyRect(slideEqualRect, s);
-    }
-    else if (currentState == STATE_VIDEO_BIG) {
+    } else if (currentState == STATE_VIDEO_BIG) {
         applyRect(videoBigRect, v);
         applyRect(slideSmallRect, s);
-    }
-    else if (currentState == STATE_SLIDE_BIG) {
+    } else if (currentState == STATE_SLIDE_BIG) {
         applyRect(videoSmallRect, v);
         applyRect(slideBigRect, s);
-    }
-    else if (currentState == STATE_SLIDE_FULL) {
+    } else if (currentState == STATE_SLIDE_FULL) {
         applyRect(slideFullRect, s);
-    }
-    else if (currentState == STATE_VIDEO_FULL) {
+    } else if (currentState == STATE_VIDEO_FULL) {
         applyRect(videoFullRect, v);
     }
 
     if (currentState == STATE_EQUAL) {
         agenda.css("left", window.innerWidth / 2 - 190 + "px");
     } else {
-        agenda.css("left","100px");
+        agenda.css("left", "100px");
     }
 
     resizeChapters();
@@ -351,14 +331,11 @@ function aspectFit(outer, inner) {
 }
 
 function toggleAgenda() {
-
     if (currentState == STATE_EQUAL) {
         agenda.css("left", window.innerWidth / 2 - 190 + "px");
     } else {
-        agenda.css("left","100px");
+        agenda.css("left", "100px");
     }
-
-
 
     if (agendaButton.value == "hide") {
         agenda.css("display", "block");
@@ -391,8 +368,8 @@ function toggleAgenda() {
 }
 
 function hideAgenda() {
-   // agenda.css("display", "none");
-    agenda.css("left","-3000px");
+    // agenda.css("display", "none");
+    agenda.css("left", "-3000px");
 }
 
 jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {
