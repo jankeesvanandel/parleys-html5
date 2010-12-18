@@ -25,7 +25,7 @@
 
     <ui:define name="header">
         <f:metadata>
-            <f:viewParam name="id" value="#{presentationBean.presentationId}" required="true"/>
+            <f:viewParam name="id" value="#{presentationBean.presentationId}"/>
             <f:viewParam name="id" value="#{navigationBean.id}"/>
             <f:event type="preRenderView" listener="#{presentationBean.init}"/>
             <f:event type="preRenderView" listener="#{navigationBean.initPresentationPage}"/>
@@ -40,29 +40,37 @@
     </ui:define>
 
     <ui:define name="content">
-        <div id="mainContent" presentationType="#{presentationBean.type}" presentationId="#{presentationBean.presentationId}" presentationTitle="#{presentationBean.presentationTitle}">
-           <div id="inner">
-            <div id="videoContainer">
-                <video id="videoPlayer" ontimeupdate="ontimeupdateHandler()" width="100%" height="100%"
-                       src="#{presentationBean.streamURL}"/>
-            </div>
 
-            <div id="slidesContainer">
-                <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
-                    <img class="slide" id="slide_#{asset.id}" style="display: none"
-                        source="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
-                        alt="#{asset.value}"
-                        startTime="#{asset.cuePoint}"
-                        endTime="#{asset.cuePoint + asset.duration}"/>
-                </ui:repeat>
-            </div>
+        <div id="mainContent">
+            <h:outputText value="#{presentationBean.type}" styleClass="presentationType" style="display:none"/>
+            <h:outputText value="#{presentationBean.presentationId}" styleClass="presentationId" style="display:none"/>
+            <h:outputText value="#{presentationBean.presentationTitle}" styleClass="presentationTitle" style="display:none"/>
+            <div id="inner">
+                <div id="videoContainer">
+                    <ui:repeat value="#{presentationBean.streams}" var="stream" varStatus="status">
+                        <input type="hidden" source="#{stream.url}" duration="#{stream.duration}"/>
+                    </ui:repeat>
+                    <video id="videoPlayer" class="videoPlayer"
+                           src="#{presentationBean.streams[0]}"
+                           width="100%" height="100%"></video>
+                </div>
+
+                <div id="slidesContainer">
+                    <ui:repeat value="#{presentationBean.slideAssets}" var="asset">
+                        <img class="slide" id="slide_#{asset.id}" style="display: none"
+                            src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{asset.value}"
+                            alt="#{asset.value}"
+                            startTime="#{asset.cuePoint}"
+                            endTime="#{asset.cuePoint + asset.duration}"/>
+                    </ui:repeat>
+                </div>
             </div>
         </div>
 
         <div id="playButtonOverlayBackground"></div>
 
         <div id="playButtonOverlay">
-            <a href="#" title="Click to play"><img src="#{resource['img:play_btn_large.png']}" alt="Click to play"/></a>
+            <a title="Click to play"><img src="#{resource['img:play_btn_large.png']}" alt="Click to play"/></a>
         </div>
 
         <div id="agenda">
@@ -76,13 +84,7 @@
             </ul>
         </div>
 
-
-
-
-
-
-
-       <div id="tabs">
+        <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Share</a></li>
                 <li><a href="#tabs-2">Talk Info</a></li>
@@ -100,7 +102,7 @@
                     <li><img src="#{resource['img:social/technorati.png']}" alt="" width="24" height="24"></img> <a href="#" type="technorati"><span>Technorati</span></a></li>
                     <li><img src="#{resource['img:social/stumbleupon.png']}" alt="" width="24" height="24"></img> <a href="#" type="stumbleUpon"><span>StumbleUpon</span></a></li>
                 </ul>
-             </div>
+            </div>
             <div id="tabs-2">
 
                 <img id="infoImage" src="http://www.parleys.com/assets/presentations/#{presentationBean.presentation.id}#{presentationBean.presentation.getThumbnailURL()}" alt="" width="140" height="90"> </img>
@@ -143,13 +145,8 @@
                 </ul>
             </div>
 
-         </div>
+        </div>
         
-
-         
-
-
-
     </ui:define>
 
     <ui:define name="footer">

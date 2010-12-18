@@ -92,7 +92,7 @@ $(document).ready(function() {
     showPlayButtonOverlay();
     initializeVideoNavigationBar();
     initializeVideoEventSources();
-    setInitialPosition();
+//    setInitialPosition();
     disableTextSelection();
     initializeControlsEventHandlers();
 });
@@ -172,20 +172,20 @@ function disableTextSelection() {
     };
 }
 
-function setInitialPosition() {
-    var href = document.location.href;
-    var indexOfAnchor = href.indexOf("#");
-    if (indexOfAnchor != -1 && indexOfAnchor < href.length - 1) {
-        var slideId = href.substr(indexOfAnchor + 1);
-        var slide = findSlideById(slideId);
-        var time = parseFloat(slide.attr("startTime"));
-        try {
-            $("#videoPlayer")[0].currentTime = time;
-        } catch (e) {
-            logger.log("Error setting initial position to time " + time + ": " + e)
-        }
-    }
-}
+//function setInitialPosition() {
+//    var href = document.location.href;
+//    var indexOfAnchor = href.indexOf("#");
+//    if (indexOfAnchor != -1 && indexOfAnchor < href.length - 1) {
+//        var slideId = href.substr(indexOfAnchor + 1);
+//        var slide = findSlideById(slideId);
+//        var time = parseFloat(slide.attr("startTime"));
+//        try {
+//            $("#videoPlayer")[0].currentTime = time;
+//        } catch (e) {
+//            logger.log("Error setting initial position to time " + time + ": " + e)
+//        }
+//    }
+//}
 
 function initializeProgressBarEventSource() {
     $("#chapters div").not("#videoNavigationBarCursor").bind("click", function() {
