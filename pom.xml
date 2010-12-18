@@ -276,9 +276,25 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <!-- use the following if you're NOT using a snapshot version. -->
+        <repository>
+            <id>googlecode.releases</id>
+            <name>Google Code Releases</name>
+            <url>svn:https://parleys-html5.googlecode.com/svn/releases</url>
+        </repository>
+        <!-- use the following if you ARE using a snapshot version. -->
+        <snapshotRepository>
+            <id>googlecode.shapshots</id>
+            <name>Google Code Snapshots</name>
+            <url>svn:https://parleys-html5.googlecode.com/svn/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <scm>
         <connection>scm:svn:http://parleys-html5.googlecode.com/svn/trunk</connection>
         <developerConnection>scm:svn:https://parleys-html5.googlecode.com/svn/trunk</developerConnection>
+        <url>http://parleys-html5.googlecode.com/svn/trunk</url>
     </scm>
 
     <properties>
