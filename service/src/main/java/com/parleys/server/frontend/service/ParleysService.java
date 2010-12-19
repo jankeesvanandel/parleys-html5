@@ -156,4 +156,11 @@ public interface ParleysService {
      * @return The list with the presentations.
      */
     List<Thumbnail> loadPhotoSlideShow();
+
+    /**
+     * Retrieve the authenticate user identifier.
+     *
+     * @return the user ID
+     */
+    Long getUserId(String username, String password);
 }

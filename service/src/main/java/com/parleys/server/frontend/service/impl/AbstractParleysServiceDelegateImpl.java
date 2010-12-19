@@ -17,6 +17,7 @@ package com.parleys.server.frontend.service.impl;
 
 import com.parleys.io.amf.client.AMFClientFactory;
 import com.parleys.server.frontend.service.ParleysService;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -30,11 +31,25 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
     @SuppressWarnings("unchecked")
-    private <T> T getService(String serviceName, Class<T> serviceClass) {
+    private <T> T getService(final String serviceName,
+                             final Class<T> serviceClass) {
         final AMFClientFactory clientFactory = new AMFClientFactory();
         clientFactory.setServiceClass(serviceClass);
         clientFactory.setServiceName(serviceName);
         clientFactory.setServiceUrl(getAMFChannel());
+        return (T) clientFactory.create();
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T getServiceWithCredentials(final String serviceName,
+                                            final Class<T> serviceClass, String username,
+                                            final String password) {
+        final AMFClientFactory clientFactory = new AMFClientFactory();
+        clientFactory.setServiceClass(serviceClass);
+        clientFactory.setServiceName(serviceName);
+        clientFactory.setServiceUrl(getAMFChannel());
+        clientFactory.setUsername(username);
+        clientFactory.setPassword(password);
         return (T) clientFactory.create();
     }
 
@@ -45,6 +60,20 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
      */
     protected com.parleys.server.service.ParleysService getParleysServiceProxy() {
         return getService("parleysService", com.parleys.server.service.ParleysService.class);
+    }
+
+    /**
+     * Returns an authenticated AMF service.
+     *
+     * @param username user name
+     * @param password user password
+     * @return ParleysService instance.
+     */
+    protected com.parleys.server.service.ParleysService getParleysServiceWithCredentialsProxy(final String username,
+                                                                                              final String password) {
+        return getServiceWithCredentials("parleysService",
+                                         com.parleys.server.service.ParleysService.class,
+                                         username, password);
     }
 
     /**

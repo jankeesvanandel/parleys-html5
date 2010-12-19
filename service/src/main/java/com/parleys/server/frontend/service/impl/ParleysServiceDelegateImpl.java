@@ -180,15 +180,21 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
         return ret;
     }
 
-    private Thumbnail transformToPhotoSlideShowItem(ExtendedPresentationDetailsDTO dto) {
-        Thumbnail thumbnail = new Thumbnail();
+    /** {@inheritDoc} **/
+    @Cacheable(cacheName="users")
+    @Override
+    public Long getUserId(final String username, final String password) {
+        return getParleysServiceWithCredentialsProxy(username, password).getUserId();
+    }
+
+    private Thumbnail transformToPhotoSlideShowItem(final ExtendedPresentationDetailsDTO dto) {
+        final Thumbnail thumbnail = new Thumbnail();
         thumbnail.setId(dto.getId());
         thumbnail.setName(dto.getTitle());
-        List<SpeakerDTO> speakers = dto.getSpeakers();
-        String secondLine = (speakers != null && !speakers.isEmpty()) ? speakers.get(0).getName() : "Unknown speaker";
+
+        final List<SpeakerDTO> speakers = dto.getSpeakers();
+        final String secondLine = (speakers != null && !speakers.isEmpty()) ? speakers.get(0).getName() : "Unknown speaker";
         thumbnail.setSecondLine(secondLine);
         return thumbnail;
     }
-
-
 }
