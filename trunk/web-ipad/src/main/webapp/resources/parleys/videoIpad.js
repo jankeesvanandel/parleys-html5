@@ -75,7 +75,7 @@ com.parleys.html5client.MainVideoLoop.prototype = {
         for (var i = 0; i < this._subClips.length; i++) {
             var subClip = this._subClips[i];
             if (actualTime >= subClip.startTimeInSeconds
-                    && actualTime < subClip.endTimeInSeconds) {
+             && actualTime < subClip.endTimeInSeconds) {
                 this._currentSubClipIndex = i;
                 this._currentSubClip = subClip;
                 this._currentTime = actualTime - subClip.startTimeInSeconds;
@@ -120,7 +120,8 @@ com.parleys.html5client.MainVideoLoop.prototype = {
     },
 
     loadSubClip: function() {
-        var videoPlayer = $(".videoPlayer")[0];
+        $("#videoLoader").show();
+        var videoPlayer = $("#videoPlayer")[0];
         if (videoPlayer.src != mainVideoLoop._currentSubClip.source) {
             videoPlayer.src = mainVideoLoop._currentSubClip.source;
             videoPlayer.load();
@@ -133,7 +134,8 @@ com.parleys.html5client.MainVideoLoop.prototype = {
 
     setCurrentTime: function(time) {
         try {
-            $(".videoPlayer")[0].currentTime = time;
+            $("#videoPlayer")[0].currentTime = time;
+            $("#videoLoader").hide();
         } catch (e) {
             setTimeout(function() {
                 mainVideoLoop.setCurrentTime(time);
@@ -174,6 +176,27 @@ function initializeSubClips() {
         });
     }
 }
+
+function addPlayPauzeListener(videoPlayer) {
+    videoPlayer.addEventListener('pause', function() {
+        $("#playButton").show();
+        $("#pauzeButton").hide();
+    }, false);
+    videoPlayer.addEventListener('play', function() {
+        $("#playButton").hide();
+        $("#pauzeButton").show();
+    }, false);
+}
+
+function addVideoLoadingIndicator(videoPlayer) {
+//    videoPlayer.addEventListener('waiting', function() {
+//        $("#videoLoader").show();
+//    }, false);
+//    videoPlayer.addEventListener('playing', function() {
+//        $("#videoLoader").hide();
+//    }, false);
+}
+
 function showPlayButtonOverlay() {
     $("#playButtonOverlay").css("display", "block");
     $("#playButtonOverlayBackground").css("display", "block");
@@ -181,13 +204,17 @@ function showPlayButtonOverlay() {
 
     // Hide the agenda to keep the play button clickable
     $("#playButtonOverlay a").click(function() {
+        var videoPlayer = $("#videoPlayer")[0];
         $("#playButtonOverlay").css("display", "none");
         $("#playButtonOverlayBackground").css("display", "none");
+
+        addVideoLoadingIndicator(videoPlayer);
+
+        addPlayPauzeListener(videoPlayer);
 
         mainVideoLoop._currentSubClip = mainVideoLoop._subClips[0];
         mainVideoLoop._currentSubClipIndex = 0;
 
-        var videoPlayer = $("#videoPlayer")[0];
         videoPlayer.src = mainVideoLoop._currentSubClip.source;
         videoPlayer.load();
         videoPlayer.play();
@@ -198,6 +225,10 @@ function showPlayButtonOverlay() {
                 videoPlayer.src = mainVideoLoop._currentSubClip.source;
                 videoPlayer.load();
                 videoPlayer.play();
+            } else {
+                mainVideoLoop._currentSubClipIndex = 0;
+                mainVideoLoop._currentSubClip = mainVideoLoop._subClips[0];
+                videoPlayer.src = mainVideoLoop._currentSubClip.source;
             }
         }, false);
         return false;
@@ -222,15 +253,14 @@ function initializeControlsEventHandlers() {
     $("#playButton").click(function() {
         $("#playButton").hide();
         $("#pauzeButton").show();
-        $(".videoPlayer")[0].play();
-//        alert("w+h: " + $("#slidesContainer").width() + "-" + $("#slidesContainer").height());
+        $("#videoPlayer")[0].play();
         return false;
     });
 
     $("#pauzeButton").click(function() {
         $("#playButton").show();
         $("#pauzeButton").hide();
-        $(".videoPlayer")[0].pause();
+        $("#videoPlayer")[0].pause();
         return false;
     });
 }
@@ -273,7 +303,7 @@ function disableTextSelection() {
 //        var slide = findSlideById(slideId);
 //        var time = parseFloat(slide.attr("startTime"));
 //        try {
-//            $(".videoPlayer")[0].currentTime = time;
+//            $("#videoPlayer")[0].currentTime = time;
 //        } catch (e) {
 //            console.log("Error setting initial position to time " + time + ": " + e)
 //        }
@@ -293,7 +323,7 @@ function initializeProgressBarEventSource() {
         var slide = findSlideById(id);
         toggleAgenda();
         mainVideoLoop.actualTimeChanged(slide.attr("startTime"), OBSERVER_TYPE_PROGRESSBAR);
-        $(".videoPlayer")[0].play();
+        $("#videoPlayer")[0].play();
 
         return false;
     });
@@ -317,7 +347,7 @@ function getStartTimeForChapter(chapterIndex) {
 var updateVideoCatchAlert = 0;
 function updateVideo(timeChangedEvent) {
 //    try {
-//        $(".videoPlayer")[0].currentTime = timeChangedEvent.currentTime;
+//        $("#videoPlayer")[0].currentTime = timeChangedEvent.currentTime;
 //    } catch (e) {
 //        // only alert a couple of times because otherwise we're spammed with alerts
 //        if (updateVideoCatchAlert < 5) {
@@ -328,8 +358,8 @@ function updateVideo(timeChangedEvent) {
 }
 
 function initializeVideoEventSource() {
-    $(".videoPlayer")[0].addEventListener('timeupdate', function() {
-        var now = $(".videoPlayer")[0].currentTime;
+    $("#videoPlayer")[0].addEventListener('timeupdate', function() {
+        var now = $("#videoPlayer")[0].currentTime;
         mainVideoLoop.timeChanged(mainVideoLoop._currentSubClipIndex, now, OBSERVER_TYPE_VIDEO);
         resizeElements();
     }, false);
@@ -448,7 +478,7 @@ function max(i1, i2) {
 }
 //
 //function onTimeUpdateHandler() {
-//    var now = $(".videoPlayer")[0].currentTime;
+//    var now = $("#videoPlayer")[0].currentTime;
 //    mainVideoLoop.timeChanged(mainVideoLoop._currentSubClipIndex, now, OBSERVER_TYPE_VIDEO);
 //    resizeElements();
 //}

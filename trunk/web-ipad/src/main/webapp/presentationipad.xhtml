@@ -47,6 +47,7 @@
             <h:outputText value="#{presentationBean.presentationTitle}" styleClass="presentationTitle" style="display:none"/>
             <div id="inner">
                 <div id="videoContainer">
+                    <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" id="videoLoader" width="32" height="32"/>
                     <ui:repeat value="#{presentationBean.streams}" var="stream" varStatus="status">
                         <input type="hidden" source="#{stream.url}" duration="#{stream.duration}"/>
                     </ui:repeat>
