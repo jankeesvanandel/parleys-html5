@@ -19,6 +19,7 @@ import com.parleys.server.domain.BackgroundImage;
 import com.parleys.server.domain.SocialInfo;
 import com.parleys.server.domain.types.PresentationState;
 import com.parleys.server.domain.types.PresentationType;
+import com.parleys.server.domain.types.StreamingServerType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,6 +97,8 @@ public class PresentationDetailsDTO extends AbstractDTO {
     private boolean free;
 
     private boolean visibleOnIpad;
+
+    private StreamingServerType streamingType;
 
     /**
      * @return the pageId
@@ -431,7 +434,7 @@ public class PresentationDetailsDTO extends AbstractDTO {
     public final String getKeywordsString() {
         String result = "";
         if ((keywordList != null) && (keywordList.size() > 0)) {
-            for (String keyword : keywordList) {
+            for (final String keyword : keywordList) {
                 result += result.length() > 0 ? "," : "";
                 result += keyword;
             }
@@ -504,7 +507,15 @@ public class PresentationDetailsDTO extends AbstractDTO {
         return visibleOnIpad;
     }
 
-    public void setVisibleOnIpad(boolean visibleOnIpad) {
+    public void setVisibleOnIpad(final boolean visibleOnIpad) {
         this.visibleOnIpad = visibleOnIpad;
+    }
+
+    public StreamingServerType getStreamingType() {
+        return streamingType;
+    }
+
+    public void setStreamingType(final StreamingServerType streamingType) {
+        this.streamingType = streamingType;
     }
 }
