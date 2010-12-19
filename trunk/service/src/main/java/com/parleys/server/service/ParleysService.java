@@ -779,4 +779,11 @@ public interface ParleysService {
 //     * @return list of attachment dtos
 //     */
 //    List<AttachmentDTO> getAttachments(long presentationId);
+
+    /**
+     * Retrieves the user identifier.
+     *
+     * @return the user identifier
+     */
+    Long getUserId();
 }
