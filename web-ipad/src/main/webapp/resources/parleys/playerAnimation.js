@@ -51,7 +51,7 @@ var presentationType;
 $(window).bind('resize', onResize);
 
 $(document).bind('ready', function() {
-    presentationType = $("#mainContent .presentationType").val();
+    presentationType = $("#mainContent .presentationType").html();
 
     if (presentationType == TYPE_VIDEO_ONLY) {
         $("#slidesContainer").css("display", "none");
@@ -243,8 +243,8 @@ function actuallyResize() {
     contentFull.width = contentWidth;
     contentFull.height = contentHeight;
 
-    slideEqualRect = aspectFit(contentEqualLeft, slideOriginalRect);
-    videoEqualRect = aspectFit(contentEqualRight, videoOriginalRect);
+    slideEqualRect = aspectFit(contentEqualRight, slideOriginalRect);
+    videoEqualRect = aspectFit(contentEqualLeft, videoOriginalRect);
     slideSmallRect = aspectFit(contentSmall, slideOriginalRect);
     slideSmallRect.y = 0;
     videoSmallRect = aspectFit(contentSmall, videoOriginalRect);
@@ -343,14 +343,14 @@ function toggleAgenda() {
         s.css("z-index", "49");
         v.css("z-index", "48");
         if (currentState == STATE_EQUAL) {
-            v.css("webkitTransform", "rotateY(-45deg) translateZ(-250px) translate(100px,0)");
-            s.css("webkitTransform", "rotateY(45deg) translateZ(-250px) translate(-100px,0)");
+            v.css("webkitTransform", "rotateY(45deg)  translateZ(-250px) translate(-100px,0)");
+            s.css("webkitTransform", "rotateY(-45deg) translateZ(-250px) translate(100px,0)");
         } else {
             inner.css("webkitTransform", "rotateY(-45deg) translateZ(-500px) translate(-180px,0)");
         }
 
         if (currentState == STATE_EQUAL) {
-            agenda.css("webkitTransform", "rotateY(0deg) translateZ(0px)");
+            agenda.css("webkitTransform", "rotateY(0deg)  translateZ(0px)");
         } else {
             agenda.css("webkitTransform", "rotateY(20deg) translateZ(-200px)");
         }

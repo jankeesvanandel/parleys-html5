@@ -357,7 +357,15 @@ div.pagingBar a.next.paging {
     /*border: 1px solid red;*/
 }
 
-/*.videoPlayer {*/
+#videoLoader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+}
+
+/*#videoPlayer {*/
     /*display: inline-block;*/
 /*}*/
 
@@ -508,7 +516,7 @@ div#agenda li a {
     color: #174867;
 
     -webkit-border-radius: 10px;
-    width: 250px;
+    w/idth: 250px;
     display: block;
     text-decoration: none;
 }

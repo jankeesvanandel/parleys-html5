@@ -32,7 +32,7 @@
     <h5:div id="pagingBar" styleClass="pagingBar" rendered="#{pagingBean.isRendered}">
         <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="inlineLoader" width="32" height="32"/>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"
-                       disabled="#{pagingBean.index le 0}"
+                       rendered="#{pagingBean.index gt 0}"
                        styleClass="previous paging"
                        title="Previous page"
                        value="&lt;"
@@ -48,7 +48,7 @@
             </h:commandLink>
         </ui:repeat>
         <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
-                       disabled="#{pagingBean.index+pagingBean.paging ge pagingBean.totalCount}"
+                       rendered="#{pagingBean.index+pagingBean.paging lt pagingBean.totalCount}"
                        styleClass="next paging"
                        title="Next page"
                        value="&gt;"

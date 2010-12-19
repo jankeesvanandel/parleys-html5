@@ -73,8 +73,8 @@ $(document).bind('ready', function() {
         }
     });
 
-    presentationId = $("#mainContent .presentationId").val();
-    presentationTitle = $("#mainContent .presentationTitle").val();
+    presentationId = $("#mainContent .presentationId").html();
+    presentationTitle = $("#mainContent .presentationTitle").html();
 
     $("#shareButton").click(function() {
         toggleShare();

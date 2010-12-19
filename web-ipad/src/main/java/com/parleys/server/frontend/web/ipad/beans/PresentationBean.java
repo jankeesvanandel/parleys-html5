@@ -90,11 +90,13 @@ public class PresentationBean extends AbstractParleysBean {
             final List<AssetDTO> assets = presentation.getAssetDTOs();
             final List<AssetDTO> slideAssets = new ArrayList<AssetDTO>();
 
+            final String slidePrefix = determineSlidePrefix();
+
             for (AssetDTO asset : assets) {
                 if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
                     String value = asset.getValue();
                     if (value != null && value.length() >= 4) {
-                        value = "/ipad_" + value.substring(1, value.length() - 3) + "jpg";
+                        value = slidePrefix + value.substring(1, value.length() - 3) + "jpg";
                         asset.setValue(value);
                     }
                     slideAssets.add(asset);
@@ -119,6 +121,18 @@ public class PresentationBean extends AbstractParleysBean {
         return this.slideAssets;
     }
 
+    private String determineSlidePrefix() {
+        final String slidePrefix;
+
+        // Use iPhone slides if it's a Devoxx09 test talk.
+        if (presentation.getChannel().getId().equals(74957L)) {
+            slidePrefix = "/iphone_";
+        } else {
+            slidePrefix = "/ipad_";
+        }
+        return slidePrefix;
+    }
+
     public List<Stream> getStreams() {
         if (this.streams == null) {
             if (presentation == null) {
@@ -141,10 +155,21 @@ public class PresentationBean extends AbstractParleysBean {
             for (AssetDTO asset : assets) {
                 if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
                     String streamUrl = baseUrl.replaceFirst("rtmp", "http");
+
+                    // This replace is needed for the Devoxx09 test talks, which don't have
+                    // the correct ExtendedPresentationDetailsDTO.streamingURL property.
+                    streamUrl = streamUrl.replaceFirst("stream1", "stream2");
+
                     streamUrl += "_definst_/";
                     streamUrl += presentationId;
                     streamUrl += "/mp4:";
-                    streamUrl += (asset.getValue().substring(1));
+                    String assetValue = asset.getValue().substring(1);
+
+                    // This replace is needed for the Devoxx09 test talks, which don't have
+                    // the correct extension.
+                    assetValue = assetValue.replace(".flv", ".mp4");
+
+                    streamUrl += assetValue;
                     streamUrl += "/playlist.m3u8";
                     this.streams.add(new Stream(streamUrl, asset.getDuration()));
                 }
