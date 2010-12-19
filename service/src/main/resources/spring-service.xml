@@ -22,8 +22,6 @@
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd
-                           http://www.springframework.org/schema/task
-                           http://www.springframework.org/schema/task/spring-task-3.0.xsd
                            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
                            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
 
@@ -34,7 +32,7 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
 
     <bean id="amfEndPoint" class="java.lang.String">
-		<constructor-arg value="http://www.parleys.com/parleysserver/" />
+		<constructor-arg value="http://localhost:8080/parleysserver/" />
 	</bean>
 
 </beans>
