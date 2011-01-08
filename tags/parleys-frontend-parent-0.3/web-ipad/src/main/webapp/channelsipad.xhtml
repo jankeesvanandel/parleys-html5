@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<ui:composition
+        template="WEB-INF/facelets/templateIpad.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://www.parleys.com/jsf/taglib"
+        xmlns:h5="http://www.parleys.com/jsf/components/html5"
+        xmlns:parleys="http://java.sun.com/jsf/composite/parleys">
+
+    <ui:define name="header">
+        <f:metadata>
+            <f:viewParam name="id" value="#{channelsViewBean.spaceId}"/>
+            <f:viewParam name="id" value="#{navigationBean.id}"/>
+            <f:viewParam name="index" value="#{pagingBean.index}"/>
+            <f:viewParam name="paging" value="#{pagingBean.paging}"/>
+            <f:viewParam name="filter" value="#{pagingBean.filter}"/>
+            <f:event type="preRenderView" listener="#{channelsBean.init}"/>
+            <f:event type="preRenderView" listener="#{navigationBean.initChannelsPage}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="scripts">
+        <h:outputScript library="parleys" name="paging.js"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <div>
+            <parleys:paging targetBean="#{channelsBean}" render="main:channelsContainer"/>
+
+            <h5:div id="channelsContainer" styleClass="overviewList">
+                <ul>
+                    <ui:repeat value="#{pagingBean.list}" var="channel">
+                        <li class="shadowbox">
+                            <f:param name="id" value="#{channel.id}"/>
+                            <div class="overviewListThumbnail smallThumbnail">
+                                <h:link outcome="presentationsipad">
+                                    <f:param name="id" value="#{channel.id}"/>
+                                    <div class="thumbnailWrapper small">
+                                        <h:graphicImage value="#{p:channelThumbnail(channel.id, channel.thumbnailURL)}" alt="#{channel.name}" height="70" width="70"/>
+                                        <h:graphicImage value="/resources/img/notavailable_small.jpg"
+                                                        title="This channel is not available on iPad"
+                                                        alt=""
+                                                        width="70" height="12" styleClass="thumbnailNotAvailable"
+                                                        rendered="#{!channel.visibleOnIpad}"/>
+                                    </div>
+                                </h:link>
+                            </div>
+                            <div class="overviewListText smallThumbnail">
+                                <f:param name="id" value="#{channel.id}"/>
+                                <h4>#{channel.name}</h4>
+                                <h:outputText escape="false" value="#{p:shortenTo(270, channel.description)}"/>
+                            </div>
+                            <div class="overviewListStats">
+                                created #{p:formatDate(channel.createdOn)}<br/><br/>
+                                #{channel.totalPresentationCount} talks<br/>
+                                #{p:formatNumber(channel.totalViewCount)} views<br/>
+                                #{p:subscription(channel.membership)}
+                            </div>
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h5:div>
+        </div>
+    </ui:define>
+</ui:composition>
