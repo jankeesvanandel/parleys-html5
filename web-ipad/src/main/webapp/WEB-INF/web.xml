@@ -31,35 +31,29 @@
         <param-name>facelets.DEVELOPMENT</param-name>
         <param-value>false</param-value>
     </context-param>
-
     <context-param>
         <param-name>contextConfigLocations</param-name>
         <param-value>
             /WEB-INF/applicationContext.xml
         </param-value>
     </context-param>
-
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
         <!--<param-value>Development</param-value>-->
     </context-param>
-
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
+        <param-value>client</param-value>
     </context-param>
-
     <context-param>
         <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
         <param-value>false</param-value>
     </context-param>
-
     <context-param>
         <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
         <param-value>false</param-value>
     </context-param>
-
     <context-param>
         <description>
             Only applicable if state saving method is "server" (= default).
@@ -68,17 +62,24 @@
         <param-name>org.apache.myfaces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
         <param-value>1</param-value>
     </context-param>
-
     <context-param>
         <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
         <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
     </context-param>
 
     <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.parleys.server.frontend.web.ipad.filters.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>*.login</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>Pretty Filter</filter-name>
         <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>Pretty Filter</filter-name>
         <url-pattern>/*</url-pattern>

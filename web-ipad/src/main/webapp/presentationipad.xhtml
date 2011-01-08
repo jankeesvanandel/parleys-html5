@@ -42,6 +42,7 @@
     <ui:define name="content">
 
         <div id="mainContent">
+            <h:outputText value="#{presentationBean.userToken}" styleClass="userToken" style="display:none"/>
             <h:outputText value="#{presentationBean.type}" styleClass="presentationType" style="display:none"/>
             <h:outputText value="#{presentationBean.presentationId}" styleClass="presentationId" style="display:none"/>
             <h:outputText value="#{presentationBean.presentationTitle}" styleClass="presentationTitle" style="display:none"/>
@@ -67,6 +68,28 @@
                 </div>
             </div>
         </div>
+
+        <h5:div styleClass="loginPanelBackground" rendered="#{presentationBean.showLoginPanel}"></h5:div>
+
+        <h5:div id="loginPanel" rendered="#{presentationBean.showLoginPanel}" styleClass="loginPanel">
+            <h2 id="loginErrors"></h2>
+            <table>
+                <tr>
+                    <td><label for="username">Username</label></td>
+                    <td><input type="text" value="" id="username"/></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td><input type="password" value="" id="password"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="" id="cancelLoginButton">Cancel</a> | 
+                        <button id="loginButton">Login</button>
+                    </td>
+                </tr>
+            </table>
+        </h5:div>
 
         <div id="playButtonOverlayBackground"></div>
 

@@ -20,11 +20,17 @@ import com.parleys.server.dto.AbstractDTO;
 import com.parleys.server.dto.AssetDTO;
 import com.parleys.server.dto.ExtendedPresentationDetailsDTO;
 import com.parleys.server.frontend.domain.Stream;
+import com.parleys.server.frontend.web.ipad.filters.AESEncrypter;
+import com.parleys.server.frontend.web.ipad.filters.LoginFilter;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +57,10 @@ public class PresentationBean extends AbstractParleysBean {
 
     private List<Stream> streams;
 
+    private String userToken;
+
+    private boolean firstLoginAttempt = true;
+
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
             return;
@@ -59,7 +69,7 @@ public class PresentationBean extends AbstractParleysBean {
         presentation = getParleysService().getPresentationDetails(presentationId);
 
         // TODO: Will need to add some kind of paging and filter the current presentation from the result
-        setRelatedPresentations(getParleysService().searchPresentations(presentation.getKeywordsString(),0,4));
+        setRelatedPresentations(getParleysService().searchPresentations(presentation.getKeywordsString(), 0, 4));
     }
 
     public List<? extends AbstractDTO> getRelatedPresentations(){
@@ -142,15 +152,6 @@ public class PresentationBean extends AbstractParleysBean {
 
             String baseUrl = presentation.getStreamingURL();
 
-            //http://www.bejug.org:1935/parleys/_definst_/1973/mp4:201007151225031102499.mp4/playlist.m3u8
-            /*
-            String value = streamAsset.getValue();
-            value = value.substring(1, value.length());
-            String template = "http://www.bejug.org:1935/parleys/_definst_/%n/mp4:%n/playlist.m3u8";
-            value = String.format(template, presentationId, value);
-            this.streamURL = value;
-            LOGGER.info(streamURL);
-            */
             this.streams = new ArrayList<Stream>();
             for (AssetDTO asset : assets) {
                 if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
@@ -192,6 +193,51 @@ public class PresentationBean extends AbstractParleysBean {
         } else {
             return null;
         }
+    }
+
+    public boolean getShowLoginPanel(){
+        if (presentation != null) {
+            boolean loggedIn = loginUsingCookie();
+            return !presentation.isFree() && !loggedIn;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean loginUsingCookie() {
+        if (this.firstLoginAttempt) {
+            this.firstLoginAttempt = false;
+
+            final FacesContext facesContext = FacesContext.getCurrentInstance();
+            final ExternalContext externalContext = facesContext.getExternalContext();
+            final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+            final Cookie[] cookies = request.getCookies();
+            for (final Cookie cookie : cookies) {
+                if (LoginFilter.PARLEYS_REMEMBER_ME_IPAD.equals(cookie.getName())) {
+                    try {
+                        String value = cookie.getValue();
+                        String decrypted = AESEncrypter.INSTANCE.decrypt(value);
+                        String[] parts = decrypted.split(";");
+                        final String username = parts[0];
+                        final String password = parts[1];
+                        this.userToken = Long.toString(getParleysService().getUserId(username, password));
+                        break;
+                    } catch (Exception ignored) {
+                        this.userToken = null;
+                    }
+                }
+            }
+        }
+        return this.userToken != null;
+    }
+
+    public String getUserToken() {
+        loginUsingCookie();
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 
     public NavigationBean getNavigationBean() {

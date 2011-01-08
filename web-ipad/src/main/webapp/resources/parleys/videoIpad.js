@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-//var isCursorDragging = false;
 var timeDisplayWidth = 150;
 
 var com;
@@ -158,9 +157,8 @@ $(document).ready(function() {
     initializeSubClips();
     initializeVideoNavigationBar();
     initializeVideoEventSources();
-//    lazyLoadSlides();
-    disableTextSelection();
     initializeControlsEventHandlers();
+    initializeLoginScreenIfNecessary();
 });
 
 function initializeSubClips() {
@@ -189,12 +187,6 @@ function addPlayPauzeListener(videoPlayer) {
 }
 
 function addVideoLoadingIndicator(videoPlayer) {
-//    videoPlayer.addEventListener('waiting', function() {
-//        $("#videoLoader").show();
-//    }, false);
-//    videoPlayer.addEventListener('playing', function() {
-//        $("#videoLoader").hide();
-//    }, false);
 }
 
 function showPlayButtonOverlay() {
@@ -265,51 +257,6 @@ function initializeControlsEventHandlers() {
     });
 }
 
-//var allSlides;
-//function loadSlide(index) {
-//    var slide = allSlides.eq(index);
-//
-//    if (typeof(slide.attr("src")) === "undefined") {
-//        slide.attr("src", slide.attr("source"));
-//        slide.removeAttr("source");
-//    }
-//
-//    if (index < allSlides.size()) {
-//        setTimeout(function() {
-//            loadSlide(index + 1);
-//        }, 50);
-//    }
-//}
-//
-//function lazyLoadSlides() {
-//    allSlides = $("#slidesContainer img");
-//    loadSlide(0);
-//}
-
-function disableTextSelection() {
-    document.onselectstart = function() {
-        return false; // ie
-    };
-    document.onmousedown = function() {
-        return false; // mozilla
-    };
-}
-
-//function setInitialPosition() {
-//    var href = document.location.href;
-//    var indexOfAnchor = href.indexOf("#");
-//    if (indexOfAnchor != -1 && indexOfAnchor < href.length - 1) {
-//        var slideId = href.substr(indexOfAnchor + 1);
-//        var slide = findSlideById(slideId);
-//        var time = parseFloat(slide.attr("startTime"));
-//        try {
-//            $("#videoPlayer")[0].currentTime = time;
-//        } catch (e) {
-//            console.log("Error setting initial position to time " + time + ": " + e)
-//        }
-//    }
-//}
-
 function initializeProgressBarEventSource() {
     $("#chapters div").not("#videoNavigationBarCursor").bind("click", function() {
         var href = $(this).attr("cuepoint");
@@ -344,17 +291,7 @@ function getStartTimeForChapter(chapterIndex) {
     return parseFloat(slide.attr("startTime"));
 }
 
-var updateVideoCatchAlert = 0;
 function updateVideo(timeChangedEvent) {
-//    try {
-//        $("#videoPlayer")[0].currentTime = timeChangedEvent.currentTime;
-//    } catch (e) {
-//        // only alert a couple of times because otherwise we're spammed with alerts
-//        if (updateVideoCatchAlert < 5) {
-//            updateVideoCatchAlert++;
-//            console.log("Error updating video to time " + timeChangedEvent.currentTime + ": " + e)
-//        }
-//    }
 }
 
 function initializeVideoEventSource() {
@@ -375,7 +312,6 @@ function updateSlide(timeChangedEvent) {
     for (var i = 0; i < presentationSlides.length; i++) {
         var slide = $(presentationSlides[i]);
         if (mainVideoLoop._currentChapter == i) {
-//            loadSlide(i);
             slide.css("display", "block");
         } else {
             slide.css("display", "none");
@@ -476,12 +412,6 @@ function max(i1, i2) {
     if (i1 > i2) return i1;
     else return i2;
 }
-//
-//function onTimeUpdateHandler() {
-//    var now = $("#videoPlayer")[0].currentTime;
-//    mainVideoLoop.timeChanged(mainVideoLoop._currentSubClipIndex, now, OBSERVER_TYPE_VIDEO);
-//    resizeElements();
-//}
 
 function resizeElements() {
     // Resize the Chapters
@@ -493,3 +423,56 @@ $(window).resize(function() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(resizeElements, 100);
 });
+
+function initializeLoginScreenIfNecessary() {
+    var userToken = $(".userToken").html();
+    if (userToken) {
+        enhanceMediaUrls(userToken);
+    } else {
+        initializeLoginScreen();
+    }
+}
+
+function enhanceMediaUrls(userToken) {
+    for (var i = 0; i < mainVideoLoop._subClips.length; i++) {
+        var obj = mainVideoLoop._subClips[i];
+        var enhancedStreamingUrl = obj.source;
+        enhancedStreamingUrl += "?id=" + userToken;
+        obj.source = enhancedStreamingUrl;
+    }
+}
+
+function initializeLoginScreen() {
+    // Disable jsf submit
+    $('#loginButton').closest('form').bind('submit', function() {
+        return false;
+    });
+    $('#cancelLoginButton').click(function(e) {
+        document.location = "http://ipad.parleys.com";
+    });
+    $('#loginButton').click(function(e) {
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        var postData = "username=" + username + "&password=" + password;
+
+        $.ajax({
+            type: 'POST',
+            url: 'parleys.login',
+            data: postData,
+            dataType: 'json',
+            success: function(data) {
+                if (data.error) {
+                    $('#loginErrors').html(data.message);
+                } else {
+                    var userToken = parseInt(data.userId);
+                    enhanceMediaUrls(userToken);
+
+                    $('.loginPanel').hide();
+                    $('.loginPanelBackground').hide();
+                }
+            }
+        });
+        return false;
+    });
+}
