@@ -157,24 +157,17 @@ public class ParleysServiceDelegateImpl extends AbstractParleysServiceDelegateIm
     @Cacheable(cacheName="photoSlideShow")
     @Override
     public List<Thumbnail> loadPhotoSlideShow() {
-        List<Long> ids = Arrays.asList(1759L, 1789L, 1571L, 1881L);
-        List<Thumbnail> ret = new ArrayList<Thumbnail>();
+        final List<Long> ids = Arrays.asList(2103L, 2184L, 2094L, 2118L, 2101L);
+        final List<String> photos = Arrays.asList("slide1", "slide2", "slide3", "slide4", "slide5");
+        final List<Thumbnail> ret = new ArrayList<Thumbnail>();
 
-        for (Long id : ids) {
-            ExtendedPresentationDetailsDTO dto = getParleysServiceProxy().getPresentationDetails(id);
-            Thumbnail photo = transformToPhotoSlideShowItem(dto);
-            if (id == 1759) {
-                photo.setPhoto("james");
-            } else if (id == 1789) {
-                photo.setPhoto("keesjan");
-            } else if (id == 1571) {
-                photo.setPhoto("cameron");
-            } else if (id == 1881) {
-                photo.setPhoto("lombok");
-            } else {
-                throw new AssertionError("Unsupported presentation");
-            }
-            ret.add(photo);
+        for (int i = 0; i < ids.size(); i++) {
+            final Long id = ids.get(i);
+            final String photo = photos.get(i);
+            final ExtendedPresentationDetailsDTO dto = getParleysServiceProxy().getPresentationDetails(id);
+            final Thumbnail thumbnail = transformToPhotoSlideShowItem(dto);
+            thumbnail.setPhoto(photo);
+            ret.add(thumbnail);
         }
 
         return ret;

@@ -212,18 +212,20 @@ public class PresentationBean extends AbstractParleysBean {
             final ExternalContext externalContext = facesContext.getExternalContext();
             final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
             final Cookie[] cookies = request.getCookies();
-            for (final Cookie cookie : cookies) {
-                if (LoginFilter.PARLEYS_REMEMBER_ME_IPAD.equals(cookie.getName())) {
-                    try {
-                        String value = cookie.getValue();
-                        String decrypted = AESEncrypter.INSTANCE.decrypt(value);
-                        String[] parts = decrypted.split(";");
-                        final String username = parts[0];
-                        final String password = parts[1];
-                        this.userToken = Long.toString(getParleysService().getUserId(username, password));
-                        break;
-                    } catch (Exception ignored) {
-                        this.userToken = null;
+            if (cookies != null) {
+                for (final Cookie cookie : cookies) {
+                    if (LoginFilter.PARLEYS_REMEMBER_ME_IPAD.equals(cookie.getName())) {
+                        try {
+                            String value = cookie.getValue();
+                            String decrypted = AESEncrypter.INSTANCE.decrypt(value);
+                            String[] parts = decrypted.split(";");
+                            final String username = parts[0];
+                            final String password = parts[1];
+                            this.userToken = Long.toString(getParleysService().getUserId(username, password));
+                            break;
+                        } catch (Exception ignored) {
+                            this.userToken = null;
+                        }
                     }
                 }
             }

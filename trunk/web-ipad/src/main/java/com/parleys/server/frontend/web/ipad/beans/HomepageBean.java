@@ -124,15 +124,15 @@ public class HomepageBean extends AbstractParleysBean {
         for (int i = 0, thumbnailsInSize = thumbnailsIn.size(); i < thumbnailsInSize; i++) {
             AbstractDTO thumbnailDto = thumbnailsIn.get(i);
             final Thumbnail thumbnail = createThumbnailFromDto(thumbnailDto);
-            final String photo;
-            switch (i % 4) {
-                case 0: photo = "josh.jpg"; break;
-                case 1: photo = "beatbox.jpg"; break;
-                case 2: photo = "javaposse.jpg"; break;
-                case 3: photo = "james.jpg"; break;
-                default: throw new AssertionError("Weird");
-            }
-            thumbnail.setPhoto(photo);
+//            final String photo;
+//            switch (i % 4) {
+//                case 0: photo = "josh.jpg"; break;
+//                case 1: photo = "beatbox.jpg"; break;
+//                case 2: photo = "javaposse.jpg"; break;
+//                case 3: photo = "james.jpg"; break;
+//                default: throw new AssertionError("Weird");
+//            }
+//            thumbnail.setPhoto(photo);
             ret.add(thumbnail);
         }
         getPagingBean().setPaginatedList(ret);
