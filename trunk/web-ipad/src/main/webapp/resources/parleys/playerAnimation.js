@@ -66,8 +66,8 @@ $(document).bind('ready', function() {
     }
 
     if (presentationType == TYPE_VIDEO_AND_SLIDES) {
-        $("#videoContainer").single_double_click(onVideoClick, onVideoDoubleClick);
-        $("#slidesContainer").single_double_click(onSlideClick, onSlideDoubleClick);
+        $("#videoContainer").click(onVideoClick);
+        $("#slidesContainer").click(onSlideClick);
     }
 
     slideOriginalRect.x = 0;
@@ -132,7 +132,7 @@ function onSlideDoubleClick() {
 }
 
 function onVideoClick() {
-    //alert("video click");
+//    alert("video click");
     if (currentState != STATE_VIDEO_BIG) {
         currentState = STATE_VIDEO_BIG;
     } else {
@@ -142,7 +142,7 @@ function onVideoClick() {
 }
 
 function onSlideClick() {
-    //alert("slide click");
+//    alert("slide click");
     if (currentState != STATE_SLIDE_BIG) {
         currentState = STATE_SLIDE_BIG;
     } else {
@@ -372,21 +372,21 @@ function hideAgenda() {
     agenda.css("left", "-3000px");
 }
 
-jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {
-    return this.each(function() {
-        var clicks = 0, self = this;
-        jQuery(this).click(function(event) {
-            clicks++;
-            if (clicks == 1) {
-                setTimeout(function() {
-                    if (clicks == 1) {
-                        single_click_callback.call(self, event);
-                    } else {
-                        double_click_callback.call(self, event);
-                    }
-                    clicks = 0;
-                }, timeout || 300);
-            }
-        });
-    });
-};
+//jQuery.fn.single_double_click = function(single_click_callback, double_click_callback, timeout) {
+//    return this.each(function() {
+//        var clicks = 0, self = this;
+//        jQuery(this).click(function(event) {
+//            clicks++;
+//            if (clicks == 1) {
+//                setTimeout(function() {
+//                    if (clicks == 1) {
+//                        single_click_callback.call(self, event);
+//                    } else {
+//                        double_click_callback.call(self, event);
+//                    }
+//                    clicks = 0;
+//                }, timeout || 300);
+//            }
+//        });
+//    });
+//};

@@ -21,7 +21,6 @@
 
 	<!-- Begin RewriteRules -->
 	<rewrite trailingSlash="remove"/>
-    <rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="$1$2" redirect="chain"/>
 
 	<!-- Homepage -->
     <url-mapping id="home">
