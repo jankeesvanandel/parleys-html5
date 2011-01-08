@@ -1,0 +1,630 @@
+/*
+ * Copyright (C) 2010 Parleys.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+* {
+    font-family: "Myriad Pro", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-smooth: always;
+    color: #999;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #0d0d0d url(#{utilBean.basePath}/resources/img/bg.jpg) repeat-x;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.degrade {
+    visibility: hidden;
+}
+
+/* Start sticky footer */
+html, body, #container { height: 100%; }
+body > #container { height: auto; min-height: 100%; }
+#content { padding-bottom: 110px; /* 90px + 20px extra padding */ }
+#footer { clear: both; position: relative; z-index: 10; height: 90px; margin-top: -91px; /*90px + 1px border*/ }
+/* End sticky footer */
+
+#container {
+    width: 100%;
+}
+
+#footer {
+    width: 100%;
+    border-top: 1px solid #fff;
+    background: #333 url(#{utilBean.basePath}/resources/img/footer_bg.jpg);
+}
+
+#footer p {
+    padding: 25px;
+    margin: 0;
+    text-align: center;
+}
+
+a.bugLink {
+    padding-left: 20px; /*18px + 2 padding*/
+    background: transparent url(#{utilBean.basePath}/resources/img/bug.jpg) no-repeat center left;
+}
+
+a.twitterLink {
+    padding-left: 20px; /*18px + 2 padding*/
+    background: transparent url(#{utilBean.basePath}/resources/img/twitter.jpg) no-repeat center left;
+}
+
+img {
+    border: none;
+}
+
+div#logoBar {
+    background: #a40202 url(#{utilBean.basePath}/resources/img/header_bg.jpg) repeat-x;
+    border-bottom: 1px solid #000;
+
+    white-space:nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    /* Turned shadows off, b/c they're not shown and cause a margin on the right
+    box-shadow: 0px 2px 20px #000;
+    -webkit-box-shadow: #000 0px 2px 20px;*/
+}
+
+div#logoBar ul {
+    height: 70px;
+}
+
+div#logoBar ul li {
+    position: relative;
+    display: inline-table;
+    height: 70px;
+    list-style: none;
+}
+
+div#logoBar ul li a {
+    display: block;
+    padding: 20px;
+    color: #fc0;
+    font-weight: bold;
+    font-size: 14pt;
+    text-shadow: 2px 2px 0 #000;
+}
+
+div#logoBar ul li.homeButton {
+    background: url(#{utilBean.basePath}/resources/img/header_parleys_logo.jpg);
+    width: 360px;
+}
+
+div#logoBar ul li.navButton {
+    border-right: 1px solid #000;
+}
+
+/* Homepage styles */
+div#upperPhotoContainer {
+    border-bottom: 1px solid white;
+}
+div#upperPhotoContainer img {
+}
+
+div#thumbnailControls {
+    /*width: 100%;*/
+    margin: 20px;
+}
+
+div#thumbnailControls ul {
+    margin: 0 auto;
+
+    background: #a40202; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#960000', endColorstr='#ed0000'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#960000), to(#ed0000)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #960000,  #ed0000); /* for firefox 3.6+ */
+
+    width: 700px;
+    text-align: center;
+    border: 1px solid #111;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div#thumbnailControls ul li {
+    display: inline-block;
+    border-right: 1px solid #111;
+}
+
+div#thumbnailControls ul li:last-child {
+    border-right: none;
+}
+
+div#thumbnailControls ul li a {
+    display: block;
+    padding: 10px;
+    color: #fc0;
+}
+
+div#lowerThumbnailsContainer {
+    margin: 0 auto;
+    position: relative;
+}
+
+div.thumbnail {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    width: 200px;
+    height: 120px;
+    padding: 10px;
+    margin: 0 5px 10px;
+    border: 2px solid #333;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(51,51,51,0.5);
+}
+
+div.thumbnail.showMoreThumbnails {
+    width: 224px;
+    height: 142px;
+    border: none;
+    border-radius: 0;
+    background: none;
+    padding: 0;
+}
+
+div.thumbnail h3,
+div.thumbnail p {
+    white-space: nowrap;
+}
+
+div.thumbnailWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+img.thumbnailNotAvailable {
+    position: absolute;
+    top: 68px;
+    left: 0;
+}
+
+div.thumbnailWrapper.small img.thumbnailNotAvailable {
+    top: 58px;
+}
+
+.loader {
+    width: 32px;
+    height: 32px;
+}
+
+#lowerThumbnailsContainer > .loader {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -16px;
+}
+
+.showMoreThumbnails .loader {
+    z-index: 999;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+}
+
+.rating_bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 13px;
+    width: 73px;
+    background: url(#{resource['img:starsUnselected.png']}) 0 0 no-repeat;
+}
+
+.rating_bar div {
+    height: 13px;
+    background: url(#{resource['img:starsSelected.png']}) 0 0 no-repeat;
+}
+
+div.overviewList {
+    padding-top: 50px;
+}
+
+li.shadowbox {
+    position: relative;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin: 5px;
+    list-style: none;
+    height: 110px;
+    overflow: hidden;
+    border: 1px dotted #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div.overviewListThumbnail,
+div.overviewListText,
+div.overviewListStats {
+    position: absolute;
+    top: 10px;
+}
+
+div.overviewListThumbnail {
+    width: 140px;
+    left: 10px;
+}
+
+div.overviewListThumbnail.smallThumbnail {
+    top: 20px;
+    left: 20px;
+    width: 90px;
+}
+
+div.overviewListText {
+    left: 160px;
+    right: 100px;
+}
+
+div.overviewListText.smallThumbnail {
+    left: 110px;
+}
+
+div.overviewListText h4 {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.overviewListStats {
+    text-align: right;
+    width: 100px;
+    right: 10px;
+    font-style: italic;
+    font-size: small;
+}
+
+.newsitem {
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin: 5px 30px 5px 30px;
+    padding: 5px 5px 5px 5px;
+    display: inline-block;
+    text-align: left;
+    border: 1px dotted #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div.pagingBar {
+    position: absolute;
+    right: 0;
+    padding: 5px 0;
+}
+div.pagingBar a.paging,
+div.pagingBar span.paging {
+    display: inline-table;
+    padding: 7px 12px;
+    font-size: 1.2em;
+}
+div.pagingBar a.previous.paging {
+}
+div.pagingBar a.current.paging {
+    background-color: #333;
+}
+div.pagingBar a.next.paging {
+}
+
+#mainContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-perspective: 500;
+	-webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
+}
+
+#videoContainer {
+	position: absolute;
+	-webkit-transition: all 0.4s ease-in-out;
+	background-color: #000000;
+	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
+	-webkit-transition-timing-function: ease-in-out;
+    /*border: 1px solid red;*/
+}
+
+#videoLoader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+}
+
+/*#videoPlayer {*/
+    /*display: inline-block;*/
+/*}*/
+
+#slidesContainer {
+	-webkit-transition: all 0.4s ease-in-out;
+	position: absolute;
+	background-color: #000000;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+}
+
+
+#inner {
+    width: 100%;
+    height: 100%;
+    -webkit-perspective: 500;
+	-webkit-transform: rotateY(0deg) translateZ(0px) translate(0,0);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+
+}
+
+
+#chapters {
+    position: absolute;
+    left: 147px;
+    top: 0;
+    right: 0;
+    height: 18px;
+}
+
+#chapters div {
+	background: -webkit-gradient(linear, left top, left bottom, from(#6b6b6b), to(#343434));
+	border: 1px black solid;
+	border-bottom: none;
+	border-top: none;
+	position: absolute;
+	width: 30px;
+	height: 100%;
+}
+
+#chapters div:hover {
+	background: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#444444));
+}
+
+div#videoNavigationBarCursor {
+    border: none;
+    position: absolute;
+    left: -7px;
+    top: -15px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url(#{resource['img:progressbar_cursor.png']});
+    cursor: pointer;
+}
+
+div#videoNavigationBarCursor:hover {
+    border: none;
+    position: absolute;
+    left: -7px;
+    top: -15px;
+    width: 14px;
+    height: 34px;
+    display: block;
+    background: url(#{resource['img:progressbar_cursor.png']});
+    cursor: pointer;
+}
+
+div#videoControls div#controls {
+    text-align: center;
+}
+
+#playButtonOverlayBackground {
+    display: none;
+    z-index: 988;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+
+    filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+#playButtonOverlay a {
+    display: block;
+    z-index: 989;
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
+
+#playButtonOverlay a img {
+    filter: alpha(opacity=100);
+	opacity: 1;
+    width: 200px;
+    height: 200px;
+}
+
+#agendaButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+#shareButton {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+
+.loginPanelBackground {
+    z-index: 998;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+
+    filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.loginPanel {
+    display: block;
+    z-index: 999;
+    position: fixed;
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+}
+
+.loginPanel table {
+    width: 100%;
+    background-color: #000;
+}
+
+.loginPanel table td {
+    padding: 5px;
+}
+
+#agenda {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 5px solid #ffffff;
+	padding: 0px;
+	width: 380px;
+	bottom: 110px;
+    top: 20px;
+    left:-3000px;
+	background-color: #3b3b3b;
+	position: absolute;
+	-moz-box-shadow: 0 20px 40px #888;
+	-webkit-box-shadow: 0 10px 10px #888;
+	-webkit-transform: rotateY(0deg) translateZ(500px) translate(0,0);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+	opacity: 0;
+    overflow-y: scroll;
+}
+
+div#agenda li a {
+    -webkit-transition: all 0.3s ease-out;
+    color: #174867;
+
+    -webkit-border-radius: 10px;
+    w/idth: 250px;
+    display: block;
+    text-decoration: none;
+}
+
+div#agenda li {
+     -webkit-border-radius: 10px;
+    border: 1px solid black;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    margin-top: 5px;
+    height: 100%;
+}
+
+div#agenda li {
+    -webkit-transition: all 0.3s ease-out;
+}
+
+
+#tabs{
+    width:550px;
+    top:80px;
+    bottom:100px;
+    left:-560px;
+    position:absolute;
+    background-color: #3b3b3b;
+
+    -webkit-transition-property: -webkit-transform, left,width;
+    -webkit-transition-duration: 0.5s;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+div#tabs-1 li{
+     -webkit-border-radius: 10px;
+    border: 1px solid black;
+    padding: 7px 15px 7px 15px;
+    margin-top:5px; /*for the border*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#4B4B4B), to(#343434));
+    height: 100%;
+}
+
+
+div#tabs li a:active {
+    color:#ffc900;
+}
+
+div#tabs-1 ul {
+    padding:0;
+    margin:0;
+}
+
+div#tabs ul{
+    list-style-type: none;
+}
+
+div.overviewListStatsInfo{
+    position:absolute;
+    text-align: right;
+    width: 100px;
+    left: 200px;
+    top: 70px;
+    font-style: italic;
+    font-size: small;
+}
+
+div.infoImage{
+    position:absolute;
+    left:10px;
+    top:10px;
+}
+div.infoDescription{
+    position:absolute;
+    left:10px;
+    top:200px;
+}
+
+
+
+

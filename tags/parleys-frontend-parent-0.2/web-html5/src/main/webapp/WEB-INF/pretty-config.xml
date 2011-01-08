@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.0.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.0.2
+                        http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.0.2.xsd">
+
+	<!-- Begin RewriteRules -->
+	<rewrite trailingSlash="remove"/>
+    <rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="$1$2" redirect="chain"/>
+
+	<!-- Homepage -->
+    <url-mapping id="home">
+        <pattern value="/" />
+        <view-id>/index.xhtml</view-id>
+    </url-mapping>
+
+    <url-mapping id="news">
+        <pattern value="/news" />
+        <view-id>/news.xhtml</view-id>
+    </url-mapping>
+
+	<url-mapping id="channel">
+		<pattern value="/channel/#{id}" />
+		<view-id>/channels.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="channels">
+		<pattern value="/channels" />
+		<view-id>/channels.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="channelsForSpace">
+		<pattern value="/channels/#{id}" />
+		<view-id>/channels.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="presentation">
+		<pattern value="/presentation/#{id}" />
+		<view-id>/presentation.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="presentationList">
+		<pattern value="/presentations" />
+		<view-id>/presentations.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="presentations">
+		<pattern value="/presentations/#{id}" />
+		<view-id>/presentations.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="presentationsWithFilter">
+		<pattern value="/presentations/filter/#{filter}" />
+		<view-id>/presentations.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="spaces">
+		<pattern value="/spaces" />
+		<view-id>/spaces.xhtml</view-id>
+	</url-mapping>
+
+	<url-mapping id="spacesFiltered">
+		<pattern value="/spaces/#{filter}" />
+		<view-id>/spaces.xhtml</view-id>
+	</url-mapping>
+
+</pretty-config> 

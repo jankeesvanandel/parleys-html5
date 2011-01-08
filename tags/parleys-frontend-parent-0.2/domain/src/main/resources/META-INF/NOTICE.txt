@@ -1,0 +1,6 @@
+This product includes software developed by:
+Parleys.com (http://www.parleys.com/).
+
+------------------------------------------------------------------------
+See the file LICENSE.txt
+------------------------------------------------------------------------

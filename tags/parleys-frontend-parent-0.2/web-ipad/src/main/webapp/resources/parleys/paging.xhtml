@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (C) 2010 Parleys.com.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://www.parleys.com/jsf/taglib"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h5="http://www.parleys.com/jsf/components/html5"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <composite:attribute name="styleClasses" type="java.lang.String" default=""/>
+    <composite:attribute name="targetBean" type="com.parleys.server.frontend.web.html5.beans.Paginable" required="true"/>
+    <composite:attribute name="render" type="java.lang.String" required="true"/>
+</composite:interface>
+
+<composite:implementation>
+    <h5:div id="pagingBar" styleClass="pagingBar" rendered="#{pagingBean.isRendered}">
+        <img src="#{resource['img:ajax-loader.gif']}" alt="" style="display:none" class="inlineLoader" width="32" height="32"/>
+        <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index-pagingBean.paging, pagingBean.paging)}"
+                       rendered="#{pagingBean.index gt 0}"
+                       styleClass="previous paging"
+                       title="Previous page"
+                       value="&lt;"
+                       onclick="#{pagingBean.index gt 0 ? 'showInlineLoader()' : ''}">
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
+        </h:commandLink>
+        <ui:repeat value="#{pagingBean.pages}" var="page">
+            <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, (page-1)*pagingBean.paging, pagingBean.paging)}"
+                           styleClass="#{p:floor(pagingBean.index/pagingBean.paging) eq (page-1) ? 'current' : ''} paging"
+                           value="#{page}"
+                           onclick="showInlineLoader()">
+                <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
+            </h:commandLink>
+        </ui:repeat>
+        <h:commandLink action="#{cc.attrs.targetBean.gotoPage(pagingBean.filter, pagingBean.index+pagingBean.paging, pagingBean.paging)}"
+                       rendered="#{pagingBean.index+pagingBean.paging lt pagingBean.totalCount}"
+                       styleClass="next paging"
+                       title="Next page"
+                       value="&gt;"
+                       onclick="#{pagingBean.index+pagingBean.paging lt pagingBean.totalCount ? 'showInlineLoader()' : ''}">
+            <f:ajax render="#{cc.clientId}:pagingBar #{cc.attrs.render}" onevent="onPagingAjaxEvent" onerror="handlePossibleTimeout"/>
+        </h:commandLink>
+    </h5:div>
+</composite:implementation>
+
+</html>
