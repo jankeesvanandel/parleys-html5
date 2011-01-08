@@ -69,6 +69,8 @@ public class LoginFilter implements Filter {
                 res.addCookie(rememberMeCookie);
 
                 writeUserId(writer, userId);
+            } else {
+                writeError(writer);
             }
         } catch (Exception e) {
             writeError(writer);
