@@ -43,7 +43,9 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
         gotoPage(getPagingBean().getFilter(), getPagingBean().getIndex(), getPagingBean().getPaging());
     }
 
-    public void gotoPage(Filter filter, int index, int paging) {
+    /** {@inheritDoc} */
+    @Override
+    public void gotoPage(final Filter filter, final int index, final int paging) {
         getPagingBean().setFilter(filter);
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
@@ -53,7 +55,7 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
     }
 
     @SuppressWarnings("unchecked")
-    private List<SpaceOverviewDTO> loadSpaces(Filter filter) {
+    private List<SpaceOverviewDTO> loadSpaces(final Filter filter) {
         if (filter != null) {
             return enhanceWithIpadStuff((List<SpaceOverviewDTO>) getParleysService().getFeatured(FeaturedType.SPACE));
         } else {
@@ -61,8 +63,8 @@ public class SpacesBean extends AbstractParleysBean implements Paginable {
         }
     }
 
-    private List<SpaceOverviewDTO> enhanceWithIpadStuff(List<SpaceOverviewDTO> list) {
-        for (SpaceOverviewDTO dto : list) {
+    private List<SpaceOverviewDTO> enhanceWithIpadStuff(final List<SpaceOverviewDTO> list) {
+        for (final SpaceOverviewDTO dto : list) {
             dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
         }
 

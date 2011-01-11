@@ -51,7 +51,7 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
      * {@inheritDoc}
      */
     @Override
-    public void gotoPage(Filter filter, int index, int paging) {
+    public void gotoPage(final Filter filter, final int index, final int paging) {
         getPagingBean().setFilter(filter);
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
@@ -61,7 +61,7 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
     }
 
     @SuppressWarnings("unchecked")
-    private List<PresentationOverviewDTO> loadPresentations(Filter filter) {
+    private List<PresentationOverviewDTO> loadPresentations(final Filter filter) {
         final PresentationsCriteria criteria = new PresentationsCriteria();
         criteria.setChannelId(getPresentationsViewBean().getChannelId());
         criteria.setIndex(0);
@@ -87,8 +87,8 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         }
     }
 
-    private List<PresentationOverviewDTO> enhanceWithIpadStuff(List<PresentationOverviewDTO> list) {
-        for (PresentationOverviewDTO dto : list) {
+    private List<PresentationOverviewDTO> enhanceWithIpadStuff(final List<PresentationOverviewDTO> list) {
+        for (final PresentationOverviewDTO dto : list) {
             dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
         }
 
@@ -99,7 +99,7 @@ public class PresentationsBean extends AbstractParleysBean implements Paginable 
         return presentationsViewBean;
     }
 
-    public void setPresentationsViewBean(PresentationsViewBean presentationsViewBean) {
+    public void setPresentationsViewBean(final PresentationsViewBean presentationsViewBean) {
         this.presentationsViewBean = presentationsViewBean;
     }
 }

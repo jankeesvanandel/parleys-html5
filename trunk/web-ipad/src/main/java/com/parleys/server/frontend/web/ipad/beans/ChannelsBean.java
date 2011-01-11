@@ -47,7 +47,7 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
 
     /** {@inheritDoc} */
     @Override
-    public void gotoPage(Filter filter, int index, int paging) {
+    public void gotoPage(final Filter filter, final int index, final int paging) {
         getPagingBean().setFilter(filter);
         getPagingBean().setIndex(index);
         getPagingBean().setPaging(paging);
@@ -60,8 +60,8 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         return enhanceWithIpadStuff(getParleysService().getChannelsOverview(channelsViewBean.getSpaceId()).getOverviews());
     }
 
-    private List<ChannelOverviewDTO> enhanceWithIpadStuff(List<ChannelOverviewDTO> list) {
-        for (ChannelOverviewDTO dto : list) {
+    private List<ChannelOverviewDTO> enhanceWithIpadStuff(final List<ChannelOverviewDTO> list) {
+        for (final ChannelOverviewDTO dto : list) {
             dto.setVisibleOnIpad(UtilBean.determineIpadVisibility(dto));
         }
 
@@ -72,7 +72,7 @@ public class ChannelsBean extends AbstractParleysBean implements Paginable {
         return channelsViewBean;
     }
 
-    public void setChannelsViewBean(ChannelsViewBean channelsViewBean) {
+    public void setChannelsViewBean(final ChannelsViewBean channelsViewBean) {
         this.channelsViewBean = channelsViewBean;
     }
 }

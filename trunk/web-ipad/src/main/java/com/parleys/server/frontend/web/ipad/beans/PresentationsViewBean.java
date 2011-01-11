@@ -37,7 +37,7 @@ public class PresentationsViewBean implements Serializable {
         return channelId;
     }
 
-    public void setChannelId(Long channelId) {
+    public void setChannelId(final Long channelId) {
         this.channelId = channelId;
     }
 }

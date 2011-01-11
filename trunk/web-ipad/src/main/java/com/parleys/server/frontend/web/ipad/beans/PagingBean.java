@@ -114,8 +114,8 @@ public class PagingBean implements Serializable {
         return list;
     }
 
-    public void setPaginatedList(List<?> completeList) {
-        int listSize = completeList.size();
+    public void setPaginatedList(final List<?> completeList) {
+        final int listSize = completeList.size();
         if (index > listSize) {
             index = listSize - (listSize % paging);
         }

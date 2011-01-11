@@ -47,7 +47,7 @@ public class HomepageViewBean implements Serializable {
         return activeNewsItemIndex;
     }
 
-    public void setActiveNewsItemIndex(long activeNewsItemIndex) {
+    public void setActiveNewsItemIndex(final long activeNewsItemIndex) {
         this.activeNewsItemIndex = activeNewsItemIndex;
     }
 
@@ -55,7 +55,7 @@ public class HomepageViewBean implements Serializable {
         return newsItems;
     }
 
-    public void setNewsItems(List<News> newsItems) {
+    public void setNewsItems(final List<News> newsItems) {
         this.newsItems = newsItems;
     }
 
@@ -63,7 +63,7 @@ public class HomepageViewBean implements Serializable {
         return thumbnailsFilter;
     }
 
-    public void setThumbnailsFilter(Filter thumbnailsFilter) {
+    public void setThumbnailsFilter(final Filter thumbnailsFilter) {
         this.thumbnailsFilter = thumbnailsFilter;
     }
 
@@ -71,7 +71,7 @@ public class HomepageViewBean implements Serializable {
         return thumbnailsFilterType;
     }
 
-    public void setThumbnailsFilterType(Filter.Type thumbnailsFilterType) {
+    public void setThumbnailsFilterType(final Filter.Type thumbnailsFilterType) {
         this.thumbnailsFilterType = thumbnailsFilterType;
     }
 }

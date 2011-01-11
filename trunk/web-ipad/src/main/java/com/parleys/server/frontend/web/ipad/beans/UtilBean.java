@@ -59,8 +59,8 @@ public class UtilBean {
         return basePath;
     }
 
-    public static boolean determineIpadVisibility(AbstractDTO dto) {
-        boolean visibleOnIpad;
+    public static boolean determineIpadVisibility(final AbstractDTO dto) {
+        final boolean visibleOnIpad;
         if (dto instanceof SpaceOverviewDTO) {
             visibleOnIpad = ipadSpaces.contains(dto.getId().intValue());
             ((SpaceOverviewDTO)dto).setVisibleOnIpad(visibleOnIpad);
