@@ -50,7 +50,7 @@ public class LoginFilter implements Filter {
     public void doFilter(final ServletRequest req,
                          final ServletResponse response,
                          final FilterChain chain) throws IOException {
-        HttpServletResponse res = (HttpServletResponse) response;
+        final HttpServletResponse res = (HttpServletResponse) response;
         final PrintWriter writer = res.getWriter();
         res.setStatus(HttpServletResponse.SC_OK);
         res.setHeader("Cache-Control", "must-revalidate");
@@ -62,9 +62,9 @@ public class LoginFilter implements Filter {
                 final ParleysService bean = applicationContext.getBean(ParleysService.class);
                 final Long userId = bean.getUserId(username, password);
 
-                String usernameAndPassword = username + ";" + password;
-                String encrypted = AESEncrypter.INSTANCE.encrypt(usernameAndPassword);
-                Cookie rememberMeCookie = new Cookie(PARLEYS_REMEMBER_ME_IPAD, encrypted);
+                final String usernameAndPassword = username + ";" + password;
+                final String encrypted = AESEncrypter.INSTANCE.encrypt(usernameAndPassword);
+                final Cookie rememberMeCookie = new Cookie(PARLEYS_REMEMBER_ME_IPAD, encrypted);
                 rememberMeCookie.setMaxAge(3600 * 24 * 7 * 26); // A half year
                 res.addCookie(rememberMeCookie);
 
@@ -77,7 +77,7 @@ public class LoginFilter implements Filter {
         }
     }
 
-    private void writeUserId(PrintWriter writer, Long userId) {
+    private void writeUserId(final PrintWriter writer, final Long userId) {
         writer.write("{\"error\": false, \"message\": null, \"userId\": " + userId + "}");
     }
 

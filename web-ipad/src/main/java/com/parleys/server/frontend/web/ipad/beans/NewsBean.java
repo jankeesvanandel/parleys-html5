@@ -90,7 +90,7 @@ public class NewsBean extends AbstractParleysBean {
         return navigationBean;
     }
 
-    public void setNavigationBean(NavigationBean navigationBean) {
+    public void setNavigationBean(final NavigationBean navigationBean) {
         this.navigationBean = navigationBean;
     }
 }

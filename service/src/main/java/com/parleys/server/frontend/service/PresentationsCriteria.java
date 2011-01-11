@@ -35,11 +35,9 @@ public class PresentationsCriteria {
 
         PresentationsCriteria that = (PresentationsCriteria) o;
 
-        if (index != that.index) return false;
-        if (paging != that.paging) return false;
-        if (channelId != null ? !channelId.equals(that.channelId) : that.channelId != null) return false;
-
-        return true;
+        return index == that.index &&
+               paging == that.paging &&
+               !(channelId != null ? !channelId.equals(that.channelId) : that.channelId != null);
     }
 
     @Override

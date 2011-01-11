@@ -23,6 +23,8 @@ import com.parleys.server.frontend.domain.Stream;
 import com.parleys.server.frontend.web.ipad.filters.AESEncrypter;
 import com.parleys.server.frontend.web.ipad.filters.LoginFilter;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -43,6 +45,8 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class PresentationBean extends AbstractParleysBean {
+
+    private static final Logger LOGGER = Logger.getLogger(PresentationBean.class);
 
     @ManagedProperty("#{navigationBean}")
     private NavigationBean navigationBean;
@@ -76,7 +80,7 @@ public class PresentationBean extends AbstractParleysBean {
         return relatedPresentations;
     }
 
-    public void setRelatedPresentations(List<? extends AbstractDTO> value){
+    public void setRelatedPresentations(final List<? extends AbstractDTO> value){
         relatedPresentations = value;
     }
 
@@ -102,7 +106,7 @@ public class PresentationBean extends AbstractParleysBean {
 
             final String slidePrefix = determineSlidePrefix();
 
-            for (AssetDTO asset : assets) {
+            for (final AssetDTO asset : assets) {
                 if (asset.getTarget().equals(AssetTargetType.SLIDE_PANEL.name())) {
                     String value = asset.getValue();
                     if (value != null && value.length() >= 4) {
@@ -113,10 +117,10 @@ public class PresentationBean extends AbstractParleysBean {
                 }
             }
             for (int i = 0, assetsSize = slideAssets.size(); i < assetsSize; i++) {
-                AssetDTO asset = slideAssets.get(i);
+                final AssetDTO asset = slideAssets.get(i);
                 if (asset.getValue() == null
                  || asset.getValue().length() < 4) {
-                    AssetDTO nextAsset;
+                    final AssetDTO nextAsset;
                     if (i <= 0) {
                         nextAsset = slideAssets.get(i+1);
                     } else {
@@ -150,10 +154,10 @@ public class PresentationBean extends AbstractParleysBean {
             }
             final List<AssetDTO> assets = presentation.getAssetDTOs();
 
-            String baseUrl = presentation.getStreamingURL();
+            final String baseUrl = presentation.getStreamingURL();
 
             this.streams = new ArrayList<Stream>();
-            for (AssetDTO asset : assets) {
+            for (final AssetDTO asset : assets) {
                 if (asset.getTarget().equals(AssetTargetType.VIDEO_PANEL.name())) {
                     String streamUrl = baseUrl.replaceFirst("rtmp", "http");
 
@@ -212,15 +216,23 @@ public class PresentationBean extends AbstractParleysBean {
             final ExternalContext externalContext = facesContext.getExternalContext();
             final HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
             final Cookie[] cookies = request.getCookies();
+
             if (cookies != null) {
                 for (final Cookie cookie : cookies) {
                     if (LoginFilter.PARLEYS_REMEMBER_ME_IPAD.equals(cookie.getName())) {
                         try {
-                            String value = cookie.getValue();
-                            String decrypted = AESEncrypter.INSTANCE.decrypt(value);
-                            String[] parts = decrypted.split(";");
+                            final String value = cookie.getValue();
+                            final String decrypted = AESEncrypter.INSTANCE.decrypt(value);
+                            final String[] parts = decrypted.split(";");
                             final String username = parts[0];
                             final String password = parts[1];
+
+                            if (LOGGER.isInfoEnabled()) {
+                                final String address = request.getHeader("X-Forwarded-For");
+                                final String userAgent = request.getHeader("User-Agent");
+                                LOGGER.info(String.format("%s - %s - %s", address, username, userAgent));
+                            }
+
                             this.userToken = Long.toString(getParleysService().getUserId(username, password));
                             break;
                         } catch (Exception ignored) {
@@ -238,7 +250,7 @@ public class PresentationBean extends AbstractParleysBean {
         return userToken;
     }
 
-    public void setUserToken(String userToken) {
+    public void setUserToken(final String userToken) {
         this.userToken = userToken;
     }
 
@@ -246,7 +258,7 @@ public class PresentationBean extends AbstractParleysBean {
         return navigationBean;
     }
 
-    public void setNavigationBean(NavigationBean navigationBean) {
+    public void setNavigationBean(final NavigationBean navigationBean) {
         this.navigationBean = navigationBean;
     }
 }

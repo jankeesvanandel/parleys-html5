@@ -57,7 +57,7 @@ public class NavigationBean extends AbstractParleysBean {
             return;
         }
 
-        SpaceOverviewDTO space = getParleysService().getSpaceOverviewDTO(id);
+        final SpaceOverviewDTO space = getParleysService().getSpaceOverviewDTO(id);
         this.spaceId = space.getId();
         this.spaceName = space.getName();
     }

@@ -36,7 +36,7 @@ public class AESEncrypter {
     private static final Key KEY;
 
     static {
-        String property = System.getProperty("ipad.cookie.encryption.key");
+        final String property = System.getProperty("ipad.cookie.encryption.key");
         if (property == null) {
             throw new RuntimeException("ipad.cookie.encryption.key property not set");
         }
@@ -53,7 +53,7 @@ public class AESEncrypter {
     private final Cipher ecipher;
     private final Cipher dcipher;
 
-    private AESEncrypter(Key key) {
+    private AESEncrypter(final Key key) {
         try {
             ecipher = Cipher.getInstance("AES");
             dcipher = Cipher.getInstance("AES");
@@ -65,13 +65,13 @@ public class AESEncrypter {
         }
     }
 
-    public String encrypt(String str) {
+    public String encrypt(final String str) {
         try {
             // Encode the string into bytes using utf-8
-            byte[] utf8 = str.getBytes(ENCODING);
+            final byte[] utf8 = str.getBytes(ENCODING);
 
             // Encrypt
-            byte[] enc = ecipher.doFinal(utf8);
+            final byte[] enc = ecipher.doFinal(utf8);
 
             // Encode bytes to base64 to get a string
             return Base64.encodeBase64URLSafeString(enc);
@@ -81,13 +81,13 @@ public class AESEncrypter {
         }
     }
 
-    public String decrypt(String str) {
+    public String decrypt(final String str) {
         try {
             // Decode base64 to get bytes
-            byte[] dec = Base64.decodeBase64(str);
+            final byte[] dec = Base64.decodeBase64(str);
 
             // Decrypt
-            byte[] utf8 = dcipher.doFinal(dec);
+            final byte[] utf8 = dcipher.doFinal(dec);
 
             // Decode using utf-8
             return new String(utf8, ENCODING);
@@ -103,18 +103,21 @@ public class AESEncrypter {
     private static final class AESKey implements Key {
         private final byte[] keyData;
 
-        public AESKey(String keyData) throws UnsupportedEncodingException {
+        public AESKey(final String keyData) throws UnsupportedEncodingException {
             this.keyData = keyData.getBytes(ENCODING);
         }
 
+        @Override
         public String getAlgorithm() {
             return "AES";
         }
 
+        @Override
         public String getFormat() {
             return "RAW";
         }
 
+        @Override
         public byte[] getEncoded() {
             return keyData;
         }
