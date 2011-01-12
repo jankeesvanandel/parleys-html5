@@ -13,6 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+$("a").click(function(e) {
+    document.location = $(this).attr("href");
+    document.target = "_self";
+    return false;
+});
+
 function handlePossibleTimeout(data) {
     if (data.responseCode == "500") {
         alert("Your session has ended. You are now redirected to the homepage");
