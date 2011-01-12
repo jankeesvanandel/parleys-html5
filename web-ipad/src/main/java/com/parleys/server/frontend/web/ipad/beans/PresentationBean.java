@@ -24,7 +24,6 @@ import com.parleys.server.frontend.web.ipad.filters.AESEncrypter;
 import com.parleys.server.frontend.web.ipad.filters.LoginFilter;
 import com.parleys.server.frontend.web.jsf.util.JSFUtil;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -63,7 +62,7 @@ public class PresentationBean extends AbstractParleysBean {
 
     private String userToken;
 
-    private boolean firstLoginAttempt = true;
+    private boolean isFirstLoginAttempt = true;
 
     public void init() {
         if (JSFUtil.theCurrentEventIsNoPageAction()) {
@@ -209,8 +208,8 @@ public class PresentationBean extends AbstractParleysBean {
     }
 
     private boolean loginUsingCookie() {
-        if (this.firstLoginAttempt) {
-            this.firstLoginAttempt = false;
+        if (isFirstLoginAttempt) {
+            isFirstLoginAttempt = false;
 
             final FacesContext facesContext = FacesContext.getCurrentInstance();
             final ExternalContext externalContext = facesContext.getExternalContext();
@@ -233,16 +232,16 @@ public class PresentationBean extends AbstractParleysBean {
                                 LOGGER.info(String.format("%s - %s - %s", address, username, userAgent));
                             }
 
-                            this.userToken = Long.toString(getParleysService().getUserId(username, password));
+                            userToken = Long.toString(getParleysService().getUserId(username, password));
                             break;
                         } catch (Exception ignored) {
-                            this.userToken = null;
+                            userToken = null;
                         }
                     }
                 }
             }
         }
-        return this.userToken != null;
+        return userToken != null;
     }
 
     public String getUserToken() {
