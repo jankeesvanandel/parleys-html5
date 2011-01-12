@@ -15,9 +15,15 @@
  */
 
 $("a").click(function(e) {
-    document.location = $(this).attr("href");
-    document.target = "_self";
-    return false;
+    var linkId = $(this).context.id;
+
+    if (linkId != "" && linkId.match("Button$")) {
+        return true;
+    } else {
+        document.location = $(this).attr("href");
+        document.target = "_self";
+        return false;
+    }
 });
 
 function handlePossibleTimeout(data) {
