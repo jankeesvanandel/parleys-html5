@@ -91,7 +91,7 @@ public class NavigationBean extends AbstractParleysBean {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

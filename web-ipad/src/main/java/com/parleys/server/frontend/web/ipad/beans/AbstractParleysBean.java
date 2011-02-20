@@ -45,7 +45,7 @@ public abstract class AbstractParleysBean {
         return pagingBean;
     }
 
-    public void setPagingBean(PagingBean pagingBean) {
+    public void setPagingBean(final PagingBean pagingBean) {
         this.pagingBean = pagingBean;
     }
 }

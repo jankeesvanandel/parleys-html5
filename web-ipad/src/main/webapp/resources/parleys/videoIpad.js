@@ -339,8 +339,7 @@ function findSlideById(id) {
 
 function getNumberOfSlides() {
     var presentationSlides = $("#slidesContainer img");
-    var noOfSlides = presentationSlides.length;
-    return noOfSlides;
+    return presentationSlides.length;
 }
 
 function initializeVideoNavigationBar() {
