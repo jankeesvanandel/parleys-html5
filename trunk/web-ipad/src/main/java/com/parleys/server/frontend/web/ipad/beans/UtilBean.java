@@ -40,9 +40,9 @@ public class UtilBean {
 
     private String basePath;
 
-    private static final List<Integer> ipadSpaces = Arrays.asList(189);
-    private static final List<Integer> ipadChannels = Arrays.asList(74957, 102906);
-    private static final List<Integer> ipadPresentations = Arrays.asList(1467, 1470, 1471, 1550, 1571, 1597, 1650, 1759, 1789, 1845, 1881, 1952, 1953, 1957, 1964, 1969, 1973, 1976, 1979, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2031);
+    private static final List<Integer> ipadSpaces = Arrays.asList(189, 15594);
+    private static final List<Integer> ipadChannels = Arrays.asList(74957, 102906, 102929, 102933);
+    private static final List<Integer> ipadPresentations = Arrays.asList(1467, 1470, 1471, 1550, 1571, 1597, 1650, 1759, 1789, 1845, 1881, 1952, 1953, 1957, 1964, 1969, 1973, 1976, 1979, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2031, 2278, 2284, 2285, 2286, 2291, 2293, 2294);
 
     /**
      * Get the base path to the web application, which is used to lookup resources such as style sheets and scripts.

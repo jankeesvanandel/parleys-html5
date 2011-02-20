@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public abstract class AbstractParleysServiceDelegateImpl implements ParleysService {
 
-    private String amfEndPoint;
+    private String amfEndPoint = "http://www.parleys.com/parleysserver";
 
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
@@ -47,7 +47,7 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
         final AMFClientFactory clientFactory = new AMFClientFactory();
         clientFactory.setServiceClass(serviceClass);
         clientFactory.setServiceName(serviceName);
-        clientFactory.setServiceUrl(getAMFChannel());
+        clientFactory.setServiceUrl("http://www.parleys.com/parleysserver/messagebroker/amf");
         clientFactory.setUsername(username);
         clientFactory.setPassword(password);
         return (T) clientFactory.create();
@@ -80,12 +80,11 @@ public abstract class AbstractParleysServiceDelegateImpl implements ParleysServi
      * @return the target AMF channel
      */
     protected String getAMFChannel() {
-        return getAmfEndPoint() + MESSAGEBROKER_AMF;
+        return amfEndPoint + MESSAGEBROKER_AMF;
     }
 
-    @Autowired
+    // @Autowired
     public void setAmfEndPoint(final String amfEndPoint) {
-        this.amfEndPoint = amfEndPoint;
     }
 
     public String getAmfEndPoint() {

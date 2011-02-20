@@ -162,7 +162,7 @@ public class PresentationBean extends AbstractParleysBean {
 
                     // This replace is needed for the Devoxx09 test talks, which don't have
                     // the correct ExtendedPresentationDetailsDTO.streamingURL property.
-                    streamUrl = streamUrl.replaceFirst("stream1", "stream2");
+                    // streamUrl = streamUrl.replaceFirst("stream1", "stream2");
 
                     streamUrl += "_definst_/";
                     streamUrl += presentationId;
