@@ -17,6 +17,8 @@ package com.parleys.server.dto;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -26,6 +28,7 @@ public class TagDTO implements Serializable {
 
     private String name;
 
+    @JsonProperty
     public String getName() {
         return name;
     }

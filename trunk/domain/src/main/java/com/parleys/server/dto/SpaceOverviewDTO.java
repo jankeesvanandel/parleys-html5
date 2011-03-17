@@ -18,6 +18,9 @@ package com.parleys.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -53,6 +56,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
 
     private List<String> keywordList = new ArrayList<String>();
 
+    @JsonProperty
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }
@@ -63,6 +67,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
 
     private boolean visibleOnIpad;
 
+    @JsonProperty
     public String getName() {
         return name;
     }
@@ -71,6 +76,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.name = name;
     }
 
+    @JsonProperty
     public int getTotalChannelCount() {
         return totalChannelCount;
     }
@@ -79,6 +85,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.totalChannelCount = totalChannelCount;
     }
 
+    @JsonProperty
     public long getTotalPresentationCount() {
         return totalPresentationCount;
     }
@@ -86,7 +93,8 @@ public class SpaceOverviewDTO extends AbstractDTO {
     public void setTotalPresentationCount(final long totalPresentationCount) {
         this.totalPresentationCount = totalPresentationCount;
     }
-
+    
+    @JsonProperty
     public String getDescription() {
         return description;
     }
@@ -95,6 +103,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.description = description;
     }
 
+    @JsonProperty
     public long getTotalViewCount() {
         return totalViewCount;
     }
@@ -106,10 +115,12 @@ public class SpaceOverviewDTO extends AbstractDTO {
     /**
      * @return the channelIds
      */
+    @JsonProperty
     public final List<Long> getChannelIds() {
         return channelIds;
     }
 
+    @JsonIgnore
     public int getNumberOfChannels() {
         return channelIds.size();
     }
@@ -128,6 +139,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
     /**
      * @return the isPublicSpace
      */
+    @JsonProperty
     public final boolean isPublicSpace() {
         return isPublicSpace;
     }
@@ -139,6 +151,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.isPublicSpace = isPublicSpace;
     }
 
+    @JsonProperty
     public List<Long> getStreamingServerIDs() {
         return streamingServerIDs;
     }
@@ -147,6 +160,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.streamingServerIDs = streamingServerIDs;
     }
 
+    @JsonProperty
     public String getKeywords() {
         return keywords;
     }
@@ -155,6 +169,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.keywords = keywords;
     }
 
+    @JsonProperty
     public String getThumbnailURL() {
         return thumbnailURL;
     }
@@ -166,6 +181,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
     /**
      * @return the keywordList
      */
+    @JsonProperty
     public final List<String> getKeywordList() {
         return keywordList;
     }

@@ -18,6 +18,9 @@ package com.parleys.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -80,6 +83,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
 
     private boolean visibleOnIpad;
 
+    @JsonProperty
     public String getName() {
         return name;
     }
@@ -88,6 +92,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.name = name;
     }
 
+    @JsonProperty
     public String getThumbnailURL() {
         return thumbnailURL;
     }
@@ -96,6 +101,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.thumbnailURL = thumbnailURL;
     }
 
+    @JsonProperty
     public String getSpaceName() {
         return spaceName;
     }
@@ -104,6 +110,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.spaceName = spaceName;
     }
 
+    @JsonProperty
     public Long getSpaceId() {
         return spaceId;
     }
@@ -112,6 +119,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.spaceId = spaceId;
     }
 
+    @JsonProperty
     public long getTotalPresentationCount() {
         return totalPresentationCount;
     }
@@ -120,6 +128,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.totalPresentationCount = totalPresentationCount;
     }
 
+    @JsonProperty
     public String getDescription() {
         return description;
     }
@@ -128,6 +137,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.description = description;
     }
 
+    @JsonProperty
     public int getTotalViewCount() {
         return totalViewCount;
     }
@@ -139,6 +149,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     /**
      * @return the parentId
      */
+    @JsonProperty
     public final long getParentId() {
         return parentId;
     }
@@ -150,10 +161,12 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.parentId = parentId;
     }
 
+    @JsonIgnore
     public final boolean getDeleted() {
         return isDeleted;
     }
 
+    @JsonProperty
     public final boolean isDeleted() {
         return isDeleted;
     }
@@ -165,6 +178,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     /**
      * @return the totalPresentationCountIncludingNonPublic
      */
+    @JsonProperty
     public final long getTotalPresentationCountIncludingNonPublic() {
         return totalPresentationCountIncludingNonPublic;
     }
@@ -177,14 +191,16 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.totalPresentationCountIncludingNonPublic = totalPresentationCountIncludingNonPublic;
     }
 
+    @JsonProperty
     public boolean isIPhoneEnabled() {
         return isIPhoneEnabled;
     }
 
     public void setIPhoneEnabled(boolean isIPhoneEnabled) {
-        isIPhoneEnabled = isIPhoneEnabled;
+        this.isIPhoneEnabled = isIPhoneEnabled;
     }
 
+    @JsonProperty
     public boolean isPodcastEnabled() {
         return isPodcastEnabled;
     }
@@ -196,6 +212,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     /**
      * @return the keywordList
      */
+    @JsonProperty
     public final List<String> getKeywordList() {
         return keywordList;
     }
@@ -207,6 +224,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.keywordList = keywordList;
     }
 
+    @JsonProperty
     public String getMembership() {
         return membership;
     }
@@ -215,6 +233,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.membership = membership;
     }
 
+    @JsonProperty
     public int getSubscriptionInterval() {
         return subscriptionInterval;
     }
@@ -223,6 +242,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscriptionInterval = subscriptionInterval;
     }
 
+    @JsonProperty
     public float getSubscriptionAmount() {
         return subscriptionAmount;
     }
@@ -231,6 +251,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscriptionAmount = subscriptionAmount;
     }
 
+    @JsonProperty
     public float getPayPerTalkAmount() {
         return payPerTalkAmount;
     }
@@ -239,6 +260,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.payPerTalkAmount = payPerTalkAmount;
     }
 
+    @JsonProperty
     public String getPaymentCurrency() {
         return paymentCurrency;
     }
@@ -247,6 +269,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.paymentCurrency = paymentCurrency;
     }
 
+    @JsonProperty
     public boolean isSubscribed() {
         return subscribed;
     }
@@ -255,6 +278,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscribed = subscribed;
     }
 
+    @JsonProperty
     public String getSubscriptionPeriod() {
         return subscriptionPeriod;
     }
@@ -263,10 +287,12 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscriptionPeriod = subscriptionPeriod;
     }
 
+    @JsonIgnore
     public final boolean getPublicChannel() {
         return isPublic;
     }
 
+    @JsonProperty
     public final boolean isPublicChannel() {
         return isPublic;
     }
@@ -275,6 +301,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         isPublic = aPublic;
     }
 
+    @JsonProperty
     public final boolean isListed() {
         return isListed;
     }
@@ -283,10 +310,12 @@ public class ChannelOverviewDTO extends AbstractDTO {
         isListed = listed;
     }
 
+    @JsonIgnore
     public final boolean getListed() {
         return isListed;
     }
 
+    @JsonProperty
     public boolean isHostedInPublicSpace() {
         return hostedInPublicSpace;
     }
@@ -295,6 +324,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.hostedInPublicSpace = hostedInPublicSpace;
     }
 
+    @JsonProperty
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }
