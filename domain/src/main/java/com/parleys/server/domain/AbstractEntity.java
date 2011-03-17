@@ -17,6 +17,7 @@ package com.parleys.server.domain;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.Date;
 
@@ -37,6 +38,7 @@ public abstract class AbstractEntity extends BaseObject {
 
     private Integer version;
 
+    @JsonProperty
     public final Long getId() {
         return id;
     }
@@ -45,6 +47,7 @@ public abstract class AbstractEntity extends BaseObject {
         this.id = id;
     }
 
+    @JsonProperty
     public Integer getVersion() {
         return version;
     }
@@ -59,6 +62,7 @@ public abstract class AbstractEntity extends BaseObject {
      * @return clone of modification date
      * @link http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP
      */
+    @JsonProperty
     public Date getCreatedOn() {
         if (createdOn != null) {
             return (Date) createdOn.clone();
@@ -80,6 +84,7 @@ public abstract class AbstractEntity extends BaseObject {
      * @return clone of modification date
      * @link http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP
      */
+    @JsonProperty
     public Date getModifiedOn() {
         if (modifiedOn != null) {
             return (Date) modifiedOn.clone();

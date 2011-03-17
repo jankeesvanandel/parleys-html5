@@ -23,6 +23,9 @@ import com.parleys.server.domain.types.PresentationType;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -106,6 +109,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
 
     private boolean visibleOnIpad;
 
+    @JsonProperty
     public String getTitle() {
         return title;
     }
@@ -114,6 +118,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.title = title;
     }
 
+    @JsonProperty
     public String getThumbnailURL() {
         return thumbnailURL;
     }
@@ -122,6 +127,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.thumbnailURL = thumbnailURL;
     }
 
+    @JsonProperty
     public int getPageId() {
         return pageId;
     }
@@ -130,6 +136,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.pageId = pageId;
     }
 
+    @JsonProperty
     public float getTotalDuration() {
         return totalDuration;
     }
@@ -138,6 +145,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.totalDuration = totalDuration;
     }
 
+    @JsonProperty
     public long getTotalComments() {
         return totalComments;
     }
@@ -146,6 +154,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.totalComments = totalComments;
     }
 
+    @JsonProperty
     public int getTotalViews() {
         return totalViews;
     }
@@ -154,6 +163,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.totalViews = totalViews;
     }
 
+    @JsonProperty
     public long getTotalVotes() {
         return totalVotes;
     }
@@ -162,6 +172,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.totalVotes = totalVotes;
     }
 
+    @JsonProperty
     public double getTotalVoteValue() {
         return totalVoteValue;
     }
@@ -170,6 +181,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.totalVoteValue = totalVoteValue;
     }
 
+    @JsonProperty
     public List<TagDTO> getTags() {
         return tags;
     }
@@ -178,6 +190,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.tags = tags;
     }
 
+    @JsonProperty
     public String getSummary() {
         return summary;
     }
@@ -186,6 +199,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.summary = summary;
     }
 
+    @JsonProperty
     public String getMp3URL() {
         return mp3URL;
     }
@@ -194,6 +208,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.mp3URL = mp3URL;
     }
 
+    @JsonProperty
     public List<SpeakerDTO> getSpeakers() {
         return speakers;
     }
@@ -202,6 +217,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.speakers = speakers;
     }
 
+    @JsonProperty
     public PresentationType getType() {
         return type;
     }
@@ -210,6 +226,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.type = type;
     }
 
+    @JsonProperty
     public long getTotalDownloads() {
         return totalDownloads;
     }
@@ -223,6 +240,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
      *
      * @return Is presentation downloadable or not.
      */
+    @JsonProperty
     public boolean isDownloadable() {
         return isDownloadable;
     }
@@ -246,6 +264,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the featured
      */
+    @JsonProperty
     public boolean isFeatured() {
         return featured;
     }
@@ -253,6 +272,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the totalNotesCount
      */
+    @JsonProperty
     public final long getTotalNotesCount() {
         return totalNotesCount;
     }
@@ -267,6 +287,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the totalAssetsCount
      */
+    @JsonProperty
     public final long getTotalAssetsCount() {
         return totalAssetsCount;
     }
@@ -281,6 +302,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the sequence
      */
+    @JsonProperty
     public final Integer getSequence() {
         return sequence;
     }
@@ -295,6 +317,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the state
      */
+    @JsonProperty
     public final PresentationState getState() {
         return state;
     }
@@ -316,10 +339,12 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the backgroundImage
      */
+    @JsonProperty
     public BackgroundImage getBackgroundImage() {
         return backgroundImage;
     }
 
+    @JsonProperty
     public boolean isIphoneEnabled() {
         return isIphoneEnabled;
     }
@@ -328,6 +353,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         isIphoneEnabled = iphoneEnabled;
     }
 
+    @JsonProperty
     public boolean isPodcastEnabled() {
         return isPodcastEnabled;
     }
@@ -339,10 +365,12 @@ public class PresentationOverviewDTO extends AbstractDTO {
     /**
      * @return the keywordList
      */
+    @JsonProperty
     public final List<String> getKeywordList() {
         return keywordList;
     }
 
+    @JsonIgnore
     public final String getKeywordsString() {
         String result = "";
         if ((keywordList != null) && (keywordList.size() > 0)) {
@@ -361,6 +389,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.keywordList = keywordList;
     }
 
+    @JsonProperty
     public PresentationPayment getPayment() {
         return payment;
     }
@@ -369,6 +398,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.payment = payment;
     }
 
+    @JsonProperty
     public boolean isPaid() {
         return paid;
     }
@@ -377,6 +407,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.paid = paid;
     }
 
+    @JsonProperty
     public boolean isHostedInFreeChannel() {
         return hostedInFreeChannel;
     }
@@ -385,6 +416,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.hostedInFreeChannel = hostedInFreeChannel;
     }
 
+    @JsonProperty
     public boolean isHostedInPublicChannel() {
         return hostedInPublicChannel;
     }
@@ -393,6 +425,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.hostedInPublicChannel = hostedInPublicChannel;
     }
 
+    @JsonProperty
     public boolean isHostedInPublicSpace() {
         return hostedInPublicSpace;
     }
@@ -401,6 +434,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.hostedInPublicSpace = hostedInPublicSpace;
     }
 
+    @JsonProperty
     public Long getChannelId() {
         return channelId;
     }
@@ -409,6 +443,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.channelId = channelId;
     }
 
+    @JsonProperty
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }

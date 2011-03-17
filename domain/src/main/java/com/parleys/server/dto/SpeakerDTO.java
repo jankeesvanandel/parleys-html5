@@ -15,6 +15,9 @@
  */
 package com.parleys.server.dto;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -36,6 +39,7 @@ public class SpeakerDTO extends AbstractDTO {
 
     private Long userId;
 
+    @JsonProperty
     public String getFirstName() {
         return firstName;
     }
@@ -44,6 +48,7 @@ public class SpeakerDTO extends AbstractDTO {
         this.firstName = firstName;
     }
 
+    @JsonProperty
     public String getLastName() {
         return lastName;
     }
@@ -52,6 +57,7 @@ public class SpeakerDTO extends AbstractDTO {
         this.lastName = lastName;
     }
 
+    @JsonProperty
     public String getNickName() {
         return nickName;
     }
@@ -60,6 +66,7 @@ public class SpeakerDTO extends AbstractDTO {
         this.nickName = nickName;
     }
 
+    @JsonProperty
     public String getEmail() {
         return email;
     }
@@ -78,6 +85,7 @@ public class SpeakerDTO extends AbstractDTO {
     /**
      * @return the featured
      */
+    @JsonProperty
     public boolean isFeatured() {
         return featured;
     }
@@ -92,6 +100,7 @@ public class SpeakerDTO extends AbstractDTO {
     /**
      * @return the bio
      */
+    @JsonProperty
     public String getBio() {
         return bio;
     }
@@ -99,6 +108,7 @@ public class SpeakerDTO extends AbstractDTO {
     /**
      * @return the userId (null if no user yet).
      */
+    @JsonProperty
     public final Long getUserId() {
         return userId;
     }
@@ -110,6 +120,7 @@ public class SpeakerDTO extends AbstractDTO {
         this.userId = userId;
     }
 
+    @JsonIgnore
     public final String getName() {
         return firstName + " " + lastName;
     }

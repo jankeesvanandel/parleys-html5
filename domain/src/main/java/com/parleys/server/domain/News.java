@@ -15,6 +15,8 @@
  */
 package com.parleys.server.domain;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * This news item is linked to a space and holds free text,
  * time based and can include links.
@@ -36,6 +38,7 @@ public class News extends AbstractEntity {
     // The author name of the news item
     private String author;
 
+    @JsonProperty
     public final String getItem() {
         return item;
     }
@@ -44,6 +47,7 @@ public class News extends AbstractEntity {
         item = value;
     }
 
+    @JsonProperty
     public final boolean isPublished() {
         return isPublished;
     }
@@ -52,6 +56,7 @@ public class News extends AbstractEntity {
         isPublished = published;
     }
 
+    @JsonProperty
     public final String getAuthor() {
         return author;
     }
@@ -60,6 +65,7 @@ public class News extends AbstractEntity {
         author = value;
     }
 
+    @JsonProperty
     public final String getTitle() {
         return title;
     }
@@ -68,6 +74,7 @@ public class News extends AbstractEntity {
         title = value;
     }
 
+    @JsonProperty
     public boolean isGeneral() {
         return isGeneral;
     }

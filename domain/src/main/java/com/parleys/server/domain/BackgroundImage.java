@@ -20,6 +20,8 @@ import com.parleys.server.domain.types.VerticalAlign;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  */
@@ -73,6 +75,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the backgroundImageURL
      */
+    @JsonProperty
     public final String getBackgroundImageURL() {
         return backgroundImageURL;
     }
@@ -87,6 +90,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the isBackgroundInherited
      */
+    @JsonProperty
     public final boolean isBackgroundInherited() {
         return isBackgroundInherited;
     }
@@ -101,6 +105,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the verticalAlign
      */
+    @JsonProperty
     public final String getVerticalAlign() {
         return verticalAlign;
     }
@@ -115,6 +120,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the horizontalAlign
      */
+    @JsonProperty
     public final String getHorizontalAlign() {
         return horizontalAlign;
     }
@@ -129,6 +135,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the resize
      */
+    @JsonProperty
     public final boolean isResize() {
         return resize;
     }
@@ -143,6 +150,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the resizeToFit
      */
+    @JsonProperty
     public final boolean isResizeToFit() {
         return resizeToFit;
     }
@@ -157,6 +165,7 @@ public class BackgroundImage implements Serializable, Cloneable {
     /**
      * @return the maintainAspectRatio
      */
+    @JsonProperty
     public final boolean isMaintainAspectRatio() {
         return maintainAspectRatio;
     }

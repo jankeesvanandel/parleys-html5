@@ -18,6 +18,8 @@ package com.parleys.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * @author Stephan Janssen
  * @param <T> The type of response object (presentation, channel or space).
@@ -53,6 +55,7 @@ public class OverviewResponseDTO<T> {
      *
      * @return A list of short overviews.
      */
+    @JsonProperty
     public List<T> getOverviews() {
         return overviews;
     }
@@ -66,6 +69,7 @@ public class OverviewResponseDTO<T> {
      *
      * @return A starting index for paging.
      */
+    @JsonProperty
     public int getStartingIndex() {
         return startingIndex;
     }
@@ -79,6 +83,7 @@ public class OverviewResponseDTO<T> {
      *
      * @return A number of items per page.
      */
+    @JsonProperty
     public int getPaging() {
         return paging;
     }
@@ -92,6 +97,7 @@ public class OverviewResponseDTO<T> {
      *
      * @return Total item count.
      */
+    @JsonProperty
     public long getTotalCount() {
         return totalCount;
     }
@@ -106,6 +112,7 @@ public class OverviewResponseDTO<T> {
      *
      * @return the name of parent entity.
      */
+    @JsonProperty
     public String getParentEntityName() {
         return parentEntityName;
     }
@@ -123,6 +130,7 @@ public class OverviewResponseDTO<T> {
     /**
      * @return the parentEntityId
      */
+    @JsonProperty
     public final Long getParentEntityId() {
         return parentEntityId;
     }
