@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public abstract class AbstractParleysServiceDelegateImpl implements ParleysService {
 
-    private String amfEndPoint = "http://www.parleys.com/parleysserver";
+    private String amfEndPoint = "http://www.parleys.com/parleysserver/";
 
     private static final String MESSAGEBROKER_AMF = "messagebroker/amf";
 
