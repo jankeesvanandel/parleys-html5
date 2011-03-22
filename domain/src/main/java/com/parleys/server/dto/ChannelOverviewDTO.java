@@ -92,7 +92,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.name = name;
     }
 
-    @JsonProperty
+    @JsonProperty("thumbnailUrl")
     public String getThumbnailURL() {
         return thumbnailURL;
     }
@@ -101,7 +101,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.thumbnailURL = thumbnailURL;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public String getSpaceName() {
         return spaceName;
     }
@@ -119,7 +119,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.spaceId = spaceId;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public long getTotalPresentationCount() {
         return totalPresentationCount;
     }
@@ -149,7 +149,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     /**
      * @return the parentId
      */
-    @JsonProperty
+    @JsonIgnore
     public final long getParentId() {
         return parentId;
     }
@@ -166,7 +166,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         return isDeleted;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public final boolean isDeleted() {
         return isDeleted;
     }
@@ -178,7 +178,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
     /**
      * @return the totalPresentationCountIncludingNonPublic
      */
-    @JsonProperty
+    @JsonIgnore
     public final long getTotalPresentationCountIncludingNonPublic() {
         return totalPresentationCountIncludingNonPublic;
     }
@@ -191,7 +191,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.totalPresentationCountIncludingNonPublic = totalPresentationCountIncludingNonPublic;
     }
 
-    @JsonProperty
+    @JsonProperty("iPhoneEnabled")
     public boolean isIPhoneEnabled() {
         return isIPhoneEnabled;
     }
@@ -224,7 +224,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.keywordList = keywordList;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public String getMembership() {
         return membership;
     }
@@ -233,7 +233,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.membership = membership;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public int getSubscriptionInterval() {
         return subscriptionInterval;
     }
@@ -242,7 +242,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscriptionInterval = subscriptionInterval;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public float getSubscriptionAmount() {
         return subscriptionAmount;
     }
@@ -251,7 +251,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscriptionAmount = subscriptionAmount;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public float getPayPerTalkAmount() {
         return payPerTalkAmount;
     }
@@ -260,7 +260,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.payPerTalkAmount = payPerTalkAmount;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public String getPaymentCurrency() {
         return paymentCurrency;
     }
@@ -278,7 +278,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.subscribed = subscribed;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public String getSubscriptionPeriod() {
         return subscriptionPeriod;
     }
@@ -292,7 +292,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         return isPublic;
     }
 
-    @JsonProperty
+    @JsonProperty("public")
     public final boolean isPublicChannel() {
         return isPublic;
     }
@@ -301,7 +301,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         isPublic = aPublic;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public final boolean isListed() {
         return isListed;
     }
@@ -315,7 +315,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         return isListed;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public boolean isHostedInPublicSpace() {
         return hostedInPublicSpace;
     }
@@ -324,7 +324,7 @@ public class ChannelOverviewDTO extends AbstractDTO {
         this.hostedInPublicSpace = hostedInPublicSpace;
     }
 
-    @JsonProperty
+    @JsonProperty("visibleIpad")
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }

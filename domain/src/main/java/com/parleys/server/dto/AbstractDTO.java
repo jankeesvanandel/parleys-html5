@@ -17,6 +17,8 @@ package com.parleys.server.dto;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.Date;
 
@@ -33,6 +35,7 @@ public class AbstractDTO extends BaseObject {
 
     private Date modifiedOn;
 
+    @JsonProperty
     public final Long getId() {
         return id;
     }
@@ -41,6 +44,7 @@ public class AbstractDTO extends BaseObject {
         this.id = id;
     }
 
+    @JsonProperty
     public Date getCreatedOn() {
         if (createdOn != null) {
             return (Date) createdOn.clone();
@@ -55,6 +59,7 @@ public class AbstractDTO extends BaseObject {
         }
     }
 
+    @JsonProperty
     public Date getModifiedOn() {
         if (modifiedOn != null) {
             return (Date) modifiedOn.clone();
@@ -116,7 +121,9 @@ public class AbstractDTO extends BaseObject {
      *
      * @return Checking result.
      */
+    @JsonIgnore
     public boolean isNew() {
         return (id == null) || (id <= 0);
     }
+    
 }

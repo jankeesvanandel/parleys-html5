@@ -15,6 +15,7 @@
  */
 package com.parleys.server.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -47,7 +48,7 @@ public class News extends AbstractEntity {
         item = value;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public final boolean isPublished() {
         return isPublished;
     }
@@ -74,7 +75,7 @@ public class News extends AbstractEntity {
         title = value;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public boolean isGeneral() {
         return isGeneral;
     }
