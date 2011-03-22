@@ -56,7 +56,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
 
     private List<String> keywordList = new ArrayList<String>();
 
-    @JsonProperty
+    @JsonProperty("visibleIpad")
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }
@@ -76,7 +76,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.name = name;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public int getTotalChannelCount() {
         return totalChannelCount;
     }
@@ -85,7 +85,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.totalChannelCount = totalChannelCount;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public long getTotalPresentationCount() {
         return totalPresentationCount;
     }
@@ -115,7 +115,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
     /**
      * @return the channelIds
      */
-    @JsonProperty
+    @JsonIgnore
     public final List<Long> getChannelIds() {
         return channelIds;
     }
@@ -139,7 +139,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
     /**
      * @return the isPublicSpace
      */
-    @JsonProperty
+    @JsonProperty("public")
     public final boolean isPublicSpace() {
         return isPublicSpace;
     }
@@ -151,7 +151,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.isPublicSpace = isPublicSpace;
     }
 
-    @JsonProperty
+    @JsonProperty("streamingServerIds")
     public List<Long> getStreamingServerIDs() {
         return streamingServerIDs;
     }
@@ -169,7 +169,7 @@ public class SpaceOverviewDTO extends AbstractDTO {
         this.keywords = keywords;
     }
 
-    @JsonProperty
+    @JsonProperty("thumbnailUrl")
     public String getThumbnailURL() {
         return thumbnailURL;
     }

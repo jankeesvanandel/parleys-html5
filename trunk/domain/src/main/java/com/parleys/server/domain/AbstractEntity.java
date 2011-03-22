@@ -15,11 +15,12 @@
  */
 package com.parleys.server.domain;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.util.Date;
 
 /**
  * The abstract entity used by all children Entity classes.
@@ -47,7 +48,7 @@ public abstract class AbstractEntity extends BaseObject {
         this.id = id;
     }
 
-    @JsonProperty
+    @JsonIgnore
     public Integer getVersion() {
         return version;
     }
