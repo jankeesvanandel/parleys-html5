@@ -118,7 +118,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.title = title;
     }
 
-    @JsonProperty
+    @JsonProperty("thumbnailUrl")
     public String getThumbnailURL() {
         return thumbnailURL;
     }
@@ -199,7 +199,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.summary = summary;
     }
 
-    @JsonProperty
+    @JsonProperty("mp3Url")
     public String getMp3URL() {
         return mp3URL;
     }
@@ -344,7 +344,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         return backgroundImage;
     }
 
-    @JsonProperty
+    @JsonProperty("iPhoneEnabled")
     public boolean isIphoneEnabled() {
         return isIphoneEnabled;
     }
@@ -443,7 +443,7 @@ public class PresentationOverviewDTO extends AbstractDTO {
         this.channelId = channelId;
     }
 
-    @JsonProperty
+    @JsonProperty("visibleIpad")
     public boolean getVisibleOnIpad() {
         return visibleOnIpad;
     }
